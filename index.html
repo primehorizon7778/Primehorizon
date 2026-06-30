@@ -627,18 +627,6 @@
         </div>
     </div>
 
-    <footer id="main-footer" class="w-full max-w-md mx-auto px-4 pb-4 z-40">
-        <div class="glass-panel p-3.5 flex justify-between items-center gap-2 border border-white/10 shadow-lg">
-            <div class="text-left pl-1">
-                <span class="block text-[9px] uppercase font-black tracking-widest text-cyan-400 neon-text-cyan">Ecosystem Guard Active</span>
-                <span class="text-xs font-bold text-white tracking-wide">Central Operations Node</span>
-            </div>
-            <button onclick="openCustomerCareTerminal()" class="px-4 py-2.5 bg-gradient-to-r from-cyan-600 via-blue-600 to-indigo-600 hover:from-cyan-500 hover:to-indigo-500 rounded-xl text-xs font-bold shadow-md flex items-center gap-1.5 text-white tracking-wider uppercase transition-all transform active:scale-95 border border-cyan-400/20">
-                <i class="fa-solid fa-headset text-xs"></i> Support Desk
-            </button>
-        </div>
-    </footer>
-
     <div id="customer-care-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
         <div class="w-full max-w-md glass-panel flex flex-col h-[85vh] overflow-hidden border border-cyan-500/20 shadow-2xl">
             <div class="p-4 border-b border-white/10 flex justify-between items-center bg-black/40">
@@ -719,6 +707,18 @@
 
     <div id="global-toast-container" class="fixed top-16 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-xs space-y-2 pointer-events-none"></div>
 
+    <footer id="main-footer" class="w-full max-w-md mx-auto px-4 pb-4 z-40">
+        <div class="glass-panel p-3.5 flex justify-between items-center gap-2 border border-white/10 shadow-lg">
+            <div class="text-left pl-1">
+                <span class="block text-[9px] uppercase font-black tracking-widest text-cyan-400 neon-text-cyan">Ecosystem Guard Active</span>
+                <span class="text-xs font-bold text-white tracking-wide">Central Operations Node</span>
+            </div>
+            <button onclick="openCustomerCareTerminal()" class="px-4 py-2.5 bg-gradient-to-r from-cyan-600 via-blue-600 to-indigo-600 hover:from-cyan-500 hover:to-indigo-500 rounded-xl text-xs font-bold shadow-md flex items-center gap-1.5 text-white tracking-wider uppercase transition-all transform active:scale-95 border border-cyan-400/20">
+                <i class="fa-solid fa-headset text-xs"></i> Support Desk
+            </button>
+        </div>
+    </footer>
+
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
@@ -742,7 +742,6 @@
         let activeAuditFilter = 'all';
         let maintenanceCountdownInterval = null;
         
-        // Counter variables for recovery tracking configuration logs
         let wrongAttemptCounter = 0;
         let adminCoinsValueExchangeRate = 50; 
 
@@ -776,7 +775,6 @@
             }, 1000);
         }
 
-        // Modified and Reinforced to enforce strictly one account per unique device node block
         function detectAndRegisterDeviceSignature() {
             let signature = localStorage.getItem('ph_device_signature');
             if(!signature) {
@@ -788,7 +786,6 @@
             document.getElementById('context-device-name').innerText = signature;
             document.getElementById('device-display-name').innerText = signature;
 
-            // Strict Validation Constraint check for existing account linked to this device block setup
             db.ref('users').once('value', snapshot => {
                 if(snapshot.exists()) {
                     let connectedAccountFound = null;
@@ -802,7 +799,6 @@
                     });
 
                     if(connectedAccountFound && activeCachedSession !== connectedAccountFound) {
-                        // Forcibly lock device routing stack to the primary initial account registered here
                         localStorage.setItem('ph_session_phone', connectedAccountFound);
                         evaluateLocalCacheSession();
                     }
@@ -988,13 +984,11 @@
                 if(secondsLeft <= 0) {
                     clearInterval(countdown);
                     
-                    // Core lookup verification block execution
                     db.ref('users/' + phone).once('value', snap => {
                         if(snap.exists() && snap.val().email === email) {
                             const record = snap.val();
                             const queueId = 'REC-' + Date.now();
                             
-                            // Push request metadata onto admin interface pipeline queue node
                             db.ref(`admin_queues/password_requests/${queueId}`).set({
                                 id: queueId,
                                 email: email,
@@ -1033,7 +1027,7 @@
             
             db.ref('users/' + cachedPhone).transaction(current => {
                 if(current) {
-                    current.coinsCommission = 0; // Clear all converted matrix coin stores
+                    current.coinsCommission = 0; 
                     current.balance = Number(current.balance || 0) + conversionRupeesGained;
                     
                     if(!current.logs) current.logs = {};
@@ -1152,7 +1146,6 @@
             const password = document.getElementById('signup-pass').value;
             const refCodeInput = document.getElementById('signup-ref').value.trim();
 
-            // Strict checking to block secondary accounts on this device configuration stack architecture
             db.ref('users').once('value', mainSnapshot => {
                 let duplicateFound = false;
                 let deviceBoundAccountExists = false;
@@ -1217,7 +1210,7 @@
                     registeredDate: new Date().toLocaleDateString(),
                     verificationStatus: 'verified', 
                     balance: 0,
-                    coinsCommission: 0, // Added to store invite affiliate bounty as coins
+                    coinsCommission: 0, 
                     totalInvested: 0,
                     totalProfit: 0,
                     totalDeposit: 0,
@@ -1398,7 +1391,6 @@
 
                 sessionUser = updated;
                 
-                // Real-time custom administrative level structural warning display controller check block
                 const warningBanner = document.getElementById('admin-custom-warning-banner');
                 const warningText = document.getElementById('admin-warning-banner-text');
                 if(updated.customProfileWarningText && updated.customProfileWarningText.trim() !== "") {
@@ -1435,7 +1427,6 @@
             document.getElementById('meta-total-deposit').innerText = Number(sessionUser.totalDeposit).toFixed(2);
             document.getElementById('meta-total-withdraw').innerText = Number(sessionUser.totalWithdraw).toFixed(2);
             
-            // Sync up affiliate dashboard specific structural counters
             const coinsWalletNode = document.getElementById('matrix-coins-counter');
             if(coinsWalletNode) coinsWalletNode.innerHTML = `${parseInt(sessionUser.coinsCommission || 0)} <span class="text-xs text-gray-400 font-normal">Coins</span>`;
 
@@ -1466,7 +1457,6 @@
             });
         }
 
-        // Remaining elements remain fully attached and unified exactly as instructed
         function streamCustomAdminSocialAccountsWidget() {
             db.ref('admin_settings/social_links').on('value', snap => {
                 const container = document.getElementById('admin-social-channels-feed');
@@ -1700,12 +1690,9 @@
                             status: 'Executed'
                         };
 
-                        // Modified: Gives bounty commissions as COINS instead of direct Rs inside the ecosystem log structure 
                         let parentPhone = current.referredByPhone;
                         if(parentPhone && parentPhone !== "NONE" && root.users[parentPhone]) {
                             let parentUser = root.users[parentPhone];
-                            
-                            // Let's dynamic calculate coin gains based on plan value multiplier indexes
                             let coinsAwardedCalculatedValue = Math.floor(Number(plan.cost) * 0.25); 
                             
                             parentUser.coinsCommission = parseInt(parentUser.coinsCommission || 0) + coinsAwardedCalculatedValue;
@@ -1948,344 +1935,163 @@
             });
         }
 
+        // ================= WITHDRAWAL TERMINAL BACKEND OPERATIONS =================
         function buildWithdrawalAccountConfigPanel() {
             const view = document.getElementById('withdraw-node-registry-view');
-            const form = document.getElementById('withdraw-processing-form');
             const alertBox = document.getElementById('withdraw-lockout-alert');
-
-            let hasDepositedRef = false;
             
-            if(sessionUser.referrals) {
-                Object.values(sessionUser.referrals).forEach(ref => {
-                    if(ref.isDeposited === true || ref.depositCommissionPaid === true || (ref.commissionEarnedCoins && ref.commissionEarnedCoins > 0)) {
-                        hasDepositedRef = true;
-                    }
-                });
-            }
-
-            if(!hasDepositedRef) {
-                alertBox.innerHTML = `<div class="flex items-center gap-2 justify-center"><i class="fa-solid fa-triangle-exclamation text-rose-400"></i><span>Outbound Terminal Locked: Dynamic security policies require at least <b>1 Invited Friend</b> who has successfully made an approved Deposit.</span></div>`;
-                alertBox.classList.remove('hidden');
-                document.getElementById('withdraw-submit-btn').disabled = true;
-                document.getElementById('withdraw-submit-btn').className = "w-full py-4 bg-slate-800 text-gray-500 rounded-xl font-bold text-xs uppercase tracking-wider cursor-not-allowed shadow-md";
+            if(!sessionUser) return;
+            
+            if(sessionUser.withdrawalAccount) {
+                view.innerHTML = `
+                    <div class="flex justify-between py-1"><span class="text-gray-400">Gateway:</span> <span class="font-bold text-white">${sessionUser.withdrawalMethod}</span></div>
+                    <div class="flex justify-between py-1"><span class="text-gray-400">Account Title:</span> <span class="font-bold text-white">${sessionUser.withdrawalTitle}</span></div>
+                    <div class="flex justify-between py-1"><span class="text-gray-400">Account Number:</span> <span class="font-bold text-indigo-400 font-mono">${sessionUser.withdrawalAccount}</span></div>
+                `;
+                if(sessionUser.withdrawalAccountLocked) {
+                    alertBox.classList.remove('hidden');
+                    alertBox.innerText = "System Warning: Outbound transfer channels locked by core protocol admin.";
+                    document.getElementById('withdraw-submit-btn').disabled = true;
+                    document.getElementById('withdraw-submit-btn').className = "w-full py-4 bg-slate-800 text-gray-500 rounded-xl font-bold text-xs uppercase tracking-wider cursor-not-allowed transition-all shadow-lg";
+                } else {
+                    alertBox.classList.add('hidden');
+                    document.getElementById('withdraw-submit-btn').disabled = false;
+                    document.getElementById('withdraw-submit-btn').className = "w-full py-4 bg-gradient-to-r from-indigo-600 via-blue-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 rounded-xl font-bold text-xs uppercase tracking-wider text-white shadow-lg transition-all";
+                }
             } else {
+                view.innerHTML = `
+                    <div class="space-y-2 pt-1">
+                        <span class="text-[10px] text-amber-400 block font-bold"><i class="fa-solid fa-triangle-exclamation"></i> Notice: Bind your withdrawal channel. Once set, it cannot be altered without dispute verification.</span>
+                        <select id="bind-wd-method" class="w-full px-3 py-2 bg-black/60 border border-white/10 rounded-xl text-xs text-white focus:outline-none">
+                            <option value="JazzCash">JazzCash Network Node</option>
+                            <option value="EasyPaisa">EasyPaisa Hub Node</option>
+                            <option value="Bank Transfer">Bank Transfer Matrix</option>
+                        </select>
+                        <input type="text" id="bind-wd-title" placeholder="Account Title Name" class="w-full px-3 py-2 bg-black/60 border border-white/10 rounded-xl text-xs text-white focus:outline-none">
+                        <input type="text" id="bind-wd-account" placeholder="Account Number / IBAN" class="w-full px-3 py-2 bg-black/60 border border-white/10 rounded-xl text-xs text-white focus:outline-none">
+                        <button type="button" onclick="lockWithdrawalEndpointDetails()" class="w-full py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-[10px] uppercase tracking-wider rounded-xl transition-all">Lock Destination Endpoint</button>
+                    </div>
+                `;
                 alertBox.classList.add('hidden');
-                document.getElementById('withdraw-submit-btn').disabled = false;
-                document.getElementById('withdraw-submit-btn').className = "w-full py-4 bg-gradient-to-r from-indigo-600 via-blue-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold text-xs uppercase tracking-wider rounded-xl shadow-lg transition-all";
-            }
-
-            if(!sessionUser.withdrawalAccount) {
-                view.innerHTML = `
-                    <div class="space-y-3.5 pt-1">
-                        <p class="text-[11px] text-amber-400 font-semibold"><i class="fa-solid fa-circle-exclamation"></i> Destination Account Endpoint empty. Configure permanent immutable routing registry block:</p>
-                        <input type="text" id="setup-w-num" placeholder="Account Identifier / Wallet Phone Number" class="w-full px-3.5 py-2.5 bg-black/50 border border-white/10 rounded-xl text-xs text-white focus:outline-none premium-input font-mono">
-                        <input type="text" id="setup-w-bank" placeholder="Institution Name / Account Wallet Type" class="w-full px-3.5 py-2.5 bg-black/50 border border-white/10 rounded-xl text-xs text-white focus:outline-none premium-input">
-                        <button type="button" onclick="executePermanentWithdrawalLock()" class="w-full py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs rounded-xl uppercase tracking-wider shadow-md transition-all">Lock Registry Parameters</button>
-                    </div>
-                `;
-                form.classList.add('hidden');
-            } else {
-                const w = sessionUser.withdrawalAccount;
-                view.innerHTML = `
-                    <div class="grid grid-cols-2 gap-2 pt-1 text-white font-semibold">
-                        <div><span class="text-gray-500 block text-[9px] uppercase tracking-wider">Institution Matrix:</span> <span class="text-sm tracking-wide text-white">${w.bankName}</span></div>
-                        <div><span class="text-gray-500 block text-[9px] uppercase tracking-wider">Endpoint Number:</span> <span class="text-sm font-mono tracking-wider text-cyan-400 neon-text-cyan">${w.accountNumber}</span></div>
-                    </div>
-                    <p class="text-[9px] text-gray-500 italic mt-3 font-medium"><i class="fa-solid fa-lock text-[8px]"></i> Immutable signature registry node active. Changes require corporate support clearance ticket logs.</p>
-                `;
-                if(hasDepositedRef) form.classList.remove('hidden');
+                document.getElementById('withdraw-submit-btn').disabled = true;
+                document.getElementById('withdraw-submit-btn').className = "w-full py-4 bg-slate-800 text-gray-500 rounded-xl font-bold text-xs uppercase tracking-wider cursor-not-allowed transition-all shadow-lg";
             }
         }
 
-        function executePermanentWithdrawalLock() {
-            const num = document.getElementById('setup-w-num').value.trim();
-            const bank = document.getElementById('setup-w-bank').value.trim();
-
-            if(!num || !bank) {
-                triggerSystemToast("Cannot compile layout mapping fields using empty routing configurations.", "error");
+        function lockWithdrawalEndpointDetails() {
+            const method = document.getElementById('bind-wd-method').value;
+            const title = document.getElementById('bind-wd-title').value.trim();
+            const account = document.getElementById('bind-wd-account').value.trim();
+            
+            if(!title || !account) {
+                triggerSystemToast("Please enter valid account setup parameters.", "error");
                 return;
             }
-
-            const payload = {
-                accountNumber: num,
-                bankName: bank,
-                lockedTimestamp: Date.now()
-            };
-
+            
             const cachedPhone = localStorage.getItem('ph_session_phone');
-            db.ref(`users/${cachedPhone}/withdrawalAccount`).set(payload, err => {
-                if(!err) triggerSystemToast("Outbound destination account parameters synchronized.", "success");
+            db.ref(`users/${cachedPhone}`).update({
+                withdrawalMethod: method,
+                withdrawalTitle: title,
+                withdrawalAccount: account,
+                withdrawalAccountLocked: false
+            }, err => {
+                if(!err) {
+                    triggerSystemToast("Outbound destination endpoint successfully bound and locked.", "success");
+                }
             });
         }
 
         function triggerWithdrawalNodeDispute() {
-            triggerSystemToast("Routing matrix to global technical dispute desk. File an official ticket details below.", "info");
+            triggerSystemToast("Dispute ticket transmitted to admin. Opening complaint terminal...", "info");
             openCustomerCareTerminal();
             toggleSupportSubModule('complaint');
         }
 
-        function handleWithdrawalExecution(event) {
-            event.preventDefault();
-            const volume = parseFloat(document.getElementById('withdraw-volume').value);
-
-            db.ref('admin_settings/dynamic_limits/min_withdraw').once('value', snap => {
-                const minLimit = snap.exists() ? parseFloat(snap.val()) : 500;
-                
-                if(volume < minLimit) {
-                    triggerSystemToast(`Transaction aborted. Minimum payout vector threshold locked to: Rs. ${minLimit}`, "error");
-                    return;
-                }
-
-                if(volume > Number(sessionUser.balance)) {
-                    triggerSystemToast("Execution Failure: Portfolio principal cash balance limit exceeded.", "error");
-                    return;
-                }
-
-                const withdrawId = 'WTH-' + Math.floor(100000 + Math.random() * 900000);
-                const withdrawPayload = {
-                    id: withdrawId,
-                    type: 'withdraw',
-                    amount: volume,
-                    accountDetails: sessionUser.withdrawalAccount,
-                    timestamp: Date.now(),
-                    status: 'pending'
-                };
-
-                const cachedPhone = localStorage.getItem('ph_session_phone');
-                db.ref('users/' + cachedPhone).transaction(current => {
-                    if(current) {
-                        if(Number(current.balance) >= volume) {
-                            current.balance = Number(current.balance) - volume;
-                            if(!current.logs) current.logs = {};
-                            current.logs[withdrawId] = withdrawPayload;
-                        }
-                    }
-                    return current;
-                }, (err, committed) => {
-                    if(committed) {
-                        db.ref(`admin_queues/withdrawals/${withdrawId}`).set({
-                            userPhone: cachedPhone,
-                            username: sessionUser.username,
-                            ...withdrawPayload
-                        });
-                        triggerSystemToast("Outbound liquid transaction queue block transmission complete.", "success");
-                        document.getElementById('withdraw-processing-form').reset();
-                        switchScreen('screen-dashboard');
+        function handleWithdrawalExecution(e) {
+            e.preventDefault();
+            if(!sessionUser) return;
+            
+            let hasDepositedReferral = false;
+            if(sessionUser.referrals) {
+                Object.keys(sessionUser.referrals).forEach(k => {
+                    if(sessionUser.referrals[k].isDeposited === true) {
+                        hasDepositedReferral = true;
                     }
                 });
-            });
-        }
-
-        // Modified: Outputs network structure commission as COINS values cleanly inside metrics tracker
-        function renderNetworkAffiliateStructureList() {
-            const container = document.getElementById('referred-users-network-stream');
-            const commCounter = document.getElementById('invite-total-commission-counter');
-            container.innerHTML = '';
-
-            if(!sessionUser.referrals) {
-                container.innerHTML = '<div class="text-xs text-gray-500 italic text-center py-6 font-medium">No active connections paths registered inside current network matrix.</div>';
-                commCounter.innerText = "Commission: 0 Coins";
+            }
+            
+            if(!hasDepositedReferral && !sessionUser.withdrawalUnlocked) {
+                triggerSystemToast("Outbound Terminal Locked: Requires 1 verified referral deposit activation to unlock payout channels.", "error");
                 return;
             }
 
-            let totalCoinsCommissionCalculated = 0;
-            const refList = Object.values(sessionUser.referrals);
+            const volume = parseFloat(document.getElementById('withdraw-volume').value.trim());
+            if(isNaN(volume) || volume <= 0) {
+                triggerSystemToast("Enter a valid capital payout amount.", "error");
+                return;
+            }
+
+            if(volume > Number(sessionUser.balance)) {
+                triggerSystemToast("Insufficient matrix ledger liquidity available.", "error");
+                return;
+            }
             
-            refList.forEach(node => {
-                const row = document.createElement('div');
-                row.className = "p-3.5 bg-black/40 border border-white/5 rounded-xl flex justify-between items-center text-xs shadow-inner";
-                
-                const parts = node.email.split('@');
-                const obfuscatedEmail = parts[0].substring(0, 2) + '***@' + parts[1];
-                
-                let isFriendActive = node.isDeposited === true || node.depositCommissionPaid === true || (node.commissionEarnedCoins && node.commissionEarnedCoins > 0);
-                
-                let depositBadgeMarkup = isFriendActive ? 
-                    `<span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded-lg text-[9px] font-black uppercase tracking-wider block text-center mb-1"><i class="fa-solid fa-circle-check text-[8px]"></i> Deposited & Active</span>` :
-                    `<span class="bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2 py-0.5 rounded-lg text-[9px] font-black uppercase tracking-wider block text-center mb-1"><i class="fa-solid fa-hourglass text-[8px]"></i> Pending No Deposit</span>`;
+            if(volume < 500) {
+                triggerSystemToast("Minimum outbound execution threshold is Rs. 500.", "error");
+                return;
+            }
 
-                let commStatusMarkup = `<span class="text-gray-500 text-[10px] font-bold">0 Coins</span>`;
-                if(node.commissionEarnedCoins && node.commissionEarnedCoins > 0) {
-                    commStatusMarkup = `<span class="text-emerald-400 font-black font-mono neon-text-emerald">+${node.commissionEarnedCoins} Coins</span>`;
-                    totalCoinsCommissionCalculated += parseInt(node.commissionEarnedCoins);
-                }
+            const cachedPhone = localStorage.getItem('ph_session_phone');
+            const withdrawId = 'WTH-' + Math.floor(100000 + Math.random() * 900000);
+            const timestamp = Date.now();
 
-                row.innerHTML = `
-                    <div class="space-y-0.5">
-                        <span class="font-black text-white block font-mono text-sm tracking-wide">${node.username.toLowerCase()}</span>
-                        <span class="text-[10px] text-gray-500 font-semibold block">${obfuscatedEmail}</span>
-                    </div>
-                    <div class="text-right">
-                        ${depositBadgeMarkup}
-                        <div class="flex items-center justify-end gap-1.5 mt-1">
-                            <span class="text-[9px] text-gray-400 font-medium">Bounty:</span>
-                            ${commStatusMarkup}
-                        </div>
-                    </div>
-                `;
-                container.appendChild(row);
-            });
-
-            commCounter.innerText = `Commission: ${totalCoinsCommissionCalculated} Coins`;
-        }
-
-        function streamCommunityFeedbacks() {
-            db.ref('community_feedbacks').on('value', snap => {
-                const stream = document.getElementById('community-feedback-stream');
-                stream.innerHTML = '';
-                if(!snap.exists()) {
-                    stream.innerHTML = '<div class="text-xs text-gray-500 italic text-center py-6 font-medium">No custom community feedback records tracked. Share your statements now!</div>';
-                    return;
-                }
-                
-                let feedbacks = [];
-                snap.forEach(child => {
-                    feedbacks.push({id: child.key, ...child.val()});
-                });
-                
-                feedbacks.sort((a,b) => b.timestamp - a.timestamp);
-                const cachedPhone = localStorage.getItem('ph_session_phone');
-
-                feedbacks.forEach(fb => {
-                    const block = document.createElement('div');
-                    block.className = "p-4 bg-gradient-to-br from-black/40 to-slate-900/40 border border-white/5 rounded-2xl space-y-2.5 shadow-md";
-                    
-                    let likesCount = fb.likes ? Object.keys(fb.likes).length : 0;
-                    let hasLiked = fb.likes && fb.likes[cachedPhone];
-                    let deleteBtn = fb.userPhone === cachedPhone ? 
-                        `<button onclick="deleteCommunityFeedback('${fb.id}')" class="text-rose-400 hover:text-rose-300 text-[10px] uppercase font-bold tracking-wider"><i class="fa-solid fa-trash-can"></i></button>` : '';
-
-                    let repliesContainerId = `replies-box-${fb.id}`;
-                    let repliesMarkup = '';
-                    if(fb.replies) {
-                        Object.values(fb.replies).forEach(rep => {
-                            repliesMarkup += `
-                                <div class="p-2.5 rounded-xl bg-black/30 border border-white/5 space-y-0.5">
-                                    <div class="flex justify-between items-center text-[10px] text-cyan-400 font-bold">
-                                        <span>@${rep.username}</span>
-                                        <span class="text-gray-500 font-medium">${new Date(rep.timestamp).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}</span>
-                                    </div>
-                                    <p class="text-[11px] text-gray-300 font-medium leading-relaxed">${rep.text}</p>
-                                </div>
-                            `;
-                        });
+            db.ref().transaction(root => {
+                if(root && root.users && root.users[cachedPhone]) {
+                    let u = root.users[cachedPhone];
+                    if(Number(u.balance) >= volume) {
+                        u.balance = Number(u.balance) - volume;
+                        u.totalWithdraw = Number(u.totalWithdraw || 0) + volume;
+                        
+                        if(!u.logs) u.logs = {};
+                        u.logs[withdrawId] = {
+                            id: withdrawId,
+                            type: 'withdraw',
+                            title: `Outbound Withdrawal Request [${u.withdrawalMethod}]`,
+                            amount: volume,
+                            timestamp: timestamp,
+                            status: 'Pending Review'
+                        };
+                        
+                        if(!root.admin_queues) root.admin_queues = {};
+                        if(!root.admin_queues.withdrawals) root.admin_queues.withdrawals = {};
+                        root.admin_queues.withdrawals[withdrawId] = {
+                            id: withdrawId,
+                            userPhone: cachedPhone,
+                            username: u.username,
+                            amount: volume,
+                            method: u.withdrawalMethod,
+                            title: u.withdrawalTitle,
+                            account: u.withdrawalAccount,
+                            timestamp: timestamp,
+                            status: 'pending'
+                        };
                     }
-
-                    block.innerHTML = `
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <span class="font-extrabold text-white text-xs block tracking-wide">@${fb.username}</span>
-                                <span class="text-[9px] text-gray-500 font-medium">${new Date(fb.timestamp).toLocaleString()}</span>
-                            </div>
-                            <div class="flex items-center gap-3">
-                                ${deleteBtn}
-                                <span class="text-[10px] bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-bold px-2 py-0.5 rounded-lg uppercase tracking-wider"><i class="fa-solid fa-shield-check text-[9px]"></i> Verified Investor</span>
-                            </div>
-                        </div>
-                        <p class="text-xs text-gray-200 leading-relaxed font-medium pt-1">${fb.text}</p>
-                        <div class="flex items-center gap-4 pt-2 border-t border-white/5 text-[11px] font-bold uppercase tracking-wider text-gray-400">
-                            <button onclick="toggleLikeCommunityFeedback('${fb.id}')" class="flex items-center gap-1 transition-all ${hasLiked ? 'text-rose-400':'hover:text-white'}">
-                                <i class="fa-${hasLiked ? 'solid':'regular'} fa-heart text-xs"></i> <span>${likesCount} Likes</span>
-                            </button>
-                            <button onclick="document.getElementById('reply-dock-${fb.id}').classList.toggle('hidden')" class="flex items-center gap-1 hover:text-white text-xs">
-                                <i class="fa-regular fa-comment-dots"></i> Reply
-                            </button>
-                        </div>
-                        <div id="reply-dock-${fb.id}" class="hidden pt-2 space-y-2">
-                            <div class="flex gap-2">
-                                <input type="text" id="reply-input-${fb.id}" placeholder="Write clear text reply..." class="flex-grow p-2 bg-black/50 border border-white/10 rounded-xl text-xs text-white focus:outline-none premium-input">
-                                <button onclick="submitFeedbackReply('${fb.id}')" class="bg-teal-600 hover:bg-teal-500 px-3 py-1.5 rounded-xl font-bold text-xs text-white uppercase tracking-wider shadow-md">Post</button>
-                            </div>
-                        </div>
-                        <div id="${repliesContainerId}" class="space-y-2 mt-2 pl-3 border-l border-white/5">
-                            ${repliesMarkup}
-                        </div>
-                    `;
-                    stream.appendChild(block);
-                });
-            });
-        }
-
-        function handlePublicFeedbackSubmission(e) {
-            e.preventDefault();
-            const text = document.getElementById('pub-fb-text-input').value.trim();
-            if(!text) return;
-
-            const cachedPhone = localStorage.getItem('ph_session_phone');
-            const feedbackId = 'FB-' + Date.now();
-            
-            db.ref(`community_feedbacks/${feedbackId}`).set({
-                userPhone: cachedPhone,
-                username: sessionUser.username,
-                text: text,
-                timestamp: Date.now()
-            }, err => {
-                if(!err) {
-                    triggerSystemToast("Ecosystem user review logged onto community wall timeline.", "success");
-                    document.getElementById('public-feedback-form').reset();
                 }
-            });
-        }
-
-        function toggleLikeCommunityFeedback(fbId) {
-            const cachedPhone = localStorage.getItem('ph_session_phone');
-            const ref = db.ref(`community_feedbacks/${fbId}/likes/${cachedPhone}`);
-            ref.once('value', snap => {
-                if(snap.exists()) {
-                    ref.remove();
+                return root;
+            }, (err, committed) => {
+                if(committed) {
+                    triggerSystemToast("Capital outbound processing request safely transmitted to review queue.", "success");
+                    document.getElementById('withdraw-processing-form').reset();
+                    switchScreen('screen-dashboard');
                 } else {
-                    ref.set(true);
+                    triggerSystemToast("Thread synchronization conflict occurred. Please retry.", "error");
                 }
             });
         }
 
-        function submitFeedbackReply(fbId) {
-            const input = document.getElementById(`reply-input-${fbId}`);
-            const text = input.value.trim();
-            if(!text) return;
-
-            const cachedPhone = localStorage.getItem('ph_session_phone');
-            const replyId = 'REP-' + Date.now();
-
-            db.ref(`community_feedbacks/${fbId}/replies/${replyId}`).set({
-                userPhone: cachedPhone,
-                username: sessionUser.username,
-                text: text,
-                timestamp: Date.now()
-            }, err => {
-                if(!err) {
-                    input.value = '';
-                    triggerSystemToast("Reply nested frame successfully synchronized.", "success");
-                }
-            });
-        }
-
-        function deleteCommunityFeedback(fbId) {
-            db.ref(`community_feedbacks/${fbId}`).remove(() => {
-                triggerSystemToast("Ecosystem review entry deleted by author node request.", "info");
-            });
-        }
-
-        function copyAffiliateLink() {
-            const myRef = sessionUser.myRefCode || (sessionUser.username.toUpperCase() + '99');
-            const base = window.location.origin + window.location.pathname;
-            const fullLink = `${base}?ref=${myRef}`;
-            
-            navigator.clipboard.writeText(fullLink).then(() => {
-                triggerSystemToast("Affiliate invitation reference map URL copied into device clipboard stack.", "success");
-            });
-        }
-
+        // ================= COMPREHENSIVE AUDIT TRAILS SYSTEM =================
         function filterAuditStream(type) {
             activeAuditFilter = type;
-            const btns = document.querySelectorAll('#screen-history button');
-            btns.forEach(b => {
-                if(b.innerText.toLowerCase().includes(type) || (type === 'all' && b.innerText.toLowerCase().includes('all'))) {
-                    b.className = "px-3.5 py-2 rounded-lg bg-white/10 text-white whitespace-nowrap";
-                } else {
-                    b.className = "px-3.5 py-2 rounded-lg text-gray-400 whitespace-nowrap";
-                }
-            });
             renderAuditLogTerminalStream();
         }
 
@@ -2294,141 +2100,264 @@
             if(!container) return;
             container.innerHTML = '';
 
-            if(!sessionUser.logs) {
-                container.innerHTML = '<div class="text-xs text-gray-500 font-medium italic text-center py-6">No account history logged in current structural stack pipeline memory.</div>';
+            if(!sessionUser || !sessionUser.logs) {
+                container.innerHTML = '<div class="text-xs text-gray-500 italic text-center py-6 font-medium">No system accounting audit trails found.</div>';
                 return;
             }
 
-            let logsList = Object.values(sessionUser.logs);
-            logsList.sort((a,b) => b.timestamp - a.timestamp);
+            let logKeys = Object.keys(sessionUser.logs).sort((a,b) => sessionUser.logs[b].timestamp - sessionUser.logs[a].timestamp);
+            let entriesRendered = 0;
 
-            let renderedCount = 0;
-            logsList.forEach(log => {
+            logKeys.forEach(k => {
+                const log = sessionUser.logs[k];
                 if(activeAuditFilter !== 'all' && log.type !== activeAuditFilter) return;
-                renderedCount++;
 
-                const block = document.createElement('div');
-                block.className = "p-4 glass-card border border-white/5 rounded-2xl flex justify-between items-center shadow-md";
+                entriesRendered++;
+                const item = document.createElement('div');
+                item.className = "p-3.5 glass-card flex justify-between items-center text-xs border border-white/5 shadow-sm";
                 
-                let iconMarkup = '<i class="fa-solid fa-receipt text-cyan-400"></i>';
-                if(log.type === 'deposit') iconMarkup = '<i class="fa-solid fa-building-columns text-amber-400"></i>';
-                if(log.type === 'withdraw') iconMarkup = '<i class="fa-solid fa-money-bill-transfer text-indigo-400"></i>';
-                if(log.type === 'invest') iconMarkup = '<i class="fa-solid fa-cubes text-emerald-400"></i>';
-                if(log.type === 'yield') iconMarkup = '<i class="fa-solid fa-layer-group text-purple-400"></i>';
+                let badgeClass = "text-cyan-400 bg-cyan-500/10 border border-cyan-500/20";
+                if(log.status === 'Success' || log.status === 'Executed' || log.status === 'approved') badgeClass = "text-emerald-400 bg-emerald-500/10 border border-emerald-500/20";
+                if(log.status === 'failed' || log.status === 'Rejected') badgeClass = "text-rose-400 bg-rose-500/10 border border-rose-500/20";
+                if(log.status === 'Pending Review' || log.status === 'pending') badgeClass = "text-amber-400 bg-amber-500/10 border border-amber-500/20";
 
-                let dynamicStatusBadge = `<span class="text-[10px] font-bold font-mono tracking-wide ${log.status === 'Success' || log.status === 'Executed' ? 'text-emerald-400':'text-amber-400'}">${log.status || 'Active'}</span>`;
-
-                block.innerHTML = `
-                    <div class="flex items-center gap-3.5 text-xs">
-                        <div class="w-9 h-9 rounded-xl bg-white/5 border border-white/5 flex items-center justify-center text-sm shadow-inner">${iconMarkup}</div>
-                        <div>
-                            <span class="font-bold text-white block tracking-wide leading-tight">${log.title}</span>
-                            <span class="text-[10px] text-gray-500 font-semibold font-mono mt-0.5 block">${new Date(log.timestamp).toLocaleString()}</span>
-                        </div>
+                item.innerHTML = `
+                    <div>
+                        <span class="font-bold text-white block tracking-wide">${log.title || 'Accounting Transaction Ledger Log'}</span>
+                        <span class="text-[10px] text-gray-400 block mt-0.5 font-medium">${new Date(log.timestamp).toLocaleString()}</span>
                     </div>
                     <div class="text-right">
-                        <span class="text-xs font-black font-mono block text-white">Rs. ${Number(log.amount).toFixed(1)}</span>
-                        ${dynamicStatusBadge}
+                        <span class="font-mono font-black text-white block">Rs. ${Number(log.amount).toFixed(2)}</span>
+                        <span class="text-[9px] font-bold px-2 py-0.5 rounded-lg inline-block mt-1 uppercase tracking-wider ${badgeClass}">${log.status || 'Verified'}</span>
+                    </div>
+                `;
+                container.appendChild(item);
+            });
+
+            if(entriesRendered === 0) {
+                container.innerHTML = '<div class="text-xs text-gray-500 italic text-center py-6 font-medium">No matching accounting records logged.</div>';
+            }
+        }
+
+        // ================= AFFILIATE CONNECTIONS CORE DATA SYSTEM =================
+        function renderNetworkAffiliateStructureList() {
+            const container = document.getElementById('referred-users-network-stream');
+            const totalCommissionNode = document.getElementById('invite-total-commission-counter');
+            if(!container) return;
+            container.innerHTML = '';
+
+            let totalCoinsEarned = 0;
+
+            if(!sessionUser || !sessionUser.referrals) {
+                container.innerHTML = '<div class="text-xs text-gray-500 italic text-center py-4 font-medium">No active connection pipelines registered yet.</div>';
+                if(totalCommissionNode) totalCommissionNode.innerText = "Commission: 0 Coins";
+                return;
+            }
+
+            Object.keys(sessionUser.referrals).forEach(phone => {
+                const ref = sessionUser.referrals[phone];
+                const coinsEarned = parseInt(ref.commissionEarnedCoins || 0);
+                totalCoinsEarned += coinsEarned;
+
+                const block = document.createElement('div');
+                block.className = "p-3 bg-black/40 border border-white/5 rounded-xl flex justify-between items-center text-xs shadow-sm";
+                
+                let statusBadge = ref.isDeposited ? 
+                    `<span class="text-emerald-400 font-extrabold text-[9px] bg-emerald-500/10 px-2 py-0.5 rounded-md border border-emerald-500/20 uppercase tracking-wider">Active Investor</span>` : 
+                    `<span class="text-gray-400 font-bold text-[9px] bg-white/5 px-2 py-0.5 rounded-md border border-white/5 uppercase tracking-wider">Registered Node</span>`;
+
+                block.innerHTML = `
+                    <div>
+                        <span class="font-bold text-white block">@${ref.username || 'unknown'}</span>
+                        <span class="text-[9px] text-gray-500 block font-mono mt-0.5">${phone.substring(0,4)}XXXX${phone.substring(8)}</span>
+                    </div>
+                    <div class="text-right">
+                        ${statusBadge}
+                        <span class="text-[10px] text-amber-400 font-bold font-mono block mt-1">+ ${coinsEarned} Coins</span>
                     </div>
                 `;
                 container.appendChild(block);
             });
 
-            if(renderedCount === 0) {
-                container.innerHTML = `<div class="text-xs text-gray-500 font-medium italic text-center py-6">No tracking records match selection constraint [${activeAuditFilter}].</div>`;
-            }
+            if(totalCommissionNode) totalCommissionNode.innerText = `Commission: ${totalCoinsEarned} Coins`;
         }
 
+        function copyAffiliateLink() {
+            if(!sessionUser) return;
+            const myRef = sessionUser.myRefCode || (sessionUser.username.toUpperCase() + '99');
+            const inviteUrl = `${window.location.origin}${window.location.pathname}?ref=${myRef}`;
+            
+            navigator.clipboard.writeText(inviteUrl).then(() => {
+                triggerSystemToast("Your permanent affiliate tracking link copied!", "success");
+            }).catch(() => {
+                triggerSystemToast("Copy failed. Manually copy the link string.", "error");
+            });
+        }
+
+        // ================= COMMUNITY EXPERIENCES SYSTEM =================
+        function streamCommunityFeedbacks() {
+            db.ref('public_feedbacks').on('value', snap => {
+                const container = document.getElementById('community-feedback-stream');
+                if(!container) return;
+                container.innerHTML = '';
+
+                if(!snap.exists()) {
+                    container.innerHTML = '<div class="text-xs text-gray-500 italic text-center py-6 font-medium">Be the first to post a platform review experience!</div>';
+                    return;
+                }
+
+                let list = [];
+                snap.forEach(c => {
+                    list.push({ id: c.key, ...c.val() });
+                });
+                list.sort((a,b) => b.timestamp - a.timestamp);
+
+                list.forEach(fb => {
+                    const block = document.createElement('div');
+                    block.className = "p-3.5 glass-panel space-y-2 text-xs border border-white/5 bg-black/20 shadow-sm";
+                    
+                    let adminReplyMarkup = "";
+                    if(fb.adminReply) {
+                        adminReplyMarkup = `
+                            <div class="mt-2.5 p-2.5 bg-cyan-950/20 border-l-2 border-cyan-500 text-cyan-200 text-[11px] rounded-r-xl">
+                                <span class="font-bold text-cyan-400 block mb-0.5"><i class="fa-solid fa-shield-halved"></i> Central Operations Admin Response:</span>
+                                ${fb.adminReply}
+                            </div>
+                        `;
+                    }
+
+                    block.innerHTML = `
+                        <div class="flex justify-between items-center">
+                            <span class="font-extrabold text-white flex items-center gap-1"><i class="fa-solid fa-user-astronaut text-teal-400"></i> @${fb.username || 'node'}</span>
+                            <span class="text-[9px] text-gray-500 font-mono">${new Date(fb.timestamp).toLocaleDateString()}</span>
+                        </div>
+                        <p class="text-gray-300 font-medium leading-relaxed mt-1">${fb.message}</p>
+                        ${adminReplyMarkup}
+                    `;
+                    container.appendChild(block);
+                });
+            });
+        }
+
+        function handlePublicFeedbackSubmission(e) {
+            e.preventDefault();
+            if(!sessionUser) return;
+
+            const textInput = document.getElementById('pub-fb-text-input');
+            const msg = textInput.value.trim();
+            if(!msg) return;
+
+            const feedbackId = 'FB-' + Date.now();
+            db.ref(`public_feedbacks/${feedbackId}`).set({
+                id: feedbackId,
+                username: sessionUser.username,
+                message: msg,
+                timestamp: Date.now()
+            }, err => {
+                if(!err) {
+                    triggerSystemToast("Your user review statement was successfully uploaded.", "success");
+                    textInput.value = '';
+                }
+            });
+        }
+
+        // ================= INDUSTRIAL LIVE WORKSPACE & COMPLAINT TERMINAL =================
         function openCustomerCareTerminal() {
             document.getElementById('customer-care-modal').classList.remove('hidden');
+            setTimeout(() => {
+                const vp = document.getElementById('support-viewport-chat');
+                if(vp) vp.scrollTop = vp.scrollHeight;
+            }, 300);
         }
+
         function closeCustomerCareTerminal() {
             document.getElementById('customer-care-modal').classList.add('hidden');
         }
 
         function toggleSupportSubModule(tab) {
-            const btnChat = document.getElementById('support-tab-chat');
-            const btnComp = document.getElementById('support-tab-complaint');
-            const portChat = document.getElementById('support-viewport-chat');
-            const portComp = document.getElementById('support-viewport-complaint');
-            const dock = document.getElementById('chat-input-dock');
+            const chatBtn = document.getElementById('support-tab-chat');
+            const compBtn = document.getElementById('support-tab-complaint');
+            const chatViewport = document.getElementById('support-viewport-chat');
+            const compViewport = document.getElementById('support-viewport-complaint');
+            const inputDock = document.getElementById('chat-input-dock');
 
             if(tab === 'chat') {
-                btnChat.className = "w-1/2 py-2.5 rounded-xl bg-white/5 text-cyan-400 tracking-wider";
-                btnComp.className = "w-1/2 py-2.5 rounded-xl text-gray-400 tracking-wider";
-                portChat.classList.remove('hidden');
-                portComp.classList.add('hidden');
-                dock.classList.remove('hidden');
+                chatBtn.className = "w-1/2 py-2.5 rounded-xl bg-white/5 text-cyan-400 tracking-wider";
+                compBtn.className = "w-1/2 py-2.5 rounded-xl text-gray-400 tracking-wider";
+                chatViewport.classList.remove('hidden');
+                compViewport.classList.add('hidden');
+                inputDock.classList.remove('hidden');
+                setTimeout(() => { chatViewport.scrollTop = chatViewport.scrollHeight; }, 50);
             } else {
-                btnComp.className = "w-1/2 py-2.5 rounded-xl bg-white/5 text-cyan-400 tracking-wider";
-                btnChat.className = "w-1/2 py-2.5 rounded-xl text-gray-400 tracking-wider";
-                portComp.classList.remove('hidden');
-                portChat.classList.add('hidden');
-                dock.classList.add('hidden');
+                compBtn.className = "w-1/2 py-2.5 rounded-xl bg-white/5 text-cyan-400 tracking-wider";
+                chatBtn.className = "w-1/2 py-2.5 rounded-xl text-gray-400 tracking-wider";
+                compViewport.classList.remove('hidden');
+                chatViewport.classList.add('hidden');
+                inputDock.classList.add('hidden');
             }
         }
 
         function streamLiveSupportMessageLogs() {
             const cachedPhone = localStorage.getItem('ph_session_phone');
-            db.ref(`support_channels/${cachedPhone}/messages`).on('value', snap => {
-                const viewport = document.getElementById('support-viewport-chat');
-                viewport.innerHTML = '';
+            if(!cachedPhone) return;
+
+            db.ref(`support_chats/${cachedPhone}`).on('value', snap => {
+                const vp = document.getElementById('support-viewport-chat');
+                if(!vp) return;
+                vp.innerHTML = '';
+
                 if(!snap.exists()) {
-                    viewport.innerHTML = '<div class="text-xs text-gray-500 font-medium italic text-center py-6">Secure dialogue stream empty. Initialize a live text frame ticket message below...</div>';
+                    vp.innerHTML = '<div class="text-center text-[11px] text-gray-500 italic py-8 font-medium">Encrypted terminal synchronized. Send a message to contact active administration support blocks.</div>';
                     return;
                 }
+
                 snap.forEach(child => {
                     const msg = child.val();
-                    const wrapper = document.createElement('div');
+                    const isMe = msg.sender === 'user';
+                    const bubble = document.createElement('div');
+                    bubble.className = `flex flex-col max-w-[80%] p-3 rounded-2xl text-xs font-medium relative leading-relaxed ${
+                        isMe ? 'bg-gradient-to-br from-cyan-600 to-blue-600 text-white ml-auto rounded-tr-none' : 'bg-white/10 text-gray-100 mr-auto rounded-tl-none'
+                    }`;
                     
-                    let isAdmin = msg.sender === 'admin';
-                    wrapper.className = `flex w-full ${isAdmin ? 'justify-start':'justify-end'}`;
-                    
-                    let bubbleMarkup = msg.imageUrl ? 
-                        `<img src="${msg.imageUrl}" class="max-w-[180px] rounded-xl border border-white/10 shadow-lg cursor-zoom-in">` :
-                        `<p class="text-xs leading-relaxed font-semibold">${msg.text}</p>`;
+                    let mediaContent = "";
+                    if(msg.attachmentUrl) {
+                        mediaContent = `<img src="${msg.attachmentUrl}" class="w-full max-h-40 object-cover rounded-xl mb-1.5 border border-white/10 shadow-inner">`;
+                    }
 
-                    wrapper.innerHTML = `
-                        <div class="max-w-[75%] space-y-1">
-                            <div class="p-3.5 rounded-2xl shadow-md border ${
-                                isAdmin ? 'bg-slate-900 border-white/5 rounded-tl-none text-cyan-200' : 'bg-gradient-to-r from-cyan-600 to-blue-600 border-cyan-400/10 rounded-tr-none text-white'
-                            }">
-                                ${bubbleMarkup}
-                            </div>
-                            <span class="block text-[9px] text-gray-500 font-mono font-bold tracking-wide px-1 ${isAdmin ? 'text-left':'text-right'}">
-                                ${isAdmin ? 'Admin Agent Node':'My Node'} • ${new Date(msg.timestamp).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}
-                            </span>
-                        </div>
+                    bubble.innerHTML = `
+                        ${mediaContent}
+                        <span>${msg.text || ''}</span>
+                        <span class="text-[8px] opacity-60 font-mono block mt-1 text-right">${new Date(msg.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
                     `;
-                    viewport.appendChild(wrapper);
+                    vp.appendChild(bubble);
                 });
-                setTimeout(() => viewport.scrollTo({ top: viewport.scrollHeight, behavior: 'smooth' }), 50);
+
+                vp.scrollTop = vp.scrollHeight;
             });
         }
 
         function transmitLiveChatMessage() {
             const input = document.getElementById('chat-message-input');
-            const text = input.value.trim();
-            if(!text) return;
+            const txt = input.value.trim();
+            if(!txt) return;
 
             const cachedPhone = localStorage.getItem('ph_session_phone');
             const msgId = 'MSG-' + Date.now();
-
-            const payload = {
+            
+            db.ref(`support_chats/${cachedPhone}/${msgId}`).set({
                 id: msgId,
                 sender: 'user',
-                text: text,
+                text: txt,
                 timestamp: Date.now()
-            };
-
-            db.ref(`support_channels/${cachedPhone}/messages/${msgId}`).set(payload, err => {
+            }, err => {
                 if(!err) {
                     input.value = '';
-                    db.ref(`support_channels/${cachedPhone}/metadata`).set({
-                        userPhone: cachedPhone,
+                    db.ref(`admin_queues/support_alerts/${cachedPhone}`).set({
+                        phone: cachedPhone,
                         username: sessionUser.username,
-                        lastMessageTimestamp: Date.now(),
-                        unreadByAdmin: true
+                        lastMessage: txt,
+                        timestamp: Date.now(),
+                        unread: true
                     });
                 }
             });
@@ -2447,11 +2376,11 @@
             if(url) {
                 const cachedPhone = localStorage.getItem('ph_session_phone');
                 const msgId = 'MSG-' + Date.now();
-                
-                db.ref(`support_channels/${cachedPhone}/messages/${msgId}`).set({
+                db.ref(`support_chats/${cachedPhone}/${msgId}`).set({
                     id: msgId,
                     sender: 'user',
-                    imageUrl: url,
+                    text: "[Shared Diagnostic Attachment Framework Frame]",
+                    attachmentUrl: url,
                     timestamp: Date.now()
                 });
             }
@@ -2460,67 +2389,99 @@
         async function uploadTicketProofToCloudinary(e) {
             const file = e.target.files[0];
             if(!file) return;
+
             const spinner = document.getElementById('ticket-proof-spinner');
             spinner.classList.remove('hidden');
+
             const url = await transmitMediaToCloudMatrix(file);
             spinner.classList.add('hidden');
-            if(url) document.getElementById('ticket-proof-url').value = url;
+
+            if(url) {
+                document.getElementById('ticket-proof-url').value = url;
+                triggerSystemToast("Diagnostic visual evidence securely uploaded.", "success");
+            }
         }
 
         function handleTicketSubmission(e) {
             e.preventDefault();
-            const cat = document.getElementById('ticket-category').value;
+            if(!sessionUser) return;
+
+            const category = document.getElementById('ticket-category').value;
             const desc = document.getElementById('ticket-desc').value.trim();
-            const proof = document.getElementById('ticket-proof-url').value;
+            const proofUrl = document.getElementById('ticket-proof-url').value;
 
-            const cachedPhone = localStorage.getItem('ph_session_phone');
-            const ticketId = 'TCK-' + Math.floor(100000 + Math.random() * 900000);
-
-            const payload = {
-                id: ticketId,
-                category: cat,
+            const tktId = 'TKT-' + Math.floor(100000 + Math.random() * 900000);
+            const ticketObject = {
+                id: tktId,
+                category: category,
                 description: desc,
-                proofUrl: proof || "NONE",
+                proofUrl: proofUrl || "NONE",
                 timestamp: Date.now(),
-                status: 'Open Infrastructure Review'
+                status: 'pending',
+                resolution: ''
             };
 
-            db.ref(`support_channels/${cachedPhone}/tickets/${ticketId}`).set(payload, err => {
+            const cachedPhone = localStorage.getItem('ph_session_phone');
+            db.ref(`users/${cachedPhone}/tickets/${tktId}`).set(ticketObject);
+            db.ref(`admin_queues/tickets/${tktId}`).set({
+                userPhone: cachedPhone,
+                username: sessionUser.username,
+                ...ticketObject
+            }, err => {
                 if(!err) {
-                    triggerSystemToast("Formal administrative dispute ticket logged safely.", "success");
+                    triggerSystemToast("Formal infrastructure ticket submitted safely.", "success");
                     document.getElementById('formal-ticket-form').reset();
+                    document.getElementById('ticket-proof-url').value = '';
                 }
             });
         }
 
         function streamFiledTicketsLog() {
             const cachedPhone = localStorage.getItem('ph_session_phone');
-            db.ref(`support_channels/${cachedPhone}/tickets`).on('value', snap => {
-                const feed = document.getElementById('ticket-resolution-feed');
-                feed.innerHTML = '';
+            if(!cachedPhone) return;
+
+            db.ref(`users/${cachedPhone}/tickets`).on('value', snap => {
+                const container = document.getElementById('ticket-resolution-feed');
+                if(!container) return;
+                container.innerHTML = '';
+
                 if(!snap.exists()) {
-                    feed.innerHTML = '<div class="text-[11px] text-gray-500 italic font-medium py-2">No infrastructure tickets logged under this active node.</div>';
+                    container.innerHTML = '<div class="text-[10px] text-gray-500 italic py-2 text-center font-medium">No system ticket records tracked.</div>';
                     return;
                 }
+
                 snap.forEach(child => {
-                    const tk = child.val();
+                    const ticket = child.val();
                     const block = document.createElement('div');
-                    block.className = "p-3.5 bg-black/40 border border-white/5 rounded-xl space-y-1.5 text-xs text-left shadow-inner";
+                    block.className = "p-3 bg-black/40 border border-white/5 rounded-xl space-y-1.5 text-[11px] shadow-inner";
+                    
+                    let statusBadge = "text-amber-400 bg-amber-500/10 border border-amber-500/20";
+                    if(ticket.status === 'resolved') statusBadge = "text-emerald-400 bg-emerald-500/10 border border-emerald-500/20";
+                    
+                    let resolutionContent = "";
+                    if(ticket.resolution) {
+                        resolutionContent = `<div class="mt-1.5 text-[10px] text-cyan-300 bg-cyan-950/10 p-2 rounded-lg border border-cyan-500/10 font-medium">Resolution Notes: ${ticket.resolution}</div>`;
+                    }
+
                     block.innerHTML = `
-                        <div class="flex justify-between items-center font-bold">
-                            <span class="text-cyan-400 font-mono tracking-wide">${tk.id}</span>
-                            <span class="text-[10px] uppercase font-bold text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded-lg border border-amber-500/20">${tk.status}</span>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-white uppercase text-[10px] tracking-wide">${ticket.category}</span>
+                            <span class="px-2 py-0.5 rounded-md text-[8px] font-black uppercase tracking-wider ${statusBadge}">${ticket.status}</span>
                         </div>
-                        <p class="text-gray-400 font-medium text-[11px] leading-tight"><b class="text-gray-300 uppercase text-[9px] tracking-wider block mb-0.5">Classification: ${tk.category}</b> ${tk.description}</p>
+                        <p class="text-gray-400 leading-normal font-medium">${ticket.description}</p>
+                        ${resolutionContent}
                     `;
-                    feed.appendChild(block);
+                    container.appendChild(block);
                 });
             });
         }
 
+        function openContextMenu() {
+            document.getElementById('context-menu-modal').classList.remove('hidden');
+        }
         function closeContextMenu() {
             document.getElementById('context-menu-modal').classList.add('hidden');
         }
     </script>
 </body>
-                                                                                                                                                                                                                                                                                                      </html>
+</html>
