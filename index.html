@@ -1,1 +1,2526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prime Horizon - Ultimate Investment Ecosystem</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: radial-gradient(circle at 50% 0%, #0d1527 0%, #040712 100%);
+            color: #f1f5f9;
+            overflow-x: hidden;
+        }
 
+        .glass-panel {
+            background: rgba(13, 22, 43, 0.65);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 28px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+        }
+
+        .premium-input {
+            background: rgba(0, 0, 0, 0.4) !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .premium-input:focus {
+            border-color: #06b6d4 !important;
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.25);
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 15px rgba(16, 185, 129, 0.25); border-color: rgba(16, 185, 129, 0.4); }
+            50% { box-shadow: 0 0 30px rgba(16, 185, 129, 0.6); border-color: rgba(16, 185, 129, 0.8); }
+        }
+        .verified-glow { animation: pulse-glow 3s infinite; }
+
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); }
+        ::-webkit-scrollbar-thumb { background: rgba(6, 182, 212, 0.3); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(6, 182, 212, 0.5); }
+        
+        .screen { display: none; }
+        .screen.active { display: block; animation: slideUpFade 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+
+        @keyframes slideUpFade {
+            from { opacity: 0; transform: translateY(16px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .neon-text-cyan { text-shadow: 0 0 10px rgba(6, 182, 212, 0.4); }
+        .neon-text-emerald { text-shadow: 0 0 10px rgba(16, 185, 129, 0.4); }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between antialiased">
+
+    <!-- Admin Account Warning Element Box Display -->
+    <div id="admin-custom-warning-banner" class="w-full bg-amber-500/20 border-b border-amber-500/30 py-2.5 px-4 text-center text-xs font-bold text-amber-300 z-50 flex items-center justify-center gap-2 backdrop-blur-md hidden">
+        <i class="fa-solid fa-triangle-exclamation animate-bounce text-amber-400"></i>
+        <span id="admin-warning-banner-text">Warning: Administrative Broadcast Rule Action Logged.</span>
+    </div>
+
+    <div id="top-security-alert" class="w-full bg-rose-500/10 border-b border-rose-500/20 py-2.5 px-4 text-center text-[11px] font-semibold text-rose-300 tracking-wide z-50 flex items-center justify-center gap-2 backdrop-blur-md">
+        <i class="fa-solid fa-shield-halved animate-pulse text-rose-400 text-xs"></i>
+        <span>Security Alert: Please don't share your login credentials or transaction passwords with anyone.</span>
+    </div>
+
+    <header id="main-header" class="w-full max-w-md mx-auto px-4 pt-4 flex justify-between items-center text-xs text-gray-400 z-50 gap-2">
+        <div id="live-time-date" class="flex flex-col bg-black/20 px-3.5 py-2 rounded-2xl border border-white/5 backdrop-blur-md">
+            <span class="font-bold text-white tracking-wide text-sm" id="header-time">00:00:00 PM</span>
+            <span id="header-date" class="text-[10px] text-gray-400 font-medium mt-0.5">Loading System Clock...</span>
+        </div>
+        
+        <div id="top-pending-trackers" class="flex items-center gap-2 hidden">
+            <button onclick="openCustomerCareTerminal(); toggleSupportSubModule('complaint');" class="bg-gradient-to-r from-rose-600 to-red-600 hover:from-rose-500 hover:to-red-500 text-white font-bold text-[10px] px-3.5 py-2 rounded-xl shadow-lg shadow-red-900/20 flex items-center gap-1.5 transition-all uppercase tracking-wider">
+                <i class="fa-solid fa-circle-exclamation"></i> Complaint
+            </button>
+            <button onclick="openProfileModal()" class="text-cyan-400 hover:text-white bg-cyan-500/10 hover:bg-cyan-500/20 w-8 h-8 rounded-xl border border-cyan-500/20 transition-all flex items-center justify-center">
+                <i class="fa-solid fa-user text-xs"></i>
+            </button>
+        </div>
+
+        <div class="flex items-center gap-2 glass-panel px-3.5 py-2 border border-emerald-500/20 bg-emerald-500/5 shadow-inner" id="device-pill" style="display:none;">
+            <i class="fa-solid var(--device-icon, fa-mobile-screen-button) text-emerald-400 animate-pulse"></i>
+            <span id="device-display-name" class="text-[11px] font-bold text-emerald-400 font-mono tracking-wide">Node Core</span>
+        </div>
+    </header>
+
+    <main class="w-full max-w-md mx-auto px-4 py-4 flex-grow flex flex-col justify-center">
+        
+        <section id="screen-suspended" class="screen glass-panel p-6 text-center space-y-5">
+            <div class="w-16 h-16 bg-rose-500/10 text-rose-400 rounded-full flex items-center justify-center mx-auto text-2xl border border-rose-500/20 shadow-lg shadow-rose-950/50">
+                <i class="fa-solid fa-user-slash"></i>
+            </div>
+            <h2 class="text-xl font-extrabold text-white uppercase tracking-wider">Your Account Has Been Banned</h2>
+            
+            <div id="suspension-warning-box" class="p-4 bg-red-950/30 border border-red-500/30 rounded-2xl text-xs text-red-400 text-left leading-relaxed font-medium shadow-inner">
+                <i class="fa-solid fa-circle-exclamation mr-1.5 text-red-400"></i>
+                <span id="suspension-warning-text">Your profile has been locked by administration due to malicious activities or security parameter parameters violation.</span>
+            </div>
+
+            <div class="border-t border-white/5 pt-4 space-y-3">
+                <p class="text-[11px] text-gray-400 text-left px-1">If you wish to appeal this decision or contact administration, please transmit your official sorry statement matrix below.</p>
+                <textarea id="suspension-appeal-msg" placeholder="Write your transparent appeal statement here..." rows="3" class="w-full p-3.5 bg-black/40 border border-white/10 rounded-xl text-xs text-white focus:outline-none focus:border-cyan-500 premium-input transition-all resize-none"></textarea>
+                <button onclick="submitSuspensionAppeal()" class="w-full py-3.5 bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white font-bold rounded-xl text-xs uppercase tracking-wider shadow-lg shadow-red-950/50 transition-all transform active:scale-[0.98]">Submit Official Appeal</button>
+            </div>
+            
+            <div class="pt-2">
+                <button onclick="openCustomerCareTerminal(); toggleSupportSubModule('chat');" class="text-xs text-cyan-400 hover:text-cyan-300 font-semibold flex items-center justify-center gap-1.5 mx-auto transition-all">
+                    <i class="fa-solid fa-headset"></i> Open Support Desk Pipeline
+                </button>
+            </div>
+        </section>
+
+        <section id="screen-maintenance" class="screen glass-panel p-6 text-center space-y-5">
+            <div class="w-16 h-16 bg-amber-500/10 text-amber-400 rounded-full flex items-center justify-center mx-auto text-2xl border border-amber-500/20 shadow-lg shadow-amber-950/50">
+                <i class="fa-solid fa-screwdriver-wrench animate-spin"></i>
+            </div>
+            <h2 class="text-xl font-extrabold text-white uppercase tracking-wider">Optimizations In Progress</h2>
+            <div id="maintenance-note" class="p-4 bg-amber-950/20 border border-amber-500/20 rounded-2xl text-xs text-amber-200 leading-relaxed font-medium shadow-inner">
+                Platform performance routine optimization is currently processing. Services will resume shortly.
+            </div>
+
+            <div class="py-4 glass-card rounded-2xl border border-amber-500/20 my-2 shadow-inner bg-amber-500/5">
+                <span class="block text-[10px] text-amber-400 uppercase tracking-widest font-bold mb-1">Estimated Dynamic Return Latency</span>
+                <div id="maintenance-countdown" class="text-2xl font-mono font-black text-white tracking-wider neon-text-cyan">00h 00m 00s</div>
+            </div>
+
+            <div class="text-[10px] text-gray-500 font-mono" id="maintenance-timestamp-footer">
+                Epoch target validation cycle tracking active.
+            </div>
+        </section>
+
+        <section id="screen-auth" class="screen active glass-panel p-6 relative">
+            <div class="text-center mb-8">
+                <div class="w-24 h-24 mx-auto rounded-full p-1 bg-gradient-to-tr from-cyan-500 via-indigo-500 to-emerald-500 shadow-2xl mb-4 overflow-hidden flex items-center justify-center">
+                    <img src="https://i.ibb.co/gZvhB6MC/image-11.jpg" alt="Prime Horizon Logo" class="w-full h-full object-cover rounded-full">
+                </div>
+                <h1 class="text-3xl font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-200 to-slate-400">PRIME HORIZON</h1>
+                <p class="text-xs uppercase tracking-widest text-emerald-400 font-bold mt-1 tracking-[0.2em] neon-text-emerald">Ascend Your Capital</p>
+            </div>
+
+            <div class="flex bg-black/40 p-1 rounded-2xl mb-6 border border-white/5 shadow-inner">
+                <button onclick="toggleAuthTabs('login')" id="tab-login-btn" class="w-1/2 py-3 text-xs font-bold uppercase tracking-wider rounded-xl bg-white/10 text-white transition-all">Sign In</button>
+                <button onclick="toggleAuthTabs('signup')" id="tab-signup-btn" class="w-1/2 py-3 text-xs font-bold uppercase tracking-wider rounded-xl text-gray-400 transition-all">Create Account</button>
+            </div>
+
+            <form id="login-form" onsubmit="handleLogin(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 px-1">Registered Node Credentials</label>
+                    <div class="relative">
+                        <i class="fa-solid fa-phone absolute left-4 top-4 text-gray-500 text-sm"></i>
+                        <input type="tel" id="login-phone" required class="w-full pl-12 pr-4 py-3.5 bg-black/40 border border-white/10 rounded-xl focus:border-cyan-500 focus:outline-none text-sm text-white premium-input" placeholder="03XXXXXXXXX">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 px-1">Secure Password</label>
+                    <div class="relative">
+                        <i class="fa-solid fa-lock absolute left-4 top-4 text-gray-500 text-sm"></i>
+                        <input type="password" id="login-pass" required class="w-full pl-12 pr-4 py-3.5 bg-black/40 border border-white/10 rounded-xl focus:border-cyan-500 focus:outline-none text-sm text-white premium-input" placeholder="••••••••">
+                    </div>
+                </div>
+
+                <!-- Recovery Password Option Request Box Area -->
+                <div id="forgot-password-trigger-box" class="pt-1 text-center hidden">
+                    <button type="button" onclick="openPasswordRecoveryModal()" class="text-xs text-rose-400 hover:text-rose-300 font-bold underline tracking-wide transition-all">
+                        <i class="fa-solid fa-key mr-1"></i> Request Password?
+                    </button>
+                </div>
+
+                <button type="submit" class="w-full py-4 mt-2 bg-gradient-to-r from-cyan-600 via-blue-600 to-emerald-600 hover:from-cyan-500 hover:to-emerald-500 rounded-xl font-bold text-xs uppercase tracking-wider text-white shadow-lg shadow-cyan-950/50 transition-all transform active:scale-95">
+                    Access Premium Platform
+                </button>
+            </form>
+
+            <form id="signup-form" onsubmit="handleSignup(event)" class="space-y-4 hidden">
+                <div>
+                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 px-1">Unique Username</label>
+                    <div class="relative">
+                        <i class="fa-solid fa-at absolute left-4 top-4 text-gray-500 text-sm"></i>
+                        <input type="text" id="signup-user" required oninput="checkUsernameAvailability(this.value)" class="w-full pl-12 pr-4 py-3.5 bg-black/40 border border-white/10 rounded-xl focus:border-cyan-500 focus:outline-none text-sm text-white premium-input" placeholder="username">
+                    </div>
+                    <div id="username-feedback" class="text-[11px] mt-1.5 px-1 hidden"></div>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 px-1">Official Email Address</label>
+                    <div class="relative">
+                        <i class="fa-solid fa-envelope absolute left-4 top-4 text-gray-500 text-sm"></i>
+                        <input type="email" id="signup-email" required onblur="validateRealEmail(this.value)" class="w-full pl-12 pr-4 py-3.5 bg-black/40 border border-white/10 rounded-xl focus:border-cyan-500 focus:outline-none text-sm text-white premium-input" placeholder="name@domain.com">
+                    </div>
+                    <div id="email-feedback" class="text-[11px] mt-1.5 text-rose-400 px-1 hidden"><i class="fa-solid fa-circle-exclamation mr-1"></i>Please enter a valid active original email address.</div>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 px-1">Phone Number</label>
+                    <div class="relative">
+                        <i class="fa-solid fa-phone absolute left-4 top-4 text-gray-500 text-sm"></i>
+                        <input type="tel" id="signup-phone" required class="w-full pl-12 pr-4 py-3.5 bg-black/40 border border-white/10 rounded-xl focus:border-cyan-500 focus:outline-none text-sm text-white premium-input" placeholder="03XXXXXXXXX">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 px-1">Affiliate Reference Code</label>
+                    <div class="relative">
+                        <i class="fa-solid fa-user-group absolute left-4 top-4 text-gray-500 text-sm"></i>
+                        <input type="text" id="signup-ref" class="w-full pl-12 pr-4 py-3.5 bg-black/40 border border-white/10 rounded-xl focus:border-cyan-500 focus:outline-none text-sm text-white font-mono premium-input" placeholder="REFCODE">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 px-1">Create Strong Password</label>
+                    <div class="relative">
+                        <i class="fa-solid fa-key absolute left-4 top-4 text-gray-500 text-sm"></i>
+                        <input type="password" id="signup-pass" required oninput="evaluatePasswordStrength(this.value)" class="w-full pl-12 pr-4 py-3.5 bg-black/40 border border-white/10 rounded-xl focus:border-cyan-500 focus:outline-none text-sm text-white premium-input" placeholder="Min 8 chars, mixed format">
+                    </div>
+                    <div id="pass-feedback" class="text-[11px] mt-2 text-gray-400 px-1 leading-relaxed">
+                        Structure: Requires at least 8 characters, capital letters, and digits.
+                    </div>
+                </div>
+                <button type="submit" id="signup-submit-btn" disabled class="w-full py-4 mt-2 bg-slate-800 text-gray-500 rounded-xl font-bold text-xs uppercase tracking-wider cursor-not-allowed transition-all shadow-lg">
+                    Register Secure Profile
+                </button>
+            </form>
+        </section>
+
+        <section id="screen-dashboard" class="screen space-y-5">
+            <div id="user-status-card" class="glass-panel p-5 relative overflow-hidden bg-gradient-to-br from-indigo-950/40 via-transparent to-black/40 border border-white/10 shadow-xl cursor-pointer">
+                <div class="flex items-center gap-4">
+                    <div class="relative group" onclick="event.stopPropagation();">
+                        <img id="dash-user-avatar" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=200" alt="Avatar" class="w-16 h-16 rounded-2xl object-cover border-2 p-0.5 border-cyan-500 verified-glow transition-all duration-300">
+                        <label for="dp-upload-input" class="absolute -bottom-1 -right-1 w-6 h-6 bg-cyan-500 rounded-lg flex items-center justify-center cursor-pointer border-2 border-slate-950 hover:scale-110 transition-transform shadow-lg">
+                            <i class="fa-solid fa-camera text-[10px] text-slate-950"></i>
+                        </label>
+                        <input type="file" id="dp-upload-input" accept="image/*" class="hidden" onchange="handleDpUpdate(event)">
+                    </div>
+
+                    <div class="flex-grow">
+                        <h3 class="text-base font-extrabold text-white flex items-center gap-1.5 tracking-wide">
+                            Welcome, <span id="dash-username">User Node</span>
+                        </h3>
+                        <p class="text-[10px] text-gray-400 font-medium">Ref Signature: <span id="dash-my-refcode" class="text-cyan-400 font-mono font-bold tracking-wider">-----</span></p>
+                        
+                        <div class="mt-2.5 flex items-center justify-between gap-2">
+                            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl text-[9px] font-bold uppercase tracking-wider bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 shadow-inner">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                                <span id="dash-status-text">Verified Secure</span>
+                            </div>
+                            <div class="text-[10px] text-gray-400 bg-black/40 px-2.5 py-1 rounded-xl border border-white/5 font-medium">
+                                Active Ecosystem Users: <span id="total-users-count" class="text-white font-extrabold">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="dashboard-daily-tasks-panel" class="glass-panel p-4 border border-cyan-500/10 bg-cyan-500/5 space-y-3">
+                <h5 class="text-xs font-bold uppercase tracking-wider text-cyan-400 flex items-center gap-2">
+                    <i class="fa-solid fa-rectangle-list text-cyan-400"></i> Daily Task Directives
+                </h5>
+                <div id="daily-tasks-stream" class="space-y-2.5"></div>
+            </div>
+
+            <div id="dashboard-unlocked-features" class="space-y-4">
+                <div class="grid grid-cols-2 gap-3.5">
+                    <button onclick="switchScreen('screen-my-details')" class="p-4 rounded-2xl glass-panel text-left hover:bg-white/5 border border-white/5 transition-all group flex flex-col justify-between h-28 border-l-4 border-cyan-500 shadow-md">
+                        <div class="w-9 h-9 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center text-sm border border-cyan-500/20 shadow-inner"><i class="fa-solid fa-chart-pie"></i></div>
+                        <span class="text-xs font-bold tracking-wider text-gray-300 group-hover:text-white uppercase">My Matrix</span>
+                    </button>
+                    <button onclick="switchScreen('screen-invest-plans')" class="p-4 rounded-2xl glass-panel text-left hover:bg-white/5 border border-white/5 transition-all group flex flex-col justify-between h-28 border-l-4 border-emerald-500 shadow-md">
+                        <div class="w-9 h-9 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-sm border border-emerald-500/20 shadow-inner"><i class="fa-solid fa-seedling"></i></div>
+                        <span class="text-xs font-bold tracking-wider text-gray-300 group-hover:text-white uppercase">Yield Stratums</span>
+                    </button>
+                    <button onclick="switchScreen('screen-deposit')" class="p-4 rounded-2xl glass-panel text-left hover:bg-white/5 border border-white/5 transition-all group flex flex-col justify-between h-28 border-l-4 border-amber-500 shadow-md">
+                        <div class="w-9 h-9 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center text-sm border border-emerald-500/20 shadow-inner"><i class="fa-solid fa-wallet"></i></div>
+                        <span class="text-xs font-bold tracking-wider text-gray-300 group-hover:text-white uppercase">Deposit Cache</span>
+                    </button>
+                    <button onclick="switchScreen('screen-withdraw')" class="p-4 rounded-2xl glass-panel text-left hover:bg-white/5 border border-white/5 transition-all group flex flex-col justify-between h-28 border-l-4 border-indigo-500 shadow-md">
+                        <div class="w-9 h-9 rounded-xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center text-sm border border-indigo-500/20 shadow-inner"><i class="fa-solid fa-hand-holding-dollar"></i></div>
+                        <span class="text-xs font-bold tracking-wider text-gray-300 group-hover:text-white uppercase">Outbound Fund</span>
+                    </button>
+                    <button onclick="switchScreen('screen-history')" class="p-4 rounded-2xl glass-panel text-left hover:bg-white/5 border border-white/5 transition-all group flex flex-col justify-between h-24 col-span-2 border-l-4 border-purple-500 shadow-md">
+                        <div class="flex items-center justify-between w-full">
+                            <div class="w-9 h-9 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center text-sm border border-purple-500/20 shadow-inner"><i class="fa-solid fa-clock-rotate-left"></i></div>
+                            <span class="text-[10px] text-gray-400 bg-white/5 px-2.5 py-1 rounded-lg border border-white/5 uppercase tracking-wider font-bold">Audit Trails</span>
+                        </div>
+                        <span class="text-xs font-bold tracking-wider text-gray-200 uppercase mt-2 block">Comprehensive Accounting Logs</span>
+                    </button>
+                </div>
+
+                <div class="glass-panel p-4 bg-gradient-to-r from-indigo-950/40 to-slate-900/30 border border-white/10 rounded-2xl flex justify-between items-center cursor-pointer hover:border-indigo-500/30 transition-all shadow-md group" onclick="switchScreen('screen-invite-friends')">
+                    <div class="space-y-1">
+                        <h4 class="text-[10px] font-extrabold text-indigo-400 uppercase tracking-widest neon-text-cyan">Affiliate Program</h4>
+                        <p class="text-xs font-extrabold text-white">Invite Friends & Earn Coins</p>
+                        <p class="text-[9px] text-gray-400 font-medium"><i class="fa-solid fa-unlock-keyhole text-emerald-400 mr-1"></i>Friend Deposit Unlocks Withdrawal Terminal</p>
+                    </div>
+                    <div class="w-9 h-9 rounded-xl bg-indigo-500/10 group-hover:bg-indigo-500/20 border border-indigo-500/20 flex items-center justify-center text-indigo-400 transition-all shadow-inner">
+                        <i class="fa-solid fa-chevron-right text-xs"></i>
+                    </div>
+                </div>
+
+                <div class="glass-panel p-4 bg-gradient-to-r from-teal-950/40 to-slate-900/30 border border-white/10 rounded-2xl flex justify-between items-center cursor-pointer hover:border-teal-500/30 transition-all shadow-md group" onclick="switchScreen('screen-community-feedback'); streamCommunityFeedbacks();">
+                    <div class="space-y-1">
+                        <h4 class="text-[10px] font-extrabold text-teal-400 uppercase tracking-widest">Community Hub</h4>
+                        <p class="text-xs font-extrabold text-white">Share Live App Experiences</p>
+                        <p class="text-[9px] text-gray-400 font-medium"><i class="fa-solid fa-comments text-teal-400 mr-1"></i>Read global user reviews, likes & replies</p>
+                    </div>
+                    <div class="w-9 h-9 rounded-xl bg-teal-500/10 group-hover:bg-teal-500/20 border border-teal-500/20 flex items-center justify-center text-teal-400 transition-all shadow-inner">
+                        <i class="fa-solid fa-comments text-xs"></i>
+                    </div>
+                </div>
+
+                <div class="glass-panel p-4 space-y-3.5 shadow-md">
+                    <h5 class="text-[10px] font-bold tracking-widest text-gray-400 uppercase px-0.5">Ecosystem Broadcast Channels</h5>
+                    <div class="grid grid-cols-2 gap-2.5" id="admin-social-channels-feed">
+                        <a href="https://tiktok.com" target="_blank" class="flex items-center gap-3 p-3 rounded-xl bg-black/20 border border-white/5 hover:bg-white/5 transition-all">
+                            <i class="fa-brands fa-tiktok text-white text-base"></i>
+                            <span class="text-xs font-medium">TikTok Feed</span>
+                        </a>
+                        <a href="https://instagram.com" target="_blank" class="flex items-center gap-3 p-3 rounded-xl bg-black/20 border border-white/5 hover:bg-white/5 transition-all">
+                            <i class="fa-brands fa-instagram text-rose-400 text-base"></i>
+                            <span class="text-xs font-medium">Instagram Node</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-panel p-5 space-y-3.5 shadow-md">
+                <h4 class="text-xs font-bold uppercase text-cyan-400 tracking-wider">Corporate Manifesto</h4>
+                <div id="about-us-container" class="space-y-3">
+                    <img id="about-us-img" src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=600" alt="Corporate" class="w-full h-36 object-cover rounded-2xl border border-white/5 shadow-inner">
+                    <p id="about-us-text" class="text-xs text-gray-400 leading-relaxed font-medium">
+                        Prime Horizon guarantees execution protocols powered by cryptographic account balances. Experience zero-friction asset production mechanisms designed explicitly for web ledger generation.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="screen-community-feedback" class="screen space-y-4">
+            <div class="flex items-center justify-between">
+                <button onclick="switchScreen('screen-dashboard')" class="text-xs text-gray-400 hover:text-white flex items-center gap-1.5 transition-all bg-white/5 px-3 py-1.5 rounded-xl border border-white/5 font-semibold"><i class="fa-solid fa-arrow-left-long"></i> Back</button>
+                <h2 class="text-xs font-extrabold text-teal-400 uppercase tracking-widest">Community Hub</h2>
+            </div>
+            
+            <div class="glass-panel p-4 space-y-3.5 shadow-md">
+                <h5 class="text-xs font-bold uppercase tracking-wider text-teal-400 px-0.5">Share Your Experience</h5>
+                <form id="public-feedback-form" onsubmit="handlePublicFeedbackSubmission(event)" class="space-y-2.5">
+                    <textarea id="pub-fb-text-input" placeholder="Type your transparent user review and platform feedback here..." rows="2" required class="w-full px-4 py-3 bg-black/40 border border-white/10 rounded-xl text-xs text-white focus:outline-none focus:border-teal-500 premium-input transition-all resize-none"></textarea>
+                    <button type="submit" class="w-full py-3 bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-500 hover:to-emerald-500 text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-lg">Post to Community Wall</button>
+                </form>
+            </div>
+
+            <div id="community-feedback-stream" class="space-y-3.5 max-h-[55vh] overflow-y-auto pb-4 pr-1">
+                <div class="text-xs text-gray-500 italic text-center py-4">Fetching verified ecosystem review frames...</div>
+            </div>
+        </section>
+
+        <section id="screen-invite-friends" class="screen space-y-4">
+            <div class="flex items-center justify-between">
+                <button onclick="switchScreen('screen-dashboard')" class="text-xs text-gray-400 hover:text-white flex items-center gap-1.5 transition-all bg-white/5 px-3 py-1.5 rounded-xl border border-white/5 font-semibold"><i class="fa-solid fa-arrow-left-long"></i> Back</button>
+                <h2 class="text-xs font-extrabold text-indigo-400 uppercase tracking-widest">Network Affiliates</h2>
+            </div>
+            
+            <div class="glass-panel p-4 bg-gradient-to-br from-indigo-950/20 to-slate-900/40 text-center space-y-3 shadow-md border border-indigo-500/10">
+                <span class="text-[10px] tracking-widest text-indigo-400 uppercase font-extrabold bg-indigo-500/10 px-3 py-1 rounded-xl border border-indigo-500/20">Invite & Earn System Rules</span>
+                <p class="text-xs text-gray-300 leading-relaxed font-medium px-1">Share your unique network signature code. 1 Verified referral (who successfully deposits fund) unlocks your permanent payout terminal channels. Additionally, whenever any friend registers or activates an asset stratum plan, customized network commission coins are added instantly to your network ledger map.</p>
+                
+                <div class="p-3.5 bg-black/40 rounded-xl flex items-center justify-between border border-white/5 mt-3 shadow-inner">
+                    <span id="display-invite-refcode" class="font-mono font-black text-base text-white tracking-wider select-all px-2">REFCODE</span>
+                    <button onclick="copyAffiliateLink()" class="px-4 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 rounded-xl text-xs font-bold text-white flex items-center gap-1.5 shadow-lg transition-all transform active:scale-95 uppercase tracking-wider"><i class="fa-solid fa-copy text-[11px]"></i> Copy Link</button>
+                </div>
+            </div>
+
+            <!-- Matrix Coins Display and Convert Option Sub-Module Block -->
+            <div class="glass-panel p-4 space-y-3.5 shadow-md bg-gradient-to-r from-amber-500/5 to-yellow-500/5 border border-amber-500/10">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <span class="text-[10px] uppercase font-bold text-amber-400 tracking-wider block">Network Affiliate Coins</span>
+                        <div class="text-2xl font-black text-white font-mono mt-1" id="matrix-coins-counter">0 <span class="text-xs text-gray-400 font-normal">Coins</span></div>
+                    </div>
+                    <div class="text-right">
+                        <span class="text-[9px] uppercase font-bold text-gray-500 block">Exchange Index</span>
+                        <span class="text-xs font-bold text-amber-400 font-mono" id="matrix-exchange-rate-text">50 Coins = Rs. 1</span>
+                    </div>
+                </div>
+                <button onclick="executeCoinsToRupeesConversion()" class="w-full py-2.5 bg-gradient-to-r from-amber-600 to-yellow-600 hover:from-amber-500 hover:to-yellow-500 text-white text-xs font-bold uppercase tracking-wider rounded-xl shadow-md transition-all transform active:scale-[0.98]">
+                    <i class="fa-solid fa-rotate mr-1"></i> Convert Coins to Rupees
+                </button>
+            </div>
+
+            <div class="glass-panel p-4 space-y-4 shadow-md">
+                <div class="flex justify-between items-center border-b border-white/5 pb-3">
+                    <h4 class="text-xs font-bold uppercase text-indigo-400 tracking-wider">My Registered Network Map</h4>
+                    <span id="invite-total-commission-counter" class="text-xs font-black text-emerald-400 font-mono">Commission: 0 Coins</span>
+                </div>
+                <div id="referred-users-network-stream" class="space-y-2.5 max-h-[250px] overflow-y-auto pr-1">
+                    <div class="text-xs text-gray-500 italic text-center py-4">No active connection pipelines registered yet.</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="screen-my-details" class="screen space-y-4">
+            <div class="flex items-center justify-between">
+                <button onclick="switchScreen('screen-dashboard')" class="text-xs text-gray-400 hover:text-white flex items-center gap-1.5 transition-all bg-white/5 px-3 py-1.5 rounded-xl border border-white/5 font-semibold"><i class="fa-solid fa-arrow-left-long"></i> Dashboard</button>
+                <h2 class="text-xs font-extrabold text-cyan-400 uppercase tracking-widest">Financial Matrix</h2>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3.5">
+                <div class="glass-panel p-4 col-span-2 bg-gradient-to-br from-cyan-950/20 to-slate-900/40 border-t-2 border-cyan-500 shadow-md">
+                    <span class="text-[10px] uppercase font-bold text-cyan-400 tracking-widest block">Available Principal Liquid Ledger</span>
+                    <div class="text-3xl font-black tracking-tight mt-1.5 text-white font-mono">Rs. <span id="meta-balance">0.00</span></div>
+                </div>
+                <div class="glass-panel p-4 shadow-md bg-black/20">
+                    <span class="text-[10px] uppercase font-bold text-gray-400 tracking-wider block">Locked Capital</span>
+                    <span class="text-base font-bold text-white block mt-1 font-mono">Rs. <span id="meta-total-invest">0.00</span></span>
+                </div>
+                <div class="glass-panel p-4 shadow-md bg-black/20">
+                    <span class="text-[10px] uppercase font-bold text-emerald-400 tracking-wider block">Accumulated Profit</span>
+                    <span class="text-base font-bold text-emerald-400 block mt-1 font-mono">Rs. <span id="meta-total-profit">0.00</span></span>
+                </div>
+                <div class="glass-panel p-4 shadow-md bg-black/20">
+                    <span class="text-[10px] uppercase font-bold text-amber-400 tracking-wider block">Total Injected</span>
+                    <span class="text-base font-bold text-white block mt-1 font-mono">Rs. <span id="meta-total-deposit">0.00</span></span>
+                </div>
+                <div class="glass-panel p-4 shadow-md bg-black/20">
+                    <span class="text-[10px] uppercase font-bold text-indigo-400 tracking-wider block">Processed Payouts</span>
+                    <span class="text-base font-bold text-white block mt-1 font-mono">Rs. <span id="meta-total-withdraw">0.00</span></span>
+                </div>
+            </div>
+
+            <div class="glass-panel p-4 space-y-4 shadow-md">
+                <div class="flex justify-between items-center border-b border-white/5 pb-3">
+                    <h4 class="text-xs font-bold uppercase text-emerald-400 tracking-wider">Active Strategic Allocations</h4>
+                    <button onclick="collectDailyYield()" class="px-4 py-2 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-[10px] font-extrabold uppercase rounded-xl text-white tracking-wider shadow-lg transition-all">Collect daily Yield</button>
+                </div>
+                <div id="active-plan-status-node" class="text-center py-2 text-xs text-gray-500 italic font-medium">
+                    No active assets processing operational yield matrix loops.
+                </div>
+            </div>
+            
+            <div class="glass-panel p-4 flex justify-between items-center shadow-md bg-black/20">
+                <span class="text-xs font-bold text-gray-300 uppercase tracking-wide">Total Verified Referrals</span>
+                <span id="meta-ref-count" class="px-3 py-1.5 bg-cyan-500/10 border border-cyan-500/20 rounded-xl text-xs font-mono font-bold text-cyan-400">0 Nodes</span>
+            </div>
+        </section>
+
+        <section id="screen-invest-plans" class="screen space-y-4">
+            <div class="flex items-center justify-between">
+                <button onclick="switchScreen('screen-dashboard')" class="text-xs text-gray-400 hover:text-white flex items-center gap-1.5 transition-all bg-white/5 px-3 py-1.5 rounded-xl border border-white/5 font-semibold"><i class="fa-solid fa-arrow-left-long"></i> Back</button>
+                <h2 class="text-xs font-extrabold text-emerald-400 uppercase tracking-widest">Yield Stratums</h2>
+            </div>
+            <div id="investment-plans-feed" class="space-y-4"></div>
+        </section>
+
+        <section id="screen-deposit" class="screen space-y-4">
+            <div class="flex items-center justify-between">
+                <button onclick="switchScreen('screen-dashboard')" class="text-xs text-gray-400 hover:text-white flex items-center gap-1.5 transition-all bg-white/5 px-3 py-1.5 rounded-xl border border-white/5 font-semibold"><i class="fa-solid fa-arrow-left-long"></i> Cancel</button>
+                <h2 class="text-xs font-extrabold text-amber-500 uppercase tracking-widest">Inbound Ledger</h2>
+            </div>
+
+            <form id="deposit-request-form" onsubmit="handleDepositSubmission(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 px-1">Settlement Pipeline Network</label>
+                    <select id="deposit-channel" onchange="updateDepositGatewayDetails(this.value)" class="w-full px-4 py-3.5 bg-black/40 border border-white/10 rounded-xl text-xs focus:outline-none focus:border-amber-500 text-white premium-input font-semibold">
+                        <option value="JazzCash">JazzCash Network Node</option>
+                        <option value="EasyPaisa">EasyPaisa Hub Node</option>
+                        <option value="CustomBank">Corporate Bank Transfer Matrix</option>
+                    </select>
+                </div>
+
+                <div class="glass-panel p-4 bg-amber-500/5 border border-amber-500/20 rounded-2xl space-y-1.5 shadow-inner">
+                    <span class="text-[9px] font-black text-amber-400 uppercase tracking-widest">Destination Cache Registry</span>
+                    <div class="text-sm font-extrabold text-white" id="dep-gate-title">Muhammad Naeem</div>
+                    <div class="text-base font-mono font-black tracking-wider text-amber-300 neon-text-cyan" id="dep-gate-account">03257436319</div>
+                </div>
+
+                <div class="glass-panel p-4 border-l-4 border-amber-500 text-right bg-black/40 shadow-md">
+                    <p class="text-xs text-amber-200 font-semibold leading-relaxed" dir="rtl">
+                        برائے مہربانی اوپر دیے گئے نمبر پر مطلوبہ رقم منتقل کریں۔ ٹرانزیکشن مکمل ہونے کے بعد اصل رسید کا اسکرین شاٹ اور ریفرنس آئی ڈی (TRX ID) درج کریں۔ غلط معلومات فراہم کرنے پر اکاؤنٹ معطل کیا جا سکتا ہے۔
+                    </p>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 px-1">Amount to Inject (PKR)</label>
+                    <input type="number" id="deposit-amount" required min="1" class="w-full px-4 py-3.5 bg-black/40 border border-white/10 rounded-xl text-xs focus:outline-none focus:border-amber-500 text-white premium-input font-mono" placeholder="Rs. 0000">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 px-1">Network Reference Tracking ID (TRX ID)</label>
+                    <input type="text" id="deposit-trxid" required class="w-full px-4 py-3.5 bg-black/40 border border-white/10 rounded-xl text-xs font-mono focus:outline-none focus:border-amber-500 text-white premium-input" placeholder="TXN87364812">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 px-1">Transaction Receipt Screenshot</label>
+                    <div class="flex items-center justify-between p-3.5 bg-black/30 border border-white/5 rounded-xl shadow-inner">
+                        <input type="file" id="deposit-proof-file" accept="image/*" required onchange="uploadDepositProofToCloudinary(event)" class="text-xs text-gray-400 file:mr-3 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-[10px] file:font-bold file:bg-white/10 file:text-white hover:file:bg-white/20 transition-all">
+                        <i id="deposit-proof-spinner" class="fa-solid fa-circle-notch fa-spin text-amber-400 hidden"></i>
+                        <i id="deposit-proof-success" class="fa-solid fa-circle-check text-emerald-400 hidden text-base animate-bounce"></i>
+                    </div>
+                    <input type="hidden" id="deposit-proof-url">
+                </div>
+
+                <button type="submit" id="deposit-submit-btn" disabled class="w-full py-4 bg-slate-800 text-gray-500 rounded-xl font-bold text-xs uppercase tracking-wider cursor-not-allowed transition-all shadow-lg">
+                    Transmit Verification Ticket
+                </button>
+            </form>
+        </section>
+
+        <section id="screen-withdraw" class="screen space-y-4">
+            <div class="flex items-center justify-between">
+                <button onclick="switchScreen('screen-dashboard')" class="text-xs text-gray-400 hover:text-white flex items-center gap-1.5 transition-all bg-white/5 px-3 py-1.5 rounded-xl border border-white/5 font-semibold"><i class="fa-solid fa-arrow-left-long"></i> Abort</button>
+                <h2 class="text-xs font-extrabold text-indigo-400 uppercase tracking-widest">Outbound Terminal</h2>
+            </div>
+
+            <div class="glass-panel p-4 space-y-3 shadow-md">
+                <div class="flex justify-between items-center border-b border-white/5 pb-2.5">
+                    <span class="text-[10px] font-bold uppercase text-indigo-400 tracking-wider">Locked Destination Endpoint</span>
+                    <button onclick="triggerWithdrawalNodeDispute()" class="text-[10px] text-rose-400 hover:text-rose-300 font-bold uppercase transition-all"><i class="fa-solid fa-triangle-exclamation"></i> Dispute Endpoint</button>
+                </div>
+                <div id="withdraw-node-registry-view" class="text-xs space-y-1"></div>
+            </div>
+
+            <form id="withdraw-processing-form" onsubmit="handleWithdrawalExecution(event)" class="space-y-4">
+                <div id="withdraw-lockout-alert" class="glass-panel p-4 bg-rose-500/5 border border-rose-500/20 text-rose-300 text-xs text-center font-semibold leading-relaxed rounded-2xl shadow-inner hidden"></div>
+
+                <div>
+                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 px-1">Settlement Request Volume (PKR)</label>
+                    <input type="number" id="withdraw-volume" required class="w-full px-4 py-3.5 bg-black/40 border border-white/10 rounded-xl text-xs focus:outline-none focus:border-indigo-500 text-white premium-input font-mono" placeholder="Rs. Minimum limit enforced">
+                </div>
+
+                <button type="submit" id="withdraw-submit-btn" class="w-full py-4 bg-gradient-to-r from-indigo-600 via-blue-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 rounded-xl font-bold text-xs uppercase tracking-wider text-white shadow-lg shadow-indigo-950/50 transition-all">
+                    Transmit Capital Outbound Request
+                </button>
+            </form>
+        </section>
+
+        <section id="screen-history" class="screen space-y-4">
+            <div class="flex items-center justify-between">
+                <button onclick="switchScreen('screen-dashboard')" class="text-xs text-gray-400 hover:text-white flex items-center gap-1.5 transition-all bg-white/5 px-3 py-1.5 rounded-xl border border-white/5 font-semibold"><i class="fa-solid fa-arrow-left-long"></i> Return</button>
+                <h2 class="text-xs font-extrabold text-purple-400 uppercase tracking-widest">Audit Trails</h2>
+            </div>
+            
+            <div class="flex bg-black/40 p-1 rounded-xl overflow-x-auto gap-1 text-[9px] font-extrabold uppercase tracking-wider border border-white/5 shadow-inner">
+                <button onclick="filterAuditStream('all')" class="px-3.5 py-2 rounded-lg bg-white/10 text-white whitespace-nowrap">All Logs</button>
+                <button onclick="filterAuditStream('invest')" class="px-3.5 py-2 rounded-lg text-gray-400 whitespace-nowrap">Invests</button>
+                <button onclick="filterAuditStream('deposit')" class="px-3.5 py-2 rounded-lg text-gray-400 whitespace-nowrap">Deposits</button>
+                <button onclick="filterAuditStream('withdraw')" class="px-3.5 py-2 rounded-lg text-gray-400 whitespace-nowrap">Withdrawals</button>
+                <button onclick="filterAuditStream('yield')" class="px-3.5 py-2 rounded-lg text-gray-400 whitespace-nowrap">Yields</button>
+            </div>
+
+            <div id="audit-logs-terminal-stream" class="space-y-3 max-h-[500px] overflow-y-auto pr-1"></div>
+        </section>
+        
+    </main>
+
+    <!-- Request Password Recovery Operations Screen Modal Interface -->
+    <div id="password-recovery-modal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 hidden">
+        <div class="glass-panel p-6 w-full max-w-sm space-y-4 border border-rose-500/20 text-white">
+            <div class="flex justify-between items-center border-b border-white/10 pb-3">
+                <h3 class="text-xs font-extrabold uppercase tracking-widest text-rose-400 flex items-center gap-2">
+                    <i class="fa-solid fa-key"></i> System Password Recovery
+                </h3>
+                <button type="button" onclick="closePasswordRecoveryModal()" class="text-gray-400 hover:text-white bg-white/5 w-8 h-8 rounded-xl flex items-center justify-center border border-white/5"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="password-recovery-form" onsubmit="handlePasswordRecoverySubmission(event)" class="space-y-4 text-xs">
+                <div>
+                    <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">Registered Gmail</label>
+                    <input type="email" id="recovery-email" required class="w-full p-3 bg-black/40 border border-white/10 rounded-xl text-white focus:outline-none focus:border-rose-500 premium-input" placeholder="name@domain.com">
+                </div>
+                <div>
+                    <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">Registered Mobile Phone Number</label>
+                    <input type="tel" id="recovery-phone" required class="w-full p-3 bg-black/40 border border-white/10 rounded-xl text-white focus:outline-none focus:border-rose-500 premium-input font-mono" placeholder="03XXXXXXXXX">
+                </div>
+
+                <!-- 30 Seconds Loading Pipeline Box UI -->
+                <div id="recovery-loading-pipeline" class="hidden p-4 bg-black/60 border border-cyan-500/20 rounded-xl text-center space-y-2">
+                    <i class="fa-solid fa-circle-notch fa-spin text-cyan-400 text-lg"></i>
+                    <p class="text-[11px] text-cyan-300 font-mono tracking-wide font-medium">Validating Server Credentials Mapping... <span id="recovery-timer-display">30</span>s</p>
+                </div>
+
+                <button type="submit" id="recovery-submit-btn" class="w-full py-3.5 bg-gradient-to-r from-rose-600 to-red-600 hover:from-rose-500 hover:to-red-500 text-white font-bold rounded-xl uppercase tracking-wider shadow-lg transition-all">
+                    Transmit Recovery Request
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div id="profile-details-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 hidden" onclick="closeProfileModal()">
+        <div class="glass-panel p-6 w-full max-w-sm space-y-4 border border-cyan-500/20 text-white" onclick="event.stopPropagation()">
+            <div class="flex justify-between items-center border-b border-white/10 pb-3">
+                <h3 class="text-xs font-extrabold uppercase tracking-widest text-cyan-400 flex items-center gap-2"><i class="fa-solid fa-address-card"></i> Profile ID Registry</h3>
+                <button onclick="closeProfileModal()" class="text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 w-8 h-8 rounded-xl flex items-center justify-center transition-all border border-white/5"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="space-y-3.5 text-xs">
+                <div class="flex justify-between border-b border-white/5 pb-2.5 font-medium"><span class="text-gray-400">Username:</span> <span id="prof-modal-user" class="font-bold text-white"></span></div>
+                <div class="flex justify-between border-b border-white/5 pb-2.5 font-medium"><span class="text-gray-400">Email Address:</span> <span id="prof-modal-email" class="font-bold text-white truncate max-w-[180px]"></span></div>
+                <div class="flex justify-between border-b border-white/5 pb-2.5 font-medium"><span class="text-gray-400">Reg. Number:</span> <span id="prof-modal-phone" class="font-bold font-mono text-emerald-400"></span></div>
+                <div class="flex justify-between border-b border-white/5 pb-2.5 font-medium"><span class="text-gray-400">Active Node Device:</span> <span id="prof-modal-device" class="font-bold text-cyan-400 font-mono text-[11px]"></span></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="global-announcement-popup" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+        <div class="w-full max-w-sm glass-panel p-5 text-center space-y-4 border border-cyan-500/20 shadow-2xl">
+            <div class="flex justify-between items-center border-b border-white/5 pb-2.5">
+                <span class="text-[10px] font-black tracking-widest text-cyan-400 uppercase flex items-center gap-1.5"><i class="fa-solid fa-bullhorn"></i> Announcement Broadcast</span>
+                <span id="announcement-timer-countdown" class="text-[9px] font-bold text-amber-400 bg-amber-500/10 border border-amber-500/20 px-2.5 py-0.5 rounded-lg">Wait 15s</span>
+            </div>
+            <h3 id="popup-ann-title" class="text-sm font-extrabold text-white tracking-wide">Ecosystem Directive</h3>
+            <div class="w-full h-36 bg-black/40 rounded-2xl overflow-hidden hidden shadow-inner border border-white/5" id="popup-ann-img-wrapper">
+                <img id="popup-ann-img" src="" class="w-full h-full object-cover">
+            </div>
+            <p id="popup-ann-desc" class="text-xs text-gray-400 leading-relaxed text-left font-medium px-0.5">Loading data stream frame...</p>
+            <button id="popup-ann-close-btn" disabled onclick="closeAnnouncementPopup()" class="w-full py-3 bg-slate-800 text-gray-500 rounded-xl font-bold text-xs uppercase tracking-wider cursor-not-allowed transition-all shadow-lg">Please Acknowledge Directive...</button>
+        </div>
+    </div>
+
+    <footer id="main-footer" class="w-full max-w-md mx-auto px-4 pb-4 z-40">
+        <div class="glass-panel p-3.5 flex justify-between items-center gap-2 border border-white/10 shadow-lg">
+            <div class="text-left pl-1">
+                <span class="block text-[9px] uppercase font-black tracking-widest text-cyan-400 neon-text-cyan">Ecosystem Guard Active</span>
+                <span class="text-xs font-bold text-white tracking-wide">Central Operations Node</span>
+            </div>
+            <button onclick="openCustomerCareTerminal()" class="px-4 py-2.5 bg-gradient-to-r from-cyan-600 via-blue-600 to-indigo-600 hover:from-cyan-500 hover:to-indigo-500 rounded-xl text-xs font-bold shadow-md flex items-center gap-1.5 text-white tracking-wider uppercase transition-all transform active:scale-95 border border-cyan-400/20">
+                <i class="fa-solid fa-headset text-xs"></i> Support Desk
+            </button>
+        </div>
+    </footer>
+
+    <div id="customer-care-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+        <div class="w-full max-w-md glass-panel flex flex-col h-[85vh] overflow-hidden border border-cyan-500/20 shadow-2xl">
+            <div class="p-4 border-b border-white/10 flex justify-between items-center bg-black/40">
+                <div class="flex items-center gap-3">
+                    <div class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse shadow-lg shadow-emerald-500"></div>
+                    <div>
+                        <h3 class="text-xs font-extrabold text-white uppercase tracking-wider">Live Workspace Tunnel</h3>
+                        <p class="text-[9px] text-gray-400 font-mono tracking-wide">Encrypted Diagnostic Vector</p>
+                    </div>
+                </div>
+                <button onclick="closeCustomerCareTerminal()" class="w-8 h-8 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 flex items-center justify-center text-gray-400 hover:text-white transition-all"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <div class="flex bg-black/20 p-1 border-b border-white/5 text-[10px] font-extrabold uppercase tracking-wider shadow-inner">
+                <button id="support-tab-chat" onclick="toggleSupportSubModule('chat')" class="w-1/2 py-2.5 rounded-xl bg-white/5 text-cyan-400 tracking-wider">Live Workspace</button>
+                <button id="support-tab-complaint" onclick="toggleSupportSubModule('complaint')" class="w-1/2 py-2.5 rounded-xl text-gray-400 tracking-wider">Formal Ticket</button>
+            </div>
+
+            <div class="flex-grow p-4 overflow-y-auto space-y-4" id="support-viewport-chat">
+                <div class="text-center text-[10px] text-gray-500 italic py-8 font-medium">Initializing diagnostic pipeline synchronization tokens...</div>
+            </div>
+
+            <div class="flex-grow p-4 overflow-y-auto hidden" id="support-viewport-complaint">
+                <form id="formal-ticket-form" onsubmit="handleTicketSubmission(event)" class="space-y-4 text-left">
+                    <div>
+                        <label class="block text-[10px] uppercase font-bold text-gray-400 tracking-wider mb-2 px-0.5">Issue Classification Matrix</label>
+                        <select id="ticket-category" class="w-full px-3.5 py-3 bg-black/40 border border-white/10 rounded-xl text-xs text-white focus:outline-none premium-input font-semibold">
+                            <option value="Withdrawal Issue">Withdrawal Settlement Endpoint Delay</option>
+                            <option value="Deposit Issue">Inbound Deposit Ledger Exception</option>
+                            <option value="Invite Friend Issue">Affiliate Referral Registration Loop Desync</option>
+                            <option value="Other Issue">General Account Configuration Anomaly</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] uppercase font-bold text-gray-400 tracking-wider mb-2 px-0.5">Detailed System Description</label>
+                        <textarea id="ticket-desc" required rows="3" class="w-full px-3.5 py-3 bg-black/40 border border-white/10 rounded-xl text-xs text-white focus:outline-none premium-input resize-none" placeholder="Provide raw error codes or parameters..."></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] uppercase font-bold text-gray-400 tracking-wider mb-2 px-0.5">Diagnostic Screenshot Proof</label>
+                        <div class="flex items-center justify-between p-3 bg-black/30 border border-white/5 rounded-xl text-xs shadow-inner">
+                            <input type="file" id="ticket-proof-file" accept="image/*" onchange="uploadTicketProofToCloudinary(event)" class="file:bg-white/10 file:text-white file:border-0 file:text-[9px] file:py-1 file:px-2.5 file:rounded-lg file:mr-2 file:font-bold">
+                            <i id="ticket-proof-spinner" class="fa-solid fa-circle-notch fa-spin text-cyan-400 hidden"></i>
+                        </div>
+                        <input type="hidden" id="ticket-proof-url">
+                    </div>
+                    <button type="submit" id="ticket-submit-btn" class="w-full py-3.5 bg-gradient-to-r from-cyan-600 to-blue-600 text-white font-bold text-xs uppercase tracking-wider rounded-xl shadow-lg transition-all">Log Official Infrastructure Record</button>
+                </form>
+                
+                <div class="mt-5 border-t border-white/5 pt-4">
+                    <h4 class="text-[10px] uppercase font-bold text-gray-400 tracking-wider mb-3 px-0.5">Resolution Architecture History</h4>
+                    <div id="ticket-resolution-feed" class="space-y-3"></div>
+                </div>
+            </div>
+
+            <div class="p-3.5 border-t border-white/10 bg-black/40 flex items-center gap-2.5 shadow-inner" id="chat-input-dock">
+                <button onclick="document.getElementById('chat-file-input').click()" class="w-11 h-11 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 text-gray-400 hover:text-white flex items-center justify-center text-sm transition-all relative">
+                    <i class="fa-solid fa-paperclip"></i>
+                    <input type="file" id="chat-file-input" accept="image/*" class="hidden" onchange="uploadChatAttachmentToCloudinary(event)">
+                    <div id="chat-file-spinner" class="absolute inset-0 bg-black/80 rounded-xl flex items-center justify-center hidden"><i class="fa-solid fa-circle-notch fa-spin text-xs text-cyan-400"></i></div>
+                </button>
+                <input type="text" id="chat-message-input" class="flex-grow h-11 px-4 bg-black/50 border border-white/10 rounded-xl text-xs text-white focus:outline-none focus:border-cyan-500 premium-input" placeholder="Transmit raw message terminal framework...">
+                <button onclick="transmitLiveChatMessage()" class="w-11 h-11 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 flex items-center justify-center text-sm text-white shadow-lg transition-all"><i class="fa-solid fa-paper-plane text-xs"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <div id="context-menu-modal" class="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-start justify-end p-4 hidden" onclick="closeContextMenu()">
+        <div class="glass-panel p-2.5 mt-14 w-52 shadow-2xl space-y-1.5 bg-slate-950/90 border border-white/10" onclick="event.stopPropagation()">
+            <div class="px-3 py-2 border-b border-white/5">
+                <span class="block text-[9px] text-gray-500 uppercase tracking-widest font-black">Active Identity Node</span>
+                <span id="context-device-name" class="block text-xs font-mono font-bold text-cyan-400 truncate mt-0.5">Device Checking...</span>
+            </div>
+            <button onclick="terminateSession()" class="w-full text-left px-3 py-2.5 text-xs font-bold text-rose-400 hover:bg-rose-500/10 rounded-xl flex items-center gap-2.5 transition-all uppercase tracking-wider">
+                <i class="fa-solid fa-power-off text-sm"></i> Terminate Session
+            </button>
+        </div>
+    </div>
+
+    <div id="global-toast-container" class="fixed top-16 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-xs space-y-2 pointer-events-none"></div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+    <script>
+        // ================= CONFIGURATION & GLOBAL ECOSYSTEM STATES =================
+        const firebaseConfig = {
+            apiKey: "AIzaSyA-6ZngcQRagHV3MEtTUoYoyfZgT8OqaF4",
+            databaseURL: "https://nazim-8c4cf-default-rtdb.firebaseio.com",
+            projectId: "nazim-8c4cf",
+            storageBucket: "nazim-8c4cf.firebasestorage.app"
+        };
+        
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+
+        const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/dhib5t6me/image/upload";
+        const CLOUDINARY_PRESET = "Naeeem";
+
+        let sessionUser = null;
+        let globalSystemPlans = {};
+        let activeAuditFilter = 'all';
+        let maintenanceCountdownInterval = null;
+        
+        // Counter variables for recovery tracking configuration logs
+        let wrongAttemptCounter = 0;
+        let adminCoinsValueExchangeRate = 50; 
+
+        // ================= SYSTEM INITIALIZATION ROUTINES =================
+        window.addEventListener('DOMContentLoaded', () => {
+            initClockTrackingEngine();
+            detectAndRegisterDeviceSignature();
+            streamGlobalMetaParameters();
+            evaluateLocalCacheSession();
+            streamMaintenanceTrackerModule();
+            streamPopupAnnouncementsPipeline();
+            initTotalUsersCounter();
+            listenToGlobalAdminCoinsConfiguration();
+            
+            const urlParams = new URLSearchParams(window.location.search);
+            const refParam = urlParams.get('ref');
+            if(refParam) {
+                const refInput = document.getElementById('signup-ref');
+                if(refInput) refInput.value = refParam.toUpperCase();
+            }
+        });
+
+        function initClockTrackingEngine() {
+            const timeNode = document.getElementById('header-time');
+            const dateNode = document.getElementById('header-date');
+            
+            setInterval(() => {
+                const now = new Date();
+                timeNode.innerText = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', second:'2-digit'});
+                dateNode.innerText = now.toLocaleDateString([], {weekday: 'short', month: 'short', day: 'numeric', year: 'numeric'});
+            }, 1000);
+        }
+
+        // Modified and Reinforced to enforce strictly one account per unique device node block
+        function detectAndRegisterDeviceSignature() {
+            let signature = localStorage.getItem('ph_device_signature');
+            if(!signature) {
+                signature = 'PH-NODE-' + Math.random().toString(36).substring(2, 11).toUpperCase();
+                localStorage.setItem('ph_device_signature', signature);
+            }
+            window.deviceSignature = signature;
+            
+            document.getElementById('context-device-name').innerText = signature;
+            document.getElementById('device-display-name').innerText = signature;
+
+            // Strict Validation Constraint check for existing account linked to this device block setup
+            db.ref('users').once('value', snapshot => {
+                if(snapshot.exists()) {
+                    let connectedAccountFound = null;
+                    let activeCachedSession = localStorage.getItem('ph_session_phone');
+                    
+                    snapshot.forEach(child => {
+                        let val = child.val();
+                        if(val.registeredDevice === signature) {
+                            connectedAccountFound = child.key;
+                        }
+                    });
+
+                    if(connectedAccountFound && activeCachedSession !== connectedAccountFound) {
+                        // Forcibly lock device routing stack to the primary initial account registered here
+                        localStorage.setItem('ph_session_phone', connectedAccountFound);
+                        evaluateLocalCacheSession();
+                    }
+                }
+            });
+        }
+
+        function triggerSystemToast(message, type = 'info') {
+            const container = document.getElementById('global-toast-container');
+            const toast = document.createElement('div');
+            toast.className = `glass-card p-4 rounded-2xl shadow-2xl flex items-center gap-3.5 transition-all duration-300 transform scale-95 opacity-0 border-l-4 pointer-events-auto bg-slate-900/90 ${
+                type === 'success' ? 'border-emerald-500 text-emerald-200 shadow-emerald-950/20' :
+                type === 'error' ? 'border-rose-500 text-rose-200 shadow-rose-950/20' : 'border-cyan-500 text-cyan-200 shadow-cyan-950/20'
+            }`;
+            
+            const icon = type === 'success' ? 'fa-circle-check' : type === 'error' ? 'fa-circle-exclamation' : 'fa-circle-info';
+            toast.innerHTML = `<i class="fa-solid ${icon} text-base flex-shrink-0 text-cyan-400"></i><span class="text-xs font-bold leading-relaxed">${message}</span>`;
+            
+            container.appendChild(toast);
+            setTimeout(() => { toast.classList.remove('scale-95', 'opacity-0'); }, 50);
+            
+            setTimeout(() => {
+                toast.classList.add('scale-95', 'opacity-0');
+                setTimeout(() => toast.remove(), 400);
+            }, 4000);
+        }
+
+        function switchScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            const target = document.getElementById(screenId);
+            if(target) {
+                target.classList.add('active');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        function initTotalUsersCounter() {
+            db.ref('users').on('value', snapshot => {
+                if(snapshot.exists()) {
+                    const count = snapshot.numChildren();
+                    document.getElementById('total-users-count').innerText = count;
+                } else {
+                    document.getElementById('total-users-count').innerText = "0";
+                }
+            });
+        }
+
+        function openProfileModal() {
+            if(!sessionUser) return;
+            document.getElementById('prof-modal-user').innerText = sessionUser.username || 'N/A';
+            document.getElementById('prof-modal-email').innerText = sessionUser.email || 'N/A';
+            document.getElementById('prof-modal-phone').innerText = localStorage.getItem('ph_session_phone') || 'N/A';
+            document.getElementById('prof-modal-device').innerText = sessionUser.registeredDevice || window.deviceSignature || 'Unknown Node';
+            document.getElementById('profile-details-modal').classList.remove('hidden');
+        }
+        function closeProfileModal() {
+            document.getElementById('profile-details-modal').classList.add('hidden');
+        }
+
+        async function handleDpUpdate(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const dashAvatar = document.getElementById('dash-user-avatar');
+            const oldSrc = dashAvatar.src;
+            
+            dashAvatar.style.opacity = "0.4";
+            triggerSystemToast("Uploading image frame to secure cloud network matrix...", "info");
+
+            const formData = new FormData();
+            formData.append("file", file);
+            formData.append("upload_preset", CLOUDINARY_PRESET);
+
+            try {
+                const response = await fetch(CLOUDINARY_URL, { method: "POST", body: formData });
+                if(!response.ok) throw new Error("Cloud matrix pipeline error.");
+                
+                const data = await response.json();
+                
+                if (data.secure_url) {
+                    const cachedPhone = localStorage.getItem('ph_session_phone');
+                    await db.ref(`users/${cachedPhone}`).update({
+                        avatarUrl: data.secure_url
+                    });
+
+                    dashAvatar.src = data.secure_url;
+                    triggerSystemToast("Profile picture secure matrix link synced!", "success");
+                }
+            } catch (error) {
+                console.error("Upload signature crash:", error);
+                dashAvatar.src = oldSrc;
+                triggerSystemToast("Media distribution node upload failure.", "error");
+            } finally {
+                dashAvatar.style.opacity = "1";
+            }
+        }
+
+        function streamMaintenanceTrackerModule() {
+            db.ref('admin_settings/maintenance').on('value', snap => {
+                if(snap.exists() && snap.val().active === true) {
+                    const data = snap.val();
+                    document.getElementById('maintenance-note').innerText = data.note || "Platform structural optimizations active.";
+                    document.getElementById('maintenance-timestamp-footer').innerText = `System Lock Latency Epoch: ${data.timestamp || new Date().toLocaleTimeString()}`;
+                    
+                    document.getElementById('top-security-alert').classList.add('hidden');
+                    document.getElementById('main-header').classList.add('hidden');
+                    document.getElementById('main-footer').classList.add('hidden');
+                    
+                    switchScreen('screen-maintenance');
+
+                    if(maintenanceCountdownInterval) clearInterval(maintenanceCountdownInterval);
+                    if(data.targetTimestamp) {
+                        const targetTime = parseInt(data.targetTimestamp);
+                        maintenanceCountdownInterval = setInterval(() => {
+                            const now = Date.now();
+                            const diff = targetTime - now;
+                            if(diff <= 0) {
+                                document.getElementById('maintenance-countdown').innerText = "00h 00m 00s";
+                                clearInterval(maintenanceCountdownInterval);
+                            } else {
+                                const hours = Math.floor(diff / (1000 * 60 * 60));
+                                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+                                document.getElementById('maintenance-countdown').innerText = 
+                                    `${hours.toString().padStart(2, '0')}h ${minutes.toString().padStart(2, '0')}m ${seconds.toString().padStart(2, '0')}s`;
+                            }
+                        }, 1000);
+                    } else {
+                        document.getElementById('maintenance-countdown').innerText = "Processing...";
+                    }
+                } else {
+                    document.getElementById('top-security-alert').classList.remove('hidden');
+                    document.getElementById('main-header').classList.remove('hidden');
+                    document.getElementById('main-footer').classList.remove('hidden');
+                    if(maintenanceCountdownInterval) clearInterval(maintenanceCountdownInterval);
+                    if(sessionUser && sessionUser.verificationStatus !== 'suspended') {
+                        switchScreen('screen-dashboard');
+                    }
+                }
+            });
+        }
+
+        function listenToGlobalAdminCoinsConfiguration() {
+            db.ref('admin_settings/coins_per_rupee').on('value', snap => {
+                if(snap.exists()) {
+                    adminCoinsValueExchangeRate = parseInt(snap.val());
+                } else {
+                    adminCoinsValueExchangeRate = 50; 
+                }
+                const rateText = document.getElementById('matrix-exchange-rate-text');
+                if(rateText) rateText.innerText = `${adminCoinsValueExchangeRate} Coins = Rs. 1`;
+            });
+        }
+
+        function openPasswordRecoveryModal() {
+            document.getElementById('password-recovery-modal').classList.remove('hidden');
+        }
+
+        function closePasswordRecoveryModal() {
+            document.getElementById('password-recovery-modal').classList.add('hidden');
+            document.getElementById('password-recovery-form').reset();
+            document.getElementById('recovery-loading-pipeline').classList.add('hidden');
+        }
+
+        function handlePasswordRecoverySubmission(e) {
+            e.preventDefault();
+            const email = document.getElementById('recovery-email').value.trim();
+            const phone = document.getElementById('recovery-phone').value.trim();
+            
+            const loadingBox = document.getElementById('recovery-loading-pipeline');
+            const submitBtn = document.getElementById('recovery-submit-btn');
+            const timerDisplay = document.getElementById('recovery-timer-display');
+            
+            submitBtn.disabled = true;
+            loadingBox.classList.remove('hidden');
+            
+            let secondsLeft = 30;
+            timerDisplay.innerText = secondsLeft;
+            
+            const countdown = setInterval(() => {
+                secondsLeft--;
+                timerDisplay.innerText = secondsLeft;
+                if(secondsLeft <= 0) {
+                    clearInterval(countdown);
+                    
+                    // Core lookup verification block execution
+                    db.ref('users/' + phone).once('value', snap => {
+                        if(snap.exists() && snap.val().email === email) {
+                            const record = snap.val();
+                            const queueId = 'REC-' + Date.now();
+                            
+                            // Push request metadata onto admin interface pipeline queue node
+                            db.ref(`admin_queues/password_requests/${queueId}`).set({
+                                id: queueId,
+                                email: email,
+                                phone: phone,
+                                username: record.username,
+                                foundPassword: record.password,
+                                timestamp: Date.now(),
+                                status: 'pending'
+                            }, err => {
+                                if(!err) {
+                                    triggerSystemToast("Request processed. Password dispatched via WhatsApp, Email, and Admin Panel Channels.", "success");
+                                    closePasswordRecoveryModal();
+                                }
+                            });
+                        } else {
+                            triggerSystemToast("System Verification Failed: Information matching index error.", "error");
+                            submitBtn.disabled = false;
+                            loadingBox.classList.add('hidden');
+                        }
+                    });
+                }
+            }, 1000);
+        }
+
+        function executeCoinsToRupeesConversion() {
+            if(!sessionUser) return;
+            let currentCoins = parseInt(sessionUser.coinsCommission || 0);
+            
+            if(currentCoins < adminCoinsValueExchangeRate) {
+                triggerSystemToast(`Insufficient volume. Minimum required amount is ${adminCoinsValueExchangeRate} Coins.`, "error");
+                return;
+            }
+
+            let conversionRupeesGained = parseFloat((currentCoins / adminCoinsValueExchangeRate).toFixed(2));
+            const cachedPhone = localStorage.getItem('ph_session_phone');
+            
+            db.ref('users/' + cachedPhone).transaction(current => {
+                if(current) {
+                    current.coinsCommission = 0; // Clear all converted matrix coin stores
+                    current.balance = Number(current.balance || 0) + conversionRupeesGained;
+                    
+                    if(!current.logs) current.logs = {};
+                    const logId = 'LOG-CONV-' + Date.now();
+                    current.logs[logId] = {
+                        id: logId,
+                        type: 'yield',
+                        title: `Converted ${currentCoins} Affiliate Coins to Balance`,
+                        amount: conversionRupeesGained,
+                        timestamp: Date.now(),
+                        status: 'Success'
+                    };
+                }
+                return current;
+            }, (err, committed) => {
+                if(committed) {
+                    triggerSystemToast(`Successfully exchanged coins. Added Rs. ${conversionRupeesGained} into core balance wallet.`, "success");
+                }
+            });
+        }
+
+        function toggleAuthTabs(target) {
+            const loginTab = document.getElementById('tab-login-btn');
+            const signupTab = document.getElementById('tab-signup-btn');
+            const loginForm = document.getElementById('login-form');
+            const signupForm = document.getElementById('signup-form');
+
+            if(target === 'login') {
+                loginTab.className = "w-1/2 py-3 text-xs font-bold uppercase tracking-wider rounded-xl bg-white/10 text-white transition-all";
+                signupTab.className = "w-1/2 py-3 text-xs font-bold uppercase tracking-wider rounded-xl text-gray-400 transition-all";
+                loginForm.classList.remove('hidden');
+                signupForm.classList.add('hidden');
+            } else {
+                signupTab.className = "w-1/2 py-3 text-xs font-bold uppercase tracking-wider rounded-xl bg-white/10 text-white transition-all";
+                loginTab.className = "w-1/2 py-3 text-xs font-bold uppercase tracking-wider rounded-xl text-gray-400 transition-all";
+                signupForm.classList.remove('hidden');
+                loginForm.classList.add('hidden');
+            }
+        }
+
+        function checkUsernameAvailability(user) {
+            const feedback = document.getElementById('username-feedback');
+            const submitBtn = document.getElementById('signup-submit-btn');
+            const sanitized = user.trim().toLowerCase().replace(/[^a-z0-9]/g, '');
+            
+            if(sanitized.length < 3) {
+                feedback.className = "text-[11px] mt-1.5 text-amber-400 font-semibold";
+                feedback.innerHTML = `<i class="fa-solid fa-triangle-exclamation mr-1"></i>Too short unique node framing identifier.`;
+                feedback.classList.remove('hidden');
+                submitBtn.disabled = true;
+                return;
+            }
+
+            db.ref('users').orderByChild('username').equalTo(sanitized).once('value', snapshot => {
+                if(snapshot.exists()) {
+                    feedback.className = "text-[11px] mt-1.5 text-rose-400 font-semibold";
+                    feedback.innerHTML = `<i class="fa-solid fa-circle-xmark mr-1"></i>Unavailable identifier. Suggestion: ${sanitized + Math.floor(100+Math.random()*900)}`;
+                    feedback.classList.remove('hidden');
+                    submitBtn.disabled = true;
+                } else {
+                    feedback.className = "text-[11px] mt-1.5 text-emerald-400 font-semibold";
+                    feedback.innerHTML = `<i class="fa-solid fa-circle-check mr-1"></i>System Registry Identifier Available.`;
+                    feedback.classList.remove('hidden');
+                    validateFormState();
+                }
+            });
+        }
+
+        function validateRealEmail(email) {
+            const feedback = document.getElementById('email-feedback');
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const isFake = email.includes('mailinator') || email.includes('yopmail') || email.includes('tempmail');
+            
+            if(!re.test(email) || isFake) {
+                feedback.classList.remove('hidden');
+            } else {
+                feedback.classList.add('hidden');
+                validateFormState();
+            }
+        }
+
+        function evaluatePasswordStrength(pass) {
+            const feedback = document.getElementById('pass-feedback');
+            const points = pass.length >= 8 && /[A-Z]/.test(pass) && /[0-9]/.test(pass);
+            
+            if(!points) {
+                feedback.className = "text-[11px] mt-1.5 text-rose-400 font-bold";
+                feedback.innerHTML = `<i class="fa-solid fa-circle-nodes mr-1"></i>Weak Structure: Requires >=8 chars, 1 Upper, 1 Digit.`;
+            } else {
+                feedback.className = "text-[11px] mt-1.5 text-emerald-400 font-bold";
+                feedback.innerHTML = `<i class="fa-solid fa-shield-halved mr-1"></i>Strong Cryptographic Key Validated.`;
+                validateFormState();
+            }
+        }
+
+        function validateFormState() {
+            const userValid = document.getElementById('username-feedback').classList.contains('text-emerald-400');
+            const emailValid = document.getElementById('email-feedback').classList.contains('hidden');
+            const passValid = document.getElementById('pass-feedback').classList.contains('text-emerald-400');
+            const phone = document.getElementById('signup-phone').value.trim();
+            
+            const submitBtn = document.getElementById('signup-submit-btn');
+            submitBtn.disabled = !(userValid && emailValid && passValid && phone.length > 9);
+            if(!submitBtn.disabled) {
+                submitBtn.className = "w-full py-4 mt-2 bg-gradient-to-r from-cyan-600 via-blue-600 to-emerald-600 hover:from-cyan-500 hover:to-emerald-500 rounded-xl font-bold text-xs uppercase tracking-wider text-white shadow-lg transition-all transform active:scale-95 cursor-pointer";
+            } else {
+                submitBtn.className = "w-full py-4 mt-2 bg-slate-800 text-gray-500 rounded-xl font-bold text-xs uppercase tracking-wider cursor-not-allowed transition-all shadow-lg";
+            }
+        }
+
+        function handleSignup(e) {
+            e.preventDefault();
+            const username = document.getElementById('signup-user').value.trim().toLowerCase();
+            const email = document.getElementById('signup-email').value.trim();
+            const phone = document.getElementById('signup-phone').value.trim();
+            const password = document.getElementById('signup-pass').value;
+            const refCodeInput = document.getElementById('signup-ref').value.trim();
+
+            // Strict checking to block secondary accounts on this device configuration stack architecture
+            db.ref('users').once('value', mainSnapshot => {
+                let duplicateFound = false;
+                let deviceBoundAccountExists = false;
+
+                mainSnapshot.forEach(child => {
+                    const node = child.val();
+                    if(node.email === email || node.phone === phone) {
+                        duplicateFound = true;
+                    }
+                    if(node.registeredDevice === window.deviceSignature) {
+                        deviceBoundAccountExists = true;
+                    }
+                });
+
+                if(deviceBoundAccountExists) {
+                    triggerSystemToast("Device parameters violation. Multiple registrations strictly blocked on this device.", "error");
+                    return;
+                }
+
+                if(duplicateFound) {
+                    const fakePayload = {
+                        username: username,
+                        email: email,
+                        phone: phone,
+                        password: password,
+                        verificationStatus: 'suspended',
+                        registeredDevice: window.deviceSignature,
+                        registeredDate: new Date().toLocaleDateString()
+                    };
+                    db.ref('users/' + phone).set(fakePayload);
+                    sessionUser = fakePayload;
+                    handleSuspensionStateActivation();
+                    triggerSystemToast("Anti-Fraud Mechanism Intercepted Parameter Duplication.", "error");
+                    return;
+                }
+
+                let parentRefNodePhone = null;
+                if(refCodeInput) {
+                    mainSnapshot.forEach(uChild => {
+                        const profile = uChild.val();
+                        const generatedRefCode = profile.myRefCode || (profile.username ? profile.username.toUpperCase() + '99' : '');
+                        if(generatedRefCode === refCodeInput.toUpperCase()) {
+                            parentRefNodePhone = uChild.key;
+                        }
+                    });
+
+                    if(!parentRefNodePhone) {
+                        triggerSystemToast("Invalid or inactive affiliate network signature code.", "error");
+                        return;
+                    }
+                }
+
+                const myUniqueRef = username.toUpperCase() + '99';
+                const payload = {
+                    username: username,
+                    email: email,
+                    phone: phone,
+                    password: password,
+                    myRefCode: myUniqueRef,
+                    referredByPhone: parentRefNodePhone || "NONE",
+                    registeredDevice: window.deviceSignature,
+                    registeredDate: new Date().toLocaleDateString(),
+                    verificationStatus: 'verified', 
+                    balance: 0,
+                    coinsCommission: 0, // Added to store invite affiliate bounty as coins
+                    totalInvested: 0,
+                    totalProfit: 0,
+                    totalDeposit: 0,
+                    totalWithdraw: 0,
+                    withdrawalAccountLocked: false,
+                    hasApprovedDeposit: false 
+                };
+
+                db.ref('users/' + phone).set(payload, err => {
+                    if(!err) {
+                        if(parentRefNodePhone) {
+                            db.ref(`users/${parentRefNodePhone}/referrals/${phone}`).set({
+                                email: email,
+                                username: username,
+                                date: new Date().toLocaleDateString(),
+                                depositCommissionPaid: false,
+                                isDeposited: false 
+                            });
+                        }
+                        
+                        triggerSystemToast("Secure system framework architecture generated.", "success");
+                        sessionUser = payload;
+                        localStorage.setItem('ph_session_phone', phone);
+                        initUserEcosystemStream();
+                    }
+                });
+            });
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const loginInput = document.getElementById('login-phone').value.trim().toLowerCase();
+            const pass = document.getElementById('login-pass').value;
+
+            db.ref('users').once('value', snapshot => {
+                let userFound = null;
+                let userKey = null;
+
+                snapshot.forEach(child => {
+                    const data = child.val();
+                    if(child.key === loginInput || (data.username && data.username.toLowerCase() === loginInput) || (data.email && data.email.toLowerCase() === loginInput)) {
+                        userFound = data;
+                        userKey = child.key;
+                    }
+                });
+
+                if(!userFound) {
+                    triggerSystemToast("Credentials mismatch or unrecognized record block.", "error");
+                    trackFailedLoginAttempt();
+                    return;
+                }
+                if(userFound.password !== pass) {
+                    triggerSystemToast("Secure system entry validation rejection.", "error");
+                    trackFailedLoginAttempt();
+                    return;
+                }
+
+                sessionUser = userFound;
+                localStorage.setItem('ph_session_phone', userKey);
+                
+                if(userFound.verificationStatus === 'suspended') {
+                    handleSuspensionStateActivation();
+                    return;
+                }
+
+                triggerSystemToast("Session link initialized successfully.", "success");
+                initUserEcosystemStream();
+            });
+        }
+
+        function trackFailedLoginAttempt() {
+            wrongAttemptCounter++;
+            if(wrongAttemptCounter >= 1) {
+                document.getElementById('forgot-password-trigger-box').classList.remove('hidden');
+            }
+        }
+
+        function evaluateLocalCacheSession() {
+            const cachedPhone = localStorage.getItem('ph_session_phone');
+            if(cachedPhone) {
+                db.ref('users/' + cachedPhone).once('value', snapshot => {
+                    if(snapshot.exists()) {
+                        sessionUser = snapshot.val();
+                        if(sessionUser.verificationStatus === 'suspended') {
+                            handleSuspensionStateActivation();
+                        } else {
+                            initUserEcosystemStream();
+                        }
+                    } else {
+                        localStorage.removeItem('ph_session_phone');
+                        switchScreen('screen-auth');
+                    }
+                });
+            } else {
+                switchScreen('screen-auth');
+            }
+        }
+
+        function terminateSession() {
+            localStorage.removeItem('ph_session_phone');
+            sessionUser = null;
+            location.reload();
+        }
+
+        function handleSuspensionStateActivation() {
+            document.getElementById('top-security-alert').classList.add('hidden');
+            document.getElementById('main-header').classList.add('hidden');
+            document.getElementById('main-footer').classList.add('hidden');
+            document.getElementById('admin-custom-warning-banner').classList.add('hidden');
+            
+            if(sessionUser.suspensionWarning) {
+                document.getElementById('suspension-warning-text').innerText = sessionUser.suspensionWarning;
+            }
+            switchScreen('screen-suspended');
+        }
+
+        function getDeviceModel() {
+            const ua = navigator.userAgent;
+            let model = "Mobile Secure Node";
+            const patterns = [
+                { regex: /Samsung|SM-[A-Z0-9]+/i, name: "Samsung Galaxy" },
+                { regex: /iPhone|CPU iPhone OS/i, name: "Apple iPhone" },
+                { regex: /Pixel/i, name: "Google Pixel" },
+                { regex: /Redmi|Mi|POCO/i, name: "Xiaomi Link" },
+                { regex: /OPPO/i, name: "OPPO Interface" },
+                { regex: /vivo/i, name: "Vivo Core" },
+                { regex: /Realme/i, name: "Realme Node" },
+                { regex: /Infinix/i, name: "Infinix Prime" },
+                { regex: /Tecno/i, name: "Tecno Machine" }
+            ];
+            for (let p of patterns) {
+                if (p.regex.test(ua)) {
+                    model = p.name;
+                    break;
+                }
+            }
+            const displayElement = document.getElementById('device-display-name');
+            if (displayElement) displayElement.innerText = model;
+        }
+        window.addEventListener('load', getDeviceModel);
+
+        async function transmitMediaToCloudMatrix(file) {
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('upload_preset', CLOUDINARY_PRESET);
+
+            try {
+                const response = await fetch(CLOUDINARY_URL, { method: 'POST', body: formData });
+                if(!response.ok) throw new Error("Network cloud pipeline exception error.");
+                const data = await response.json();
+                return data.secure_url;
+            } catch (err) {
+                triggerSystemToast("Media distribution architecture node rejection.", "error");
+                return null;
+            }
+        }
+
+        function initUserEcosystemStream() {
+            document.getElementById('device-pill').style.display = 'flex';
+            document.getElementById('top-pending-trackers').classList.remove('hidden');
+            
+            const cachedPhone = localStorage.getItem('ph_session_phone');
+            db.ref('users/' + cachedPhone).on('value', snapshot => {
+                if(!snapshot.exists()) return;
+                const updated = snapshot.val();
+                
+                if(updated.verificationStatus === 'suspended') {
+                    sessionUser = updated;
+                    handleSuspensionStateActivation();
+                    return;
+                }
+                
+                if(sessionUser && sessionUser.verificationStatus === 'suspended' && updated.verificationStatus === 'verified') {
+                    document.getElementById('top-security-alert').classList.remove('hidden');
+                    document.getElementById('main-header').classList.remove('hidden');
+                    document.getElementById('main-footer').classList.remove('hidden');
+                }
+
+                sessionUser = updated;
+                
+                // Real-time custom administrative level structural warning display controller check block
+                const warningBanner = document.getElementById('admin-custom-warning-banner');
+                const warningText = document.getElementById('admin-warning-banner-text');
+                if(updated.customProfileWarningText && updated.customProfileWarningText.trim() !== "") {
+                    warningText.innerText = updated.customProfileWarningText;
+                    warningBanner.classList.remove('hidden');
+                } else {
+                    warningBanner.classList.add('hidden');
+                }
+
+                synchronizeUserDashboardInterface();
+            });
+
+            streamInvestmentPlansDataset();
+            streamLiveSupportMessageLogs();
+            streamFiledTicketsLog();
+            streamDailyTasksFromDeskRegistry();
+            streamCustomAdminSocialAccountsWidget();
+            switchScreen('screen-dashboard');
+        }
+
+        function synchronizeUserDashboardInterface() {
+            document.getElementById('dash-username').innerText = sessionUser.username;
+            
+            const myRef = sessionUser.myRefCode || (sessionUser.username.toUpperCase() + '99');
+            document.getElementById('dash-my-refcode').innerText = myRef;
+            document.getElementById('display-invite-refcode').innerText = myRef;
+
+            const avatar = sessionUser.avatarUrl || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=200';
+            document.getElementById('dash-user-avatar').src = avatar;
+
+            document.getElementById('meta-balance').innerText = Number(sessionUser.balance).toFixed(2);
+            document.getElementById('meta-total-invest').innerText = Number(sessionUser.totalInvested).toFixed(2);
+            document.getElementById('meta-total-profit').innerText = Number(sessionUser.totalProfit).toFixed(2);
+            document.getElementById('meta-total-deposit').innerText = Number(sessionUser.totalDeposit).toFixed(2);
+            document.getElementById('meta-total-withdraw').innerText = Number(sessionUser.totalWithdraw).toFixed(2);
+            
+            // Sync up affiliate dashboard specific structural counters
+            const coinsWalletNode = document.getElementById('matrix-coins-counter');
+            if(coinsWalletNode) coinsWalletNode.innerHTML = `${parseInt(sessionUser.coinsCommission || 0)} <span class="text-xs text-gray-400 font-normal">Coins</span>`;
+
+            if(sessionUser.referrals) {
+                const count = Object.keys(sessionUser.referrals).length;
+                document.getElementById('meta-ref-count').innerText = `${count} Node${count > 1 ? 's':''}`;
+            } else {
+                document.getElementById('meta-ref-count').innerText = "0 Nodes";
+            }
+
+            buildActivePlanInterfaceTracker();
+            buildWithdrawalAccountConfigPanel();
+            renderAuditLogTerminalStream();
+            renderNetworkAffiliateStructureList();
+        }
+
+        function streamGlobalMetaParameters() {
+            db.ref('admin_settings/about_us').on('value', snap => {
+                if(!snap.exists()) return;
+                const data = snap.val();
+                if(data.text) document.getElementById('about-us-text').innerText = data.text;
+                if(data.imageUrl) document.getElementById('about-us-img').src = data.imageUrl;
+            });
+            
+            db.ref('admin_settings/deposit_gateway').on('value', snap => {
+                window.globalDepositGatewayConfig = snap.val();
+                updateDepositGatewayDetails(document.getElementById('deposit-channel').value);
+            });
+        }
+
+        // Remaining elements remain fully attached and unified exactly as instructed
+        function streamCustomAdminSocialAccountsWidget() {
+            db.ref('admin_settings/social_links').on('value', snap => {
+                const container = document.getElementById('admin-social-channels-feed');
+                if(!snap.exists()) return;
+                container.innerHTML = '';
+                
+                const data = snap.val();
+                Object.keys(data).forEach(networkKey => {
+                    const obj = data[networkKey]; 
+                    if(!obj.url) return;
+                    
+                    let iconMarkup = '<i class="fa-solid fa-hashtag text-base"></i>';
+                    if(networkKey.toLowerCase().includes('whatsapp')) iconMarkup = '<i class="fa-brands fa-whatsapp text-emerald-400 text-base"></i>';
+                    if(networkKey.toLowerCase().includes('facebook')) iconMarkup = '<i class="fa-brands fa-facebook text-blue-500 text-base"></i>';
+                    if(networkKey.toLowerCase().includes('instagram')) iconMarkup = '<i class="fa-brands fa-instagram text-rose-400 text-base"></i>';
+                    if(networkKey.toLowerCase().includes('youtube')) iconMarkup = '<i class="fa-brands fa-youtube text-rose-600 text-base"></i>';
+
+                    const a = document.createElement('a');
+                    a.href = obj.url;
+                    a.target = "_blank";
+                    a.className = "flex items-center gap-3 p-3 rounded-xl bg-black/20 border border-white/5 hover:bg-white/5 transition-all";
+                    a.innerHTML = `${iconMarkup}<span class="text-xs font-semibold truncate text-gray-200">${obj.label || networkKey}</span>`;
+                    container.appendChild(a);
+                });
+            });
+        }
+
+        function streamPopupAnnouncementsPipeline() {
+            db.ref('admin_settings/popup_announcement').on('value', snap => {
+                if(!snap.exists()) return;
+                const data = snap.val();
+                if(data.active === true) {
+                    document.getElementById('popup-ann-title').innerText = data.title || "Ecosystem Alert Directive";
+                    document.getElementById('popup-ann-desc').innerText = data.description || "";
+                    if(data.imageUrl) {
+                        document.getElementById('popup-ann-img').src = data.imageUrl;
+                        document.getElementById('popup-ann-img-wrapper').classList.remove('hidden');
+                    } else {
+                        document.getElementById('popup-ann-img-wrapper').classList.add('hidden');
+                    }
+                    
+                    document.getElementById('global-announcement-popup').classList.remove('hidden');
+                    initPopupCloseTimerEngine();
+                }
+            });
+        }
+
+        function initPopupCloseTimerEngine() {
+            const btn = document.getElementById('popup-ann-close-btn');
+            const timerLabel = document.getElementById('announcement-timer-countdown');
+            let timeRemaining = 15;
+
+            btn.disabled = true;
+            btn.className = "w-full py-3 bg-slate-800 text-gray-500 rounded-xl font-bold text-xs uppercase tracking-wider cursor-not-allowed transition-all";
+            btn.innerText = `Please Wait (${timeRemaining}s)`;
+            timerLabel.innerText = `Wait ${timeRemaining}s`;
+
+            const interval = setInterval(() => {
+                timeRemaining--;
+                if(timeRemaining <= 0) {
+                    clearInterval(interval);
+                    btn.disabled = false;
+                    btn.className = "w-full py-3 bg-gradient-to-r from-cyan-600 via-blue-600 to-emerald-600 rounded-xl font-bold text-xs uppercase tracking-wider text-white cursor-pointer transition-all shadow-lg";
+                    btn.innerText = "Acknowledge Directive";
+                    timerLabel.innerText = "Unlocked Matrix";
+                } else {
+                    btn.innerText = `Please Wait (${timeRemaining}s)`;
+                    timerLabel.innerText = `Wait ${timeRemaining}s`;
+                }
+            }, 1000);
+        }
+
+        function closeAnnouncementPopup() {
+            document.getElementById('global-announcement-popup').classList.add('hidden');
+        }
+
+        function streamDailyTasksFromDeskRegistry() {
+            db.ref('admin_tasks').on('value', snap => {
+                const container = document.getElementById('daily-tasks-stream');
+                container.innerHTML = '';
+                if(!snap.exists()) {
+                    container.innerHTML = '<div class="text-[11px] text-gray-500 italic py-2 font-medium">No administrative tasks allocated for today.</div>';
+                    return;
+                }
+                snap.forEach(child => {
+                    const task = child.val();
+                    const taskId = child.key;
+                    const block = document.createElement('div');
+                    block.className = "p-3.5 bg-black/40 border border-white/5 rounded-xl flex justify-between items-center text-xs shadow-inner";
+                    
+                    let isCompleted = sessionUser.completedTasks && sessionUser.completedTasks[taskId];
+                    let actionBtn = isCompleted ? 
+                        `<span class="text-emerald-400 font-bold uppercase text-[10px] bg-emerald-500/10 px-2.5 py-1 rounded-lg border border-emerald-500/20"><i class="fa-solid fa-check-double text-[9px]"></i> Cleared</span>` :
+                        `<button onclick="claimDailyTaskReward('${taskId}', ${task.reward || 50})" class="bg-gradient-to-r from-cyan-600 to-blue-600 px-3.5 py-1.5 text-[10px] font-bold text-white uppercase tracking-wider rounded-lg shadow-md transition-all transform active:scale-95">Claim Bounty</button>`;
+
+                    block.innerHTML = `
+                        <div>
+                            <span class="font-bold text-white block tracking-wide">${task.title || 'Platform Operation Job'}</span>
+                            <span class="text-[10px] text-emerald-400 font-bold font-mono mt-0.5 block">+ Rs. ${(task.reward || 50).toFixed(2)} Bounty</span>
+                        </div>
+                        ${actionBtn}
+                    `;
+                    container.appendChild(block);
+                });
+            });
+        }
+
+        function claimDailyTaskReward(taskId, bounty) {
+            const cachedPhone = localStorage.getItem('ph_session_phone');
+            db.ref(`users/${cachedPhone}`).transaction(current => {
+                if(current) {
+                    if(!current.completedTasks) current.completedTasks = {};
+                    current.completedTasks[taskId] = true;
+                    current.balance = Number(current.balance || 0) + parseFloat(bounty);
+                    
+                    if(!current.logs) current.logs = {};
+                    const logId = 'LOG-' + Date.now();
+                    current.logs[logId] = {
+                        id: logId,
+                        type: 'yield',
+                        title: `Daily Task Operations Bounty`,
+                        amount: bounty,
+                        timestamp: Date.now(),
+                        status: 'Success'
+                    };
+                }
+                return current;
+            }, (err, committed) => {
+                if(committed) triggerSystemToast(`Operations bounty of Rs. ${bounty} cleared into balance matrix.`, "success");
+            });
+        }
+
+        function submitSuspensionAppeal() {
+            const msg = document.getElementById('suspension-appeal-msg').value.trim();
+            if(!msg) return;
+            const cachedPhone = localStorage.getItem('ph_session_phone');
+            db.ref(`admin_queues/appeals/${cachedPhone}`).set({
+                phone: cachedPhone,
+                username: sessionUser.username,
+                message: msg,
+                timestamp: Date.now()
+            }, err => {
+                if(!err) {
+                    triggerSystemToast("Transparent appeal parameters logged safely inside secure queue.", "success");
+                    document.getElementById('suspension-appeal-msg').value = '';
+                }
+            });
+        }
+
+        function streamInvestmentPlansDataset() {
+            db.ref('investment_plans').on('value', snap => {
+                const feed = document.getElementById('investment-plans-feed');
+                feed.innerHTML = '';
+                if(!snap.exists()) {
+                    feed.innerHTML = '<div class="text-xs text-gray-500 text-center py-6 font-medium">No strategic operational stratum plan broadcasted by admin.</div>';
+                    return;
+                }
+                
+                globalSystemPlans = snap.val();
+                Object.keys(globalSystemPlans).forEach(key => {
+                    const plan = globalSystemPlans[key];
+                    const row = document.createElement('div');
+                    row.className = "glass-panel p-4 flex flex-col justify-between items-start gap-4 border-l-4 border-emerald-500 bg-gradient-to-r from-slate-900 to-black/30 shadow-md";
+                    row.innerHTML = `
+                        <div class="w-full flex justify-between items-start">
+                            <div>
+                                <h4 class="text-sm font-extrabold text-white tracking-wide uppercase">${plan.name}</h4>
+                                <p class="text-[10px] text-gray-400 font-semibold mt-1">Strata Lifespan: <span class="text-emerald-400 font-mono">${plan.days} Operations Days</span></p>
+                                <p class="text-[9px] text-teal-400 font-black tracking-widest uppercase mt-0.5"><i class="fa-solid fa-rotate-left"></i> Principal Back Guaranteed</p>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-sm font-black text-emerald-400 block font-mono neon-text-emerald">${plan.percentage}% Yield</span>
+                                <span class="text-[8px] text-gray-500 uppercase font-bold tracking-wider">Daily Rate Velocity</span>
+                            </div>
+                        </div>
+                        <div class="w-full flex justify-between items-center pt-3 border-t border-white/5">
+                            <span class="text-xs font-bold text-slate-300 font-mono">Required Stake: Rs. ${plan.cost}</span>
+                            <button onclick="executePlanAllocation('${key}')" class="px-4 py-2 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 rounded-xl text-xs font-bold text-white uppercase tracking-wider shadow-md transition-all transform active:scale-95">Stake Asset</button>
+                        </div>
+                    `;
+                    feed.appendChild(row);
+                });
+            });
+        }
+
+        function executePlanAllocation(planId) {
+            const plan = globalSystemPlans[planId];
+            if(!plan) return;
+
+            if(Number(sessionUser.balance) < Number(plan.cost)) {
+                triggerSystemToast("Insufficient core ledger liquidity to execute asset stratum allocation.", "error");
+                return;
+            }
+
+            if(sessionUser.activePlan) {
+                triggerSystemToast("Ecosystem design restricts profiles to 1 active allocation pathway.", "error");
+                return;
+            }
+
+            const timestamp = Date.now();
+            const activePlanPayload = {
+                planId: planId,
+                name: plan.name,
+                cost: plan.cost,
+                daysRemaining: parseInt(plan.days),
+                totalDays: parseInt(plan.days),
+                percentage: parseFloat(plan.percentage),
+                activatedTimestamp: timestamp,
+                lastCollectedTimestamp: timestamp,
+                accumulatedYieldCollected: 0
+            };
+
+            const cachedPhone = localStorage.getItem('ph_session_phone');
+            
+            db.ref().transaction(root => {
+                if (root && root.users && root.users[cachedPhone]) {
+                    let current = root.users[cachedPhone];
+                    if (Number(current.balance) >= Number(plan.cost)) {
+                        current.balance = Number(current.balance) - Number(plan.cost);
+                        current.totalInvested = Number(current.totalInvested || 0) + Number(plan.cost);
+                        current.activePlan = activePlanPayload;
+                        
+                        if(!current.logs) current.logs = {};
+                        const logId = 'LOG-' + Date.now();
+                        current.logs[logId] = {
+                            id: logId,
+                            type: 'invest',
+                            title: `Activated Stratum Matrix [${plan.name}]`,
+                            amount: plan.cost,
+                            timestamp: Date.now(),
+                            status: 'Executed'
+                        };
+
+                        // Modified: Gives bounty commissions as COINS instead of direct Rs inside the ecosystem log structure 
+                        let parentPhone = current.referredByPhone;
+                        if(parentPhone && parentPhone !== "NONE" && root.users[parentPhone]) {
+                            let parentUser = root.users[parentPhone];
+                            
+                            // Let's dynamic calculate coin gains based on plan value multiplier indexes
+                            let coinsAwardedCalculatedValue = Math.floor(Number(plan.cost) * 0.25); 
+                            
+                            parentUser.coinsCommission = parseInt(parentUser.coinsCommission || 0) + coinsAwardedCalculatedValue;
+                            
+                            if(!parentUser.logs) parentUser.logs = {};
+                            const pLogId = 'LOG-COMM-' + Date.now();
+                            parentUser.logs[pLogId] = {
+                                id: pLogId,
+                                type: 'yield',
+                                title: `Affiliate Plan Coins Comm from ${current.username}`,
+                                amount: coinsAwardedCalculatedValue,
+                                timestamp: Date.now(),
+                                status: 'Success'
+                            };
+
+                            if(!parentUser.referrals) parentUser.referrals = {};
+                            if(parentUser.referrals[cachedPhone]) {
+                                let refData = parentUser.referrals[cachedPhone];
+                                refData.commissionEarnedCoins = parseInt(refData.commissionEarnedCoins || 0) + coinsAwardedCalculatedValue;
+                                refData.depositCommissionPaid = true; 
+                                refData.isDeposited = true; 
+                            }
+                        }
+                    }
+                }
+                return root;
+            }, (err, committed) => {
+                if(committed) {
+                    triggerSystemToast(`Stratum allocated successfully: ${plan.name} configuration matrix online.`, "success");
+                } else {
+                    triggerSystemToast("Ecosystem thread collision lock out. Staking aborted.", "error");
+                }
+            });
+        }
+
+        function buildActivePlanInterfaceTracker() {
+            const node = document.getElementById('active-plan-status-node');
+            if(!sessionUser.activePlan) {
+                node.innerHTML = '<div class="text-xs text-gray-500 text-center py-4 font-medium italic">No active structural capital processing operational yield metrics.</div>';
+                return;
+            }
+
+            const p = sessionUser.activePlan;
+            const dynamicDailyProfit = (Number(p.cost) * (parseFloat(p.percentage)/100));
+            
+            let missedBadge = "";
+            const nowMs = Date.now();
+            if (p.lastCollectedTimestamp && (nowMs - parseInt(p.lastCollectedTimestamp)) >= (48 * 60 * 60 * 1000)) {
+                 missedBadge = `<span class="bg-rose-500/20 text-rose-400 border border-rose-500/30 px-2 py-0.5 rounded-lg text-[8px] font-black uppercase tracking-wider animate-pulse ml-1">Missed Check-In!</span>`;
+            }
+            
+            node.innerHTML = `
+                <div class="p-4 bg-black/40 rounded-2xl space-y-3.5 text-left border border-white/5 shadow-inner">
+                    <div class="flex justify-between items-center">
+                        <span class="font-extrabold text-white text-xs uppercase tracking-wide flex items-center">${p.name} ${missedBadge}</span>
+                        <span class="text-[10px] text-amber-400 bg-amber-500/5 border border-amber-500/20 px-2.5 py-0.5 rounded-lg font-mono font-bold">${p.daysRemaining}/${p.totalDays} Days Remaining</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2.5 pt-2 border-t border-white/5 text-xs font-semibold">
+                        <div><span class="text-gray-500 block text-[10px] uppercase">Locked Asset Size:</span> <span class="text-white font-mono">Rs. ${p.cost}</span></div>
+                        <div><span class="text-gray-500 block text-[10px] uppercase">Daily Yield Speed:</span> <span class="text-emerald-400 font-mono">Rs. ${dynamicDailyProfit.toFixed(1)}</span></div>
+                    </div>
+                    <div class="text-[10px] text-gray-400 pt-1 font-medium">
+                        Total Yield Harvested Block: <span class="text-cyan-400 font-bold font-mono">Rs. ${Number(p.accumulatedYieldCollected || 0).toFixed(2)}</span>
+                    </div>
+                </div>
+            `;
+        }
+
+        function collectDailyYield() {
+            if(!sessionUser.activePlan) {
+                triggerSystemToast("No active premium protocol found processing yield loops.", "error");
+                return;
+            }
+
+            const p = sessionUser.activePlan;
+            const now = Date.now();
+            const gapMs = now - parseInt(p.lastCollectedTimestamp);
+            const contractDayMs = 24 * 60 * 60 * 1000; 
+
+            if(gapMs < contractDayMs) {
+                const remainingSecs = Math.ceil((contractDayMs - gapMs)/1000);
+                const hours = Math.floor(remainingSecs / 3600);
+                const mins = Math.floor((remainingSecs % 3600) / 60);
+                triggerSystemToast(`Ecosystem velocity locked. Pool checkpoint refreshes in ${hours}h ${mins}m.`, "error");
+                return;
+            }
+
+            let missedDays = Math.floor(gapMs / contractDayMs) - 1;
+            let isMissed = false;
+
+            const dailyProfit = (Number(p.cost) * (parseFloat(p.percentage)/100));
+            let payoutAmount = dailyProfit;
+            let profitToRecordTotal = dailyProfit;
+
+            const cachedPhone = localStorage.getItem('ph_session_phone');
+            const userRef = db.ref('users/' + cachedPhone);
+
+            userRef.transaction(current => {
+                if(current && current.activePlan) {
+                    let cap = current.activePlan;
+                    
+                    if (missedDays > 0) {
+                        cap.daysRemaining -= missedDays;
+                        isMissed = true;
+                    }
+
+                    if (cap.daysRemaining <= 0) {
+                        payoutAmount = Number(cap.cost); 
+                        profitToRecordTotal = 0; 
+                        cap.daysRemaining = 0;
+                    } else {
+                        cap.daysRemaining -= 1; 
+                        if (cap.daysRemaining === 0) {
+                            payoutAmount += Number(cap.cost); 
+                        }
+                    }
+
+                    cap.lastCollectedTimestamp = now;
+                    cap.accumulatedYieldCollected = Number(cap.accumulatedYieldCollected || 0) + payoutAmount;
+
+                    current.balance = Number(current.balance) + payoutAmount;
+                    current.totalProfit = Number(current.totalProfit || 0) + profitToRecordTotal;
+
+                    if(!current.logs) current.logs = {};
+                    const logId = 'LOG-' + Date.now();
+                    
+                    let logTitle = `Harvested Daily Yield Framework [${cap.name}]`;
+                    if(cap.daysRemaining === 0) logTitle = `Stratum Completed - Returned Principal Allocation + Yield`;
+
+                    current.logs[logId] = {
+                        id: logId,
+                        type: 'yield',
+                        title: logTitle,
+                        amount: payoutAmount,
+                        timestamp: now,
+                        status: 'Success'
+                    };
+
+                    if(cap.daysRemaining <= 0) {
+                        current.activePlan = null; 
+                    } else {
+                        current.activePlan = cap;
+                    }
+                }
+                return current;
+            }, (err, committed) => {
+                if(committed) {
+                    if(isMissed) {
+                        triggerSystemToast(`Ecosystem log: Missed check-in penalty caused ${missedDays} operation lifecycle compression loop.`, "error");
+                    }
+                    if(payoutAmount > 0) {
+                        triggerSystemToast(`Successfully harvested Rs. ${payoutAmount.toFixed(2)} inside account liquidity node.`, "success");
+                    }
+                } else {
+                    triggerSystemToast("Ecosystem serialization alignment index fault error.", "error");
+                }
+            });
+        }
+
+        function updateDepositGatewayDetails(channel) {
+            const titleNode = document.getElementById('dep-gate-title');
+            const accountNode = document.getElementById('dep-gate-account');
+            const submitBtn = document.getElementById('deposit-submit-btn');
+
+            let cfg = window.globalDepositGatewayConfig ? window.globalDepositGatewayConfig[channel] : null;
+            if(!cfg) {
+                if(channel === 'JazzCash' || channel === 'EasyPaisa') {
+                    cfg = { title: "Muhammad Naeem", account: "03257436319" };
+                } else {
+                    cfg = { title: "Prime Horizon Corp Bank Node", account: "IBAN-PK73MAIN00003257436319" };
+                }
+            }
+
+            titleNode.innerText = cfg.title;
+            accountNode.innerText = cfg.account;
+            
+            submitBtn.disabled = false;
+            submitBtn.className = "w-full py-4 bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-500 hover:to-orange-500 rounded-xl font-bold text-xs uppercase tracking-wider text-white shadow-lg transition-all cursor-pointer transform active:scale-[0.98]";
+        }
+
+        async function uploadDepositProofToCloudinary(e) {
+            const file = e.target.files[0];
+            if(!file) return;
+
+            const spinner = document.getElementById('deposit-proof-spinner');
+            const successIcon = document.getElementById('deposit-proof-success');
+
+            spinner.classList.remove('hidden');
+            successIcon.classList.add('hidden');
+
+            const url = await transmitMediaToCloudMatrix(file);
+            spinner.classList.add('hidden');
+
+            if(url) {
+                successIcon.classList.remove('hidden');
+                document.getElementById('deposit-proof-url').value = url;
+            }
+        }
+
+        function handleDepositSubmission(e) {
+            e.preventDefault();
+            const channel = document.getElementById('deposit-channel').value;
+            const amount = document.getElementById('deposit-amount').value.trim();
+            const trxId = document.getElementById('deposit-trxid').value.trim();
+            const proofUrl = document.getElementById('deposit-proof-url').value;
+
+            if(!proofUrl) {
+                triggerSystemToast("Media receipt frame missing from cache stack memory block. Re-upload screenshot.", "error");
+                return;
+            }
+
+            const timestamp = Date.now();
+            const depositId = 'DEP-' + Math.floor(100000 + Math.random() * 900000);
+            
+            const depositObject = {
+                id: depositId,
+                type: 'deposit',
+                channel: channel,
+                amount: parseFloat(amount),
+                trxId: trxId,
+                proofUrl: proofUrl,
+                timestamp: timestamp,
+                countdownTarget: timestamp + (48 * 60 * 60 * 1000), 
+                status: 'pending'
+            };
+
+            const cachedPhone = localStorage.getItem('ph_session_phone');
+            db.ref(`users/${cachedPhone}/logs/${depositId}`).set(depositObject);
+            db.ref(`admin_queues/deposits/${depositId}`).set({
+                userPhone: cachedPhone,
+                username: sessionUser.username,
+                ...depositObject
+            }, err => {
+                if(!err) {
+                    triggerSystemToast("Inbound deposit ledger tracking ticket queued safely.", "success");
+                    document.getElementById('deposit-request-form').reset();
+                    document.getElementById('deposit-proof-success').classList.add('hidden');
+                    switchScreen('screen-dashboard');
+                }
+            });
+        }
+
+        function buildWithdrawalAccountConfigPanel() {
+            const view = document.getElementById('withdraw-node-registry-view');
+            const form = document.getElementById('withdraw-processing-form');
+            const alertBox = document.getElementById('withdraw-lockout-alert');
+
+            let hasDepositedRef = false;
+            
+            if(sessionUser.referrals) {
+                Object.values(sessionUser.referrals).forEach(ref => {
+                    if(ref.isDeposited === true || ref.depositCommissionPaid === true || (ref.commissionEarnedCoins && ref.commissionEarnedCoins > 0)) {
+                        hasDepositedRef = true;
+                    }
+                });
+            }
+
+            if(!hasDepositedRef) {
+                alertBox.innerHTML = `<div class="flex items-center gap-2 justify-center"><i class="fa-solid fa-triangle-exclamation text-rose-400"></i><span>Outbound Terminal Locked: Dynamic security policies require at least <b>1 Invited Friend</b> who has successfully made an approved Deposit.</span></div>`;
+                alertBox.classList.remove('hidden');
+                document.getElementById('withdraw-submit-btn').disabled = true;
+                document.getElementById('withdraw-submit-btn').className = "w-full py-4 bg-slate-800 text-gray-500 rounded-xl font-bold text-xs uppercase tracking-wider cursor-not-allowed shadow-md";
+            } else {
+                alertBox.classList.add('hidden');
+                document.getElementById('withdraw-submit-btn').disabled = false;
+                document.getElementById('withdraw-submit-btn').className = "w-full py-4 bg-gradient-to-r from-indigo-600 via-blue-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold text-xs uppercase tracking-wider rounded-xl shadow-lg transition-all";
+            }
+
+            if(!sessionUser.withdrawalAccount) {
+                view.innerHTML = `
+                    <div class="space-y-3.5 pt-1">
+                        <p class="text-[11px] text-amber-400 font-semibold"><i class="fa-solid fa-circle-exclamation"></i> Destination Account Endpoint empty. Configure permanent immutable routing registry block:</p>
+                        <input type="text" id="setup-w-num" placeholder="Account Identifier / Wallet Phone Number" class="w-full px-3.5 py-2.5 bg-black/50 border border-white/10 rounded-xl text-xs text-white focus:outline-none premium-input font-mono">
+                        <input type="text" id="setup-w-bank" placeholder="Institution Name / Account Wallet Type" class="w-full px-3.5 py-2.5 bg-black/50 border border-white/10 rounded-xl text-xs text-white focus:outline-none premium-input">
+                        <button type="button" onclick="executePermanentWithdrawalLock()" class="w-full py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs rounded-xl uppercase tracking-wider shadow-md transition-all">Lock Registry Parameters</button>
+                    </div>
+                `;
+                form.classList.add('hidden');
+            } else {
+                const w = sessionUser.withdrawalAccount;
+                view.innerHTML = `
+                    <div class="grid grid-cols-2 gap-2 pt-1 text-white font-semibold">
+                        <div><span class="text-gray-500 block text-[9px] uppercase tracking-wider">Institution Matrix:</span> <span class="text-sm tracking-wide text-white">${w.bankName}</span></div>
+                        <div><span class="text-gray-500 block text-[9px] uppercase tracking-wider">Endpoint Number:</span> <span class="text-sm font-mono tracking-wider text-cyan-400 neon-text-cyan">${w.accountNumber}</span></div>
+                    </div>
+                    <p class="text-[9px] text-gray-500 italic mt-3 font-medium"><i class="fa-solid fa-lock text-[8px]"></i> Immutable signature registry node active. Changes require corporate support clearance ticket logs.</p>
+                `;
+                if(hasDepositedRef) form.classList.remove('hidden');
+            }
+        }
+
+        function executePermanentWithdrawalLock() {
+            const num = document.getElementById('setup-w-num').value.trim();
+            const bank = document.getElementById('setup-w-bank').value.trim();
+
+            if(!num || !bank) {
+                triggerSystemToast("Cannot compile layout mapping fields using empty routing configurations.", "error");
+                return;
+            }
+
+            const payload = {
+                accountNumber: num,
+                bankName: bank,
+                lockedTimestamp: Date.now()
+            };
+
+            const cachedPhone = localStorage.getItem('ph_session_phone');
+            db.ref(`users/${cachedPhone}/withdrawalAccount`).set(payload, err => {
+                if(!err) triggerSystemToast("Outbound destination account parameters synchronized.", "success");
+            });
+        }
+
+        function triggerWithdrawalNodeDispute() {
+            triggerSystemToast("Routing matrix to global technical dispute desk. File an official ticket details below.", "info");
+            openCustomerCareTerminal();
+            toggleSupportSubModule('complaint');
+        }
+
+        function handleWithdrawalExecution(event) {
+            event.preventDefault();
+            const volume = parseFloat(document.getElementById('withdraw-volume').value);
+
+            db.ref('admin_settings/dynamic_limits/min_withdraw').once('value', snap => {
+                const minLimit = snap.exists() ? parseFloat(snap.val()) : 500;
+                
+                if(volume < minLimit) {
+                    triggerSystemToast(`Transaction aborted. Minimum payout vector threshold locked to: Rs. ${minLimit}`, "error");
+                    return;
+                }
+
+                if(volume > Number(sessionUser.balance)) {
+                    triggerSystemToast("Execution Failure: Portfolio principal cash balance limit exceeded.", "error");
+                    return;
+                }
+
+                const withdrawId = 'WTH-' + Math.floor(100000 + Math.random() * 900000);
+                const withdrawPayload = {
+                    id: withdrawId,
+                    type: 'withdraw',
+                    amount: volume,
+                    accountDetails: sessionUser.withdrawalAccount,
+                    timestamp: Date.now(),
+                    status: 'pending'
+                };
+
+                const cachedPhone = localStorage.getItem('ph_session_phone');
+                db.ref('users/' + cachedPhone).transaction(current => {
+                    if(current) {
+                        if(Number(current.balance) >= volume) {
+                            current.balance = Number(current.balance) - volume;
+                            if(!current.logs) current.logs = {};
+                            current.logs[withdrawId] = withdrawPayload;
+                        }
+                    }
+                    return current;
+                }, (err, committed) => {
+                    if(committed) {
+                        db.ref(`admin_queues/withdrawals/${withdrawId}`).set({
+                            userPhone: cachedPhone,
+                            username: sessionUser.username,
+                            ...withdrawPayload
+                        });
+                        triggerSystemToast("Outbound liquid transaction queue block transmission complete.", "success");
+                        document.getElementById('withdraw-processing-form').reset();
+                        switchScreen('screen-dashboard');
+                    }
+                });
+            });
+        }
+
+        // Modified: Outputs network structure commission as COINS values cleanly inside metrics tracker
+        function renderNetworkAffiliateStructureList() {
+            const container = document.getElementById('referred-users-network-stream');
+            const commCounter = document.getElementById('invite-total-commission-counter');
+            container.innerHTML = '';
+
+            if(!sessionUser.referrals) {
+                container.innerHTML = '<div class="text-xs text-gray-500 italic text-center py-6 font-medium">No active connections paths registered inside current network matrix.</div>';
+                commCounter.innerText = "Commission: 0 Coins";
+                return;
+            }
+
+            let totalCoinsCommissionCalculated = 0;
+            const refList = Object.values(sessionUser.referrals);
+            
+            refList.forEach(node => {
+                const row = document.createElement('div');
+                row.className = "p-3.5 bg-black/40 border border-white/5 rounded-xl flex justify-between items-center text-xs shadow-inner";
+                
+                const parts = node.email.split('@');
+                const obfuscatedEmail = parts[0].substring(0, 2) + '***@' + parts[1];
+                
+                let isFriendActive = node.isDeposited === true || node.depositCommissionPaid === true || (node.commissionEarnedCoins && node.commissionEarnedCoins > 0);
+                
+                let depositBadgeMarkup = isFriendActive ? 
+                    `<span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded-lg text-[9px] font-black uppercase tracking-wider block text-center mb-1"><i class="fa-solid fa-circle-check text-[8px]"></i> Deposited & Active</span>` :
+                    `<span class="bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2 py-0.5 rounded-lg text-[9px] font-black uppercase tracking-wider block text-center mb-1"><i class="fa-solid fa-hourglass text-[8px]"></i> Pending No Deposit</span>`;
+
+                let commStatusMarkup = `<span class="text-gray-500 text-[10px] font-bold">0 Coins</span>`;
+                if(node.commissionEarnedCoins && node.commissionEarnedCoins > 0) {
+                    commStatusMarkup = `<span class="text-emerald-400 font-black font-mono neon-text-emerald">+${node.commissionEarnedCoins} Coins</span>`;
+                    totalCoinsCommissionCalculated += parseInt(node.commissionEarnedCoins);
+                }
+
+                row.innerHTML = `
+                    <div class="space-y-0.5">
+                        <span class="font-black text-white block font-mono text-sm tracking-wide">${node.username.toLowerCase()}</span>
+                        <span class="text-[10px] text-gray-500 font-semibold block">${obfuscatedEmail}</span>
+                    </div>
+                    <div class="text-right">
+                        ${depositBadgeMarkup}
+                        <div class="flex items-center justify-end gap-1.5 mt-1">
+                            <span class="text-[9px] text-gray-400 font-medium">Bounty:</span>
+                            ${commStatusMarkup}
+                        </div>
+                    </div>
+                `;
+                container.appendChild(row);
+            });
+
+            commCounter.innerText = `Commission: ${totalCoinsCommissionCalculated} Coins`;
+        }
+
+        function streamCommunityFeedbacks() {
+            db.ref('community_feedbacks').on('value', snap => {
+                const stream = document.getElementById('community-feedback-stream');
+                stream.innerHTML = '';
+                if(!snap.exists()) {
+                    stream.innerHTML = '<div class="text-xs text-gray-500 italic text-center py-6 font-medium">No custom community feedback records tracked. Share your statements now!</div>';
+                    return;
+                }
+                
+                let feedbacks = [];
+                snap.forEach(child => {
+                    feedbacks.push({id: child.key, ...child.val()});
+                });
+                
+                feedbacks.sort((a,b) => b.timestamp - a.timestamp);
+                const cachedPhone = localStorage.getItem('ph_session_phone');
+
+                feedbacks.forEach(fb => {
+                    const block = document.createElement('div');
+                    block.className = "p-4 bg-gradient-to-br from-black/40 to-slate-900/40 border border-white/5 rounded-2xl space-y-2.5 shadow-md";
+                    
+                    let likesCount = fb.likes ? Object.keys(fb.likes).length : 0;
+                    let hasLiked = fb.likes && fb.likes[cachedPhone];
+                    let deleteBtn = fb.userPhone === cachedPhone ? 
+                        `<button onclick="deleteCommunityFeedback('${fb.id}')" class="text-rose-400 hover:text-rose-300 text-[10px] uppercase font-bold tracking-wider"><i class="fa-solid fa-trash-can"></i></button>` : '';
+
+                    let repliesContainerId = `replies-box-${fb.id}`;
+                    let repliesMarkup = '';
+                    if(fb.replies) {
+                        Object.values(fb.replies).forEach(rep => {
+                            repliesMarkup += `
+                                <div class="p-2.5 rounded-xl bg-black/30 border border-white/5 space-y-0.5">
+                                    <div class="flex justify-between items-center text-[10px] text-cyan-400 font-bold">
+                                        <span>@${rep.username}</span>
+                                        <span class="text-gray-500 font-medium">${new Date(rep.timestamp).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}</span>
+                                    </div>
+                                    <p class="text-[11px] text-gray-300 font-medium leading-relaxed">${rep.text}</p>
+                                </div>
+                            `;
+                        });
+                    }
+
+                    block.innerHTML = `
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <span class="font-extrabold text-white text-xs block tracking-wide">@${fb.username}</span>
+                                <span class="text-[9px] text-gray-500 font-medium">${new Date(fb.timestamp).toLocaleString()}</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                ${deleteBtn}
+                                <span class="text-[10px] bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-bold px-2 py-0.5 rounded-lg uppercase tracking-wider"><i class="fa-solid fa-shield-check text-[9px]"></i> Verified Investor</span>
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-200 leading-relaxed font-medium pt-1">${fb.text}</p>
+                        <div class="flex items-center gap-4 pt-2 border-t border-white/5 text-[11px] font-bold uppercase tracking-wider text-gray-400">
+                            <button onclick="toggleLikeCommunityFeedback('${fb.id}')" class="flex items-center gap-1 transition-all ${hasLiked ? 'text-rose-400':'hover:text-white'}">
+                                <i class="fa-${hasLiked ? 'solid':'regular'} fa-heart text-xs"></i> <span>${likesCount} Likes</span>
+                            </button>
+                            <button onclick="document.getElementById('reply-dock-${fb.id}').classList.toggle('hidden')" class="flex items-center gap-1 hover:text-white text-xs">
+                                <i class="fa-regular fa-comment-dots"></i> Reply
+                            </button>
+                        </div>
+                        <div id="reply-dock-${fb.id}" class="hidden pt-2 space-y-2">
+                            <div class="flex gap-2">
+                                <input type="text" id="reply-input-${fb.id}" placeholder="Write clear text reply..." class="flex-grow p-2 bg-black/50 border border-white/10 rounded-xl text-xs text-white focus:outline-none premium-input">
+                                <button onclick="submitFeedbackReply('${fb.id}')" class="bg-teal-600 hover:bg-teal-500 px-3 py-1.5 rounded-xl font-bold text-xs text-white uppercase tracking-wider shadow-md">Post</button>
+                            </div>
+                        </div>
+                        <div id="${repliesContainerId}" class="space-y-2 mt-2 pl-3 border-l border-white/5">
+                            ${repliesMarkup}
+                        </div>
+                    `;
+                    stream.appendChild(block);
+                });
+            });
+        }
+
+        function handlePublicFeedbackSubmission(e) {
+            e.preventDefault();
+            const text = document.getElementById('pub-fb-text-input').value.trim();
+            if(!text) return;
+
+            const cachedPhone = localStorage.getItem('ph_session_phone');
+            const feedbackId = 'FB-' + Date.now();
+            
+            db.ref(`community_feedbacks/${feedbackId}`).set({
+                userPhone: cachedPhone,
+                username: sessionUser.username,
+                text: text,
+                timestamp: Date.now()
+            }, err => {
+                if(!err) {
+                    triggerSystemToast("Ecosystem user review logged onto community wall timeline.", "success");
+                    document.getElementById('public-feedback-form').reset();
+                }
+            });
+        }
+
+        function toggleLikeCommunityFeedback(fbId) {
+            const cachedPhone = localStorage.getItem('ph_session_phone');
+            const ref = db.ref(`community_feedbacks/${fbId}/likes/${cachedPhone}`);
+            ref.once('value', snap => {
+                if(snap.exists()) {
+                    ref.remove();
+                } else {
+                    ref.set(true);
+                }
+            });
+        }
+
+        function submitFeedbackReply(fbId) {
+            const input = document.getElementById(`reply-input-${fbId}`);
+            const text = input.value.trim();
+            if(!text) return;
+
+            const cachedPhone = localStorage.getItem('ph_session_phone');
+            const replyId = 'REP-' + Date.now();
+
+            db.ref(`community_feedbacks/${fbId}/replies/${replyId}`).set({
+                userPhone: cachedPhone,
+                username: sessionUser.username,
+                text: text,
+                timestamp: Date.now()
+            }, err => {
+                if(!err) {
+                    input.value = '';
+                    triggerSystemToast("Reply nested frame successfully synchronized.", "success");
+                }
+            });
+        }
+
+        function deleteCommunityFeedback(fbId) {
+            db.ref(`community_feedbacks/${fbId}`).remove(() => {
+                triggerSystemToast("Ecosystem review entry deleted by author node request.", "info");
+            });
+        }
+
+        function copyAffiliateLink() {
+            const myRef = sessionUser.myRefCode || (sessionUser.username.toUpperCase() + '99');
+            const base = window.location.origin + window.location.pathname;
+            const fullLink = `${base}?ref=${myRef}`;
+            
+            navigator.clipboard.writeText(fullLink).then(() => {
+                triggerSystemToast("Affiliate invitation reference map URL copied into device clipboard stack.", "success");
+            });
+        }
+
+        function filterAuditStream(type) {
+            activeAuditFilter = type;
+            const btns = document.querySelectorAll('#screen-history button');
+            btns.forEach(b => {
+                if(b.innerText.toLowerCase().includes(type) || (type === 'all' && b.innerText.toLowerCase().includes('all'))) {
+                    b.className = "px-3.5 py-2 rounded-lg bg-white/10 text-white whitespace-nowrap";
+                } else {
+                    b.className = "px-3.5 py-2 rounded-lg text-gray-400 whitespace-nowrap";
+                }
+            });
+            renderAuditLogTerminalStream();
+        }
+
+        function renderAuditLogTerminalStream() {
+            const container = document.getElementById('audit-logs-terminal-stream');
+            if(!container) return;
+            container.innerHTML = '';
+
+            if(!sessionUser.logs) {
+                container.innerHTML = '<div class="text-xs text-gray-500 font-medium italic text-center py-6">No account history logged in current structural stack pipeline memory.</div>';
+                return;
+            }
+
+            let logsList = Object.values(sessionUser.logs);
+            logsList.sort((a,b) => b.timestamp - a.timestamp);
+
+            let renderedCount = 0;
+            logsList.forEach(log => {
+                if(activeAuditFilter !== 'all' && log.type !== activeAuditFilter) return;
+                renderedCount++;
+
+                const block = document.createElement('div');
+                block.className = "p-4 glass-card border border-white/5 rounded-2xl flex justify-between items-center shadow-md";
+                
+                let iconMarkup = '<i class="fa-solid fa-receipt text-cyan-400"></i>';
+                if(log.type === 'deposit') iconMarkup = '<i class="fa-solid fa-building-columns text-amber-400"></i>';
+                if(log.type === 'withdraw') iconMarkup = '<i class="fa-solid fa-money-bill-transfer text-indigo-400"></i>';
+                if(log.type === 'invest') iconMarkup = '<i class="fa-solid fa-cubes text-emerald-400"></i>';
+                if(log.type === 'yield') iconMarkup = '<i class="fa-solid fa-layer-group text-purple-400"></i>';
+
+                let dynamicStatusBadge = `<span class="text-[10px] font-bold font-mono tracking-wide ${log.status === 'Success' || log.status === 'Executed' ? 'text-emerald-400':'text-amber-400'}">${log.status || 'Active'}</span>`;
+
+                block.innerHTML = `
+                    <div class="flex items-center gap-3.5 text-xs">
+                        <div class="w-9 h-9 rounded-xl bg-white/5 border border-white/5 flex items-center justify-center text-sm shadow-inner">${iconMarkup}</div>
+                        <div>
+                            <span class="font-bold text-white block tracking-wide leading-tight">${log.title}</span>
+                            <span class="text-[10px] text-gray-500 font-semibold font-mono mt-0.5 block">${new Date(log.timestamp).toLocaleString()}</span>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <span class="text-xs font-black font-mono block text-white">Rs. ${Number(log.amount).toFixed(1)}</span>
+                        ${dynamicStatusBadge}
+                    </div>
+                `;
+                container.appendChild(block);
+            });
+
+            if(renderedCount === 0) {
+                container.innerHTML = `<div class="text-xs text-gray-500 font-medium italic text-center py-6">No tracking records match selection constraint [${activeAuditFilter}].</div>`;
+            }
+        }
+
+        function openCustomerCareTerminal() {
+            document.getElementById('customer-care-modal').classList.remove('hidden');
+        }
+        function closeCustomerCareTerminal() {
+            document.getElementById('customer-care-modal').classList.add('hidden');
+        }
+
+        function toggleSupportSubModule(tab) {
+            const btnChat = document.getElementById('support-tab-chat');
+            const btnComp = document.getElementById('support-tab-complaint');
+            const portChat = document.getElementById('support-viewport-chat');
+            const portComp = document.getElementById('support-viewport-complaint');
+            const dock = document.getElementById('chat-input-dock');
+
+            if(tab === 'chat') {
+                btnChat.className = "w-1/2 py-2.5 rounded-xl bg-white/5 text-cyan-400 tracking-wider";
+                btnComp.className = "w-1/2 py-2.5 rounded-xl text-gray-400 tracking-wider";
+                portChat.classList.remove('hidden');
+                portComp.classList.add('hidden');
+                dock.classList.remove('hidden');
+            } else {
+                btnComp.className = "w-1/2 py-2.5 rounded-xl bg-white/5 text-cyan-400 tracking-wider";
+                btnChat.className = "w-1/2 py-2.5 rounded-xl text-gray-400 tracking-wider";
+                portComp.classList.remove('hidden');
+                portChat.classList.add('hidden');
+                dock.classList.add('hidden');
+            }
+        }
+
+        function streamLiveSupportMessageLogs() {
+            const cachedPhone = localStorage.getItem('ph_session_phone');
+            db.ref(`support_channels/${cachedPhone}/messages`).on('value', snap => {
+                const viewport = document.getElementById('support-viewport-chat');
+                viewport.innerHTML = '';
+                if(!snap.exists()) {
+                    viewport.innerHTML = '<div class="text-xs text-gray-500 font-medium italic text-center py-6">Secure dialogue stream empty. Initialize a live text frame ticket message below...</div>';
+                    return;
+                }
+                snap.forEach(child => {
+                    const msg = child.val();
+                    const wrapper = document.createElement('div');
+                    
+                    let isAdmin = msg.sender === 'admin';
+                    wrapper.className = `flex w-full ${isAdmin ? 'justify-start':'justify-end'}`;
+                    
+                    let bubbleMarkup = msg.imageUrl ? 
+                        `<img src="${msg.imageUrl}" class="max-w-[180px] rounded-xl border border-white/10 shadow-lg cursor-zoom-in">` :
+                        `<p class="text-xs leading-relaxed font-semibold">${msg.text}</p>`;
+
+                    wrapper.innerHTML = `
+                        <div class="max-w-[75%] space-y-1">
+                            <div class="p-3.5 rounded-2xl shadow-md border ${
+                                isAdmin ? 'bg-slate-900 border-white/5 rounded-tl-none text-cyan-200' : 'bg-gradient-to-r from-cyan-600 to-blue-600 border-cyan-400/10 rounded-tr-none text-white'
+                            }">
+                                ${bubbleMarkup}
+                            </div>
+                            <span class="block text-[9px] text-gray-500 font-mono font-bold tracking-wide px-1 ${isAdmin ? 'text-left':'text-right'}">
+                                ${isAdmin ? 'Admin Agent Node':'My Node'} • ${new Date(msg.timestamp).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}
+                            </span>
+                        </div>
+                    `;
+                    viewport.appendChild(wrapper);
+                });
+                setTimeout(() => viewport.scrollTo({ top: viewport.scrollHeight, behavior: 'smooth' }), 50);
+            });
+        }
+
+        function transmitLiveChatMessage() {
+            const input = document.getElementById('chat-message-input');
+            const text = input.value.trim();
+            if(!text) return;
+
+            const cachedPhone = localStorage.getItem('ph_session_phone');
+            const msgId = 'MSG-' + Date.now();
+
+            const payload = {
+                id: msgId,
+                sender: 'user',
+                text: text,
+                timestamp: Date.now()
+            };
+
+            db.ref(`support_channels/${cachedPhone}/messages/${msgId}`).set(payload, err => {
+                if(!err) {
+                    input.value = '';
+                    db.ref(`support_channels/${cachedPhone}/metadata`).set({
+                        userPhone: cachedPhone,
+                        username: sessionUser.username,
+                        lastMessageTimestamp: Date.now(),
+                        unreadByAdmin: true
+                    });
+                }
+            });
+        }
+
+        async function uploadChatAttachmentToCloudinary(e) {
+            const file = e.target.files[0];
+            if(!file) return;
+
+            const spinner = document.getElementById('chat-file-spinner');
+            spinner.classList.remove('hidden');
+
+            const url = await transmitMediaToCloudMatrix(file);
+            spinner.classList.add('hidden');
+
+            if(url) {
+                const cachedPhone = localStorage.getItem('ph_session_phone');
+                const msgId = 'MSG-' + Date.now();
+                
+                db.ref(`support_channels/${cachedPhone}/messages/${msgId}`).set({
+                    id: msgId,
+                    sender: 'user',
+                    imageUrl: url,
+                    timestamp: Date.now()
+                });
+            }
+        }
+
+        async function uploadTicketProofToCloudinary(e) {
+            const file = e.target.files[0];
+            if(!file) return;
+            const spinner = document.getElementById('ticket-proof-spinner');
+            spinner.classList.remove('hidden');
+            const url = await transmitMediaToCloudMatrix(file);
+            spinner.classList.add('hidden');
+            if(url) document.getElementById('ticket-proof-url').value = url;
+        }
+
+        function handleTicketSubmission(e) {
+            e.preventDefault();
+            const cat = document.getElementById('ticket-category').value;
+            const desc = document.getElementById('ticket-desc').value.trim();
+            const proof = document.getElementById('ticket-proof-url').value;
+
+            const cachedPhone = localStorage.getItem('ph_session_phone');
+            const ticketId = 'TCK-' + Math.floor(100000 + Math.random() * 900000);
+
+            const payload = {
+                id: ticketId,
+                category: cat,
+                description: desc,
+                proofUrl: proof || "NONE",
+                timestamp: Date.now(),
+                status: 'Open Infrastructure Review'
+            };
+
+            db.ref(`support_channels/${cachedPhone}/tickets/${ticketId}`).set(payload, err => {
+                if(!err) {
+                    triggerSystemToast("Formal administrative dispute ticket logged safely.", "success");
+                    document.getElementById('formal-ticket-form').reset();
+                }
+            });
+        }
+
+        function streamFiledTicketsLog() {
+            const cachedPhone = localStorage.getItem('ph_session_phone');
+            db.ref(`support_channels/${cachedPhone}/tickets`).on('value', snap => {
+                const feed = document.getElementById('ticket-resolution-feed');
+                feed.innerHTML = '';
+                if(!snap.exists()) {
+                    feed.innerHTML = '<div class="text-[11px] text-gray-500 italic font-medium py-2">No infrastructure tickets logged under this active node.</div>';
+                    return;
+                }
+                snap.forEach(child => {
+                    const tk = child.val();
+                    const block = document.createElement('div');
+                    block.className = "p-3.5 bg-black/40 border border-white/5 rounded-xl space-y-1.5 text-xs text-left shadow-inner";
+                    block.innerHTML = `
+                        <div class="flex justify-between items-center font-bold">
+                            <span class="text-cyan-400 font-mono tracking-wide">${tk.id}</span>
+                            <span class="text-[10px] uppercase font-bold text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded-lg border border-amber-500/20">${tk.status}</span>
+                        </div>
+                        <p class="text-gray-400 font-medium text-[11px] leading-tight"><b class="text-gray-300 uppercase text-[9px] tracking-wider block mb-0.5">Classification: ${tk.category}</b> ${tk.description}</p>
+                    `;
+                    feed.appendChild(block);
+                });
+            });
+        }
+
+        function closeContextMenu() {
+            document.getElementById('context-menu-modal').classList.add('hidden');
+        }
+    </script>
+</body>
+                                                                                                                                                                                                                                                                                                      </html>
