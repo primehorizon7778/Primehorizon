@@ -66,11 +66,18 @@
 
         .neon-text-cyan { text-shadow: 0 0 10px rgba(6, 182, 212, 0.4); }
         .neon-text-emerald { text-shadow: 0 0 10px rgba(16, 185, 129, 0.4); }
+        
+        .task-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .task-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.4);
+        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between antialiased">
 
-    <!-- Admin Account Warning Element Box Display -->
     <div id="admin-custom-warning-banner" class="w-full bg-amber-500/20 border-b border-amber-500/30 py-2.5 px-4 text-center text-xs font-bold text-amber-300 z-50 flex items-center justify-center gap-2 backdrop-blur-md hidden">
         <i class="fa-solid fa-triangle-exclamation animate-bounce text-amber-400"></i>
         <span id="admin-warning-banner-text">Warning: Administrative Broadcast Rule Action Logged.</span>
@@ -97,7 +104,7 @@
         </div>
 
         <div class="flex items-center gap-2 glass-panel px-3.5 py-2 border border-emerald-500/20 bg-emerald-500/5 shadow-inner" id="device-pill" style="display:none;">
-            <i class="fa-solid var(--device-icon, fa-mobile-screen-button) text-emerald-400 animate-pulse"></i>
+            <i class="fa-solid fa-mobile-screen-button text-emerald-400 animate-pulse"></i>
             <span id="device-display-name" class="text-[11px] font-bold text-emerald-400 font-mono tracking-wide">Node Core</span>
         </div>
     </header>
@@ -177,7 +184,6 @@
                     </div>
                 </div>
 
-                <!-- Recovery Password Option Request Box Area -->
                 <div id="forgot-password-trigger-box" class="pt-1 text-center hidden">
                     <button type="button" onclick="openPasswordRecoveryModal()" class="text-xs text-rose-400 hover:text-rose-300 font-bold underline tracking-wide transition-all">
                         <i class="fa-solid fa-key mr-1"></i> Request Password?
@@ -266,13 +272,6 @@
                 </div>
             </div>
 
-            <div id="dashboard-daily-tasks-panel" class="glass-panel p-4 border border-cyan-500/10 bg-cyan-500/5 space-y-3">
-                <h5 class="text-xs font-bold uppercase tracking-wider text-cyan-400 flex items-center gap-2">
-                    <i class="fa-solid fa-rectangle-list text-cyan-400"></i> Daily Task Directives
-                </h5>
-                <div id="daily-tasks-stream" class="space-y-2.5"></div>
-            </div>
-
             <div id="dashboard-unlocked-features" class="space-y-4">
                 <div class="grid grid-cols-2 gap-3.5">
                     <button onclick="switchScreen('screen-my-details')" class="p-4 rounded-2xl glass-panel text-left hover:bg-white/5 border border-white/5 transition-all group flex flex-col justify-between h-28 border-l-4 border-cyan-500 shadow-md">
@@ -300,6 +299,7 @@
                     </button>
                 </div>
 
+                <!-- Affiliate Program -->
                 <div class="glass-panel p-4 bg-gradient-to-r from-indigo-950/40 to-slate-900/30 border border-white/10 rounded-2xl flex justify-between items-center cursor-pointer hover:border-indigo-500/30 transition-all shadow-md group" onclick="switchScreen('screen-invite-friends')">
                     <div class="space-y-1">
                         <h4 class="text-[10px] font-extrabold text-indigo-400 uppercase tracking-widest neon-text-cyan">Affiliate Program</h4>
@@ -311,30 +311,30 @@
                     </div>
                 </div>
 
-                <div class="glass-panel p-4 bg-gradient-to-r from-teal-950/40 to-slate-900/30 border border-white/10 rounded-2xl flex justify-between items-center cursor-pointer hover:border-teal-500/30 transition-all shadow-md group" onclick="switchScreen('screen-community-feedback'); streamCommunityFeedbacks();">
+                <!-- Feedback Center (kept) -->
+                <div class="glass-panel p-4 bg-gradient-to-r from-pink-950/40 to-slate-900/30 border border-white/10 rounded-2xl flex justify-between items-center cursor-pointer hover:border-pink-500/30 transition-all shadow-md group" onclick="switchScreen('screen-admin-feedback'); streamAdminFeedbacks();">
                     <div class="space-y-1">
-                        <h4 class="text-[10px] font-extrabold text-teal-400 uppercase tracking-widest">Community Hub</h4>
-                        <p class="text-xs font-extrabold text-white">Share Live App Experiences</p>
-                        <p class="text-[9px] text-gray-400 font-medium"><i class="fa-solid fa-comments text-teal-400 mr-1"></i>Read global user reviews, likes & replies</p>
+                        <h4 class="text-[10px] font-extrabold text-pink-400 uppercase tracking-widest">Feedback Center</h4>
+                        <p class="text-xs font-extrabold text-white">Send Direct Feedback</p>
+                        <p class="text-[9px] text-gray-400 font-medium"><i class="fa-solid fa-comment-dots text-pink-400 mr-1"></i>Share feedback with Admin</p>
                     </div>
-                    <div class="w-9 h-9 rounded-xl bg-teal-500/10 group-hover:bg-teal-500/20 border border-teal-500/20 flex items-center justify-center text-teal-400 transition-all shadow-inner">
-                        <i class="fa-solid fa-comments text-xs"></i>
+                    <div class="w-9 h-9 rounded-xl bg-pink-500/10 group-hover:bg-pink-500/20 border border-pink-500/20 flex items-center justify-center text-pink-400 transition-all shadow-inner">
+                        <i class="fa-solid fa-paper-plane text-xs"></i>
                     </div>
                 </div>
 
-                <div class="glass-panel p-4 space-y-3.5 shadow-md">
-                    <h5 class="text-[10px] font-bold tracking-widest text-gray-400 uppercase px-0.5">Ecosystem Broadcast Channels</h5>
-                    <div class="grid grid-cols-2 gap-2.5" id="admin-social-channels-feed">
-                        <a href="https://tiktok.com" target="_blank" class="flex items-center gap-3 p-3 rounded-xl bg-black/20 border border-white/5 hover:bg-white/5 transition-all">
-                            <i class="fa-brands fa-tiktok text-white text-base"></i>
-                            <span class="text-xs font-medium">TikTok Feed</span>
-                        </a>
-                        <a href="https://instagram.com" target="_blank" class="flex items-center gap-3 p-3 rounded-xl bg-black/20 border border-white/5 hover:bg-white/5 transition-all">
-                            <i class="fa-brands fa-instagram text-rose-400 text-base"></i>
-                            <span class="text-xs font-medium">Instagram Node</span>
-                        </a>
+                <!-- NEW: More / Tasks Button -->
+                <div class="glass-panel p-4 bg-gradient-to-r from-violet-950/40 to-slate-900/30 border border-white/10 rounded-2xl flex justify-between items-center cursor-pointer hover:border-violet-500/30 transition-all shadow-md group" onclick="switchScreen('screen-tasks'); updateTasksBalance(); loadSocialTasks();">
+                    <div class="space-y-1">
+                        <h4 class="text-[10px] font-extrabold text-violet-400 uppercase tracking-widest">More</h4>
+                        <p class="text-xs font-extrabold text-white">Tasks & Social Rewards</p>
+                        <p class="text-[9px] text-gray-400 font-medium"><i class="fa-solid fa-tasks text-violet-400 mr-1"></i>Complete tasks • Earn 5 Coins each (one-time)</p>
+                    </div>
+                    <div class="w-9 h-9 rounded-xl bg-violet-500/10 group-hover:bg-violet-500/20 border border-violet-500/20 flex items-center justify-center text-violet-400 transition-all shadow-inner">
+                        <i class="fa-solid fa-ellipsis-h text-xs"></i>
                     </div>
                 </div>
+
             </div>
 
             <div class="glass-panel p-5 space-y-3.5 shadow-md">
@@ -348,23 +348,52 @@
             </div>
         </section>
 
-        <section id="screen-community-feedback" class="screen space-y-4">
+        <section id="screen-admin-feedback" class="screen space-y-4">
             <div class="flex items-center justify-between">
                 <button onclick="switchScreen('screen-dashboard')" class="text-xs text-gray-400 hover:text-white flex items-center gap-1.5 transition-all bg-white/5 px-3 py-1.5 rounded-xl border border-white/5 font-semibold"><i class="fa-solid fa-arrow-left-long"></i> Back</button>
-                <h2 class="text-xs font-extrabold text-teal-400 uppercase tracking-widest">Community Hub</h2>
+                <h2 class="text-xs font-extrabold text-pink-400 uppercase tracking-widest">Feedback Center</h2>
             </div>
             
             <div class="glass-panel p-4 space-y-3.5 shadow-md">
-                <h5 class="text-xs font-bold uppercase tracking-wider text-teal-400 px-0.5">Share Your Experience</h5>
-                <form id="public-feedback-form" onsubmit="handlePublicFeedbackSubmission(event)" class="space-y-2.5">
-                    <textarea id="pub-fb-text-input" placeholder="Type your transparent user review and platform feedback here..." rows="2" required class="w-full px-4 py-3 bg-black/40 border border-white/10 rounded-xl text-xs text-white focus:outline-none focus:border-teal-500 premium-input transition-all resize-none"></textarea>
-                    <button type="submit" class="w-full py-3 bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-500 hover:to-emerald-500 text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-lg">Post to Community Wall</button>
+                <h5 class="text-xs font-bold uppercase tracking-wider text-pink-400 px-0.5">Submit Feedback</h5>
+                <form id="admin-feedback-form" onsubmit="handleAdminFeedbackSubmission(event)" class="space-y-2.5">
+                    <textarea id="admin-fb-text-input" placeholder="Type your feedback for the admin here..." rows="3" required class="w-full px-4 py-3 bg-black/40 border border-white/10 rounded-xl text-xs text-white focus:outline-none focus:border-pink-500 premium-input transition-all resize-none"></textarea>
+                    <button type="submit" class="w-full py-3 bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-500 hover:to-rose-500 text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-lg">Submit Feedback</button>
                 </form>
             </div>
 
-            <div id="community-feedback-stream" class="space-y-3.5 max-h-[55vh] overflow-y-auto pb-4 pr-1">
-                <div class="text-xs text-gray-500 italic text-center py-4">Fetching verified ecosystem review frames...</div>
+            <div id="admin-feedback-stream" class="space-y-3.5 max-h-[50vh] overflow-y-auto pb-4 pr-1">
+                <div class="text-xs text-gray-500 italic text-center py-4">Fetching your feedbacks...</div>
             </div>
+        </section>
+
+        <!-- NEW PROFESSIONAL TASKS & REWARDS SCREEN -->
+        <section id="screen-tasks" class="screen space-y-4">
+            <div class="flex items-center justify-between">
+                <button onclick="switchScreen('screen-dashboard')" class="text-xs text-gray-400 hover:text-white flex items-center gap-1.5 transition-all bg-white/5 px-3 py-1.5 rounded-xl border border-white/5 font-semibold"><i class="fa-solid fa-arrow-left-long"></i> Back</button>
+                <h2 class="text-xs font-extrabold text-violet-400 uppercase tracking-widest">Tasks & Rewards Center</h2>
+            </div>
+
+            <div class="glass-panel p-5 space-y-4">
+                <div class="text-center">
+                    <h3 class="text-lg font-black text-white tracking-wider">Earn Free Coins</h3>
+                    <p class="text-xs text-gray-400 mt-1">Complete simple social media tasks. Each task rewards <span class="font-bold text-violet-400">5 Coins</span> — claimable only once per account.</p>
+                </div>
+                
+                <div class="bg-black/30 border border-white/5 rounded-2xl p-4 text-xs">
+                    <div class="flex justify-between text-gray-400">
+                        <span>Your Current Coins</span>
+                        <span id="tasks-coins-balance" class="font-mono font-bold text-white">0</span>
+                    </div>
+                    <div class="text-[10px] text-emerald-400 mt-1">Convert anytime in Affiliate section • 50 Coins = Rs. 1</div>
+                </div>
+            </div>
+
+            <div id="tasks-list" class="space-y-4">
+                <!-- Dynamically loaded by JS -->
+            </div>
+
+            <div class="text-center text-[10px] text-gray-500 pt-2">New tasks added regularly by administration. Check back often!</div>
         </section>
 
         <section id="screen-invite-friends" class="screen space-y-4">
@@ -383,7 +412,6 @@
                 </div>
             </div>
 
-            <!-- Matrix Coins Display and Convert Option Sub-Module Block -->
             <div class="glass-panel p-4 space-y-3.5 shadow-md bg-gradient-to-r from-amber-500/5 to-yellow-500/5 border border-amber-500/10">
                 <div class="flex justify-between items-center">
                     <div>
@@ -540,6 +568,16 @@
                     <input type="number" id="withdraw-volume" required class="w-full px-4 py-3.5 bg-black/40 border border-white/10 rounded-xl text-xs focus:outline-none focus:border-indigo-500 text-white premium-input font-mono" placeholder="Rs. Minimum limit enforced">
                 </div>
 
+                <div>
+                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 px-1">Withdrawal Method</label>
+                    <select id="withdraw-method" class="w-full px-4 py-3.5 bg-black/40 border border-white/10 rounded-xl text-xs focus:outline-none focus:border-indigo-500 text-white premium-input font-semibold">
+                        <option value="JazzCash">JazzCash</option>
+                        <option value="EasyPaisa">EasyPaisa</option>
+                        <option value="Bank Transfer">Bank Transfer</option>
+                        <option value="Other">Other / Custom</option>
+                    </select>
+                </div>
+
                 <button type="submit" id="withdraw-submit-btn" class="w-full py-4 bg-gradient-to-r from-indigo-600 via-blue-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 rounded-xl font-bold text-xs uppercase tracking-wider text-white shadow-lg shadow-indigo-950/50 transition-all">
                     Transmit Capital Outbound Request
                 </button>
@@ -565,7 +603,9 @@
         
     </main>
 
-    <!-- Request Password Recovery Operations Screen Modal Interface -->
+    <!-- All existing modals remain unchanged (password recovery, profile, announcement, customer care, etc.) -->
+    <!-- ... (I kept all your original modals exactly as they were for full compatibility) -->
+
     <div id="password-recovery-modal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 hidden">
         <div class="glass-panel p-6 w-full max-w-sm space-y-4 border border-rose-500/20 text-white">
             <div class="flex justify-between items-center border-b border-white/10 pb-3">
@@ -584,7 +624,6 @@
                     <input type="tel" id="recovery-phone" required class="w-full p-3 bg-black/40 border border-white/10 rounded-xl text-white focus:outline-none focus:border-rose-500 premium-input font-mono" placeholder="03XXXXXXXXX">
                 </div>
 
-                <!-- 30 Seconds Loading Pipeline Box UI -->
                 <div id="recovery-loading-pipeline" class="hidden p-4 bg-black/60 border border-cyan-500/20 rounded-xl text-center space-y-2">
                     <i class="fa-solid fa-circle-notch fa-spin text-cyan-400 text-lg"></i>
                     <p class="text-[11px] text-cyan-300 font-mono tracking-wide font-medium">Validating Server Credentials Mapping... <span id="recovery-timer-display">30</span>s</p>
@@ -596,6 +635,8 @@
             </form>
         </div>
     </div>
+
+    <!-- Profile, Announcement, Customer Care modals kept exactly as original for compatibility -->
 
     <div id="profile-details-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 hidden" onclick="closeProfileModal()">
         <div class="glass-panel p-6 w-full max-w-sm space-y-4 border border-cyan-500/20 text-white" onclick="event.stopPropagation()">
@@ -627,6 +668,20 @@
         </div>
     </div>
 
+    <footer id="main-footer" class="w-full max-w-md mx-auto px-4 pb-4 z-40">
+        <div class="glass-panel p-3.5 flex justify-between items-center gap-2 border border-white/10 shadow-lg">
+            <div class="text-left pl-1">
+                <span class="block text-[9px] uppercase font-black tracking-widest text-cyan-400 neon-text-cyan">Ecosystem Guard Active</span>
+                <span class="text-xs font-bold text-white tracking-wide">Central Operations Node</span>
+            </div>
+            <button onclick="openCustomerCareTerminal()" class="px-4 py-2.5 bg-gradient-to-r from-cyan-600 via-blue-600 to-indigo-600 hover:from-cyan-500 hover:to-indigo-500 rounded-xl text-xs font-bold shadow-md flex items-center gap-1.5 text-white tracking-wider uppercase transition-all transform active:scale-95 border border-cyan-400/20">
+                <i class="fa-solid fa-headset text-xs"></i> Support Desk
+            </button>
+        </div>
+    </footer>
+
+    <!-- Customer Care Modal kept exactly as original -->
+
     <div id="customer-care-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
         <div class="w-full max-w-md glass-panel flex flex-col h-[85vh] overflow-hidden border border-cyan-500/20 shadow-2xl">
             <div class="p-4 border-b border-white/10 flex justify-between items-center bg-black/40">
@@ -650,6 +705,7 @@
             </div>
 
             <div class="flex-grow p-4 overflow-y-auto hidden" id="support-viewport-complaint">
+                <!-- Complaint form kept original -->
                 <form id="formal-ticket-form" onsubmit="handleTicketSubmission(event)" class="space-y-4 text-left">
                     <div>
                         <label class="block text-[10px] uppercase font-bold text-gray-400 tracking-wider mb-2 px-0.5">Issue Classification Matrix</label>
@@ -706,18 +762,6 @@
     </div>
 
     <div id="global-toast-container" class="fixed top-16 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-xs space-y-2 pointer-events-none"></div>
-
-    <footer id="main-footer" class="w-full max-w-md mx-auto px-4 pb-4 z-40">
-        <div class="glass-panel p-3.5 flex justify-between items-center gap-2 border border-white/10 shadow-lg">
-            <div class="text-left pl-1">
-                <span class="block text-[9px] uppercase font-black tracking-widest text-cyan-400 neon-text-cyan">Ecosystem Guard Active</span>
-                <span class="text-xs font-bold text-white tracking-wide">Central Operations Node</span>
-            </div>
-            <button onclick="openCustomerCareTerminal()" class="px-4 py-2.5 bg-gradient-to-r from-cyan-600 via-blue-600 to-indigo-600 hover:from-cyan-500 hover:to-indigo-500 rounded-xl text-xs font-bold shadow-md flex items-center gap-1.5 text-white tracking-wider uppercase transition-all transform active:scale-95 border border-cyan-400/20">
-                <i class="fa-solid fa-headset text-xs"></i> Support Desk
-            </button>
-        </div>
-    </footer>
 
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
@@ -815,7 +859,7 @@
             }`;
             
             const icon = type === 'success' ? 'fa-circle-check' : type === 'error' ? 'fa-circle-exclamation' : 'fa-circle-info';
-            toast.innerHTML = `<i class="fa-solid ${icon} text-base flex-shrink-0 text-cyan-400"></i><span class="text-xs font-bold leading-relaxed">${message}</span>`;
+            toast.innerHTML = `<i class="fa-solid \( {icon} text-base flex-shrink-0 text-cyan-400"></i><span class="text-xs font-bold leading-relaxed"> \){message}</span>`;
             
             container.appendChild(toast);
             setTimeout(() => { toast.classList.remove('scale-95', 'opacity-0'); }, 50);
@@ -1027,7 +1071,7 @@
             
             db.ref('users/' + cachedPhone).transaction(current => {
                 if(current) {
-                    current.coinsCommission = 0; 
+                    current.coinsCommission = 0;
                     current.balance = Number(current.balance || 0) + conversionRupeesGained;
                     
                     if(!current.logs) current.logs = {};
@@ -1210,7 +1254,7 @@
                     registeredDate: new Date().toLocaleDateString(),
                     verificationStatus: 'verified', 
                     balance: 0,
-                    coinsCommission: 0, 
+                    coinsCommission: 0,
                     totalInvested: 0,
                     totalProfit: 0,
                     totalDeposit: 0,
@@ -1222,7 +1266,7 @@
                 db.ref('users/' + phone).set(payload, err => {
                     if(!err) {
                         if(parentRefNodePhone) {
-                            db.ref(`users/${parentRefNodePhone}/referrals/${phone}`).set({
+                            db.ref(`users/\( {parentRefNodePhone}/referrals/ \){phone}`).set({
                                 email: email,
                                 username: username,
                                 date: new Date().toLocaleDateString(),
@@ -1390,7 +1434,7 @@
                 }
 
                 sessionUser = updated;
-                
+
                 const warningBanner = document.getElementById('admin-custom-warning-banner');
                 const warningText = document.getElementById('admin-warning-banner-text');
                 if(updated.customProfileWarningText && updated.customProfileWarningText.trim() !== "") {
@@ -1406,8 +1450,6 @@
             streamInvestmentPlansDataset();
             streamLiveSupportMessageLogs();
             streamFiledTicketsLog();
-            streamDailyTasksFromDeskRegistry();
-            streamCustomAdminSocialAccountsWidget();
             switchScreen('screen-dashboard');
         }
 
@@ -1432,7 +1474,7 @@
 
             if(sessionUser.referrals) {
                 const count = Object.keys(sessionUser.referrals).length;
-                document.getElementById('meta-ref-count').innerText = `${count} Node${count > 1 ? 's':''}`;
+                document.getElementById('meta-ref-count').innerText = `\( {count} Node \){count > 1 ? 's':''}`;
             } else {
                 document.getElementById('meta-ref-count').innerText = "0 Nodes";
             }
@@ -1454,33 +1496,6 @@
             db.ref('admin_settings/deposit_gateway').on('value', snap => {
                 window.globalDepositGatewayConfig = snap.val();
                 updateDepositGatewayDetails(document.getElementById('deposit-channel').value);
-            });
-        }
-
-        function streamCustomAdminSocialAccountsWidget() {
-            db.ref('admin_settings/social_links').on('value', snap => {
-                const container = document.getElementById('admin-social-channels-feed');
-                if(!snap.exists()) return;
-                container.innerHTML = '';
-                
-                const data = snap.val();
-                Object.keys(data).forEach(networkKey => {
-                    const obj = data[networkKey]; 
-                    if(!obj.url) return;
-                    
-                    let iconMarkup = '<i class="fa-solid fa-hashtag text-base"></i>';
-                    if(networkKey.toLowerCase().includes('whatsapp')) iconMarkup = '<i class="fa-brands fa-whatsapp text-emerald-400 text-base"></i>';
-                    if(networkKey.toLowerCase().includes('facebook')) iconMarkup = '<i class="fa-brands fa-facebook text-blue-500 text-base"></i>';
-                    if(networkKey.toLowerCase().includes('instagram')) iconMarkup = '<i class="fa-brands fa-instagram text-rose-400 text-base"></i>';
-                    if(networkKey.toLowerCase().includes('youtube')) iconMarkup = '<i class="fa-brands fa-youtube text-rose-600 text-base"></i>';
-
-                    const a = document.createElement('a');
-                    a.href = obj.url;
-                    a.target = "_blank";
-                    a.className = "flex items-center gap-3 p-3 rounded-xl bg-black/20 border border-white/5 hover:bg-white/5 transition-all";
-                    a.innerHTML = `${iconMarkup}<span class="text-xs font-semibold truncate text-gray-200">${obj.label || networkKey}</span>`;
-                    container.appendChild(a);
-                });
             });
         }
 
@@ -1531,62 +1546,6 @@
 
         function closeAnnouncementPopup() {
             document.getElementById('global-announcement-popup').classList.add('hidden');
-        }
-
-        function streamDailyTasksFromDeskRegistry() {
-            db.ref('admin_tasks').on('value', snap => {
-                const container = document.getElementById('daily-tasks-stream');
-                container.innerHTML = '';
-                if(!snap.exists()) {
-                    container.innerHTML = '<div class="text-[11px] text-gray-500 italic py-2 font-medium">No administrative tasks allocated for today.</div>';
-                    return;
-                }
-                snap.forEach(child => {
-                    const task = child.val();
-                    const taskId = child.key;
-                    const block = document.createElement('div');
-                    block.className = "p-3.5 bg-black/40 border border-white/5 rounded-xl flex justify-between items-center text-xs shadow-inner";
-                    
-                    let isCompleted = sessionUser.completedTasks && sessionUser.completedTasks[taskId];
-                    let actionBtn = isCompleted ? 
-                        `<span class="text-emerald-400 font-bold uppercase text-[10px] bg-emerald-500/10 px-2.5 py-1 rounded-lg border border-emerald-500/20"><i class="fa-solid fa-check-double text-[9px]"></i> Cleared</span>` :
-                        `<button onclick="claimDailyTaskReward('${taskId}', ${task.reward || 50})" class="bg-gradient-to-r from-cyan-600 to-blue-600 px-3.5 py-1.5 text-[10px] font-bold text-white uppercase tracking-wider rounded-lg shadow-md transition-all transform active:scale-95">Claim Bounty</button>`;
-
-                    block.innerHTML = `
-                        <div>
-                            <span class="font-bold text-white block tracking-wide">${task.title || 'Platform Operation Job'}</span>
-                            <span class="text-[10px] text-emerald-400 font-bold font-mono mt-0.5 block">+ Rs. ${(task.reward || 50).toFixed(2)} Bounty</span>
-                        </div>
-                        ${actionBtn}
-                    `;
-                    container.appendChild(block);
-                });
-            });
-        }
-
-        function claimDailyTaskReward(taskId, bounty) {
-            const cachedPhone = localStorage.getItem('ph_session_phone');
-            db.ref(`users/${cachedPhone}`).transaction(current => {
-                if(current) {
-                    if(!current.completedTasks) current.completedTasks = {};
-                    current.completedTasks[taskId] = true;
-                    current.balance = Number(current.balance || 0) + parseFloat(bounty);
-                    
-                    if(!current.logs) current.logs = {};
-                    const logId = 'LOG-' + Date.now();
-                    current.logs[logId] = {
-                        id: logId,
-                        type: 'yield',
-                        title: `Daily Task Operations Bounty`,
-                        amount: bounty,
-                        timestamp: Date.now(),
-                        status: 'Success'
-                    };
-                }
-                return current;
-            }, (err, committed) => {
-                if(committed) triggerSystemToast(`Operations bounty of Rs. ${bounty} cleared into balance matrix.`, "success");
-            });
         }
 
         function submitSuspensionAppeal() {
@@ -1693,6 +1652,7 @@
                         let parentPhone = current.referredByPhone;
                         if(parentPhone && parentPhone !== "NONE" && root.users[parentPhone]) {
                             let parentUser = root.users[parentPhone];
+                            
                             let coinsAwardedCalculatedValue = Math.floor(Number(plan.cost) * 0.25); 
                             
                             parentUser.coinsCommission = parseInt(parentUser.coinsCommission || 0) + coinsAwardedCalculatedValue;
@@ -1748,7 +1708,7 @@
                 <div class="p-4 bg-black/40 rounded-2xl space-y-3.5 text-left border border-white/5 shadow-inner">
                     <div class="flex justify-between items-center">
                         <span class="font-extrabold text-white text-xs uppercase tracking-wide flex items-center">${p.name} ${missedBadge}</span>
-                        <span class="text-[10px] text-amber-400 bg-amber-500/5 border border-amber-500/20 px-2.5 py-0.5 rounded-lg font-mono font-bold">${p.daysRemaining}/${p.totalDays} Days Remaining</span>
+                        <span class="text-[10px] text-amber-400 bg-amber-500/5 border border-amber-500/20 px-2.5 py-0.5 rounded-lg font-mono font-bold">\( {p.daysRemaining}/ \){p.totalDays} Days Remaining</span>
                     </div>
                     <div class="grid grid-cols-2 gap-2.5 pt-2 border-t border-white/5 text-xs font-semibold">
                         <div><span class="text-gray-500 block text-[10px] uppercase">Locked Asset Size:</span> <span class="text-white font-mono">Rs. ${p.cost}</span></div>
@@ -1916,11 +1876,11 @@
                 proofUrl: proofUrl,
                 timestamp: timestamp,
                 countdownTarget: timestamp + (48 * 60 * 60 * 1000), 
-                status: 'pending'
+                status: 'Pending'
             };
 
             const cachedPhone = localStorage.getItem('ph_session_phone');
-            db.ref(`users/${cachedPhone}/logs/${depositId}`).set(depositObject);
+            db.ref(`users/\( {cachedPhone}/logs/ \){depositId}`).set(depositObject);
             db.ref(`admin_queues/deposits/${depositId}`).set({
                 userPhone: cachedPhone,
                 username: sessionUser.username,
@@ -1935,163 +1895,390 @@
             });
         }
 
-        // ================= WITHDRAWAL TERMINAL BACKEND OPERATIONS =================
         function buildWithdrawalAccountConfigPanel() {
             const view = document.getElementById('withdraw-node-registry-view');
+            const form = document.getElementById('withdraw-processing-form');
             const alertBox = document.getElementById('withdraw-lockout-alert');
+
+            let hasDepositedRef = false;
             
-            if(!sessionUser) return;
-            
-            if(sessionUser.withdrawalAccount) {
-                view.innerHTML = `
-                    <div class="flex justify-between py-1"><span class="text-gray-400">Gateway:</span> <span class="font-bold text-white">${sessionUser.withdrawalMethod}</span></div>
-                    <div class="flex justify-between py-1"><span class="text-gray-400">Account Title:</span> <span class="font-bold text-white">${sessionUser.withdrawalTitle}</span></div>
-                    <div class="flex justify-between py-1"><span class="text-gray-400">Account Number:</span> <span class="font-bold text-indigo-400 font-mono">${sessionUser.withdrawalAccount}</span></div>
-                `;
-                if(sessionUser.withdrawalAccountLocked) {
-                    alertBox.classList.remove('hidden');
-                    alertBox.innerText = "System Warning: Outbound transfer channels locked by core protocol admin.";
-                    document.getElementById('withdraw-submit-btn').disabled = true;
-                    document.getElementById('withdraw-submit-btn').className = "w-full py-4 bg-slate-800 text-gray-500 rounded-xl font-bold text-xs uppercase tracking-wider cursor-not-allowed transition-all shadow-lg";
-                } else {
-                    alertBox.classList.add('hidden');
-                    document.getElementById('withdraw-submit-btn').disabled = false;
-                    document.getElementById('withdraw-submit-btn').className = "w-full py-4 bg-gradient-to-r from-indigo-600 via-blue-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 rounded-xl font-bold text-xs uppercase tracking-wider text-white shadow-lg transition-all";
-                }
+            if(sessionUser.referrals) {
+                Object.values(sessionUser.referrals).forEach(ref => {
+                    if(ref.isDeposited === true || ref.depositCommissionPaid === true || (ref.commissionEarnedCoins && ref.commissionEarnedCoins > 0)) {
+                        hasDepositedRef = true;
+                    }
+                });
+            }
+
+            if(!hasDepositedRef) {
+                alertBox.innerHTML = `<div class="flex items-center gap-2 justify-center"><i class="fa-solid fa-triangle-exclamation text-rose-400"></i><span>Outbound Terminal Locked: Dynamic security policies require at least <b>1 Invited Friend</b> who has successfully made an approved Deposit.</span></div>`;
+                alertBox.classList.remove('hidden');
+                document.getElementById('withdraw-submit-btn').disabled = true;
+                document.getElementById('withdraw-submit-btn').className = "w-full py-4 bg-slate-800 text-gray-500 rounded-xl font-bold text-xs uppercase tracking-wider cursor-not-allowed shadow-md";
             } else {
+                alertBox.classList.add('hidden');
+                document.getElementById('withdraw-submit-btn').disabled = false;
+                document.getElementById('withdraw-submit-btn').className = "w-full py-4 bg-gradient-to-r from-indigo-600 via-blue-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold text-xs uppercase tracking-wider rounded-xl shadow-lg transition-all";
+            }
+
+            if(!sessionUser.withdrawalAccount) {
                 view.innerHTML = `
-                    <div class="space-y-2 pt-1">
-                        <span class="text-[10px] text-amber-400 block font-bold"><i class="fa-solid fa-triangle-exclamation"></i> Notice: Bind your withdrawal channel. Once set, it cannot be altered without dispute verification.</span>
-                        <select id="bind-wd-method" class="w-full px-3 py-2 bg-black/60 border border-white/10 rounded-xl text-xs text-white focus:outline-none">
-                            <option value="JazzCash">JazzCash Network Node</option>
-                            <option value="EasyPaisa">EasyPaisa Hub Node</option>
-                            <option value="Bank Transfer">Bank Transfer Matrix</option>
-                        </select>
-                        <input type="text" id="bind-wd-title" placeholder="Account Title Name" class="w-full px-3 py-2 bg-black/60 border border-white/10 rounded-xl text-xs text-white focus:outline-none">
-                        <input type="text" id="bind-wd-account" placeholder="Account Number / IBAN" class="w-full px-3 py-2 bg-black/60 border border-white/10 rounded-xl text-xs text-white focus:outline-none">
-                        <button type="button" onclick="lockWithdrawalEndpointDetails()" class="w-full py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-[10px] uppercase tracking-wider rounded-xl transition-all">Lock Destination Endpoint</button>
+                    <div class="space-y-3.5 pt-1">
+                        <p class="text-[11px] text-amber-400 font-semibold"><i class="fa-solid fa-circle-exclamation"></i> Destination Account Endpoint empty. Configure permanent immutable routing registry block:</p>
+                        <input type="text" id="setup-w-num" placeholder="Account Identifier / Wallet Phone Number" class="w-full px-3.5 py-2.5 bg-black/50 border border-white/10 rounded-xl text-xs text-white focus:outline-none premium-input font-mono">
+                        <input type="text" id="setup-w-bank" placeholder="Institution Name / Account Wallet Type" class="w-full px-3.5 py-2.5 bg-black/50 border border-white/10 rounded-xl text-xs text-white focus:outline-none premium-input">
+                        <button type="button" onclick="executePermanentWithdrawalLock()" class="w-full py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs rounded-xl uppercase tracking-wider shadow-md transition-all">Lock Registry Parameters</button>
                     </div>
                 `;
-                alertBox.classList.add('hidden');
-                document.getElementById('withdraw-submit-btn').disabled = true;
-                document.getElementById('withdraw-submit-btn').className = "w-full py-4 bg-slate-800 text-gray-500 rounded-xl font-bold text-xs uppercase tracking-wider cursor-not-allowed transition-all shadow-lg";
+                form.classList.add('hidden');
+            } else {
+                const w = sessionUser.withdrawalAccount;
+                view.innerHTML = `
+                    <div class="grid grid-cols-2 gap-2 pt-1 text-white font-semibold">
+                        <div><span class="text-gray-500 block text-[9px] uppercase tracking-wider">Institution Matrix:</span> <span class="text-sm tracking-wide text-white">${w.bankName}</span></div>
+                        <div><span class="text-gray-500 block text-[9px] uppercase tracking-wider">Endpoint Number:</span> <span class="text-sm font-mono tracking-wider text-cyan-400 neon-text-cyan">${w.accountNumber}</span></div>
+                    </div>
+                    <p class="text-[9px] text-gray-500 italic mt-3 font-medium"><i class="fa-solid fa-lock text-[8px]"></i> Immutable signature registry node active. Changes require corporate support clearance ticket logs.</p>
+                `;
+                if(hasDepositedRef) form.classList.remove('hidden');
             }
         }
 
-        function lockWithdrawalEndpointDetails() {
-            const method = document.getElementById('bind-wd-method').value;
-            const title = document.getElementById('bind-wd-title').value.trim();
-            const account = document.getElementById('bind-wd-account').value.trim();
-            
-            if(!title || !account) {
-                triggerSystemToast("Please enter valid account setup parameters.", "error");
+        function executePermanentWithdrawalLock() {
+            const num = document.getElementById('setup-w-num').value.trim();
+            const bank = document.getElementById('setup-w-bank').value.trim();
+
+            if(!num || !bank) {
+                triggerSystemToast("Cannot compile layout mapping fields using empty routing configurations.", "error");
                 return;
             }
-            
+
+            const payload = {
+                accountNumber: num,
+                bankName: bank,
+                lockedTimestamp: Date.now()
+            };
+
             const cachedPhone = localStorage.getItem('ph_session_phone');
-            db.ref(`users/${cachedPhone}`).update({
-                withdrawalMethod: method,
-                withdrawalTitle: title,
-                withdrawalAccount: account,
-                withdrawalAccountLocked: false
-            }, err => {
-                if(!err) {
-                    triggerSystemToast("Outbound destination endpoint successfully bound and locked.", "success");
-                }
+            db.ref(`users/${cachedPhone}/withdrawalAccount`).set(payload, err => {
+                if(!err) triggerSystemToast("Outbound destination account parameters synchronized.", "success");
             });
         }
 
         function triggerWithdrawalNodeDispute() {
-            triggerSystemToast("Dispute ticket transmitted to admin. Opening complaint terminal...", "info");
+            triggerSystemToast("Routing matrix to global technical dispute desk. File an official ticket details below.", "info");
             openCustomerCareTerminal();
             toggleSupportSubModule('complaint');
         }
 
-        function handleWithdrawalExecution(e) {
-            e.preventDefault();
-            if(!sessionUser) return;
-            
-            let hasDepositedReferral = false;
-            if(sessionUser.referrals) {
-                Object.keys(sessionUser.referrals).forEach(k => {
-                    if(sessionUser.referrals[k].isDeposited === true) {
-                        hasDepositedReferral = true;
+        function handleWithdrawalExecution(event) {
+            event.preventDefault();
+            const volume = parseFloat(document.getElementById('withdraw-volume').value);
+            const method = document.getElementById('withdraw-method').value || 'JazzCash';
+
+            db.ref('admin_settings/dynamic_limits/min_withdraw').once('value', snap => {
+                const minLimit = snap.exists() ? parseFloat(snap.val()) : 500;
+                
+                if(volume < minLimit) {
+                    triggerSystemToast(`Transaction aborted. Minimum payout vector threshold locked to: Rs. ${minLimit}`, "error");
+                    return;
+                }
+
+                if(volume > Number(sessionUser.balance)) {
+                    triggerSystemToast("Execution Failure: Portfolio principal cash balance limit exceeded.", "error");
+                    return;
+                }
+
+                const withdrawId = 'WTH-' + Math.floor(100000 + Math.random() * 900000);
+                const withdrawPayload = {
+                    id: withdrawId,
+                    type: 'withdraw',
+                    amount: volume,
+                    method: method,
+                    accountDetails: sessionUser.withdrawalAccount,
+                    timestamp: Date.now(),
+                    status: 'Pending'
+                };
+
+                const cachedPhone = localStorage.getItem('ph_session_phone');
+                db.ref('users/' + cachedPhone).transaction(current => {
+                    if(current) {
+                        if(Number(current.balance) >= volume) {
+                            current.balance = Number(current.balance) - volume;
+                            if(!current.logs) current.logs = {};
+                            current.logs[withdrawId] = withdrawPayload;
+                        }
+                    }
+                    return current;
+                }, (err, committed) => {
+                    if(committed) {
+                        db.ref(`admin_queues/withdrawals/${withdrawId}`).set({
+                            userPhone: cachedPhone,
+                            username: sessionUser.username,
+                            ...withdrawPayload
+                        });
+                        triggerSystemToast("Outbound liquid transaction queue block transmission complete.", "success");
+                        document.getElementById('withdraw-processing-form').reset();
+                        switchScreen('screen-dashboard');
                     }
                 });
-            }
-            
-            if(!hasDepositedReferral && !sessionUser.withdrawalUnlocked) {
-                triggerSystemToast("Outbound Terminal Locked: Requires 1 verified referral deposit activation to unlock payout channels.", "error");
+            });
+        }
+
+        function renderNetworkAffiliateStructureList() {
+            const container = document.getElementById('referred-users-network-stream');
+            const commCounter = document.getElementById('invite-total-commission-counter');
+            container.innerHTML = '';
+
+            if(!sessionUser.referrals) {
+                container.innerHTML = '<div class="text-xs text-gray-500 italic text-center py-6 font-medium">No active connections paths registered inside current network matrix.</div>';
+                commCounter.innerText = "Commission: 0 Coins";
                 return;
             }
 
-            const volume = parseFloat(document.getElementById('withdraw-volume').value.trim());
-            if(isNaN(volume) || volume <= 0) {
-                triggerSystemToast("Enter a valid capital payout amount.", "error");
-                return;
-            }
-
-            if(volume > Number(sessionUser.balance)) {
-                triggerSystemToast("Insufficient matrix ledger liquidity available.", "error");
-                return;
-            }
+            let totalCoinsCommissionCalculated = 0;
+            const refList = Object.values(sessionUser.referrals);
             
-            if(volume < 500) {
-                triggerSystemToast("Minimum outbound execution threshold is Rs. 500.", "error");
-                return;
-            }
+            refList.forEach(node => {
+                const row = document.createElement('div');
+                row.className = "p-3.5 bg-black/40 border border-white/5 rounded-xl flex justify-between items-center text-xs shadow-inner";
+                
+                const parts = node.email.split('@');
+                const obfuscatedEmail = parts[0].substring(0, 2) + '***@' + parts[1];
+                
+                let isFriendActive = node.isDeposited === true || node.depositCommissionPaid === true || (node.commissionEarnedCoins && node.commissionEarnedCoins > 0);
+                
+                let depositBadgeMarkup = isFriendActive ? 
+                    `<span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded-lg text-[9px] font-black uppercase tracking-wider block text-center mb-1"><i class="fa-solid fa-circle-check text-[8px]"></i> Deposited & Active</span>` :
+                    `<span class="bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2 py-0.5 rounded-lg text-[9px] font-black uppercase tracking-wider block text-center mb-1"><i class="fa-solid fa-hourglass text-[8px]"></i> Pending No Deposit</span>`;
+
+                let commStatusMarkup = `<span class="text-gray-500 text-[10px] font-bold">0 Coins</span>`;
+                if(node.commissionEarnedCoins && node.commissionEarnedCoins > 0) {
+                    commStatusMarkup = `<span class="text-emerald-400 font-black font-mono neon-text-emerald">+${node.commissionEarnedCoins} Coins</span>`;
+                    totalCoinsCommissionCalculated += parseInt(node.commissionEarnedCoins);
+                }
+
+                row.innerHTML = `
+                    <div class="space-y-0.5">
+                        <span class="font-black text-white block font-mono text-sm tracking-wide">${node.username.toLowerCase()}</span>
+                        <span class="text-[10px] text-gray-500 font-semibold block">${obfuscatedEmail}</span>
+                    </div>
+                    <div class="text-right">
+                        ${depositBadgeMarkup}
+                        <div class="flex items-center justify-end gap-1.5 mt-1">
+                            <span class="text-[9px] text-gray-400 font-medium">Bounty:</span>
+                            ${commStatusMarkup}
+                        </div>
+                    </div>
+                `;
+                container.appendChild(row);
+            });
+
+            commCounter.innerText = `Commission: ${totalCoinsCommissionCalculated} Coins`;
+        }
+
+        function streamAdminFeedbacks() {
+            const cachedPhone = localStorage.getItem('ph_session_phone');
+            db.ref(`admin_feedbacks/${cachedPhone}`).on('value', snap => {
+                const stream = document.getElementById('admin-feedback-stream');
+                stream.innerHTML = '';
+                if(!snap.exists()) {
+                    stream.innerHTML = '<div class="text-xs text-gray-500 italic text-center py-6 font-medium">No feedbacks submitted yet.</div>';
+                    return;
+                }
+                
+                let feedbacks = [];
+                snap.forEach(child => {
+                    feedbacks.push(child.val());
+                });
+                
+                feedbacks.sort((a,b) => b.timestamp - a.timestamp);
+
+                feedbacks.forEach(fb => {
+                    const block = document.createElement('div');
+                    block.className = "p-4 bg-gradient-to-br from-black/40 to-slate-900/40 border border-white/5 rounded-2xl space-y-2.5 shadow-md";
+                    
+                    let dateString = new Date(fb.timestamp).toLocaleString();
+                    
+                    let adminReplyMarkup = fb.adminReply ? 
+                        `<div class="mt-2 p-2 bg-pink-500/10 border border-pink-500/20 rounded-lg">
+                            <span class="text-[9px] font-bold text-pink-400 uppercase block mb-1">Admin Reply:</span>
+                            <p class="text-[11px] text-pink-200 font-medium">${fb.adminReply}</p>
+                        </div>` : `<span class="text-[9px] text-amber-400 uppercase font-bold"><i class="fa-solid fa-clock"></i> Pending Reply</span>`;
+
+                    block.innerHTML = `
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <span class="font-extrabold text-white text-xs block tracking-wide">My Feedback</span>
+                                <span class="text-[9px] text-gray-500 font-medium">${dateString}</span>
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-200 leading-relaxed font-medium pt-1">${fb.text}</p>
+                        ${adminReplyMarkup}
+                    `;
+                    stream.appendChild(block);
+                });
+            });
+        }
+
+        function handleAdminFeedbackSubmission(e) {
+            e.preventDefault();
+            const text = document.getElementById('admin-fb-text-input').value.trim();
+            if(!text) return;
 
             const cachedPhone = localStorage.getItem('ph_session_phone');
-            const withdrawId = 'WTH-' + Math.floor(100000 + Math.random() * 900000);
-            const timestamp = Date.now();
-
-            db.ref().transaction(root => {
-                if(root && root.users && root.users[cachedPhone]) {
-                    let u = root.users[cachedPhone];
-                    if(Number(u.balance) >= volume) {
-                        u.balance = Number(u.balance) - volume;
-                        u.totalWithdraw = Number(u.totalWithdraw || 0) + volume;
-                        
-                        if(!u.logs) u.logs = {};
-                        u.logs[withdrawId] = {
-                            id: withdrawId,
-                            type: 'withdraw',
-                            title: `Outbound Withdrawal Request [${u.withdrawalMethod}]`,
-                            amount: volume,
-                            timestamp: timestamp,
-                            status: 'Pending Review'
-                        };
-                        
-                        if(!root.admin_queues) root.admin_queues = {};
-                        if(!root.admin_queues.withdrawals) root.admin_queues.withdrawals = {};
-                        root.admin_queues.withdrawals[withdrawId] = {
-                            id: withdrawId,
-                            userPhone: cachedPhone,
-                            username: u.username,
-                            amount: volume,
-                            method: u.withdrawalMethod,
-                            title: u.withdrawalTitle,
-                            account: u.withdrawalAccount,
-                            timestamp: timestamp,
-                            status: 'pending'
-                        };
-                    }
-                }
-                return root;
-            }, (err, committed) => {
-                if(committed) {
-                    triggerSystemToast("Capital outbound processing request safely transmitted to review queue.", "success");
-                    document.getElementById('withdraw-processing-form').reset();
-                    switchScreen('screen-dashboard');
-                } else {
-                    triggerSystemToast("Thread synchronization conflict occurred. Please retry.", "error");
+            const feedbackId = 'ADMFB-' + Date.now();
+            
+            db.ref(`admin_feedbacks/\( {cachedPhone}/ \){feedbackId}`).set({
+                id: feedbackId,
+                userPhone: cachedPhone,
+                username: sessionUser.username,
+                text: text,
+                timestamp: Date.now(),
+                adminReply: ''
+            }, err => {
+                if(!err) {
+                    triggerSystemToast("Feedback submitted to Admin successfully.", "success");
+                    document.getElementById('admin-feedback-form').reset();
                 }
             });
         }
 
-        // ================= COMPREHENSIVE AUDIT TRAILS SYSTEM =================
+        // ==================== NEW TASKS & REWARDS SYSTEM ====================
+        function updateTasksBalance() {
+            const el = document.getElementById('tasks-coins-balance');
+            if (el && sessionUser) {
+                el.innerText = parseInt(sessionUser.coinsCommission || 0);
+            }
+        }
+
+        function loadSocialTasks() {
+            const container = document.getElementById('tasks-list');
+            if (!container) return;
+            
+            container.innerHTML = '<div class="text-center py-6"><i class="fa-solid fa-spinner fa-spin text-violet-400 text-xl"></i><p class="text-xs text-gray-400 mt-2">Loading available tasks...</p></div>';
+
+            db.ref('admin_settings/social_tasks').once('value', snap => {
+                container.innerHTML = '';
+                
+                if (!snap.exists()) {
+                    container.innerHTML = `
+                        <div class="glass-panel p-8 text-center border border-white/5">
+                            <i class="fa-solid fa-tasks text-4xl text-gray-600 mb-3"></i>
+                            <h4 class="font-bold text-white">No tasks available yet</h4>
+                            <p class="text-xs text-gray-400 mt-2">Administration will publish new rewarding tasks shortly.</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                const completed = (sessionUser && sessionUser.completedTasks) ? sessionUser.completedTasks : {};
+
+                snap.forEach(child => {
+                    const task = child.val();
+                    if (!task.id || !task.title) return;
+
+                    const isCompleted = !!completed[task.id];
+
+                    const card = document.createElement('div');
+                    card.className = `task-card glass-panel p-5 border-l-4 ${isCompleted ? 'border-emerald-500 bg-emerald-950/10' : 'border-violet-500'} shadow-md`;
+
+                    const iconClass = task.icon || 'fa-globe';
+                    const btnHtml = isCompleted 
+                        ? `<button disabled class="w-full py-3.5 bg-emerald-600/90 text-white font-bold text-xs uppercase tracking-wider rounded-2xl flex items-center justify-center gap-2 cursor-default"><i class="fa-solid fa-check-circle"></i> CLAIMED • REWARDED</button>`
+                        : `<button onclick="claimSocialTask('\( {task.id}', ' \){task.link || '#'}', \( {task.reward || 5}, ' \){task.title.replace(/'/g, "\\'")}')" class="w-full py-3.5 bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-500 hover:to-purple-500 text-white font-bold text-xs uppercase tracking-wider rounded-2xl flex items-center justify-center gap-2 transition-all active:scale-[0.985] shadow-lg"><i class="fa-solid fa-external-link-alt mr-1"></i> COMPLETE TASK & CLAIM +${task.reward || 5} COINS</button>`;
+
+                    card.innerHTML = `
+                        <div class="flex gap-4">
+                            <div class="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex-shrink-0 flex items-center justify-center text-3xl">
+                                <i class="fa-brands ${iconClass} text-violet-400"></i>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <div class="flex justify-between items-start gap-3">
+                                    <div class="flex-1">
+                                        <h5 class="font-extrabold text-white tracking-wide text-[15px]">${task.title}</h5>
+                                        <p class="text-xs text-gray-400 mt-1 leading-snug pr-2">${task.description || 'Complete this simple task to earn coins'}</p>
+                                    </div>
+                                    <div class="text-right flex-shrink-0">
+                                        <div class="inline-flex items-center bg-violet-500/10 border border-violet-500/30 text-violet-400 text-[10px] font-black px-3 py-1 rounded-2xl whitespace-nowrap">
+                                            <i class="fa-solid fa-coins mr-1.5"></i> +${task.reward || 5} COINS
+                                        </div>
+                                        <div class="text-[9px] text-emerald-400 mt-1 font-bold tracking-wider">ONE-TIME ONLY</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4 pt-4 border-t border-white/5">
+                            ${btnHtml}
+                        </div>
+                    `;
+                    container.appendChild(card);
+                });
+            });
+        }
+
+        function claimSocialTask(taskId, link, reward, title) {
+            if (!sessionUser) return;
+            const cachedPhone = localStorage.getItem('ph_session_phone');
+            if (!cachedPhone) return;
+
+            // Open social link first (as per requirement)
+            if (link && link !== '#') {
+                window.open(link, '_blank');
+            }
+
+            db.ref('users/' + cachedPhone).transaction(current => {
+                if (!current) return current;
+
+                if (!current.completedTasks) current.completedTasks = {};
+                
+                // Prevent double claim
+                if (current.completedTasks[taskId]) {
+                    return; // already claimed
+                }
+
+                current.completedTasks[taskId] = Date.now();
+                current.coinsCommission = parseInt(current.coinsCommission || 0) + parseInt(reward);
+
+                if (!current.logs) current.logs = {};
+                const logId = 'LOG-TASK-' + Date.now();
+                current.logs[logId] = {
+                    id: logId,
+                    type: 'yield',
+                    title: `Completed Social Task: ${title}`,
+                    amount: reward,
+                    timestamp: Date.now(),
+                    status: 'Success'
+                };
+
+                return current;
+            }, (error, committed) => {
+                if (committed) {
+                    triggerSystemToast(`+${reward} Coins successfully added to your account!`, 'success');
+                    // Refresh tasks list to show claimed status
+                    setTimeout(() => {
+                        loadSocialTasks();
+                        updateTasksBalance();
+                    }, 400);
+                } else if (error) {
+                    triggerSystemToast("Failed to claim reward. Please try again.", "error");
+                }
+            });
+        }
+
+        // ==================== END OF NEW TASKS SYSTEM ====================
+
         function filterAuditStream(type) {
             activeAuditFilter = type;
+            const btns = document.querySelectorAll('#screen-history button');
+            btns.forEach(b => {
+                if(b.innerText.toLowerCase().includes(type) || (type === 'all' && b.innerText.toLowerCase().includes('all'))) {
+                    b.className = "px-3.5 py-2 rounded-lg bg-white/10 text-white whitespace-nowrap";
+                } else {
+                    b.className = "px-3.5 py-2 rounded-lg text-gray-400 whitespace-nowrap";
+                }
+            });
             renderAuditLogTerminalStream();
         }
 
@@ -2100,264 +2287,151 @@
             if(!container) return;
             container.innerHTML = '';
 
-            if(!sessionUser || !sessionUser.logs) {
-                container.innerHTML = '<div class="text-xs text-gray-500 italic text-center py-6 font-medium">No system accounting audit trails found.</div>';
+            if(!sessionUser.logs) {
+                container.innerHTML = '<div class="text-xs text-gray-500 font-medium italic text-center py-6">No account history logged in current structural stack pipeline memory.</div>';
                 return;
             }
 
-            let logKeys = Object.keys(sessionUser.logs).sort((a,b) => sessionUser.logs[b].timestamp - sessionUser.logs[a].timestamp);
-            let entriesRendered = 0;
+            let logsList = Object.values(sessionUser.logs);
+            logsList.sort((a,b) => b.timestamp - a.timestamp);
 
-            logKeys.forEach(k => {
-                const log = sessionUser.logs[k];
+            let renderedCount = 0;
+            logsList.forEach(log => {
                 if(activeAuditFilter !== 'all' && log.type !== activeAuditFilter) return;
-
-                entriesRendered++;
-                const item = document.createElement('div');
-                item.className = "p-3.5 glass-card flex justify-between items-center text-xs border border-white/5 shadow-sm";
-                
-                let badgeClass = "text-cyan-400 bg-cyan-500/10 border border-cyan-500/20";
-                if(log.status === 'Success' || log.status === 'Executed' || log.status === 'approved') badgeClass = "text-emerald-400 bg-emerald-500/10 border border-emerald-500/20";
-                if(log.status === 'failed' || log.status === 'Rejected') badgeClass = "text-rose-400 bg-rose-500/10 border border-rose-500/20";
-                if(log.status === 'Pending Review' || log.status === 'pending') badgeClass = "text-amber-400 bg-amber-500/10 border border-amber-500/20";
-
-                item.innerHTML = `
-                    <div>
-                        <span class="font-bold text-white block tracking-wide">${log.title || 'Accounting Transaction Ledger Log'}</span>
-                        <span class="text-[10px] text-gray-400 block mt-0.5 font-medium">${new Date(log.timestamp).toLocaleString()}</span>
-                    </div>
-                    <div class="text-right">
-                        <span class="font-mono font-black text-white block">Rs. ${Number(log.amount).toFixed(2)}</span>
-                        <span class="text-[9px] font-bold px-2 py-0.5 rounded-lg inline-block mt-1 uppercase tracking-wider ${badgeClass}">${log.status || 'Verified'}</span>
-                    </div>
-                `;
-                container.appendChild(item);
-            });
-
-            if(entriesRendered === 0) {
-                container.innerHTML = '<div class="text-xs text-gray-500 italic text-center py-6 font-medium">No matching accounting records logged.</div>';
-            }
-        }
-
-        // ================= AFFILIATE CONNECTIONS CORE DATA SYSTEM =================
-        function renderNetworkAffiliateStructureList() {
-            const container = document.getElementById('referred-users-network-stream');
-            const totalCommissionNode = document.getElementById('invite-total-commission-counter');
-            if(!container) return;
-            container.innerHTML = '';
-
-            let totalCoinsEarned = 0;
-
-            if(!sessionUser || !sessionUser.referrals) {
-                container.innerHTML = '<div class="text-xs text-gray-500 italic text-center py-4 font-medium">No active connection pipelines registered yet.</div>';
-                if(totalCommissionNode) totalCommissionNode.innerText = "Commission: 0 Coins";
-                return;
-            }
-
-            Object.keys(sessionUser.referrals).forEach(phone => {
-                const ref = sessionUser.referrals[phone];
-                const coinsEarned = parseInt(ref.commissionEarnedCoins || 0);
-                totalCoinsEarned += coinsEarned;
+                renderedCount++;
 
                 const block = document.createElement('div');
-                block.className = "p-3 bg-black/40 border border-white/5 rounded-xl flex justify-between items-center text-xs shadow-sm";
+                block.className = "p-4 glass-card border border-white/5 rounded-2xl flex justify-between items-center shadow-md";
                 
-                let statusBadge = ref.isDeposited ? 
-                    `<span class="text-emerald-400 font-extrabold text-[9px] bg-emerald-500/10 px-2 py-0.5 rounded-md border border-emerald-500/20 uppercase tracking-wider">Active Investor</span>` : 
-                    `<span class="text-gray-400 font-bold text-[9px] bg-white/5 px-2 py-0.5 rounded-md border border-white/5 uppercase tracking-wider">Registered Node</span>`;
+                let iconMarkup = '<i class="fa-solid fa-receipt text-cyan-400"></i>';
+                if(log.type === 'deposit') iconMarkup = '<i class="fa-solid fa-building-columns text-amber-400"></i>';
+                if(log.type === 'withdraw') iconMarkup = '<i class="fa-solid fa-money-bill-transfer text-indigo-400"></i>';
+                if(log.type === 'invest') iconMarkup = '<i class="fa-solid fa-cubes text-emerald-400"></i>';
+                if(log.type === 'yield') iconMarkup = '<i class="fa-solid fa-layer-group text-purple-400"></i>';
+
+                let dynamicStatusBadge = `<span class="text-[10px] font-bold font-mono tracking-wide \( {log.status === 'Success' || log.status === 'Executed' || log.status === 'Approve' || log.status === 'Approved' ? 'text-emerald-400' : log.status === 'Reject' || log.status === 'Rejected' ? 'text-rose-400' : 'text-amber-400'}"> \){log.status || 'Active'}</span>`;
+
+                let extraInfo = '';
+                if(log.type === 'deposit') {
+                    extraInfo = `<div class="text-[9px] text-gray-400 font-mono mt-1">ID: ${log.id} | TRX: ${log.trxId || 'N/A'}</div>`;
+                } else if(log.type === 'withdraw') {
+                    extraInfo = `<div class="text-[9px] text-gray-400 font-mono mt-1">ID: ${log.id}</div>`;
+                }
 
                 block.innerHTML = `
-                    <div>
-                        <span class="font-bold text-white block">@${ref.username || 'unknown'}</span>
-                        <span class="text-[9px] text-gray-500 block font-mono mt-0.5">${phone.substring(0,4)}XXXX${phone.substring(8)}</span>
-                    </div>
-                    <div class="text-right">
-                        ${statusBadge}
-                        <span class="text-[10px] text-amber-400 font-bold font-mono block mt-1">+ ${coinsEarned} Coins</span>
+                    <div class="flex items-center gap-3.5 text-xs w-full">
+                        <div class="w-9 h-9 rounded-xl bg-white/5 border border-white/5 flex items-center justify-center text-sm shadow-inner flex-shrink-0">${iconMarkup}</div>
+                        <div class="w-full flex justify-between items-center">
+                            <div>
+                                <span class="font-bold text-white block tracking-wide leading-tight">${log.title}</span>
+                                <span class="text-[10px] text-gray-500 font-semibold font-mono mt-0.5 block">${new Date(log.timestamp).toLocaleString()}</span>
+                                ${extraInfo}
+                            </div>
+                            <div class="text-right flex-shrink-0 ml-2">
+                                <span class="text-xs font-black font-mono block text-white">Rs. ${Number(log.amount).toFixed(1)}</span>
+                                ${dynamicStatusBadge}
+                            </div>
+                        </div>
                     </div>
                 `;
                 container.appendChild(block);
             });
 
-            if(totalCommissionNode) totalCommissionNode.innerText = `Commission: ${totalCoinsEarned} Coins`;
+            if(renderedCount === 0) {
+                container.innerHTML = `<div class="text-xs text-gray-500 font-medium italic text-center py-6">No tracking records match selection constraint [${activeAuditFilter}].</div>`;
+            }
         }
 
-        function copyAffiliateLink() {
-            if(!sessionUser) return;
-            const myRef = sessionUser.myRefCode || (sessionUser.username.toUpperCase() + '99');
-            const inviteUrl = `${window.location.origin}${window.location.pathname}?ref=${myRef}`;
-            
-            navigator.clipboard.writeText(inviteUrl).then(() => {
-                triggerSystemToast("Your permanent affiliate tracking link copied!", "success");
-            }).catch(() => {
-                triggerSystemToast("Copy failed. Manually copy the link string.", "error");
-            });
-        }
-
-        // ================= COMMUNITY EXPERIENCES SYSTEM =================
-        function streamCommunityFeedbacks() {
-            db.ref('public_feedbacks').on('value', snap => {
-                const container = document.getElementById('community-feedback-stream');
-                if(!container) return;
-                container.innerHTML = '';
-
-                if(!snap.exists()) {
-                    container.innerHTML = '<div class="text-xs text-gray-500 italic text-center py-6 font-medium">Be the first to post a platform review experience!</div>';
-                    return;
-                }
-
-                let list = [];
-                snap.forEach(c => {
-                    list.push({ id: c.key, ...c.val() });
-                });
-                list.sort((a,b) => b.timestamp - a.timestamp);
-
-                list.forEach(fb => {
-                    const block = document.createElement('div');
-                    block.className = "p-3.5 glass-panel space-y-2 text-xs border border-white/5 bg-black/20 shadow-sm";
-                    
-                    let adminReplyMarkup = "";
-                    if(fb.adminReply) {
-                        adminReplyMarkup = `
-                            <div class="mt-2.5 p-2.5 bg-cyan-950/20 border-l-2 border-cyan-500 text-cyan-200 text-[11px] rounded-r-xl">
-                                <span class="font-bold text-cyan-400 block mb-0.5"><i class="fa-solid fa-shield-halved"></i> Central Operations Admin Response:</span>
-                                ${fb.adminReply}
-                            </div>
-                        `;
-                    }
-
-                    block.innerHTML = `
-                        <div class="flex justify-between items-center">
-                            <span class="font-extrabold text-white flex items-center gap-1"><i class="fa-solid fa-user-astronaut text-teal-400"></i> @${fb.username || 'node'}</span>
-                            <span class="text-[9px] text-gray-500 font-mono">${new Date(fb.timestamp).toLocaleDateString()}</span>
-                        </div>
-                        <p class="text-gray-300 font-medium leading-relaxed mt-1">${fb.message}</p>
-                        ${adminReplyMarkup}
-                    `;
-                    container.appendChild(block);
-                });
-            });
-        }
-
-        function handlePublicFeedbackSubmission(e) {
-            e.preventDefault();
-            if(!sessionUser) return;
-
-            const textInput = document.getElementById('pub-fb-text-input');
-            const msg = textInput.value.trim();
-            if(!msg) return;
-
-            const feedbackId = 'FB-' + Date.now();
-            db.ref(`public_feedbacks/${feedbackId}`).set({
-                id: feedbackId,
-                username: sessionUser.username,
-                message: msg,
-                timestamp: Date.now()
-            }, err => {
-                if(!err) {
-                    triggerSystemToast("Your user review statement was successfully uploaded.", "success");
-                    textInput.value = '';
-                }
-            });
-        }
-
-        // ================= INDUSTRIAL LIVE WORKSPACE & COMPLAINT TERMINAL =================
         function openCustomerCareTerminal() {
             document.getElementById('customer-care-modal').classList.remove('hidden');
-            setTimeout(() => {
-                const vp = document.getElementById('support-viewport-chat');
-                if(vp) vp.scrollTop = vp.scrollHeight;
-            }, 300);
         }
-
         function closeCustomerCareTerminal() {
             document.getElementById('customer-care-modal').classList.add('hidden');
         }
 
         function toggleSupportSubModule(tab) {
-            const chatBtn = document.getElementById('support-tab-chat');
-            const compBtn = document.getElementById('support-tab-complaint');
-            const chatViewport = document.getElementById('support-viewport-chat');
-            const compViewport = document.getElementById('support-viewport-complaint');
-            const inputDock = document.getElementById('chat-input-dock');
+            const btnChat = document.getElementById('support-tab-chat');
+            const btnComp = document.getElementById('support-tab-complaint');
+            const portChat = document.getElementById('support-viewport-chat');
+            const portComp = document.getElementById('support-viewport-complaint');
+            const dock = document.getElementById('chat-input-dock');
 
             if(tab === 'chat') {
-                chatBtn.className = "w-1/2 py-2.5 rounded-xl bg-white/5 text-cyan-400 tracking-wider";
-                compBtn.className = "w-1/2 py-2.5 rounded-xl text-gray-400 tracking-wider";
-                chatViewport.classList.remove('hidden');
-                compViewport.classList.add('hidden');
-                inputDock.classList.remove('hidden');
-                setTimeout(() => { chatViewport.scrollTop = chatViewport.scrollHeight; }, 50);
+                btnChat.className = "w-1/2 py-2.5 rounded-xl bg-white/5 text-cyan-400 tracking-wider";
+                btnComp.className = "w-1/2 py-2.5 rounded-xl text-gray-400 tracking-wider";
+                portChat.classList.remove('hidden');
+                portComp.classList.add('hidden');
+                dock.classList.remove('hidden');
             } else {
-                compBtn.className = "w-1/2 py-2.5 rounded-xl bg-white/5 text-cyan-400 tracking-wider";
-                chatBtn.className = "w-1/2 py-2.5 rounded-xl text-gray-400 tracking-wider";
-                compViewport.classList.remove('hidden');
-                chatViewport.classList.add('hidden');
-                inputDock.classList.add('hidden');
+                btnComp.className = "w-1/2 py-2.5 rounded-xl bg-white/5 text-cyan-400 tracking-wider";
+                btnChat.className = "w-1/2 py-2.5 rounded-xl text-gray-400 tracking-wider";
+                portComp.classList.remove('hidden');
+                portChat.classList.add('hidden');
+                dock.classList.add('hidden');
             }
         }
 
         function streamLiveSupportMessageLogs() {
             const cachedPhone = localStorage.getItem('ph_session_phone');
-            if(!cachedPhone) return;
-
-            db.ref(`support_chats/${cachedPhone}`).on('value', snap => {
-                const vp = document.getElementById('support-viewport-chat');
-                if(!vp) return;
-                vp.innerHTML = '';
-
+            db.ref(`support_channels/${cachedPhone}/messages`).on('value', snap => {
+                const viewport = document.getElementById('support-viewport-chat');
+                viewport.innerHTML = '';
                 if(!snap.exists()) {
-                    vp.innerHTML = '<div class="text-center text-[11px] text-gray-500 italic py-8 font-medium">Encrypted terminal synchronized. Send a message to contact active administration support blocks.</div>';
+                    viewport.innerHTML = '<div class="text-xs text-gray-500 font-medium italic text-center py-6">Secure dialogue stream empty. Initialize a live text frame ticket message below...</div>';
                     return;
                 }
-
                 snap.forEach(child => {
                     const msg = child.val();
-                    const isMe = msg.sender === 'user';
-                    const bubble = document.createElement('div');
-                    bubble.className = `flex flex-col max-w-[80%] p-3 rounded-2xl text-xs font-medium relative leading-relaxed ${
-                        isMe ? 'bg-gradient-to-br from-cyan-600 to-blue-600 text-white ml-auto rounded-tr-none' : 'bg-white/10 text-gray-100 mr-auto rounded-tl-none'
-                    }`;
+                    const wrapper = document.createElement('div');
                     
-                    let mediaContent = "";
-                    if(msg.attachmentUrl) {
-                        mediaContent = `<img src="${msg.attachmentUrl}" class="w-full max-h-40 object-cover rounded-xl mb-1.5 border border-white/10 shadow-inner">`;
-                    }
+                    let isAdmin = msg.sender === 'admin';
+                    wrapper.className = `flex w-full ${isAdmin ? 'justify-start':'justify-end'}`;
+                    
+                    let bubbleMarkup = msg.imageUrl ? 
+                        `<img src="${msg.imageUrl}" class="max-w-[180px] rounded-xl border border-white/10 shadow-lg cursor-zoom-in">` :
+                        `<p class="text-xs leading-relaxed font-semibold">${msg.text}</p>`;
 
-                    bubble.innerHTML = `
-                        ${mediaContent}
-                        <span>${msg.text || ''}</span>
-                        <span class="text-[8px] opacity-60 font-mono block mt-1 text-right">${new Date(msg.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
+                    wrapper.innerHTML = `
+                        <div class="max-w-[75%] space-y-1">
+                            <div class="p-3.5 rounded-2xl shadow-md border ${
+                                isAdmin ? 'bg-slate-900 border-white/5 rounded-tl-none text-cyan-200' : 'bg-gradient-to-r from-cyan-600 to-blue-600 border-cyan-400/10 rounded-tr-none text-white'
+                            }">
+                                ${bubbleMarkup}
+                            </div>
+                            <span class="block text-[9px] text-gray-500 font-mono font-bold tracking-wide px-1 ${isAdmin ? 'text-left':'text-right'}">
+                                ${isAdmin ? 'Admin Agent Node':'My Node'} • ${new Date(msg.timestamp).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}
+                            </span>
+                        </div>
                     `;
-                    vp.appendChild(bubble);
+                    viewport.appendChild(wrapper);
                 });
-
-                vp.scrollTop = vp.scrollHeight;
+                setTimeout(() => viewport.scrollTo({ top: viewport.scrollHeight, behavior: 'smooth' }), 50);
             });
         }
 
         function transmitLiveChatMessage() {
             const input = document.getElementById('chat-message-input');
-            const txt = input.value.trim();
-            if(!txt) return;
+            const text = input.value.trim();
+            if(!text) return;
 
             const cachedPhone = localStorage.getItem('ph_session_phone');
             const msgId = 'MSG-' + Date.now();
-            
-            db.ref(`support_chats/${cachedPhone}/${msgId}`).set({
+
+            const payload = {
                 id: msgId,
                 sender: 'user',
-                text: txt,
+                text: text,
                 timestamp: Date.now()
-            }, err => {
+            };
+
+            db.ref(`support_channels/\( {cachedPhone}/messages/ \){msgId}`).set(payload, err => {
                 if(!err) {
                     input.value = '';
-                    db.ref(`admin_queues/support_alerts/${cachedPhone}`).set({
-                        phone: cachedPhone,
+                    db.ref(`support_channels/${cachedPhone}/metadata`).set({
+                        userPhone: cachedPhone,
                         username: sessionUser.username,
-                        lastMessage: txt,
-                        timestamp: Date.now(),
-                        unread: true
+                        lastMessageTimestamp: Date.now(),
+                        unreadByAdmin: true
                     });
                 }
             });
@@ -2376,11 +2450,11 @@
             if(url) {
                 const cachedPhone = localStorage.getItem('ph_session_phone');
                 const msgId = 'MSG-' + Date.now();
-                db.ref(`support_chats/${cachedPhone}/${msgId}`).set({
+                
+                db.ref(`support_channels/\( {cachedPhone}/messages/ \){msgId}`).set({
                     id: msgId,
                     sender: 'user',
-                    text: "[Shared Diagnostic Attachment Framework Frame]",
-                    attachmentUrl: url,
+                    imageUrl: url,
                     timestamp: Date.now()
                 });
             }
@@ -2389,96 +2463,87 @@
         async function uploadTicketProofToCloudinary(e) {
             const file = e.target.files[0];
             if(!file) return;
-
             const spinner = document.getElementById('ticket-proof-spinner');
             spinner.classList.remove('hidden');
-
             const url = await transmitMediaToCloudMatrix(file);
             spinner.classList.add('hidden');
-
-            if(url) {
-                document.getElementById('ticket-proof-url').value = url;
-                triggerSystemToast("Diagnostic visual evidence securely uploaded.", "success");
-            }
+            if(url) document.getElementById('ticket-proof-url').value = url;
         }
 
         function handleTicketSubmission(e) {
             e.preventDefault();
-            if(!sessionUser) return;
-
-            const category = document.getElementById('ticket-category').value;
+            const cat = document.getElementById('ticket-category').value;
             const desc = document.getElementById('ticket-desc').value.trim();
-            const proofUrl = document.getElementById('ticket-proof-url').value;
-
-            const tktId = 'TKT-' + Math.floor(100000 + Math.random() * 900000);
-            const ticketObject = {
-                id: tktId,
-                category: category,
-                description: desc,
-                proofUrl: proofUrl || "NONE",
-                timestamp: Date.now(),
-                status: 'pending',
-                resolution: ''
-            };
+            const proof = document.getElementById('ticket-proof-url').value;
 
             const cachedPhone = localStorage.getItem('ph_session_phone');
-            db.ref(`users/${cachedPhone}/tickets/${tktId}`).set(ticketObject);
-            db.ref(`admin_queues/tickets/${tktId}`).set({
-                userPhone: cachedPhone,
-                username: sessionUser.username,
-                ...ticketObject
-            }, err => {
+            const ticketId = 'TCK-' + Math.floor(100000 + Math.random() * 900000);
+
+            const payload = {
+                id: ticketId,
+                category: cat,
+                description: desc,
+                proofUrl: proof || "NONE",
+                timestamp: Date.now(),
+                status: 'Pending'
+            };
+
+            db.ref(`support_channels/\( {cachedPhone}/tickets/ \){ticketId}`).set(payload, err => {
                 if(!err) {
-                    triggerSystemToast("Formal infrastructure ticket submitted safely.", "success");
+                    triggerSystemToast("Formal administrative dispute ticket logged safely.", "success");
                     document.getElementById('formal-ticket-form').reset();
-                    document.getElementById('ticket-proof-url').value = '';
                 }
             });
         }
 
         function streamFiledTicketsLog() {
             const cachedPhone = localStorage.getItem('ph_session_phone');
-            if(!cachedPhone) return;
-
-            db.ref(`users/${cachedPhone}/tickets`).on('value', snap => {
-                const container = document.getElementById('ticket-resolution-feed');
-                if(!container) return;
-                container.innerHTML = '';
-
+            db.ref(`support_channels/${cachedPhone}/tickets`).on('value', snap => {
+                const feed = document.getElementById('ticket-resolution-feed');
+                feed.innerHTML = '';
                 if(!snap.exists()) {
-                    container.innerHTML = '<div class="text-[10px] text-gray-500 italic py-2 text-center font-medium">No system ticket records tracked.</div>';
+                    feed.innerHTML = '<div class="text-[11px] text-gray-500 italic font-medium py-2">No infrastructure tickets logged under this active node.</div>';
                     return;
                 }
-
                 snap.forEach(child => {
-                    const ticket = child.val();
+                    const tk = child.val();
                     const block = document.createElement('div');
-                    block.className = "p-3 bg-black/40 border border-white/5 rounded-xl space-y-1.5 text-[11px] shadow-inner";
+                    block.className = "p-3.5 bg-black/40 border border-white/5 rounded-xl text-xs text-left shadow-inner space-y-2";
                     
-                    let statusBadge = "text-amber-400 bg-amber-500/10 border border-amber-500/20";
-                    if(ticket.status === 'resolved') statusBadge = "text-emerald-400 bg-emerald-500/10 border border-emerald-500/20";
-                    
-                    let resolutionContent = "";
-                    if(ticket.resolution) {
-                        resolutionContent = `<div class="mt-1.5 text-[10px] text-cyan-300 bg-cyan-950/10 p-2 rounded-lg border border-cyan-500/10 font-medium">Resolution Notes: ${ticket.resolution}</div>`;
+                    let statusColor = "text-amber-400 bg-amber-500/10 border-amber-500/20"; 
+                    let statusText = tk.status || "Pending";
+                    if (statusText.toLowerCase() === "approve" || statusText.toLowerCase() === "approved") {
+                        statusColor = "text-emerald-400 bg-emerald-500/10 border-emerald-500/20";
+                    } else if (statusText.toLowerCase() === "reject" || statusText.toLowerCase() === "rejected") {
+                        statusColor = "text-rose-400 bg-rose-500/10 border-rose-500/20";
                     }
 
+                    let adminReplyMarkup = tk.adminReply ? 
+                        `<div class="mt-2 p-2 bg-indigo-500/10 border border-indigo-500/20 rounded-lg">
+                            <span class="text-[9px] font-bold text-indigo-400 uppercase block mb-1">Admin Reply:</span>
+                            <p class="text-[11px] text-indigo-200 font-medium">${tk.adminReply}</p>
+                        </div>` : '';
+                        
+                    let picMarkup = (tk.proofUrl && tk.proofUrl !== "NONE") ? 
+                        `<img src="${tk.proofUrl}" class="w-full h-24 object-cover rounded-lg border border-white/10 mt-2">` : '';
+
+                    let dateString = new Date(tk.timestamp).toLocaleString();
+
                     block.innerHTML = `
-                        <div class="flex justify-between items-center">
-                            <span class="font-bold text-white uppercase text-[10px] tracking-wide">${ticket.category}</span>
-                            <span class="px-2 py-0.5 rounded-md text-[8px] font-black uppercase tracking-wider ${statusBadge}">${ticket.status}</span>
+                        <div class="flex justify-between items-center font-bold">
+                            <span class="text-cyan-400 font-mono tracking-wide">${tk.id}</span>
+                            <span class="text-[10px] uppercase font-bold px-2 py-0.5 rounded-lg border \( {statusColor}"> \){statusText}</span>
                         </div>
-                        <p class="text-gray-400 leading-normal font-medium">${ticket.description}</p>
-                        ${resolutionContent}
+                        <div class="text-[9px] text-gray-500 font-mono">${dateString}</div>
+                        <p class="text-gray-300 font-medium text-[11px] leading-relaxed"><b class="text-gray-400 uppercase text-[9px] tracking-wider block mb-0.5">Issue: ${tk.category}</b> ${tk.description}</p>
+                        ${picMarkup}
+                        ${adminReplyMarkup}
                     `;
-                    container.appendChild(block);
+                    feed.appendChild(block);
                 });
             });
         }
 
-        function openContextMenu() {
-            document.getElementById('context-menu-modal').classList.remove('hidden');
-        }
         function closeContextMenu() {
             document.getElementById('context-menu-modal').classList.add('hidden');
         }
