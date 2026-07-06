@@ -12,151 +12,196 @@
         
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background: radial-gradient(circle at 50% 0%, #0d1527 0%, #040712 100%);
+            background: radial-gradient(circle at 50% 8%, #0b1120 0%, #020617 100%);
             color: #f1f5f9;
             overflow-x: hidden;
         }
 
         .glass-panel {
-            background: rgba(13, 22, 43, 0.65);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 28px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+            background: rgba(15, 23, 42, 0.82);
+            backdrop-filter: blur(28px);
+            -webkit-backdrop-filter: blur(28px);
+            border: 1px solid rgba(148, 163, 184, 0.12);
+            border-radius: 24px;
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.45),
+                        inset 0 1px 0 rgba(255,255,255,0.06);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .glass-panel:hover {
+            border-color: rgba(148, 163, 184, 0.18);
+            box-shadow: 0 30px 60px -15px rgb(0 0 0 / 0.5),
+                        inset 0 1px 0 rgba(255,255,255,0.08);
         }
 
         .glass-card {
             background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(148, 163, 184, 0.1);
             border-radius: 20px;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
         }
 
         .premium-input {
-            background: rgba(0, 0, 0, 0.4) !important;
-            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            background: rgba(2, 6, 23, 0.7) !important;
+            border: 1px solid rgba(148, 163, 184, 0.2) !important;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            color: #f1f5f9;
+            font-weight: 500;
         }
         
         .premium-input:focus {
-            border-color: #06b6d4 !important;
-            box-shadow: 0 0 15px rgba(6, 182, 212, 0.25);
+            border-color: #10b981 !important;
+            box-shadow: 0 0 0 3.5px rgba(16, 185, 129, 0.15);
+            outline: none;
+            background: rgba(2, 6, 23, 0.85) !important;
         }
 
         @keyframes pulse-glow {
-            0%, 100% { box-shadow: 0 0 15px rgba(16, 185, 129, 0.25); border-color: rgba(16, 185, 129, 0.4); }
-            50% { box-shadow: 0 0 30px rgba(16, 185, 129, 0.6); border-color: rgba(16, 185, 129, 0.8); }
+            0%, 100% { box-shadow: 0 0 12px rgba(16, 185, 129, 0.25); border-color: rgba(16, 185, 129, 0.35); }
+            50% { box-shadow: 0 0 24px rgba(16, 185, 129, 0.45); border-color: rgba(16, 185, 129, 0.55); }
         }
-        .verified-glow { animation: pulse-glow 3s infinite; }
+        .verified-glow { animation: pulse-glow 3.5s infinite ease-in-out; }
 
         ::-webkit-scrollbar { width: 5px; }
-        ::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); }
-        ::-webkit-scrollbar-thumb { background: rgba(6, 182, 212, 0.3); border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: rgba(6, 182, 212, 0.5); }
+        ::-webkit-scrollbar-track { background: rgba(15,23,42,0.5); }
+        ::-webkit-scrollbar-thumb { background: rgba(16, 185, 129, 0.35); border-radius: 12px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(16, 185, 129, 0.55); }
         
         .screen { display: none; }
-        .screen.active { display: block; animation: slideUpFade 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+        .screen.active { display: block; animation: slideUpFade 0.45s cubic-bezier(0.16, 1, 0.3, 1); }
 
         @keyframes slideUpFade {
-            from { opacity: 0; transform: translateY(16px); }
+            from { opacity: 0; transform: translateY(18px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .neon-text-cyan { text-shadow: 0 0 10px rgba(6, 182, 212, 0.4); }
-        .neon-text-emerald { text-shadow: 0 0 10px rgba(16, 185, 129, 0.4); }
+        .neon-text-indigo { text-shadow: 0 0 10px rgba(99, 102, 241, 0.4); }
+        .neon-text-gold { text-shadow: 0 0 10px rgba(245, 158, 11, 0.4); }
         
         .task-card {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .task-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.4);
+            transform: translateY(-4px);
+            box-shadow: 0 30px 60px -15px rgb(0 0 0 / 0.45);
+            border-color: rgba(16, 185, 129, 0.2);
         }
 
-        /* PROFESSIONAL FLUPY BUTTONS - Soft, premium, fluffy design */
+        /* ==================== BEAUTIFUL FLUPY BUTTON STYLE ==================== */
         .flupy-btn {
-            border-radius: 22px !important;
-            transition: all 0.25s cubic-bezier(0.4, 0.0, 0.2, 1);
-            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.25), 0 4px 6px -4px rgb(0 0 0 / 0.25);
+            border-radius: 18px !important;
+            font-weight: 700;
+            letter-spacing: 0.6px;
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
             position: relative;
             overflow: hidden;
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.3), 
+                       0 4px 6px -4px rgb(0 0 0 / 0.25);
+            border: 1px solid rgba(255,255,255,0.1);
         }
+        
         .flupy-btn::after {
             content: '';
             position: absolute;
-            top: -50%;
-            left: -50%;
+            top: -60%;
+            left: -60%;
             width: 40%;
             height: 300%;
             background: linear-gradient(
-                120deg,
-                transparent,
-                rgba(255,255,255,0.15),
-                transparent
+                130deg,
+                transparent 20%,
+                rgba(255,255,255,0.35) 50%,
+                transparent 80%
             );
-            transition: all 0.6s;
-        }
-        .flupy-btn:hover::after {
-            left: 150%;
-        }
-        .flupy-btn:hover {
-            transform: translateY(-3px) scale(1.015);
-            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.3), 0 10px 10px -5px rgb(0 0 0 / 0.25);
-        }
-        .flupy-btn:active {
-            transform: translateY(-1px) scale(0.985);
-            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.2);
+            transition: all 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+            pointer-events: none;
         }
         
+        .flupy-btn:hover::after {
+            left: 200%;
+        }
+        
+        .flupy-btn:hover {
+            transform: translateY(-3px) scale(1.015);
+            box-shadow: 0 20px 30px -8px rgb(0 0 0 / 0.4), 
+                       0 10px 15px -5px rgb(0 0 0 / 0.3);
+            border-color: rgba(255,255,255,0.2);
+        }
+        
+        .flupy-btn:active {
+            transform: translateY(0px) scale(0.98);
+            box-shadow: 0 5px 10px -2px rgb(0 0 0 / 0.25);
+            transition: all 0.1s ease;
+        }
+
         .btn-primary {
-            background: linear-gradient(135deg, #06b6d4, #10b981);
+            background: linear-gradient(135deg, #10b981, #059669);
             color: white;
             font-weight: 700;
-            letter-spacing: 0.5px;
+            border: 1px solid rgba(16, 185, 129, 0.3);
         }
         
         .btn-primary:hover {
-            background: linear-gradient(135deg, #0891b2, #059669);
+            background: linear-gradient(135deg, #059669, #047857);
+            box-shadow: 0 15px 20px -5px rgba(16, 185, 129, 0.35);
+        }
+
+        .section-header {
+            font-weight: 800;
+            letter-spacing: 0.6px;
+        }
+
+        /* Extra professional polish for key interactive elements */
+        button.flupy-btn {
+            font-feature-settings: "tnum";
+        }
+        
+        .glass-panel button {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
     </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between antialiased">
 
+    <!-- Warning Banner -->
     <div id="admin-custom-warning-banner" class="w-full bg-amber-500/20 border-b border-amber-500/30 py-2.5 px-4 text-center text-xs font-bold text-amber-300 z-50 flex items-center justify-center gap-2 backdrop-blur-md hidden">
         <i class="fa-solid fa-triangle-exclamation animate-bounce text-amber-400"></i>
         <span id="admin-warning-banner-text">Warning: Administrative Broadcast Rule Action Logged.</span>
     </div>
 
+    <!-- Security Alert -->
     <div id="top-security-alert" class="w-full bg-rose-500/10 border-b border-rose-500/20 py-2.5 px-4 text-center text-[11px] font-semibold text-rose-300 tracking-wide z-50 flex items-center justify-center gap-2 backdrop-blur-md">
         <i class="fa-solid fa-shield-halved animate-pulse text-rose-400 text-xs"></i>
         <span>Security Alert: Please don't share your login credentials or transaction passwords with anyone.</span>
     </div>
 
+    <!-- Header -->
     <header id="main-header" class="w-full max-w-md mx-auto px-4 pt-4 flex justify-between items-center text-xs text-gray-400 z-50 gap-2">
-        <div id="live-time-date" class="flex flex-col bg-black/20 px-3.5 py-2 rounded-2xl border border-white/5 backdrop-blur-md">
-            <span class="font-bold text-white tracking-wide text-sm" id="header-time">00:00:00 PM</span>
-            <span id="header-date" class="text-[10px] text-gray-400 font-medium mt-0.5">Loading System Clock...</span>
+        <div id="live-time-date" class="flex flex-col bg-black/25 px-3 py-1.5 rounded-2xl border border-white/5 backdrop-blur-md text-center">
+            <span class="font-mono font-bold text-white tracking-wider text-xs" id="header-time">00:00:00</span>
+            <span id="header-date" class="text-[8px] text-gray-400 font-medium -mt-0.5">Loading...</span>
         </div>
         
         <div id="top-pending-trackers" class="flex items-center gap-2 hidden">
             <button onclick="openCustomerCareTerminal(); toggleSupportSubModule('complaint');" class="bg-gradient-to-r from-rose-600 to-red-600 hover:from-rose-500 hover:to-red-500 text-white font-bold text-[10px] px-3.5 py-2 rounded-2xl shadow-lg shadow-red-900/20 flex items-center gap-1.5 transition-all uppercase tracking-wider flupy-btn">
                 <i class="fa-solid fa-circle-exclamation"></i> Complaint
             </button>
-            <button onclick="openProfileModal()" class="text-cyan-400 hover:text-white bg-cyan-500/10 hover:bg-cyan-500/20 w-8 h-8 rounded-2xl border border-cyan-500/20 transition-all flex items-center justify-center flupy-btn">
+            <button onclick="openProfileModal()" class="text-indigo-400 hover:text-white bg-indigo-500/10 hover:bg-indigo-500/20 w-8 h-8 rounded-2xl border border-indigo-500/20 transition-all flex items-center justify-center flupy-btn">
                 <i class="fa-solid fa-user text-xs"></i>
             </button>
         </div>
 
-        <div class="flex items-center gap-2 glass-panel px-3.5 py-2 border border-emerald-500/20 bg-emerald-500/5 shadow-inner" id="device-pill" style="display:none;">
-            <i class="fa-solid fa-mobile-screen-button text-emerald-400 animate-pulse"></i>
-            <span id="device-display-name" class="text-[11px] font-bold text-emerald-400 font-mono tracking-wide">Node Core</span>
+        <div class="flex items-center gap-2 glass-panel px-3.5 py-2 border border-indigo-500/20 bg-indigo-500/5 shadow-inner" id="device-pill" style="display:none;">
+            <i class="fa-solid fa-mobile-screen-button text-indigo-400 animate-pulse"></i>
+            <span id="device-display-name" class="text-[11px] font-bold text-indigo-400 font-mono tracking-wide">Node Core</span>
         </div>
     </header>
 
     <main class="w-full max-w-md mx-auto px-4 py-4 flex-grow flex flex-col justify-center">
         
+        <!-- Suspended Screen -->
         <section id="screen-suspended" class="screen glass-panel p-6 text-center space-y-5">
             <div class="w-16 h-16 bg-rose-500/10 text-rose-400 rounded-full flex items-center justify-center mx-auto text-2xl border border-rose-500/20 shadow-lg shadow-rose-950/50">
                 <i class="fa-solid fa-user-slash"></i>
@@ -170,17 +215,18 @@
 
             <div class="border-t border-white/5 pt-4 space-y-3">
                 <p class="text-[11px] text-gray-400 text-left px-1">If you wish to appeal this decision or contact administration, please transmit your official sorry statement matrix below.</p>
-                <textarea id="suspension-appeal-msg" placeholder="Write your transparent appeal statement here..." rows="3" class="w-full p-3.5 bg-black/40 border border-white/10 rounded-2xl text-xs text-white focus:outline-none focus:border-cyan-500 premium-input transition-all resize-none"></textarea>
+                <textarea id="suspension-appeal-msg" placeholder="Write your transparent appeal statement here..." rows="3" class="w-full p-3.5 bg-black/40 border border-white/10 rounded-2xl text-xs text-white focus:outline-none focus:border-indigo-500 premium-input transition-all resize-none"></textarea>
                 <button onclick="submitSuspensionAppeal()" class="w-full py-3.5 bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white font-bold rounded-2xl text-xs uppercase tracking-wider shadow-lg shadow-red-950/50 transition-all transform active:scale-[0.98] flupy-btn">Submit Official Appeal</button>
             </div>
             
             <div class="pt-2">
-                <button onclick="openCustomerCareTerminal(); toggleSupportSubModule('chat');" class="text-xs text-cyan-400 hover:text-cyan-300 font-semibold flex items-center justify-center gap-1.5 mx-auto transition-all flupy-btn">
+                <button onclick="openCustomerCareTerminal(); toggleSupportSubModule('chat');" class="text-xs text-indigo-400 hover:text-indigo-300 font-semibold flex items-center justify-center gap-1.5 mx-auto transition-all flupy-btn">
                     <i class="fa-solid fa-headset"></i> Open Support Desk Pipeline
                 </button>
             </div>
         </section>
 
+        <!-- Maintenance Screen -->
         <section id="screen-maintenance" class="screen glass-panel p-6 text-center space-y-5">
             <div class="w-16 h-16 bg-amber-500/10 text-amber-400 rounded-full flex items-center justify-center mx-auto text-2xl border border-amber-500/20 shadow-lg shadow-amber-950/50">
                 <i class="fa-solid fa-screwdriver-wrench animate-spin"></i>
@@ -192,7 +238,7 @@
 
             <div class="py-4 glass-card rounded-2xl border border-amber-500/20 my-2 shadow-inner bg-amber-500/5">
                 <span class="block text-[10px] text-amber-400 uppercase tracking-widest font-bold mb-1">Estimated Dynamic Return Latency</span>
-                <div id="maintenance-countdown" class="text-2xl font-mono font-black text-white tracking-wider neon-text-cyan">00h 00m 00s</div>
+                <div id="maintenance-countdown" class="text-2xl font-mono font-black text-white tracking-wider neon-text-indigo">00h 00m 00s</div>
             </div>
 
             <div class="text-[10px] text-gray-500 font-mono" id="maintenance-timestamp-footer">
@@ -200,13 +246,14 @@
             </div>
         </section>
 
+        <!-- Auth Screen -->
         <section id="screen-auth" class="screen active glass-panel p-6 relative">
             <div class="text-center mb-8">
-                <div class="w-24 h-24 mx-auto rounded-full p-1 bg-gradient-to-tr from-cyan-500 via-indigo-500 to-emerald-500 shadow-2xl mb-4 overflow-hidden flex items-center justify-center">
+                <div class="w-24 h-24 mx-auto rounded-full p-1 bg-gradient-to-tr from-indigo-500 via-violet-500 to-amber-500 shadow-2xl mb-4 overflow-hidden flex items-center justify-center">
                     <img src="https://i.ibb.co/gZvhB6MC/image-11.jpg" alt="Prime Horizon Logo" class="w-full h-full object-cover rounded-full">
                 </div>
                 <h1 class="text-3xl font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-200 to-slate-400">PRIME HORIZON</h1>
-                <p class="text-xs uppercase tracking-widest text-emerald-400 font-bold mt-1 tracking-[0.2em] neon-text-emerald">Ascend Your Capital</p>
+                <p class="text-xs uppercase tracking-widest text-amber-400 font-bold mt-1 tracking-[0.2em] neon-text-gold">Ascend Your Capital</p>
             </div>
 
             <div class="flex bg-black/40 p-1 rounded-2xl mb-6 border border-white/5 shadow-inner">
@@ -214,19 +261,20 @@
                 <button onclick="toggleAuthTabs('signup')" id="tab-signup-btn" class="w-1/2 py-3 text-xs font-bold uppercase tracking-wider rounded-2xl text-gray-400 transition-all flupy-btn">Create Account</button>
             </div>
 
+            <!-- Login Form -->
             <form id="login-form" onsubmit="handleLogin(event)" class="space-y-4">
                 <div>
                     <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 px-1">Registered Node Credentials</label>
                     <div class="relative">
                         <i class="fa-solid fa-phone absolute left-4 top-4 text-gray-500 text-sm"></i>
-                        <input type="tel" id="login-phone" required class="w-full pl-12 pr-4 py-3.5 bg-black/40 border border-white/10 rounded-2xl focus:border-cyan-500 focus:outline-none text-sm text-white premium-input" placeholder="03XXXXXXXXX">
+                        <input type="tel" id="login-phone" required class="w-full pl-12 pr-4 py-3.5 bg-black/40 border border-white/10 rounded-2xl focus:border-indigo-500 focus:outline-none text-sm text-white premium-input" placeholder="03XXXXXXXXX">
                     </div>
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 px-1">Secure Password</label>
                     <div class="relative">
                         <i class="fa-solid fa-lock absolute left-4 top-4 text-gray-500 text-sm"></i>
-                        <input type="password" id="login-pass" required class="w-full pl-12 pr-4 py-3.5 bg-black/40 border border-white/10 rounded-2xl focus:border-cyan-500 focus:outline-none text-sm text-white premium-input" placeholder="••••••••">
+                        <input type="password" id="login-pass" required class="w-full pl-12 pr-4 py-3.5 bg-black/40 border border-white/10 rounded-2xl focus:border-indigo-500 focus:outline-none text-sm text-white premium-input" placeholder="••••••••">
                     </div>
                 </div>
 
@@ -236,17 +284,18 @@
                     </button>
                 </div>
 
-                <button type="submit" class="w-full py-4 mt-2 bg-gradient-to-r from-cyan-600 via-blue-600 to-emerald-600 hover:from-cyan-500 hover:to-emerald-500 rounded-2xl font-bold text-xs uppercase tracking-wider text-white shadow-lg shadow-cyan-950/50 transition-all transform active:scale-95 flupy-btn btn-primary">
+                <button type="submit" class="w-full py-4 mt-2 bg-gradient-to-r from-indigo-600 via-violet-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 rounded-2xl font-bold text-xs uppercase tracking-wider text-white shadow-lg shadow-indigo-950/50 transition-all transform active:scale-95 flupy-btn btn-primary">
                     Access Premium Platform
                 </button>
             </form>
 
+            <!-- Signup Form -->
             <form id="signup-form" onsubmit="handleSignup(event)" class="space-y-4 hidden">
                 <div>
                     <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 px-1">Unique Username</label>
                     <div class="relative">
                         <i class="fa-solid fa-at absolute left-4 top-4 text-gray-500 text-sm"></i>
-                        <input type="text" id="signup-user" required oninput="checkUsernameAvailability(this.value)" class="w-full pl-12 pr-4 py-3.5 bg-black/40 border border-white/10 rounded-2xl focus:border-cyan-500 focus:outline-none text-sm text-white premium-input" placeholder="username">
+                        <input type="text" id="signup-user" required oninput="checkUsernameAvailability(this.value)" class="w-full pl-12 pr-4 py-3.5 bg-black/40 border border-white/10 rounded-2xl focus:border-indigo-500 focus:outline-none text-sm text-white premium-input" placeholder="username">
                     </div>
                     <div id="username-feedback" class="text-[11px] mt-1.5 px-1 hidden"></div>
                 </div>
@@ -254,7 +303,7 @@
                     <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 px-1">Official Email Address</label>
                     <div class="relative">
                         <i class="fa-solid fa-envelope absolute left-4 top-4 text-gray-500 text-sm"></i>
-                        <input type="email" id="signup-email" required onblur="validateRealEmail(this.value)" class="w-full pl-12 pr-4 py-3.5 bg-black/40 border border-white/10 rounded-2xl focus:border-cyan-500 focus:outline-none text-sm text-white premium-input" placeholder="name@domain.com">
+                        <input type="email" id="signup-email" required onblur="validateRealEmail(this.value)" class="w-full pl-12 pr-4 py-3.5 bg-black/40 border border-white/10 rounded-2xl focus:border-indigo-500 focus:outline-none text-sm text-white premium-input" placeholder="name@domain.com">
                     </div>
                     <div id="email-feedback" class="text-[11px] mt-1.5 text-rose-400 px-1 hidden"><i class="fa-solid fa-circle-exclamation mr-1"></i>Please enter a valid active original email address.</div>
                 </div>
@@ -262,21 +311,21 @@
                     <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 px-1">Phone Number</label>
                     <div class="relative">
                         <i class="fa-solid fa-phone absolute left-4 top-4 text-gray-500 text-sm"></i>
-                        <input type="tel" id="signup-phone" required class="w-full pl-12 pr-4 py-3.5 bg-black/40 border border-white/10 rounded-2xl focus:border-cyan-500 focus:outline-none text-sm text-white premium-input" placeholder="03XXXXXXXXX">
+                        <input type="tel" id="signup-phone" required class="w-full pl-12 pr-4 py-3.5 bg-black/40 border border-white/10 rounded-2xl focus:border-indigo-500 focus:outline-none text-sm text-white premium-input" placeholder="03XXXXXXXXX">
                     </div>
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 px-1">Affiliate Reference Code</label>
                     <div class="relative">
                         <i class="fa-solid fa-user-group absolute left-4 top-4 text-gray-500 text-sm"></i>
-                        <input type="text" id="signup-ref" class="w-full pl-12 pr-4 py-3.5 bg-black/40 border border-white/10 rounded-2xl focus:border-cyan-500 focus:outline-none text-sm text-white font-mono premium-input" placeholder="REFCODE">
+                        <input type="text" id="signup-ref" class="w-full pl-12 pr-4 py-3.5 bg-black/40 border border-white/10 rounded-2xl focus:border-indigo-500 focus:outline-none text-sm text-white font-mono premium-input" placeholder="REFCODE">
                     </div>
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 px-1">Create Strong Password</label>
                     <div class="relative">
                         <i class="fa-solid fa-key absolute left-4 top-4 text-gray-500 text-sm"></i>
-                        <input type="password" id="signup-pass" required oninput="evaluatePasswordStrength(this.value)" class="w-full pl-12 pr-4 py-3.5 bg-black/40 border border-white/10 rounded-2xl focus:border-cyan-500 focus:outline-none text-sm text-white premium-input" placeholder="Min 8 chars, mixed format">
+                        <input type="password" id="signup-pass" required oninput="evaluatePasswordStrength(this.value)" class="w-full pl-12 pr-4 py-3.5 bg-black/40 border border-white/10 rounded-2xl focus:border-indigo-500 focus:outline-none text-sm text-white premium-input" placeholder="Min 8 chars, mixed format">
                     </div>
                     <div id="pass-feedback" class="text-[11px] mt-2 text-gray-400 px-1 leading-relaxed">
                         Structure: Requires at least 8 characters, capital letters, and digits.
@@ -288,22 +337,23 @@
             </form>
         </section>
 
+        <!-- Dashboard Screen -->
         <section id="screen-dashboard" class="screen space-y-5">
             <div id="user-status-card" class="glass-panel p-5 relative overflow-hidden bg-gradient-to-br from-indigo-950/40 via-transparent to-black/40 border border-white/10 shadow-xl cursor-pointer">
                 <div class="flex items-center gap-4">
                     <div class="relative group" onclick="event.stopPropagation();">
-                        <img id="dash-user-avatar" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=200" alt="Avatar" class="w-16 h-16 rounded-2xl object-cover border-2 p-0.5 border-cyan-500 verified-glow transition-all duration-300">
-                        <label for="dp-upload-input" class="absolute -bottom-1 -right-1 w-6 h-6 bg-cyan-500 rounded-2xl flex items-center justify-center cursor-pointer border-2 border-slate-950 hover:scale-110 transition-transform shadow-lg flupy-btn">
+                        <img id="dash-user-avatar" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=200" alt="Avatar" class="w-16 h-16 rounded-2xl object-cover border-2 p-0.5 border-indigo-500 verified-glow transition-all duration-300">
+                        <label for="dp-upload-input" class="absolute -bottom-1 -right-1 w-6 h-6 bg-indigo-500 rounded-2xl flex items-center justify-center cursor-pointer border-2 border-slate-950 hover:scale-110 transition-transform shadow-lg flupy-btn">
                             <i class="fa-solid fa-camera text-[10px] text-slate-950"></i>
                         </label>
                         <input type="file" id="dp-upload-input" accept="image/*" class="hidden" onchange="handleDpUpdate(event)">
                     </div>
 
                     <div class="flex-grow">
-                        <h3 class="text-base font-extrabold text-white flex items-center gap-1.5 tracking-wide">
-                            Welcome, <span id="dash-username">User Node</span>
+                        <h3 class="text-sm font-extrabold text-white flex items-center gap-1.5 tracking-wide">
+                            Welcome, <span id="dash-username" class="transition-all duration-300 hover:scale-105 inline-block origin-left">User Node</span>
                         </h3>
-                        <p class="text-[10px] text-gray-400 font-medium">Ref Signature: <span id="dash-my-refcode" class="text-cyan-400 font-mono font-bold tracking-wider">-----</span></p>
+                        <p class="text-[10px] text-gray-400 font-medium">Ref Signature: <span id="dash-my-refcode" class="text-indigo-400 font-mono font-bold tracking-wider">-----</span></p>
                         
                         <div class="mt-2.5 flex items-center justify-between gap-2">
                             <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-2xl text-[9px] font-bold uppercase tracking-wider bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 shadow-inner">
@@ -319,45 +369,67 @@
             </div>
 
             <div id="dashboard-unlocked-features" class="space-y-4">
+                <!-- Premium Feature Buttons (Smaller & Beautiful) -->
                 <div class="grid grid-cols-2 gap-3.5">
-                    <button onclick="switchScreen('screen-my-details')" class="p-4 rounded-2xl glass-panel text-left hover:bg-white/5 border border-white/5 transition-all group flex flex-col justify-between h-28 border-l-4 border-cyan-500 shadow-md flupy-btn">
-                        <div class="w-9 h-9 rounded-2xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center text-sm border border-cyan-500/20 shadow-inner"><i class="fa-solid fa-chart-pie"></i></div>
-                        <span class="text-xs font-bold tracking-wider text-gray-300 group-hover:text-white uppercase">My Matrix</span>
-                    </button>
-                    <button onclick="switchScreen('screen-invest-plans')" class="p-4 rounded-2xl glass-panel text-left hover:bg-white/5 border border-white/5 transition-all group flex flex-col justify-between h-28 border-l-4 border-emerald-500 shadow-md flupy-btn">
-                        <div class="w-9 h-9 rounded-2xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-sm border border-emerald-500/20 shadow-inner"><i class="fa-solid fa-seedling"></i></div>
-                        <span class="text-xs font-bold tracking-wider text-gray-300 group-hover:text-white uppercase">Yield Stratums</span>
-                    </button>
-                    <button onclick="switchScreen('screen-deposit')" class="p-4 rounded-2xl glass-panel text-left hover:bg-white/5 border border-white/5 transition-all group flex flex-col justify-between h-28 border-l-4 border-amber-500 shadow-md flupy-btn">
-                        <div class="w-9 h-9 rounded-2xl bg-amber-500/10 text-amber-400 flex items-center justify-center text-sm border border-emerald-500/20 shadow-inner"><i class="fa-solid fa-wallet"></i></div>
-                        <span class="text-xs font-bold tracking-wider text-gray-300 group-hover:text-white uppercase">Deposit Cache</span>
-                    </button>
-                    <button onclick="switchScreen('screen-withdraw')" class="p-4 rounded-2xl glass-panel text-left hover:bg-white/5 border border-white/5 transition-all group flex flex-col justify-between h-28 border-l-4 border-indigo-500 shadow-md flupy-btn">
-                        <div class="w-9 h-9 rounded-2xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center text-sm border border-indigo-500/20 shadow-inner"><i class="fa-solid fa-hand-holding-dollar"></i></div>
-                        <span class="text-xs font-bold tracking-wider text-gray-300 group-hover:text-white uppercase">Outbound Fund</span>
-                    </button>
-                    <button onclick="switchScreen('screen-history')" class="p-4 rounded-2xl glass-panel text-left hover:bg-white/5 border border-white/5 transition-all group flex flex-col justify-between h-24 col-span-2 border-l-4 border-purple-500 shadow-md flupy-btn">
-                        <div class="flex items-center justify-between w-full">
-                            <div class="w-9 h-9 rounded-2xl bg-purple-500/10 text-purple-400 flex items-center justify-center text-sm border border-purple-500/20 shadow-inner"><i class="fa-solid fa-clock-rotate-left"></i></div>
-                            <span class="text-[10px] text-gray-400 bg-white/5 px-2.5 py-1 rounded-2xl border border-white/5 uppercase tracking-wider font-bold">Audit Trails</span>
+                    
+                    <!-- My Matrix -->
+                    <button onclick="switchScreen('screen-my-details')" 
+                            class="group p-4 rounded-3xl glass-panel border border-white/10 hover:border-emerald-500/40 transition-all shadow-lg flex flex-col items-center text-center active:scale-[0.98] flupy-btn">
+                        <div class="w-12 h-12 mb-2 flex items-center justify-center">
+                            <i class="fa-solid fa-chart-pie text-4xl text-emerald-400 group-hover:scale-110 transition-transform"></i>
                         </div>
-                        <span class="text-xs font-bold tracking-wider text-gray-200 uppercase mt-2 block">Comprehensive Accounting Logs</span>
+                        <span class="text-xs font-black tracking-wider text-white">MY MATRIX</span>
                     </button>
+
+                    <!-- Yield Stratums -->
+                    <button onclick="switchScreen('screen-invest-plans')" 
+                            class="group p-4 rounded-3xl glass-panel border border-white/10 hover:border-violet-500/40 transition-all shadow-lg flex flex-col items-center text-center active:scale-[0.98] flupy-btn">
+                        <div class="w-12 h-12 mb-2 flex items-center justify-center">
+                            <i class="fa-solid fa-seedling text-4xl text-violet-400 group-hover:scale-110 transition-transform"></i>
+                        </div>
+                        <span class="text-xs font-black tracking-wider text-white">YIELD STRATUMS</span>
+                    </button>
+
+                    <!-- Deposit Cache -->
+                    <button onclick="switchScreen('screen-deposit')" 
+                            class="group p-4 rounded-3xl glass-panel border border-white/10 hover:border-amber-500/40 transition-all shadow-lg flex flex-col items-center text-center active:scale-[0.98] flupy-btn">
+                        <div class="w-12 h-12 mb-2 flex items-center justify-center">
+                            <i class="fa-solid fa-wallet text-4xl text-amber-400 group-hover:scale-110 transition-transform"></i>
+                        </div>
+                        <span class="text-xs font-black tracking-wider text-white">DEPOSIT CACHE</span>
+                    </button>
+
+                    <!-- Outbound Fund -->
+                    <button onclick="switchScreen('screen-withdraw')" 
+                            class="group p-4 rounded-3xl glass-panel border border-white/10 hover:border-purple-500/40 transition-all shadow-lg flex flex-col items-center text-center active:scale-[0.98] flupy-btn">
+                        <div class="w-12 h-12 mb-2 flex items-center justify-center">
+                            <i class="fa-solid fa-hand-holding-dollar text-4xl text-purple-400 group-hover:scale-110 transition-transform"></i>
+                        </div>
+                        <span class="text-xs font-black tracking-wider text-white">OUTBOUND FUND</span>
+                    </button>
+
                 </div>
+
+                <!-- Slim More Button -->
+                <button onclick="switchScreen('screen-tasks'); updateTasksBalance(); loadSocialTasks();" 
+                        class="w-full py-3.5 rounded-2xl glass-panel border border-white/10 hover:border-emerald-500/30 flex items-center justify-center gap-2 text-sm font-bold tracking-wider text-white active:scale-[0.985] flupy-btn">
+                    <i class="fa-solid fa-ellipsis-h"></i>
+                    <span>MORE</span>
+                </button>
 
                 <!-- Affiliate Program -->
                 <div class="glass-panel p-4 bg-gradient-to-r from-indigo-950/40 to-slate-900/30 border border-white/10 rounded-2xl flex justify-between items-center cursor-pointer hover:border-indigo-500/30 transition-all shadow-md group flupy-btn" onclick="switchScreen('screen-invite-friends')">
                     <div class="space-y-1">
-                        <h4 class="text-[10px] font-extrabold text-indigo-400 uppercase tracking-widest neon-text-cyan">Affiliate Program</h4>
+                        <h4 class="text-[10px] font-extrabold text-indigo-400 uppercase tracking-widest neon-text-indigo">Affiliate Program</h4>
                         <p class="text-xs font-extrabold text-white">Invite Friends & Earn Coins</p>
-                        <p class="text-[9px] text-gray-400 font-medium"><i class="fa-solid fa-unlock-keyhole text-emerald-400 mr-1"></i>Friend Deposit Unlocks Withdrawal Terminal</p>
+                        <p class="text-[9px] text-gray-400 font-medium"><i class="fa-solid fa-unlock-keyhole text-emerald-400 mr-1"></i>Friend Deposit Unlocks Withdrawal Terminal + Higher Limits</p>
                     </div>
                     <div class="w-9 h-9 rounded-2xl bg-indigo-500/10 group-hover:bg-indigo-500/20 border border-indigo-500/20 flex items-center justify-center text-indigo-400 transition-all shadow-inner">
                         <i class="fa-solid fa-chevron-right text-xs"></i>
                     </div>
                 </div>
 
-                <!-- Feedback Center (kept) -->
+                <!-- Feedback Center -->
                 <div class="glass-panel p-4 bg-gradient-to-r from-pink-950/40 to-slate-900/30 border border-white/10 rounded-2xl flex justify-between items-center cursor-pointer hover:border-pink-500/30 transition-all shadow-md group flupy-btn" onclick="switchScreen('screen-admin-feedback'); streamAdminFeedbacks();">
                     <div class="space-y-1">
                         <h4 class="text-[10px] font-extrabold text-pink-400 uppercase tracking-widest">Feedback Center</h4>
@@ -369,22 +441,10 @@
                     </div>
                 </div>
 
-                <!-- NEW: More / Tasks Button -->
-                <div class="glass-panel p-4 bg-gradient-to-r from-violet-950/40 to-slate-900/30 border border-white/10 rounded-2xl flex justify-between items-center cursor-pointer hover:border-violet-500/30 transition-all shadow-md group flupy-btn" onclick="switchScreen('screen-tasks'); updateTasksBalance(); loadSocialTasks();">
-                    <div class="space-y-1">
-                        <h4 class="text-[10px] font-extrabold text-violet-400 uppercase tracking-widest">More</h4>
-                        <p class="text-xs font-extrabold text-white">Tasks & Social Rewards</p>
-                        <p class="text-[9px] text-gray-400 font-medium"><i class="fa-solid fa-tasks text-violet-400 mr-1"></i>Complete tasks • Earn 5 Coins each (one-time)</p>
-                    </div>
-                    <div class="w-9 h-9 rounded-2xl bg-violet-500/10 group-hover:bg-violet-500/20 border border-violet-500/20 flex items-center justify-center text-violet-400 transition-all shadow-inner">
-                        <i class="fa-solid fa-ellipsis-h text-xs"></i>
-                    </div>
-                </div>
-
             </div>
 
             <div class="glass-panel p-5 space-y-3.5 shadow-md">
-                <h4 class="text-xs font-bold uppercase text-cyan-400 tracking-wider">Corporate Manifesto</h4>
+                <h4 class="text-xs font-bold uppercase text-indigo-400 tracking-wider">Corporate Manifesto</h4>
                 <div id="about-us-container" class="space-y-3">
                     <img id="about-us-img" src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=600" alt="Corporate" class="w-full h-36 object-cover rounded-2xl border border-white/5 shadow-inner">
                     <p id="about-us-text" class="text-xs text-gray-400 leading-relaxed font-medium">
@@ -394,6 +454,7 @@
             </div>
         </section>
 
+        <!-- Feedback Screen -->
         <section id="screen-admin-feedback" class="screen space-y-4">
             <div class="flex items-center justify-between">
                 <button onclick="switchScreen('screen-dashboard')" class="text-xs text-gray-400 hover:text-white flex items-center gap-1.5 transition-all bg-white/5 px-3 py-1.5 rounded-2xl border border-white/5 font-semibold flupy-btn"><i class="fa-solid fa-arrow-left-long"></i> Back</button>
@@ -413,7 +474,7 @@
             </div>
         </section>
 
-        <!-- NEW PROFESSIONAL TASKS & REWARDS SCREEN -->
+        <!-- Tasks Screen -->
         <section id="screen-tasks" class="screen space-y-4">
             <div class="flex items-center justify-between">
                 <button onclick="switchScreen('screen-dashboard')" class="text-xs text-gray-400 hover:text-white flex items-center gap-1.5 transition-all bg-white/5 px-3 py-1.5 rounded-2xl border border-white/5 font-semibold flupy-btn"><i class="fa-solid fa-arrow-left-long"></i> Back</button>
@@ -442,6 +503,7 @@
             <div class="text-center text-[10px] text-gray-500 pt-2">New tasks added regularly by administration. Check back often!</div>
         </section>
 
+        <!-- Invite Friends Screen -->
         <section id="screen-invite-friends" class="screen space-y-4">
             <div class="flex items-center justify-between">
                 <button onclick="switchScreen('screen-dashboard')" class="text-xs text-gray-400 hover:text-white flex items-center gap-1.5 transition-all bg-white/5 px-3 py-1.5 rounded-2xl border border-white/5 font-semibold flupy-btn"><i class="fa-solid fa-arrow-left-long"></i> Back</button>
@@ -450,7 +512,7 @@
             
             <div class="glass-panel p-4 bg-gradient-to-br from-indigo-950/20 to-slate-900/40 text-center space-y-3 shadow-md border border-indigo-500/10">
                 <span class="text-[10px] tracking-widest text-indigo-400 uppercase font-extrabold bg-indigo-500/10 px-3 py-1 rounded-2xl border border-indigo-500/20">Invite & Earn System Rules</span>
-                <p class="text-xs text-gray-300 leading-relaxed font-medium px-1">Share your unique network signature code. 1 Verified referral (who successfully deposits fund) unlocks your permanent payout terminal channels. Additionally, whenever any friend registers or activates an asset stratum plan, customized network commission coins are added instantly to your network ledger map.</p>
+                <p class="text-xs text-gray-300 leading-relaxed font-medium px-1">Share your unique network signature code. 1 Verified referral (who successfully deposits fund) unlocks your permanent payout terminal channels. Additionally, whenever any friend registers or activates an asset stratum plan, customized network commission coins are added instantly to your network ledger map. <span class="text-emerald-400 font-bold">More successful referrals = Higher daily withdrawal limit!</span></p>
                 
                 <div class="p-3.5 bg-black/40 rounded-2xl flex items-center justify-between border border-white/5 mt-3 shadow-inner">
                     <span id="display-invite-refcode" class="font-mono font-black text-base text-white tracking-wider select-all px-2">REFCODE</span>
@@ -485,15 +547,16 @@
             </div>
         </section>
 
+        <!-- My Details Screen -->
         <section id="screen-my-details" class="screen space-y-4">
             <div class="flex items-center justify-between">
                 <button onclick="switchScreen('screen-dashboard')" class="text-xs text-gray-400 hover:text-white flex items-center gap-1.5 transition-all bg-white/5 px-3 py-1.5 rounded-2xl border border-white/5 font-semibold flupy-btn"><i class="fa-solid fa-arrow-left-long"></i> Dashboard</button>
-                <h2 class="text-xs font-extrabold text-cyan-400 uppercase tracking-widest">Financial Matrix</h2>
+                <h2 class="text-xs font-extrabold text-indigo-400 uppercase tracking-widest">Financial Matrix</h2>
             </div>
 
             <div class="grid grid-cols-2 gap-3.5">
-                <div class="glass-panel p-4 col-span-2 bg-gradient-to-br from-cyan-950/20 to-slate-900/40 border-t-2 border-cyan-500 shadow-md">
-                    <span class="text-[10px] uppercase font-bold text-cyan-400 tracking-widest block">Available Principal Liquid Ledger</span>
+                <div class="glass-panel p-4 col-span-2 bg-gradient-to-br from-indigo-950/20 to-slate-900/40 border-t-2 border-indigo-500 shadow-md">
+                    <span class="text-[10px] uppercase font-bold text-indigo-400 tracking-widest block">Available Principal Liquid Ledger</span>
                     <div class="text-3xl font-black tracking-tight mt-1.5 text-white font-mono">Rs. <span id="meta-balance">0.00</span></div>
                 </div>
                 <div class="glass-panel p-4 shadow-md bg-black/20">
@@ -509,7 +572,7 @@
                     <span class="text-base font-bold text-white block mt-1 font-mono">Rs. <span id="meta-total-deposit">0.00</span></span>
                 </div>
                 <div class="glass-panel p-4 shadow-md bg-black/20">
-                    <span class="text-[10px] uppercase font-bold text-indigo-400 tracking-wider block">Processed Payouts</span>
+                    <span class="text-[10px] uppercase font-bold text-purple-400 tracking-wider block">Processed Payouts</span>
                     <span class="text-base font-bold text-white block mt-1 font-mono">Rs. <span id="meta-total-withdraw">0.00</span></span>
                 </div>
             </div>
@@ -526,18 +589,20 @@
             
             <div class="glass-panel p-4 flex justify-between items-center shadow-md bg-black/20">
                 <span class="text-xs font-bold text-gray-300 uppercase tracking-wide">Total Verified Referrals</span>
-                <span id="meta-ref-count" class="px-3 py-1.5 bg-cyan-500/10 border border-cyan-500/20 rounded-2xl text-xs font-mono font-bold text-cyan-400">0 Nodes</span>
+                <span id="meta-ref-count" class="px-3 py-1.5 bg-indigo-500/10 border border-indigo-500/20 rounded-2xl text-xs font-mono font-bold text-indigo-400">0 Nodes</span>
             </div>
         </section>
 
+        <!-- Invest Plans Screen -->
         <section id="screen-invest-plans" class="screen space-y-4">
             <div class="flex items-center justify-between">
                 <button onclick="switchScreen('screen-dashboard')" class="text-xs text-gray-400 hover:text-white flex items-center gap-1.5 transition-all bg-white/5 px-3 py-1.5 rounded-2xl border border-white/5 font-semibold flupy-btn"><i class="fa-solid fa-arrow-left-long"></i> Back</button>
-                <h2 class="text-xs font-extrabold text-emerald-400 uppercase tracking-widest">Yield Stratums</h2>
+                <h2 class="text-xs font-extrabold text-violet-400 uppercase tracking-widest">Yield Stratums</h2>
             </div>
             <div id="investment-plans-feed" class="space-y-4"></div>
         </section>
 
+        <!-- Deposit Screen -->
         <section id="screen-deposit" class="screen space-y-4">
             <div class="flex items-center justify-between">
                 <button onclick="switchScreen('screen-dashboard')" class="text-xs text-gray-400 hover:text-white flex items-center gap-1.5 transition-all bg-white/5 px-3 py-1.5 rounded-2xl border border-white/5 font-semibold flupy-btn"><i class="fa-solid fa-arrow-left-long"></i> Cancel</button>
@@ -557,7 +622,7 @@
                 <div class="glass-panel p-4 bg-amber-500/5 border border-amber-500/20 rounded-2xl space-y-1.5 shadow-inner">
                     <span class="text-[9px] font-black text-amber-400 uppercase tracking-widest">Destination Cache Registry</span>
                     <div class="text-sm font-extrabold text-white" id="dep-gate-title">Muhammad Naeem</div>
-                    <div class="text-base font-mono font-black tracking-wider text-amber-300 neon-text-cyan" id="dep-gate-account">03257436319</div>
+                    <div class="text-base font-mono font-black tracking-wider text-amber-300 neon-text-gold" id="dep-gate-account">03257436319</div>
                 </div>
 
                 <div class="glass-panel p-4 border-l-4 border-amber-500 text-right bg-black/40 shadow-md">
@@ -592,15 +657,33 @@
             </form>
         </section>
 
+        <!-- Withdraw Screen (UPDATED) -->
         <section id="screen-withdraw" class="screen space-y-4">
             <div class="flex items-center justify-between">
                 <button onclick="switchScreen('screen-dashboard')" class="text-xs text-gray-400 hover:text-white flex items-center gap-1.5 transition-all bg-white/5 px-3 py-1.5 rounded-2xl border border-white/5 font-semibold flupy-btn"><i class="fa-solid fa-arrow-left-long"></i> Abort</button>
-                <h2 class="text-xs font-extrabold text-indigo-400 uppercase tracking-widest">Outbound Terminal</h2>
+                <h2 class="text-xs font-extrabold text-purple-400 uppercase tracking-widest">Outbound Terminal</h2>
+            </div>
+
+            <!-- NEW: Withdrawal Limit + Tax + Cooldown Info Panel -->
+            <div id="withdraw-limit-info" class="glass-panel p-4 mb-1 space-y-2 border border-purple-500/20 bg-purple-950/10">
+                <div class="flex justify-between items-center text-xs">
+                    <span class="font-bold text-purple-400">Your Daily Withdrawal Limit</span>
+                    <span id="current-withdraw-limit" class="font-mono font-black text-lg text-white">Rs. 1,000</span>
+                </div>
+                <div class="flex justify-between text-[10px]">
+                    <span class="text-gray-400">Platform Tax (per withdrawal)</span>
+                    <span class="font-bold text-amber-400">Rs. 2.00</span>
+                </div>
+                <div id="last-withdraw-time" class="text-[10px] text-gray-400 font-medium"></div>
+                <div id="next-withdraw-time" class="text-[10px] font-bold"></div>
+                <div class="text-[9px] text-gray-500 pt-1 border-t border-white/10">
+                    Limit = Admin Base + Rs.300 per successful deposited referral. Admin can raise your base limit anytime.
+                </div>
             </div>
 
             <div class="glass-panel p-4 space-y-3 shadow-md">
                 <div class="flex justify-between items-center border-b border-white/5 pb-2.5">
-                    <span class="text-[10px] font-bold uppercase text-indigo-400 tracking-wider">Locked Destination Endpoint</span>
+                    <span class="text-[10px] font-bold uppercase text-purple-400 tracking-wider">Locked Destination Endpoint</span>
                     <button onclick="triggerWithdrawalNodeDispute()" class="text-[10px] text-rose-400 hover:text-rose-300 font-bold uppercase transition-all flupy-btn"><i class="fa-solid fa-triangle-exclamation"></i> Dispute Endpoint</button>
                 </div>
                 <div id="withdraw-node-registry-view" class="text-xs space-y-1"></div>
@@ -610,13 +693,13 @@
                 <div id="withdraw-lockout-alert" class="glass-panel p-4 bg-rose-500/5 border border-rose-500/20 text-rose-300 text-xs text-center font-semibold leading-relaxed rounded-2xl shadow-inner hidden"></div>
 
                 <div>
-                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 px-1">Settlement Request Volume (PKR)</label>
-                    <input type="number" id="withdraw-volume" required class="w-full px-4 py-3.5 bg-black/40 border border-white/10 rounded-2xl text-xs focus:outline-none focus:border-indigo-500 text-white premium-input font-mono" placeholder="Rs. Minimum limit enforced">
+                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 px-1">Amount to Withdraw (PKR) <span class="text-amber-400 font-bold">— You receive this amount. Rs.2 tax added to deduction.</span></label>
+                    <input type="number" id="withdraw-volume" required class="w-full px-4 py-3.5 bg-black/40 border border-white/10 rounded-2xl text-xs focus:outline-none focus:border-purple-500 text-white premium-input font-mono" placeholder="Enter amount (max = your daily limit)">
                 </div>
 
                 <div>
                     <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 px-1">Withdrawal Method</label>
-                    <select id="withdraw-method" class="w-full px-4 py-3.5 bg-black/40 border border-white/10 rounded-2xl text-xs focus:outline-none focus:border-indigo-500 text-white premium-input font-semibold">
+                    <select id="withdraw-method" class="w-full px-4 py-3.5 bg-black/40 border border-white/10 rounded-2xl text-xs focus:outline-none focus:border-purple-500 text-white premium-input font-semibold">
                         <option value="JazzCash">JazzCash</option>
                         <option value="EasyPaisa">EasyPaisa</option>
                         <option value="Bank Transfer">Bank Transfer</option>
@@ -624,16 +707,17 @@
                     </select>
                 </div>
 
-                <button type="submit" id="withdraw-submit-btn" class="w-full py-4 bg-gradient-to-r from-indigo-600 via-blue-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 rounded-2xl font-bold text-xs uppercase tracking-wider text-white shadow-lg shadow-indigo-950/50 transition-all flupy-btn">
-                    Transmit Capital Outbound Request
+                <button type="submit" id="withdraw-submit-btn" class="w-full py-4 bg-gradient-to-r from-purple-600 via-violet-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 rounded-2xl font-bold text-xs uppercase tracking-wider text-white shadow-lg shadow-purple-950/50 transition-all flupy-btn">
+                    Transmit Capital Outbound Request (− Rs.2 Tax)
                 </button>
             </form>
         </section>
 
+        <!-- History Screen -->
         <section id="screen-history" class="screen space-y-4">
             <div class="flex items-center justify-between">
                 <button onclick="switchScreen('screen-dashboard')" class="text-xs text-gray-400 hover:text-white flex items-center gap-1.5 transition-all bg-white/5 px-3 py-1.5 rounded-2xl border border-white/5 font-semibold flupy-btn"><i class="fa-solid fa-arrow-left-long"></i> Return</button>
-                <h2 class="text-xs font-extrabold text-purple-400 uppercase tracking-widest">Audit Trails</h2>
+                <h2 class="text-xs font-extrabold text-slate-400 uppercase tracking-widest">Audit Trails</h2>
             </div>
             
             <div class="flex bg-black/40 p-1 rounded-2xl overflow-x-auto gap-1 text-[9px] font-extrabold uppercase tracking-wider border border-white/5 shadow-inner">
@@ -649,9 +733,7 @@
         
     </main>
 
-    <!-- All existing modals remain unchanged (password recovery, profile, announcement, customer care, etc.) -->
-    <!-- ... (I kept all your original modals exactly as they were for full compatibility) -->
-
+    <!-- Password Recovery Modal -->
     <div id="password-recovery-modal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 hidden">
         <div class="glass-panel p-6 w-full max-w-sm space-y-4 border border-rose-500/20 text-white">
             <div class="flex justify-between items-center border-b border-white/10 pb-3">
@@ -670,9 +752,9 @@
                     <input type="tel" id="recovery-phone" required class="w-full p-3 bg-black/40 border border-white/10 rounded-2xl text-white focus:outline-none focus:border-rose-500 premium-input font-mono" placeholder="03XXXXXXXXX">
                 </div>
 
-                <div id="recovery-loading-pipeline" class="hidden p-4 bg-black/60 border border-cyan-500/20 rounded-2xl text-center space-y-2">
-                    <i class="fa-solid fa-circle-notch fa-spin text-cyan-400 text-lg"></i>
-                    <p class="text-[11px] text-cyan-300 font-mono tracking-wide font-medium">Validating Server Credentials Mapping... <span id="recovery-timer-display">30</span>s</p>
+                <div id="recovery-loading-pipeline" class="hidden p-4 bg-black/60 border border-indigo-500/20 rounded-2xl text-center space-y-2">
+                    <i class="fa-solid fa-circle-notch fa-spin text-indigo-400 text-lg"></i>
+                    <p class="text-[11px] text-indigo-300 font-mono tracking-wide font-medium">Validating Server Credentials Mapping... <span id="recovery-timer-display">30</span>s</p>
                 </div>
 
                 <button type="submit" id="recovery-submit-btn" class="w-full py-3.5 bg-gradient-to-r from-rose-600 to-red-600 hover:from-rose-500 hover:to-red-500 text-white font-bold rounded-2xl uppercase tracking-wider shadow-lg transition-all flupy-btn">
@@ -682,27 +764,27 @@
         </div>
     </div>
 
-    <!-- Profile, Announcement, Customer Care modals kept exactly as original for compatibility -->
-
+    <!-- Profile Modal -->
     <div id="profile-details-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 hidden" onclick="closeProfileModal()">
-        <div class="glass-panel p-6 w-full max-w-sm space-y-4 border border-cyan-500/20 text-white" onclick="event.stopPropagation()">
+        <div class="glass-panel p-6 w-full max-w-sm space-y-4 border border-indigo-500/20 text-white" onclick="event.stopPropagation()">
             <div class="flex justify-between items-center border-b border-white/10 pb-3">
-                <h3 class="text-xs font-extrabold uppercase tracking-widest text-cyan-400 flex items-center gap-2"><i class="fa-solid fa-address-card"></i> Profile ID Registry</h3>
+                <h3 class="text-xs font-extrabold uppercase tracking-widest text-indigo-400 flex items-center gap-2"><i class="fa-solid fa-address-card"></i> Profile ID Registry</h3>
                 <button onclick="closeProfileModal()" class="text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 w-8 h-8 rounded-2xl flex items-center justify-center transition-all border border-white/5 flupy-btn"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div class="space-y-3.5 text-xs">
                 <div class="flex justify-between border-b border-white/5 pb-2.5 font-medium"><span class="text-gray-400">Username:</span> <span id="prof-modal-user" class="font-bold text-white"></span></div>
                 <div class="flex justify-between border-b border-white/5 pb-2.5 font-medium"><span class="text-gray-400">Email Address:</span> <span id="prof-modal-email" class="font-bold text-white truncate max-w-[180px]"></span></div>
                 <div class="flex justify-between border-b border-white/5 pb-2.5 font-medium"><span class="text-gray-400">Reg. Number:</span> <span id="prof-modal-phone" class="font-bold font-mono text-emerald-400"></span></div>
-                <div class="flex justify-between border-b border-white/5 pb-2.5 font-medium"><span class="text-gray-400">Active Node Device:</span> <span id="prof-modal-device" class="font-bold text-cyan-400 font-mono text-[11px]"></span></div>
+                <div class="flex justify-between border-b border-white/5 pb-2.5 font-medium"><span class="text-gray-400">Active Node Device:</span> <span id="prof-modal-device" class="font-bold text-indigo-400 font-mono text-[11px]"></span></div>
             </div>
         </div>
     </div>
 
+    <!-- Announcement Popup -->
     <div id="global-announcement-popup" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
-        <div class="w-full max-w-sm glass-panel p-5 text-center space-y-4 border border-cyan-500/20 shadow-2xl">
+        <div class="w-full max-w-sm glass-panel p-5 text-center space-y-4 border border-indigo-500/20 shadow-2xl">
             <div class="flex justify-between items-center border-b border-white/5 pb-2.5">
-                <span class="text-[10px] font-black tracking-widest text-cyan-400 uppercase flex items-center gap-1.5"><i class="fa-solid fa-bullhorn"></i> Announcement Broadcast</span>
+                <span class="text-[10px] font-black tracking-widest text-indigo-400 uppercase flex items-center gap-1.5"><i class="fa-solid fa-bullhorn"></i> Announcement Broadcast</span>
                 <span id="announcement-timer-countdown" class="text-[9px] font-bold text-amber-400 bg-amber-500/10 border border-amber-500/20 px-2.5 py-0.5 rounded-2xl">Wait 15s</span>
             </div>
             <h3 id="popup-ann-title" class="text-sm font-extrabold text-white tracking-wide">Ecosystem Directive</h3>
@@ -714,22 +796,22 @@
         </div>
     </div>
 
+    <!-- Footer -->
     <footer id="main-footer" class="w-full max-w-md mx-auto px-4 pb-4 z-40">
         <div class="glass-panel p-3.5 flex justify-between items-center gap-2 border border-white/10 shadow-lg">
             <div class="text-left pl-1">
-                <span class="block text-[9px] uppercase font-black tracking-widest text-cyan-400 neon-text-cyan">Ecosystem Guard Active</span>
+                <span class="block text-[9px] uppercase font-black tracking-widest text-indigo-400 neon-text-indigo">Ecosystem Guard Active</span>
                 <span class="text-xs font-bold text-white tracking-wide">Central Operations Node</span>
             </div>
-            <button onclick="openCustomerCareTerminal()" class="px-4 py-2.5 bg-gradient-to-r from-cyan-600 via-blue-600 to-indigo-600 hover:from-cyan-500 hover:to-indigo-500 rounded-2xl text-xs font-bold shadow-md flex items-center gap-1.5 text-white tracking-wider uppercase transition-all transform active:scale-95 border border-cyan-400/20 flupy-btn">
+            <button onclick="openCustomerCareTerminal()" class="px-4 py-2.5 bg-gradient-to-r from-indigo-600 via-violet-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 rounded-2xl text-xs font-bold shadow-md flex items-center gap-1.5 text-white tracking-wider uppercase transition-all transform active:scale-95 border border-indigo-400/20 flupy-btn">
                 <i class="fa-solid fa-headset text-xs"></i> Support Desk
             </button>
         </div>
     </footer>
 
-    <!-- Customer Care Modal kept exactly as original -->
-
+    <!-- Customer Care Modal -->
     <div id="customer-care-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
-        <div class="w-full max-w-md glass-panel flex flex-col h-[85vh] overflow-hidden border border-cyan-500/20 shadow-2xl">
+        <div class="w-full max-w-md glass-panel flex flex-col h-[85vh] overflow-hidden border border-indigo-500/20 shadow-2xl">
             <div class="p-4 border-b border-white/10 flex justify-between items-center bg-black/40">
                 <div class="flex items-center gap-3">
                     <div class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse shadow-lg shadow-emerald-500"></div>
@@ -742,7 +824,7 @@
             </div>
 
             <div class="flex bg-black/20 p-1 border-b border-white/5 text-[10px] font-extrabold uppercase tracking-wider shadow-inner">
-                <button id="support-tab-chat" onclick="toggleSupportSubModule('chat')" class="w-1/2 py-2.5 rounded-2xl bg-white/5 text-cyan-400 tracking-wider flupy-btn">Live Workspace</button>
+                <button id="support-tab-chat" onclick="toggleSupportSubModule('chat')" class="w-1/2 py-2.5 rounded-2xl bg-white/5 text-indigo-400 tracking-wider flupy-btn">Live Workspace</button>
                 <button id="support-tab-complaint" onclick="toggleSupportSubModule('complaint')" class="w-1/2 py-2.5 rounded-2xl text-gray-400 tracking-wider flupy-btn">Formal Ticket</button>
             </div>
 
@@ -751,7 +833,6 @@
             </div>
 
             <div class="flex-grow p-4 overflow-y-auto hidden" id="support-viewport-complaint">
-                <!-- Complaint form kept original -->
                 <form id="formal-ticket-form" onsubmit="handleTicketSubmission(event)" class="space-y-4 text-left">
                     <div>
                         <label class="block text-[10px] uppercase font-bold text-gray-400 tracking-wider mb-2 px-0.5">Issue Classification Matrix</label>
@@ -770,11 +851,11 @@
                         <label class="block text-[10px] uppercase font-bold text-gray-400 tracking-wider mb-2 px-0.5">Diagnostic Screenshot Proof</label>
                         <div class="flex items-center justify-between p-3 bg-black/30 border border-white/5 rounded-2xl text-xs shadow-inner">
                             <input type="file" id="ticket-proof-file" accept="image/*" onchange="uploadTicketProofToCloudinary(event)" class="file:bg-white/10 file:text-white file:border-0 file:text-[9px] file:py-1 file:px-2.5 file:rounded-2xl file:mr-2 file:font-bold">
-                            <i id="ticket-proof-spinner" class="fa-solid fa-circle-notch fa-spin text-cyan-400 hidden"></i>
+                            <i id="ticket-proof-spinner" class="fa-solid fa-circle-notch fa-spin text-indigo-400 hidden"></i>
                         </div>
                         <input type="hidden" id="ticket-proof-url">
                     </div>
-                    <button type="submit" id="ticket-submit-btn" class="w-full py-3.5 bg-gradient-to-r from-cyan-600 to-blue-600 text-white font-bold text-xs uppercase tracking-wider rounded-2xl shadow-lg transition-all flupy-btn">Log Official Infrastructure Record</button>
+                    <button type="submit" id="ticket-submit-btn" class="w-full py-3.5 bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-bold text-xs uppercase tracking-wider rounded-2xl shadow-lg transition-all flupy-btn">Log Official Infrastructure Record</button>
                 </form>
                 
                 <div class="mt-5 border-t border-white/5 pt-4">
@@ -787,19 +868,20 @@
                 <button onclick="document.getElementById('chat-file-input').click()" class="w-11 h-11 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/5 text-gray-400 hover:text-white flex items-center justify-center text-sm transition-all relative flupy-btn">
                     <i class="fa-solid fa-paperclip"></i>
                     <input type="file" id="chat-file-input" accept="image/*" class="hidden" onchange="uploadChatAttachmentToCloudinary(event)">
-                    <div id="chat-file-spinner" class="absolute inset-0 bg-black/80 rounded-2xl flex items-center justify-center hidden"><i class="fa-solid fa-circle-notch fa-spin text-xs text-cyan-400"></i></div>
+                    <div id="chat-file-spinner" class="absolute inset-0 bg-black/80 rounded-2xl flex items-center justify-center hidden"><i class="fa-solid fa-circle-notch fa-spin text-xs text-indigo-400"></i></div>
                 </button>
-                <input type="text" id="chat-message-input" class="flex-grow h-11 px-4 bg-black/50 border border-white/10 rounded-2xl text-xs text-white focus:outline-none focus:border-cyan-500 premium-input" placeholder="Transmit raw message terminal framework...">
-                <button onclick="transmitLiveChatMessage()" class="w-11 h-11 rounded-2xl bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 flex items-center justify-center text-sm text-white shadow-lg transition-all flupy-btn"><i class="fa-solid fa-paper-plane text-xs"></i></button>
+                <input type="text" id="chat-message-input" class="flex-grow h-11 px-4 bg-black/50 border border-white/10 rounded-2xl text-xs text-white focus:outline-none focus:border-indigo-500 premium-input" placeholder="Transmit raw message terminal framework...">
+                <button onclick="transmitLiveChatMessage()" class="w-11 h-11 rounded-2xl bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 flex items-center justify-center text-sm text-white shadow-lg transition-all flupy-btn"><i class="fa-solid fa-paper-plane text-xs"></i></button>
             </div>
         </div>
     </div>
 
+    <!-- Context Menu -->
     <div id="context-menu-modal" class="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-start justify-end p-4 hidden" onclick="closeContextMenu()">
         <div class="glass-panel p-2.5 mt-14 w-52 shadow-2xl space-y-1.5 bg-slate-950/90 border border-white/10" onclick="event.stopPropagation()">
             <div class="px-3 py-2 border-b border-white/5">
                 <span class="block text-[9px] text-gray-500 uppercase tracking-widest font-black">Active Identity Node</span>
-                <span id="context-device-name" class="block text-xs font-mono font-bold text-cyan-400 truncate mt-0.5">Device Checking...</span>
+                <span id="context-device-name" class="block text-xs font-mono font-bold text-indigo-400 truncate mt-0.5">Device Checking...</span>
             </div>
             <button onclick="terminateSession()" class="w-full text-left px-3 py-2.5 text-xs font-bold text-rose-400 hover:bg-rose-500/10 rounded-2xl flex items-center gap-2.5 transition-all uppercase tracking-wider flupy-btn">
                 <i class="fa-solid fa-power-off text-sm"></i> Terminate Session
@@ -901,11 +983,11 @@
             const toast = document.createElement('div');
             toast.className = `glass-card p-4 rounded-2xl shadow-2xl flex items-center gap-3.5 transition-all duration-300 transform scale-95 opacity-0 border-l-4 pointer-events-auto bg-slate-900/90 ${
                 type === 'success' ? 'border-emerald-500 text-emerald-200 shadow-emerald-950/20' :
-                type === 'error' ? 'border-rose-500 text-rose-200 shadow-rose-950/20' : 'border-cyan-500 text-cyan-200 shadow-cyan-950/20'
+                type === 'error' ? 'border-rose-500 text-rose-200 shadow-rose-950/20' : 'border-indigo-500 text-indigo-200 shadow-indigo-950/20'
             }`;
             
             const icon = type === 'success' ? 'fa-circle-check' : type === 'error' ? 'fa-circle-exclamation' : 'fa-circle-info';
-            toast.innerHTML = `<i class="fa-solid ${icon} text-base flex-shrink-0 text-cyan-400"></i><span class="text-xs font-bold leading-relaxed">${message}</span>`;
+            toast.innerHTML = `<i class="fa-solid ${icon} text-base flex-shrink-0 text-indigo-400"></i><span class="text-xs font-bold leading-relaxed">${message}</span>`;
             
             container.appendChild(toast);
             setTimeout(() => { toast.classList.remove('scale-95', 'opacity-0'); }, 50);
@@ -922,6 +1004,20 @@
             if(target) {
                 target.classList.add('active');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
+                
+                // Refresh withdraw UI when entering withdraw screen
+                if (screenId === 'screen-withdraw' && typeof buildWithdrawalAccountConfigPanel === 'function') {
+                    setTimeout(() => {
+                        buildWithdrawalAccountConfigPanel();
+                    }, 50);
+                }
+                
+                // Ensure My Matrix shows latest data
+                if (screenId === 'screen-my-details' && typeof synchronizeUserDashboardInterface === 'function') {
+                    setTimeout(() => {
+                        synchronizeUserDashboardInterface();
+                    }, 10);
+                }
             }
         }
 
@@ -1222,7 +1318,7 @@
             const submitBtn = document.getElementById('signup-submit-btn');
             submitBtn.disabled = !(userValid && emailValid && passValid && phone.length > 9);
             if(!submitBtn.disabled) {
-                submitBtn.className = "w-full py-4 mt-2 bg-gradient-to-r from-cyan-600 via-blue-600 to-emerald-600 hover:from-cyan-500 hover:to-emerald-500 rounded-2xl font-bold text-xs uppercase tracking-wider text-white shadow-lg transition-all transform active:scale-95 cursor-pointer flupy-btn btn-primary";
+                submitBtn.className = "w-full py-4 mt-2 bg-gradient-to-r from-indigo-600 via-violet-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 rounded-2xl font-bold text-xs uppercase tracking-wider text-white shadow-lg transition-all transform active:scale-95 cursor-pointer flupy-btn btn-primary";
             } else {
                 submitBtn.className = "w-full py-4 mt-2 bg-slate-800 text-gray-500 rounded-2xl font-bold text-xs uppercase tracking-wider cursor-not-allowed transition-all shadow-lg flupy-btn";
             }
@@ -1306,7 +1402,9 @@
                     totalDeposit: 0,
                     totalWithdraw: 0,
                     withdrawalAccountLocked: false,
-                    hasApprovedDeposit: false 
+                    hasApprovedDeposit: false,
+                    withdrawalLimit: 1000,           // DEFAULT - Admin can change per user in Firebase
+                    lastWithdrawalTimestamp: 0
                 };
 
                 db.ref('users/' + phone).set(payload, err => {
@@ -1500,7 +1598,7 @@
         }
 
         function synchronizeUserDashboardInterface() {
-            document.getElementById('dash-username').innerText = sessionUser.username;
+            document.getElementById('dash-username').innerText = sessionUser.username || 'User Node';
             
             const myRef = sessionUser.myRefCode || (sessionUser.username.toUpperCase() + '99');
             document.getElementById('dash-my-refcode').innerText = myRef;
@@ -1509,11 +1607,11 @@
             const avatar = sessionUser.avatarUrl || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=200';
             document.getElementById('dash-user-avatar').src = avatar;
 
-            document.getElementById('meta-balance').innerText = Number(sessionUser.balance).toFixed(2);
-            document.getElementById('meta-total-invest').innerText = Number(sessionUser.totalInvested).toFixed(2);
-            document.getElementById('meta-total-profit').innerText = Number(sessionUser.totalProfit).toFixed(2);
-            document.getElementById('meta-total-deposit').innerText = Number(sessionUser.totalDeposit).toFixed(2);
-            document.getElementById('meta-total-withdraw').innerText = Number(sessionUser.totalWithdraw).toFixed(2);
+            document.getElementById('meta-balance').innerText = Number(sessionUser.balance || 0).toFixed(2);
+            document.getElementById('meta-total-invest').innerText = Number(sessionUser.totalInvested || 0).toFixed(2);
+            document.getElementById('meta-total-profit').innerText = Number(sessionUser.totalProfit || 0).toFixed(2);
+            document.getElementById('meta-total-deposit').innerText = Number(sessionUser.totalDeposit || 0).toFixed(2);
+            document.getElementById('meta-total-withdraw').innerText = Number(sessionUser.totalWithdraw || 0).toFixed(2);
             
             const coinsWalletNode = document.getElementById('matrix-coins-counter');
             if(coinsWalletNode) coinsWalletNode.innerHTML = `${parseInt(sessionUser.coinsCommission || 0)} <span class="text-xs text-gray-400 font-normal">Coins</span>`;
@@ -1580,7 +1678,7 @@
                 if(timeRemaining <= 0) {
                     clearInterval(interval);
                     btn.disabled = false;
-                    btn.className = "w-full py-3 bg-gradient-to-r from-cyan-600 via-blue-600 to-emerald-600 rounded-2xl font-bold text-xs uppercase tracking-wider text-white cursor-pointer transition-all shadow-lg flupy-btn";
+                    btn.className = "w-full py-3 bg-gradient-to-r from-indigo-600 via-violet-600 to-purple-600 rounded-2xl font-bold text-xs uppercase tracking-wider text-white cursor-pointer transition-all shadow-lg flupy-btn";
                     btn.innerText = "Acknowledge Directive";
                     timerLabel.innerText = "Unlocked Matrix";
                 } else {
@@ -1624,22 +1722,22 @@
                 Object.keys(globalSystemPlans).forEach(key => {
                     const plan = globalSystemPlans[key];
                     const row = document.createElement('div');
-                    row.className = "glass-panel p-4 flex flex-col justify-between items-start gap-4 border-l-4 border-emerald-500 bg-gradient-to-r from-slate-900 to-black/30 shadow-md";
+                    row.className = "glass-panel p-4 flex flex-col justify-between items-start gap-4 border-l-4 border-violet-500 bg-gradient-to-r from-slate-900 to-black/30 shadow-md";
                     row.innerHTML = `
                         <div class="w-full flex justify-between items-start">
                             <div>
                                 <h4 class="text-sm font-extrabold text-white tracking-wide uppercase">${plan.name}</h4>
-                                <p class="text-[10px] text-gray-400 font-semibold mt-1">Strata Lifespan: <span class="text-emerald-400 font-mono">${plan.days} Operations Days</span></p>
+                                <p class="text-[10px] text-gray-400 font-semibold mt-1">Strata Lifespan: <span class="text-violet-400 font-mono">${plan.days} Operations Days</span></p>
                                 <p class="text-[9px] text-teal-400 font-black tracking-widest uppercase mt-0.5"><i class="fa-solid fa-rotate-left"></i> Principal Back Guaranteed</p>
                             </div>
                             <div class="text-right">
-                                <span class="text-sm font-black text-emerald-400 block font-mono neon-text-emerald">${plan.percentage}% Yield</span>
+                                <span class="text-sm font-black text-violet-400 block font-mono neon-text-indigo">${plan.percentage}% Yield</span>
                                 <span class="text-[8px] text-gray-500 uppercase font-bold tracking-wider">Daily Rate Velocity</span>
                             </div>
                         </div>
                         <div class="w-full flex justify-between items-center pt-3 border-t border-white/5">
                             <span class="text-xs font-bold text-slate-300 font-mono">Required Stake: Rs. ${plan.cost}</span>
-                            <button onclick="executePlanAllocation('${key}')" class="px-4 py-2 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 rounded-2xl text-xs font-bold text-white uppercase tracking-wider shadow-md transition-all transform active:scale-95 flupy-btn">Stake Asset</button>
+                            <button onclick="executePlanAllocation('${key}')" class="px-4 py-2 bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 rounded-2xl text-xs font-bold text-white uppercase tracking-wider shadow-md transition-all transform active:scale-95 flupy-btn">Stake Asset</button>
                         </div>
                     `;
                     feed.appendChild(row);
@@ -1761,7 +1859,7 @@
                         <div><span class="text-gray-500 block text-[10px] uppercase">Daily Yield Speed:</span> <span class="text-emerald-400 font-mono">Rs. ${dynamicDailyProfit.toFixed(1)}</span></div>
                     </div>
                     <div class="text-[10px] text-gray-400 pt-1 font-medium">
-                        Total Yield Harvested Block: <span class="text-cyan-400 font-bold font-mono">Rs. ${Number(p.accumulatedYieldCollected || 0).toFixed(2)}</span>
+                        Total Yield Harvested Block: <span class="text-indigo-400 font-bold font-mono">Rs. ${Number(p.accumulatedYieldCollected || 0).toFixed(2)}</span>
                     </div>
                 </div>
             `;
@@ -1941,6 +2039,28 @@
             });
         }
 
+        // ==================== NEW: Calculate Effective Withdrawal Limit (Admin + Referral Bonus) ====================
+        function calculateEffectiveWithdrawalLimit() {
+            if (!sessionUser) return 1000;
+            
+            const baseLimit = parseFloat(sessionUser.withdrawalLimit || 1000);
+            let successfulReferralCount = 0;
+
+            if (sessionUser.referrals) {
+                Object.values(sessionUser.referrals).forEach(ref => {
+                    if (ref.isDeposited === true || ref.depositCommissionPaid === true || (parseInt(ref.commissionEarnedCoins || 0) > 0)) {
+                        successfulReferralCount++;
+                    }
+                });
+            }
+
+            // Rs. 300 bonus per successful deposited referral
+            const bonusPerReferral = 300;
+            const totalLimit = Math.floor(baseLimit + (successfulReferralCount * bonusPerReferral));
+            
+            return totalLimit;
+        }
+
         function buildWithdrawalAccountConfigPanel() {
             const view = document.getElementById('withdraw-node-registry-view');
             const form = document.getElementById('withdraw-processing-form');
@@ -1956,15 +2076,46 @@
                 });
             }
 
+            // Show limit info (NEW)
+            const limitEl = document.getElementById('current-withdraw-limit');
+            const lastTimeEl = document.getElementById('last-withdraw-time');
+            const nextTimeEl = document.getElementById('next-withdraw-time');
+
+            if (limitEl) {
+                const effLimit = calculateEffectiveWithdrawalLimit();
+                limitEl.innerText = `Rs. ${effLimit.toLocaleString()}`;
+            }
+
+            if (lastTimeEl) {
+                if (sessionUser.lastWithdrawalTimestamp && sessionUser.lastWithdrawalTimestamp > 0) {
+                    lastTimeEl.innerHTML = `Last Withdrawal: <span class="font-mono">${new Date(sessionUser.lastWithdrawalTimestamp).toLocaleString()}</span>`;
+                } else {
+                    lastTimeEl.innerHTML = `Last Withdrawal: <span class="text-gray-500">None yet</span>`;
+                }
+            }
+
+            if (nextTimeEl) {
+                const lastW = sessionUser.lastWithdrawalTimestamp || 0;
+                const cd = 24 * 60 * 60 * 1000;
+                if (lastW && (Date.now() - lastW < cd)) {
+                    const remainMs = cd - (Date.now() - lastW);
+                    const h = Math.floor(remainMs / 3600000);
+                    const m = Math.floor((remainMs % 3600000) / 60000);
+                    nextTimeEl.innerHTML = `Next withdrawal available in <span class="font-bold text-rose-400">${h}h ${m}m</span>`;
+                } else {
+                    nextTimeEl.innerHTML = `Next withdrawal: <span class="text-emerald-400">Available Now</span>`;
+                }
+            }
+
             if(!hasDepositedRef) {
-                alertBox.innerHTML = `<div class="flex items-center gap-2 justify-center"><i class="fa-solid fa-triangle-exclamation text-rose-400"></i><span>Outbound Terminal Locked: Dynamic security policies require at least <b>1 Invited Friend</b> who has successfully made an approved Deposit.</span></div>`;
+                alertBox.innerHTML = `<div class="flex items-center gap-2 justify-center"><i class="fa-solid fa-triangle-exclamation text-rose-400"></i><span>Outbound Terminal Locked: You need at least <b>1 Invited Friend</b> who has successfully made an approved Deposit to unlock withdrawals.</span></div>`;
                 alertBox.classList.remove('hidden');
                 document.getElementById('withdraw-submit-btn').disabled = true;
                 document.getElementById('withdraw-submit-btn').className = "w-full py-4 bg-slate-800 text-gray-500 rounded-2xl font-bold text-xs uppercase tracking-wider cursor-not-allowed shadow-md flupy-btn";
             } else {
                 alertBox.classList.add('hidden');
                 document.getElementById('withdraw-submit-btn').disabled = false;
-                document.getElementById('withdraw-submit-btn').className = "w-full py-4 bg-gradient-to-r from-indigo-600 via-blue-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold text-xs uppercase tracking-wider rounded-2xl shadow-lg transition-all flupy-btn";
+                document.getElementById('withdraw-submit-btn').className = "w-full py-4 bg-gradient-to-r from-purple-600 via-violet-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-xs uppercase tracking-wider rounded-2xl shadow-lg transition-all flupy-btn";
             }
 
             if(!sessionUser.withdrawalAccount) {
@@ -1982,7 +2133,7 @@
                 view.innerHTML = `
                     <div class="grid grid-cols-2 gap-2 pt-1 text-white font-semibold">
                         <div><span class="text-gray-500 block text-[9px] uppercase tracking-wider">Institution Matrix:</span> <span class="text-sm tracking-wide text-white">${w.bankName}</span></div>
-                        <div><span class="text-gray-500 block text-[9px] uppercase tracking-wider">Endpoint Number:</span> <span class="text-sm font-mono tracking-wider text-cyan-400 neon-text-cyan">${w.accountNumber}</span></div>
+                        <div><span class="text-gray-500 block text-[9px] uppercase tracking-wider">Endpoint Number:</span> <span class="text-sm font-mono tracking-wider text-indigo-400 neon-text-indigo">${w.accountNumber}</span></div>
                     </div>
                     <p class="text-[9px] text-gray-500 italic mt-3 font-medium"><i class="fa-solid fa-lock text-[8px]"></i> Immutable signature registry node active. Changes require corporate support clearance ticket logs.</p>
                 `;
@@ -2022,52 +2173,74 @@
             const volume = parseFloat(document.getElementById('withdraw-volume').value);
             const method = document.getElementById('withdraw-method').value || 'JazzCash';
 
-            db.ref('admin_settings/dynamic_limits/min_withdraw').once('value', snap => {
-                const minLimit = snap.exists() ? parseFloat(snap.val()) : 500;
-                
-                if(volume < minLimit) {
-                    triggerSystemToast(`Transaction aborted. Minimum payout vector threshold locked to: Rs. ${minLimit}`, "error");
-                    return;
-                }
+            const now = Date.now();
+            const lastW = sessionUser.lastWithdrawalTimestamp || 0;
+            const cooldownMs = 24 * 60 * 60 * 1000;
 
-                if(volume > Number(sessionUser.balance)) {
-                    triggerSystemToast("Execution Failure: Portfolio principal cash balance limit exceeded.", "error");
-                    return;
-                }
+            // 24h cooldown check
+            if (lastW && (now - lastW) < cooldownMs) {
+                const remaining = cooldownMs - (now - lastW);
+                const hrs = Math.floor(remaining / (1000 * 60 * 60));
+                const mins = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
+                triggerSystemToast(`You can only make ONE withdrawal every 24 hours. Please wait ${hrs}h ${mins}m before next request.`, "error");
+                return;
+            }
 
-                const withdrawId = 'WTH-' + Math.floor(100000 + Math.random() * 900000);
-                const withdrawPayload = {
-                    id: withdrawId,
-                    type: 'withdraw',
-                    amount: volume,
-                    method: method,
-                    accountDetails: sessionUser.withdrawalAccount,
-                    timestamp: Date.now(),
-                    status: 'Pending'
-                };
+            const effLimit = calculateEffectiveWithdrawalLimit();
 
-                const cachedPhone = localStorage.getItem('ph_session_phone');
-                db.ref('users/' + cachedPhone).transaction(current => {
-                    if(current) {
-                        if(Number(current.balance) >= volume) {
-                            current.balance = Number(current.balance) - volume;
-                            if(!current.logs) current.logs = {};
-                            current.logs[withdrawId] = withdrawPayload;
-                        }
+            if (volume > effLimit) {
+                triggerSystemToast(`Amount exceeds your current daily withdrawal limit of Rs. ${effLimit.toLocaleString()}.`, "error");
+                return;
+            }
+
+            const tax = 2;
+            const totalDeduction = volume + tax;
+
+            if (totalDeduction > Number(sessionUser.balance)) {
+                triggerSystemToast("Insufficient balance (including Rs.2 tax).", "error");
+                return;
+            }
+
+            const withdrawId = 'WTH-' + Math.floor(100000 + Math.random() * 900000);
+            const withdrawPayload = {
+                id: withdrawId,
+                type: 'withdraw',
+                requestedAmount: volume,
+                tax: tax,
+                totalDeducted: totalDeduction,
+                method: method,
+                accountDetails: sessionUser.withdrawalAccount,
+                timestamp: Date.now(),
+                status: 'Pending'
+            };
+
+            const cachedPhone = localStorage.getItem('ph_session_phone');
+            
+            db.ref('users/' + cachedPhone).transaction(current => {
+                if (current) {
+                    if (Number(current.balance) >= totalDeduction) {
+                        current.balance = Number(current.balance) - totalDeduction;
+                        current.totalWithdraw = Number(current.totalWithdraw || 0) + volume;
+                        current.lastWithdrawalTimestamp = Date.now();
+
+                        if (!current.logs) current.logs = {};
+                        current.logs[withdrawId] = withdrawPayload;
                     }
-                    return current;
-                }, (err, committed) => {
-                    if(committed) {
-                        db.ref(`admin_queues/withdrawals/${withdrawId}`).set({
-                            userPhone: cachedPhone,
-                            username: sessionUser.username,
-                            ...withdrawPayload
-                        });
-                        triggerSystemToast("Outbound liquid transaction queue block transmission complete.", "success");
-                        document.getElementById('withdraw-processing-form').reset();
-                        switchScreen('screen-dashboard');
-                    }
-                });
+                }
+                return current;
+            }, (err, committed) => {
+                if (committed) {
+                    db.ref(`admin_queues/withdrawals/${withdrawId}`).set({
+                        userPhone: cachedPhone,
+                        username: sessionUser.username,
+                        ...withdrawPayload
+                    });
+                    triggerSystemToast(`Withdrawal request of Rs. ${volume} submitted successfully! (Rs. ${tax} tax applied)`, "success");
+                    document.getElementById('withdraw-processing-form').reset();
+                    switchScreen('screen-dashboard');
+                } else {
+                    triggerSystemToast("Transaction failed. Please try again.", "error");
+                }
             });
         }
 
@@ -2100,7 +2273,7 @@
 
                 let commStatusMarkup = `<span class="text-gray-500 text-[10px] font-bold">0 Coins</span>`;
                 if(node.commissionEarnedCoins && node.commissionEarnedCoins > 0) {
-                    commStatusMarkup = `<span class="text-emerald-400 font-black font-mono neon-text-emerald">+${node.commissionEarnedCoins} Coins</span>`;
+                    commStatusMarkup = `<span class="text-emerald-400 font-black font-mono neon-text-indigo">+${node.commissionEarnedCoins} Coins</span>`;
                     totalCoinsCommissionCalculated += parseInt(node.commissionEarnedCoins);
                 }
 
@@ -2190,7 +2363,7 @@
             });
         }
 
-        // ==================== NEW TASKS & REWARDS SYSTEM ====================
+        // ==================== TASKS & REWARDS SYSTEM ====================
         function updateTasksBalance() {
             const el = document.getElementById('tasks-coins-balance');
             if (el && sessionUser) {
@@ -2269,7 +2442,6 @@
             const cachedPhone = localStorage.getItem('ph_session_phone');
             if (!cachedPhone) return;
 
-            // Open social link first (as per requirement)
             if (link && link !== '#') {
                 window.open(link, '_blank');
             }
@@ -2279,9 +2451,8 @@
 
                 if (!current.completedTasks) current.completedTasks = {};
                 
-                // Prevent double claim
                 if (current.completedTasks[taskId]) {
-                    return; // already claimed
+                    return;
                 }
 
                 current.completedTasks[taskId] = Date.now();
@@ -2302,7 +2473,6 @@
             }, (error, committed) => {
                 if (committed) {
                     triggerSystemToast(`+${reward} Coins successfully added to your account!`, 'success');
-                    // Refresh tasks list to show claimed status
                     setTimeout(() => {
                         loadSocialTasks();
                         updateTasksBalance();
@@ -2313,7 +2483,7 @@
             });
         }
 
-        // ==================== END OF NEW TASKS SYSTEM ====================
+        // ==================== END OF TASKS SYSTEM ====================
 
         function filterAuditStream(type) {
             activeAuditFilter = type;
@@ -2349,11 +2519,11 @@
                 const block = document.createElement('div');
                 block.className = "p-4 glass-card border border-white/5 rounded-2xl flex justify-between items-center shadow-md";
                 
-                let iconMarkup = '<i class="fa-solid fa-receipt text-cyan-400"></i>';
+                let iconMarkup = '<i class="fa-solid fa-receipt text-indigo-400"></i>';
                 if(log.type === 'deposit') iconMarkup = '<i class="fa-solid fa-building-columns text-amber-400"></i>';
-                if(log.type === 'withdraw') iconMarkup = '<i class="fa-solid fa-money-bill-transfer text-indigo-400"></i>';
-                if(log.type === 'invest') iconMarkup = '<i class="fa-solid fa-cubes text-emerald-400"></i>';
-                if(log.type === 'yield') iconMarkup = '<i class="fa-solid fa-layer-group text-purple-400"></i>';
+                if(log.type === 'withdraw') iconMarkup = '<i class="fa-solid fa-money-bill-transfer text-purple-400"></i>';
+                if(log.type === 'invest') iconMarkup = '<i class="fa-solid fa-cubes text-violet-400"></i>';
+                if(log.type === 'yield') iconMarkup = '<i class="fa-solid fa-layer-group text-emerald-400"></i>';
 
                 let dynamicStatusBadge = `<span class="text-[10px] font-bold font-mono tracking-wide ${log.status === 'Success' || log.status === 'Executed' || log.status === 'Approve' || log.status === 'Approved' ? 'text-emerald-400' : log.status === 'Reject' || log.status === 'Rejected' ? 'text-rose-400' : 'text-amber-400'}">${log.status || 'Active'}</span>`;
 
@@ -2361,7 +2531,7 @@
                 if(log.type === 'deposit') {
                     extraInfo = `<div class="text-[9px] text-gray-400 font-mono mt-1">ID: ${log.id} | TRX: ${log.trxId || 'N/A'}</div>`;
                 } else if(log.type === 'withdraw') {
-                    extraInfo = `<div class="text-[9px] text-gray-400 font-mono mt-1">ID: ${log.id}</div>`;
+                    extraInfo = `<div class="text-[9px] text-gray-400 font-mono mt-1">ID: ${log.id} | Tax: Rs. ${log.tax || 2}</div>`;
                 }
 
                 block.innerHTML = `
@@ -2374,7 +2544,7 @@
                                 ${extraInfo}
                             </div>
                             <div class="text-right flex-shrink-0 ml-2">
-                                <span class="text-xs font-black font-mono block text-white">Rs. ${Number(log.amount).toFixed(1)}</span>
+                                <span class="text-xs font-black font-mono block text-white">Rs. ${Number(log.requestedAmount || log.amount).toFixed(1)}</span>
                                 ${dynamicStatusBadge}
                             </div>
                         </div>
@@ -2403,13 +2573,13 @@
             const dock = document.getElementById('chat-input-dock');
 
             if(tab === 'chat') {
-                btnChat.className = "w-1/2 py-2.5 rounded-2xl bg-white/5 text-cyan-400 tracking-wider flupy-btn";
+                btnChat.className = "w-1/2 py-2.5 rounded-2xl bg-white/5 text-indigo-400 tracking-wider flupy-btn";
                 btnComp.className = "w-1/2 py-2.5 rounded-2xl text-gray-400 tracking-wider flupy-btn";
                 portChat.classList.remove('hidden');
                 portComp.classList.add('hidden');
                 dock.classList.remove('hidden');
             } else {
-                btnComp.className = "w-1/2 py-2.5 rounded-2xl bg-white/5 text-cyan-400 tracking-wider flupy-btn";
+                btnComp.className = "w-1/2 py-2.5 rounded-2xl bg-white/5 text-indigo-400 tracking-wider flupy-btn";
                 btnChat.className = "w-1/2 py-2.5 rounded-2xl text-gray-400 tracking-wider flupy-btn";
                 portComp.classList.remove('hidden');
                 portChat.classList.add('hidden');
@@ -2440,7 +2610,7 @@
                     wrapper.innerHTML = `
                         <div class="max-w-[75%] space-y-1">
                             <div class="p-3.5 rounded-2xl shadow-md border ${
-                                isAdmin ? 'bg-slate-900 border-white/5 rounded-tl-none text-cyan-200' : 'bg-gradient-to-r from-cyan-600 to-blue-600 border-cyan-400/10 rounded-tr-none text-white'
+                                isAdmin ? 'bg-slate-900 border-white/5 rounded-tl-none text-indigo-200' : 'bg-gradient-to-r from-indigo-600 to-violet-600 border-indigo-400/10 rounded-tr-none text-white'
                             }">
                                 ${bubbleMarkup}
                             </div>
@@ -2577,7 +2747,7 @@
 
                     block.innerHTML = `
                         <div class="flex justify-between items-center font-bold">
-                            <span class="text-cyan-400 font-mono tracking-wide">${tk.id}</span>
+                            <span class="text-indigo-400 font-mono tracking-wide">${tk.id}</span>
                             <span class="text-[10px] uppercase font-bold px-2 py-0.5 rounded-2xl border ${statusColor}">${statusText}</span>
                         </div>
                         <div class="text-[9px] text-gray-500 font-mono">${dateString}</div>
@@ -2594,14 +2764,12 @@
             document.getElementById('context-menu-modal').classList.add('hidden');
         }
         
-        // Copy affiliate link function (was missing in original but referenced)
         function copyAffiliateLink() {
             const refCode = document.getElementById('display-invite-refcode').innerText;
             const link = `${window.location.origin}${window.location.pathname}?ref=${refCode}`;
             navigator.clipboard.writeText(link).then(() => {
                 triggerSystemToast("Affiliate link copied to clipboard!", "success");
             }).catch(() => {
-                // Fallback
                 const textArea = document.createElement("textarea");
                 textArea.value = link;
                 document.body.appendChild(textArea);
