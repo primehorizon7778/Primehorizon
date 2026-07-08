@@ -396,7 +396,7 @@
                         <div class="w-12 h-12 mb-2 flex items-center justify-center">
                             <i class="fa-solid fa-wallet text-4xl text-amber-400 group-hover:scale-110 transition-transform"></i>
                         </div>
-                        <span class="text-xs font-black tracking-wider text-white">Deposit Funds</span>
+                        <span class="text-xs font-black tracking-wider text-white">Deposit Money</span>
                     </button>
 
                     <!-- Outbound Fund -->
@@ -405,7 +405,16 @@
                         <div class="w-12 h-12 mb-2 flex items-center justify-center">
                             <i class="fa-solid fa-hand-holding-dollar text-4xl text-purple-400 group-hover:scale-110 transition-transform"></i>
                         </div>
-                        <span class="text-xs font-black tracking-wider text-white">Withdraw Money</span>
+                        <span class="text-xs font-black tracking-wider text-white">Withdrawal Money</span>
+                    </button>
+
+                    <!-- History Button -->
+                    <button onclick="switchScreen('screen-history')" 
+                            class="group p-4 rounded-3xl glass-panel border border-white/10 hover:border-slate-400/40 transition-all shadow-lg flex flex-col items-center text-center active:scale-[0.98] flupy-btn col-span-2">
+                        <div class="w-12 h-12 mb-2 flex items-center justify-center">
+                            <i class="fa-solid fa-clock-rotate-left text-4xl text-slate-300 group-hover:scale-110 transition-transform"></i>
+                        </div>
+                        <span class="text-xs font-black tracking-wider text-white">MY HISTORY</span>
                     </button>
 
                 </div>
@@ -422,7 +431,7 @@
                     <div class="space-y-1">
                         <h4 class="text-[10px] font-extrabold text-indigo-400 uppercase tracking-widest neon-text-indigo">Affiliate Program</h4>
                         <p class="text-xs font-extrabold text-white">Invite Friends & Earn Coins</p>
-                        <p class="text-[9px] text-gray-400 font-medium"><i class="fa-solid fa-unlock-keyhole text-emerald-400 mr-1"></i>Invite Friends & Get commision & Earn more</p>
+                        <p class="text-[9px] text-gray-400 font-medium"><i class="fa-solid fa-unlock-keyhole text-emerald-400 mr-1"></i>Invite friends & get more earning</p>
                     </div>
                     <div class="w-9 h-9 rounded-2xl bg-indigo-500/10 group-hover:bg-indigo-500/20 border border-indigo-500/20 flex items-center justify-center text-indigo-400 transition-all shadow-inner">
                         <i class="fa-solid fa-chevron-right text-xs"></i>
@@ -496,6 +505,16 @@
                 </div>
             </div>
 
+            <!-- Social Channels from Admin -->
+            <div class="glass-panel p-5 rounded-3xl border border-white/10">
+                <div class="flex items-center gap-2 mb-3">
+                    <i class="fa-solid fa-share-alt text-pink-400"></i>
+                    <span class="font-extrabold text-pink-400 tracking-wider text-sm">OFFICIAL SOCIAL CHANNELS</span>
+                </div>
+                <div id="user-social-channels-list" class="space-y-2 text-sm"></div>
+                <div class="text-[10px] text-gray-400 mt-2">Follow these official channels. Admin added links appear here.</div>
+            </div>
+
             <div id="tasks-list" class="space-y-4">
                 <!-- Dynamically loaded by JS -->
             </div>
@@ -512,7 +531,7 @@
             
             <div class="glass-panel p-4 bg-gradient-to-br from-indigo-950/20 to-slate-900/40 text-center space-y-3 shadow-md border border-indigo-500/10">
                 <span class="text-[10px] tracking-widest text-indigo-400 uppercase font-extrabold bg-indigo-500/10 px-3 py-1 rounded-2xl border border-indigo-500/20">Invite & Earn System Rules</span>
-                <p class="text-xs text-gray-300 leading-relaxed font-medium px-1">Share your unique referral code. Once you have one verified referral (someone who has made a successful deposit), your withdrawals will be permanently unlocked. Also, whenever a friend registers or starts an investment plan, you will instantly receive commission coins in your account. The more referrals you have, the higher your daily withdrawal limit will be. <span class="text-emerald-400 font-bold">More successful referrals = Higher daily withdrawal limit!</span></p>
+                <p class="text-xs text-gray-300 leading-relaxed font-medium px-1">Share your unique network signature code. 1 Verified referral (who successfully deposits fund) unlocks your permanent payout terminal channels. Additionally, whenever any friend registers or activates an asset stratum plan, customized network commission coins are added instantly to your network ledger map. <span class="text-emerald-400 font-bold">More successful referrals = Higher daily withdrawal limit!</span></p>
                 
                 <div class="p-3.5 bg-black/40 rounded-2xl flex items-center justify-between border border-white/5 mt-3 shadow-inner">
                     <span id="display-invite-refcode" class="font-mono font-black text-base text-white tracking-wider select-all px-2">REFCODE</span>
@@ -597,7 +616,7 @@
         <section id="screen-invest-plans" class="screen space-y-4">
             <div class="flex items-center justify-between">
                 <button onclick="switchScreen('screen-dashboard')" class="text-xs text-gray-400 hover:text-white flex items-center gap-1.5 transition-all bg-white/5 px-3 py-1.5 rounded-2xl border border-white/5 font-semibold flupy-btn"><i class="fa-solid fa-arrow-left-long"></i> Back</button>
-                <h2 class="text-xs font-extrabold text-violet-400 uppercase tracking-widest">Yield Stratums</h2>
+                <h2 class="text-xs font-extrabold text-violet-400 uppercase tracking-widest">Invest Plans</h2>
             </div>
             <div id="investment-plans-feed" class="space-y-4"></div>
         </section>
@@ -661,7 +680,7 @@
         <section id="screen-withdraw" class="screen space-y-4">
             <div class="flex items-center justify-between">
                 <button onclick="switchScreen('screen-dashboard')" class="text-xs text-gray-400 hover:text-white flex items-center gap-1.5 transition-all bg-white/5 px-3 py-1.5 rounded-2xl border border-white/5 font-semibold flupy-btn"><i class="fa-solid fa-arrow-left-long"></i> Abort</button>
-                <h2 class="text-xs font-extrabold text-purple-400 uppercase tracking-widest"> Terminal</h2>
+                <h2 class="text-xs font-extrabold text-purple-400 uppercase tracking-widest">Outbound Terminal</h2>
             </div>
 
             <!-- NEW: Withdrawal Limit + Tax + Cooldown Info Panel -->
@@ -677,7 +696,7 @@
                 <div id="last-withdraw-time" class="text-[10px] text-gray-400 font-medium"></div>
                 <div id="next-withdraw-time" class="text-[10px] font-bold"></div>
                 <div class="text-[9px] text-gray-500 pt-1 border-t border-white/10">
-                    Invite friends & get more limit increase.
+                    More invite more limit
                 </div>
             </div>
 
@@ -708,27 +727,46 @@
                 </div>
 
                 <button type="submit" id="withdraw-submit-btn" class="w-full py-4 bg-gradient-to-r from-purple-600 via-violet-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 rounded-2xl font-bold text-xs uppercase tracking-wider text-white shadow-lg shadow-purple-950/50 transition-all flupy-btn">
-                    Submit Withdrawal
+                    SUBMIT WITHDRAW
                 </button>
             </form>
         </section>
 
-        <!-- History Screen -->
-        <section id="screen-history" class="screen space-y-4">
+        <!-- History Screen (Enhanced Full History) -->
+        <section id="screen-history" class="screen space-y-5">
             <div class="flex items-center justify-between">
-                <button onclick="switchScreen('screen-dashboard')" class="text-xs text-gray-400 hover:text-white flex items-center gap-1.5 transition-all bg-white/5 px-3 py-1.5 rounded-2xl border border-white/5 font-semibold flupy-btn"><i class="fa-solid fa-arrow-left-long"></i> Return</button>
-                <h2 class="text-xs font-extrabold text-slate-400 uppercase tracking-widest">Audit Trails</h2>
-            </div>
-            
-            <div class="flex bg-black/40 p-1 rounded-2xl overflow-x-auto gap-1 text-[9px] font-extrabold uppercase tracking-wider border border-white/5 shadow-inner">
-                <button onclick="filterAuditStream('all')" class="px-3.5 py-2 rounded-2xl bg-white/10 text-white whitespace-nowrap flupy-btn">All Logs</button>
-                <button onclick="filterAuditStream('invest')" class="px-3.5 py-2 rounded-2xl text-gray-400 whitespace-nowrap flupy-btn">Invests</button>
-                <button onclick="filterAuditStream('deposit')" class="px-3.5 py-2 rounded-2xl text-gray-400 whitespace-nowrap flupy-btn">Deposits</button>
-                <button onclick="filterAuditStream('withdraw')" class="px-3.5 py-2 rounded-2xl text-gray-400 whitespace-nowrap flupy-btn">Withdrawals</button>
-                <button onclick="filterAuditStream('yield')" class="px-3.5 py-2 rounded-2xl text-gray-400 whitespace-nowrap flupy-btn">Yields</button>
+                <button onclick="switchScreen('screen-dashboard')" class="text-xs text-gray-400 hover:text-white flex items-center gap-1.5 transition-all bg-white/5 px-3 py-1.5 rounded-2xl border border-white/5 font-semibold flupy-btn">
+                    <i class="fa-solid fa-arrow-left-long"></i> Return
+                </button>
+                <h2 class="text-sm font-extrabold text-white tracking-wider">My Full History</h2>
             </div>
 
-            <div id="audit-logs-terminal-stream" class="space-y-3 max-h-[500px] overflow-y-auto pr-1"></div>
+            <!-- Deposits History -->
+            <div class="glass-panel p-5 rounded-3xl border border-white/10">
+                <div class="flex items-center gap-2 mb-4">
+                    <i class="fa-solid fa-arrow-down text-emerald-400"></i>
+                    <span class="font-extrabold text-emerald-400 tracking-wider text-sm">DEPOSITS</span>
+                </div>
+                <div id="user-deposits-history" class="space-y-3 text-sm"></div>
+            </div>
+
+            <!-- Withdrawals History -->
+            <div class="glass-panel p-5 rounded-3xl border border-white/10">
+                <div class="flex items-center gap-2 mb-4">
+                    <i class="fa-solid fa-arrow-up text-purple-400"></i>
+                    <span class="font-extrabold text-purple-400 tracking-wider text-sm">WITHDRAWALS</span>
+                </div>
+                <div id="user-withdrawals-history" class="space-y-3 text-sm"></div>
+            </div>
+
+            <!-- Referral & Profit History -->
+            <div class="glass-panel p-5 rounded-3xl border border-white/10">
+                <div class="flex items-center gap-2 mb-4">
+                    <i class="fa-solid fa-handshake text-amber-400"></i>
+                    <span class="font-extrabold text-amber-400 tracking-wider text-sm">REFERRAL PROFITS</span>
+                </div>
+                <div id="user-referral-history" class="space-y-3 text-sm"></div>
+            </div>
         </section>
         
     </main>
@@ -837,15 +875,15 @@
                     <div>
                         <label class="block text-[10px] uppercase font-bold text-gray-400 tracking-wider mb-2 px-0.5">Issue Classification Matrix</label>
                         <select id="ticket-category" class="w-full px-3.5 py-3 bg-black/40 border border-white/10 rounded-2xl text-xs text-white focus:outline-none premium-input font-semibold">
-                            <option value="Withdrawal Issue">Withdrawal  Issue</option>
-                            <option value="Deposit Issue">DEPOSIT ISSUE</option>
-                            <option value="Invite Friend Issue">Affiliate Referral Issue</option>
+                            <option value="Withdrawal Issue">Withdrawal Issue</option>
+                            <option value="Deposit Issue">Deposit Issue</option>
+                            <option value="Invite Friend Issue">Friend Invite Issue</option>
                             <option value="Other Issue">Other issue</option>
                         </select>
                     </div>
                     <div>
                         <label class="block text-[10px] uppercase font-bold text-gray-400 tracking-wider mb-2 px-0.5">Detailed System Description</label>
-                        <textarea id="ticket-desc" required rows="3" class="w-full px-3.5 py-3 bg-black/40 border border-white/10 rounded-2xl text-xs text-white focus:outline-none premium-input resize-none" placeholder="​اپنا مسئلہ تفصیل کے ساتھ بیان کریں۔..."></textarea>
+                        <textarea id="ticket-desc" required rows="3" class="w-full px-3.5 py-3 bg-black/40 border border-white/10 rounded-2xl text-xs text-white focus:outline-none premium-input resize-none" placeholder="اپنا مسلا تفصیل سے لکھیں..."></textarea>
                     </div>
                     <div>
                         <label class="block text-[10px] uppercase font-bold text-gray-400 tracking-wider mb-2 px-0.5">Diagnostic Screenshot Proof</label>
@@ -855,7 +893,7 @@
                         </div>
                         <input type="hidden" id="ticket-proof-url">
                     </div>
-                    <button type="submit" id="ticket-submit-btn" class="w-full py-3.5 bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-bold text-xs uppercase tracking-wider rounded-2xl shadow-lg transition-all flupy-btn">SUBMIT COMPLAIN</button>
+                    <button type="submit" id="ticket-submit-btn" class="w-full py-3.5 bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-bold text-xs uppercase tracking-wider rounded-2xl shadow-lg transition-all flupy-btn">Log Official Infrastructure Record</button>
                 </form>
                 
                 <div class="mt-5 border-t border-white/5 pt-4">
@@ -1017,6 +1055,40 @@
                     setTimeout(() => {
                         synchronizeUserDashboardInterface();
                     }, 10);
+                }
+
+                // Load full personal history when History screen opens
+                if (screenId === 'screen-history' && typeof loadUserFullHistory === 'function') {
+                    setTimeout(() => {
+                        loadUserFullHistory();
+                    }, 50);
+                }
+
+                // Load Social Channels from Admin
+                if (screenId === 'screen-tasks' && typeof loadUserSocialChannels === 'function') {
+                    setTimeout(() => {
+                        loadUserSocialChannels();
+                    }, 80);
+                }
+
+                // Initialize approval notifications on any screen load (after login)
+                if (sessionUser && typeof initApprovalNotificationListener === 'function') {
+                    setTimeout(initApprovalNotificationListener, 800);
+                }
+
+                // Block Withdrawals on Sunday
+                if (screenId === 'screen-withdraw') {
+                    const today = new Date();
+                    if (today.getDay() === 0) { // 0 = Sunday
+                        setTimeout(() => {
+                            const withdrawBtn = document.getElementById('withdraw-submit-btn');
+                            if (withdrawBtn) {
+                                withdrawBtn.disabled = true;
+                                withdrawBtn.innerHTML = 'Withdrawals Blocked on Sunday';
+                                withdrawBtn.classList.add('opacity-50', 'cursor-not-allowed');
+                            }
+                        }, 300);
+                    }
                 }
             }
         }
@@ -1643,6 +1715,53 @@
             });
         }
 
+        // Real-time Approval Notification System
+        function initApprovalNotificationListener() {
+            if (!sessionUser || !sessionUser.phone) return;
+
+            const phone = sessionUser.phone;
+
+            // Listen for approved deposits
+            db.ref('admin_queues/deposits').on('child_changed', snap => {
+                const data = snap.val();
+                if (data.userPhone === phone && data.status === 'Approved' && !data.notified) {
+                    showBeautifulApprovalToast('Deposit', data.amount, data.trxId);
+                    db.ref('admin_queues/deposits/' + snap.key).update({ notified: true });
+                }
+            });
+
+            // Listen for approved withdrawals
+            db.ref('admin_queues/withdrawals').on('child_changed', snap => {
+                const data = snap.val();
+                if (data.userPhone === phone && data.status === 'Approved' && !data.notified) {
+                    showBeautifulApprovalToast('Withdrawal', data.amount);
+                    db.ref('admin_queues/withdrawals/' + snap.key).update({ notified: true });
+                }
+            });
+        }
+
+        function showBeautifulApprovalToast(type, amount, trxId = '') {
+            const toast = document.createElement('div');
+            toast.className = `fixed bottom-6 left-1/2 -translate-x-1/2 bg-gradient-to-r from-emerald-600 to-teal-600 text-white px-6 py-4 rounded-3xl shadow-2xl flex items-center gap-4 z-[9999] animate-bounce`;
+            toast.style.animation = 'popIn 0.4s ease';
+            toast.innerHTML = `
+                <div class="w-10 h-10 bg-white/20 rounded-2xl flex items-center justify-center text-2xl flex-shrink-0">🎉</div>
+                <div>
+                    <div class="font-extrabold text-lg">Success!</div>
+                    <div class="text-sm opacity-90">Hello ${sessionUser.username || 'User'}, your ${type} of Rs. ${amount} has been successfully approved.</div>
+                    ${trxId ? `<div class="text-xs font-mono mt-1 opacity-75">TRX: ${trxId}</div>` : ''}
+                </div>
+            `;
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.transition = 'all 0.5s ease';
+                toast.style.opacity = '0';
+                toast.style.transform = 'translate(-50%, 30px)';
+                setTimeout(() => toast.remove(), 600);
+            }, 6500);
+        }
+
         function streamPopupAnnouncementsPipeline() {
             db.ref('admin_settings/popup_announcement').on('value', snap => {
                 if(!snap.exists()) return;
@@ -1650,8 +1769,9 @@
                 if(data.active === true) {
                     document.getElementById('popup-ann-title').innerText = data.title || "Ecosystem Alert Directive";
                     document.getElementById('popup-ann-desc').innerText = data.description || "";
-                    if(data.imageUrl) {
-                        document.getElementById('popup-ann-img').src = data.imageUrl;
+                    if(data.image || data.imageUrl) {
+                        const imgUrl = data.image || data.imageUrl;
+                        document.getElementById('popup-ann-img').src = imgUrl;
                         document.getElementById('popup-ann-img-wrapper').classList.remove('hidden');
                     } else {
                         document.getElementById('popup-ann-img-wrapper').classList.add('hidden');
@@ -1750,7 +1870,7 @@
             if(!plan) return;
 
             if(Number(sessionUser.balance) < Number(plan.cost)) {
-                triggerSystemToast("Your current balance is insufficient..", "error");
+                triggerSystemToast("Your current balance is insufficient.", "error");
                 return;
             }
 
@@ -2108,7 +2228,7 @@
             }
 
             if(!hasDepositedRef) {
-                alertBox.innerHTML = `<div class="flex items-center gap-2 justify-center"><i class="fa-solid fa-triangle-exclamation text-rose-400"></i><span>آپ کے اکاؤنٹ سے پیسے نکالنے کا سسٹم فی الحال بند(لاک) ہے۔​ اسے کھولنے کے لیے یہ ضروری ہے کہ آپ کے بلائے ہوئے کم از کم ایک دوست نے کامیابی کے ساتھ اپنے اکاؤنٹ میں پیسے جمع کروائے ہوں۔ <b>ابھی اپنا ایک دوست انوائٹ کریں اور اپنے پیسے نکالنے کی سہولت کھولیں۔.</span></div>`;
+                alertBox.innerHTML = `<div class="flex items-center gap-2 justify-center"><i class="fa-solid fa-triangle-exclamation text-rose-400"></i><span>آپ کے اکاؤنٹ سے پیسے نکالنے کا سسٹم فی الحال بند(لاک) ہے۔​ اسے کھولنے کے لیے یہ ضروری ہے کہ آپ کے بلائے ہوئے کم از کم ایک دوست نے کامیابی کے ساتھ اپنے اکاؤنٹ میں پیسے جمع کروائے ہوں <b>ابھی اپنا ایک دوست انوائٹ کریں اور اپنے پیسے نکالنے کی سہولت کھولیں.</span></div>`;
                 alertBox.classList.remove('hidden');
                 document.getElementById('withdraw-submit-btn').disabled = true;
                 document.getElementById('withdraw-submit-btn').className = "w-full py-4 bg-slate-800 text-gray-500 rounded-2xl font-bold text-xs uppercase tracking-wider cursor-not-allowed shadow-md flupy-btn";
@@ -2121,7 +2241,7 @@
             if(!sessionUser.withdrawalAccount) {
                 view.innerHTML = `
                     <div class="space-y-3.5 pt-1">
-                        <p class="text-[11px] text-amber-400 font-semibold"><i class="fa-solid fa-circle-exclamation"></i> براہِ کرم جس اکاؤنٹ میں پیسے بھیجنے ہیں اس کا نمبر اوپر اور اس کا ٹائٹل نام نیچے لکھیں۔:</p>
+                        <p class="text-[11px] text-amber-400 font-semibold"><i class="fa-solid fa-circle-exclamation"></i> Destination Account Endpoint empty. Configure permanent immutable routing registry block:</p>
                         <input type="text" id="setup-w-num" placeholder="Account Identifier / Wallet Phone Number" class="w-full px-3.5 py-2.5 bg-black/50 border border-white/10 rounded-2xl text-xs text-white focus:outline-none premium-input font-mono">
                         <input type="text" id="setup-w-bank" placeholder="Institution Name / Account Wallet Type" class="w-full px-3.5 py-2.5 bg-black/50 border border-white/10 rounded-2xl text-xs text-white focus:outline-none premium-input">
                         <button type="button" onclick="executePermanentWithdrawalLock()" class="w-full py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs rounded-2xl uppercase tracking-wider shadow-md transition-all flupy-btn">Lock Registry Parameters</button>
@@ -2484,6 +2604,142 @@
         }
 
         // ==================== END OF TASKS SYSTEM ====================
+
+        // Load Social Channels added by Admin (for users)
+        function loadUserSocialChannels() {
+            const container = document.getElementById('user-social-channels-list');
+            if (!container) return;
+
+            db.ref('social_channels').on('value', snap => {
+                container.innerHTML = '';
+
+                if (!snap.exists()) {
+                    container.innerHTML = `<div class="text-gray-400 text-xs py-2">No official channels added yet by admin.</div>`;
+                    return;
+                }
+
+                snap.forEach(child => {
+                    const ch = child.val();
+                    const div = document.createElement('div');
+                    div.className = 'flex items-center justify-between bg-black/40 p-3 rounded-2xl border border-white/5';
+                    div.innerHTML = `
+                        <div>
+                            <div class="font-bold text-white">${ch.name}</div>
+                            <a href="${ch.url}" target="_blank" class="text-emerald-400 text-xs hover:underline break-all">${ch.url}</a>
+                        </div>
+                        <a href="${ch.url}" target="_blank" class="px-4 py-1.5 text-xs bg-pink-600 hover:bg-pink-500 rounded-2xl font-extrabold">Open</a>
+                    `;
+                    container.appendChild(div);
+                });
+            });
+        }
+
+        // ==================== ENHANCED USER HISTORY ====================
+        function loadUserFullHistory() {
+            if (!sessionUser || !sessionUser.phone) return;
+
+            const phone = sessionUser.phone;
+
+            // Load Deposits
+            db.ref('admin_queues/deposits').orderByChild('userPhone').equalTo(phone).on('value', snap => {
+                const container = document.getElementById('user-deposits-history');
+                if (!container) return;
+                container.innerHTML = '';
+
+                if (!snap.exists()) {
+                    container.innerHTML = `<div class="text-gray-400 text-xs py-2">No deposits yet</div>`;
+                    return;
+                }
+
+                snap.forEach(child => {
+                    const d = child.val();
+                    const date = d.timestamp ? new Date(d.timestamp).toLocaleString() : 'N/A';
+                    const statusColor = d.status === 'Approved' ? 'text-emerald-400' : (d.status === 'Rejected' ? 'text-red-400' : 'text-amber-400');
+
+                    const div = document.createElement('div');
+                    div.className = 'bg-black/30 p-3 rounded-2xl border border-white/5';
+                    div.innerHTML = `
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <div class="font-bold">Rs. ${d.amount}</div>
+                                <div class="text-[10px] text-gray-400">${date}</div>
+                            </div>
+                            <div class="text-right">
+                                <div class="${statusColor} text-xs font-extrabold">${d.status}</div>
+                                <div class="text-[10px] text-gray-400 font-mono">${d.trxId || ''}</div>
+                            </div>
+                        </div>
+                    `;
+                    container.appendChild(div);
+                });
+            });
+
+            // Load Withdrawals
+            db.ref('admin_queues/withdrawals').orderByChild('userPhone').equalTo(phone).on('value', snap => {
+                const container = document.getElementById('user-withdrawals-history');
+                if (!container) return;
+                container.innerHTML = '';
+
+                if (!snap.exists()) {
+                    container.innerHTML = `<div class="text-gray-400 text-xs py-2">No withdrawals yet</div>`;
+                    return;
+                }
+
+                snap.forEach(child => {
+                    const w = child.val();
+                    const date = w.timestamp ? new Date(w.timestamp).toLocaleString() : 'N/A';
+                    const statusColor = w.status === 'Approved' ? 'text-emerald-400' : (w.status === 'Rejected' ? 'text-red-400' : 'text-amber-400');
+
+                    const div = document.createElement('div');
+                    div.className = 'bg-black/30 p-3 rounded-2xl border border-white/5';
+                    div.innerHTML = `
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <div class="font-bold">Rs. ${w.amount}</div>
+                                <div class="text-[10px] text-gray-400">${date}</div>
+                            </div>
+                            <div class="text-right">
+                                <div class="${statusColor} text-xs font-extrabold">${w.status}</div>
+                            </div>
+                        </div>
+                    `;
+                    container.appendChild(div);
+                });
+            });
+
+            // Load Referral Profits
+            db.ref('users/' + phone + '/referrals').on('value', snap => {
+                const container = document.getElementById('user-referral-history');
+                if (!container) return;
+                container.innerHTML = '';
+
+                if (!snap.exists()) {
+                    container.innerHTML = `<div class="text-gray-400 text-xs py-2">No referral profits yet</div>`;
+                    return;
+                }
+
+                snap.forEach(child => {
+                    const ref = child.val();
+                    const date = ref.timestamp ? new Date(ref.timestamp).toLocaleDateString() : 'N/A';
+                    const profit = ref.commissionEarnedCoins || 0;
+
+                    const div = document.createElement('div');
+                    div.className = 'bg-black/30 p-3 rounded-2xl border border-white/5';
+                    div.innerHTML = `
+                        <div class="flex justify-between">
+                            <div>
+                                <div class="font-bold">${ref.username || child.key}</div>
+                                <div class="text-[10px] text-gray-400">${date}</div>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-amber-400 font-extrabold">+${profit} Coins</div>
+                            </div>
+                        </div>
+                    `;
+                    container.appendChild(div);
+                });
+            });
+        }
 
         function filterAuditStream(type) {
             activeAuditFilter = type;
