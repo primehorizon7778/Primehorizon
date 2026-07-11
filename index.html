@@ -12,25 +12,25 @@
         
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background: radial-gradient(circle at 50% 8%, #0b1120 0%, #020617 100%);
+            background: radial-gradient(circle at 50% 0%, #06261f 0%, #020617 100%); /* Premium Emerald/Dark Theme */
             color: #f1f5f9;
             overflow-x: hidden;
         }
 
         .glass-panel {
-            background: rgba(15, 23, 42, 0.82);
-            backdrop-filter: blur(28px);
-            -webkit-backdrop-filter: blur(28px);
-            border: 1px solid rgba(148, 163, 184, 0.12);
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(16, 185, 129, 0.15);
             border-radius: 24px;
-            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.45),
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.5),
                         inset 0 1px 0 rgba(255,255,255,0.06);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         .glass-panel:hover {
-            border-color: rgba(148, 163, 184, 0.18);
-            box-shadow: 0 30px 60px -15px rgb(0 0 0 / 0.5),
+            border-color: rgba(16, 185, 129, 0.3);
+            box-shadow: 0 30px 60px -15px rgb(0 0 0 / 0.6),
                         inset 0 1px 0 rgba(255,255,255,0.08);
         }
 
@@ -38,36 +38,36 @@
             background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(148, 163, 184, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.15);
             border-radius: 20px;
             box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
         }
 
         .premium-input {
             background: rgba(2, 6, 23, 0.7) !important;
-            border: 1px solid rgba(148, 163, 184, 0.2) !important;
+            border: 1px solid rgba(16, 185, 129, 0.2) !important;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             color: #f1f5f9;
             font-weight: 500;
         }
         
         .premium-input:focus {
-            border-color: #10b981 !important;
-            box-shadow: 0 0 0 3.5px rgba(16, 185, 129, 0.15);
+            border-color: #f59e0b !important;
+            box-shadow: 0 0 0 3.5px rgba(245, 158, 11, 0.15);
             outline: none;
             background: rgba(2, 6, 23, 0.85) !important;
         }
 
         @keyframes pulse-glow {
-            0%, 100% { box-shadow: 0 0 12px rgba(16, 185, 129, 0.25); border-color: rgba(16, 185, 129, 0.35); }
-            50% { box-shadow: 0 0 24px rgba(16, 185, 129, 0.45); border-color: rgba(16, 185, 129, 0.55); }
+            0%, 100% { box-shadow: 0 0 12px rgba(245, 158, 11, 0.25); border-color: rgba(245, 158, 11, 0.35); }
+            50% { box-shadow: 0 0 24px rgba(245, 158, 11, 0.45); border-color: rgba(245, 158, 11, 0.55); }
         }
         .verified-glow { animation: pulse-glow 3.5s infinite ease-in-out; }
 
         ::-webkit-scrollbar { width: 5px; }
         ::-webkit-scrollbar-track { background: rgba(15,23,42,0.5); }
-        ::-webkit-scrollbar-thumb { background: rgba(16, 185, 129, 0.35); border-radius: 12px; }
-        ::-webkit-scrollbar-thumb:hover { background: rgba(16, 185, 129, 0.55); }
+        ::-webkit-scrollbar-thumb { background: rgba(245, 158, 11, 0.35); border-radius: 12px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(245, 158, 11, 0.55); }
         
         .screen { display: none; }
         .screen.active { display: block; animation: slideUpFade 0.45s cubic-bezier(0.16, 1, 0.3, 1); }
@@ -77,7 +77,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .neon-text-indigo { text-shadow: 0 0 10px rgba(99, 102, 241, 0.4); }
+        .neon-text-emerald { text-shadow: 0 0 10px rgba(16, 185, 129, 0.4); }
         .neon-text-gold { text-shadow: 0 0 10px rgba(245, 158, 11, 0.4); }
         
         .task-card {
@@ -86,10 +86,9 @@
         .task-card:hover {
             transform: translateY(-4px);
             box-shadow: 0 30px 60px -15px rgb(0 0 0 / 0.45);
-            border-color: rgba(16, 185, 129, 0.2);
+            border-color: rgba(245, 158, 11, 0.3);
         }
 
-        /* ==================== BEAUTIFUL FLUPY BUTTON STYLE ==================== */
         .flupy-btn {
             border-radius: 18px !important;
             font-weight: 700;
@@ -137,15 +136,15 @@
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #10b981, #059669);
+            background: linear-gradient(135deg, #f59e0b, #d97706);
             color: white;
-            font-weight: 700;
-            border: 1px solid rgba(16, 185, 129, 0.3);
+            font-weight: 800;
+            border: 1px solid rgba(245, 158, 11, 0.4);
         }
         
         .btn-primary:hover {
-            background: linear-gradient(135deg, #059669, #047857);
-            box-shadow: 0 15px 20px -5px rgba(16, 185, 129, 0.35);
+            background: linear-gradient(135deg, #d97706, #b45309);
+            box-shadow: 0 15px 20px -5px rgba(245, 158, 11, 0.4);
         }
 
         .section-header {
@@ -153,7 +152,6 @@
             letter-spacing: 0.6px;
         }
 
-        /* Extra professional polish for key interactive elements */
         button.flupy-btn {
             font-feature-settings: "tnum";
         }
@@ -161,47 +159,68 @@
         .glass-panel button {
             transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
+
+        /* Sub Menu Animation */
+        @keyframes dropdownFade {
+            from { opacity: 0; transform: translateY(-10px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .dropdown-active { display: flex; animation: dropdownFade 0.2s ease forwards; }
     </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between antialiased">
 
-    <!-- Warning Banner -->
     <div id="admin-custom-warning-banner" class="w-full bg-amber-500/20 border-b border-amber-500/30 py-2.5 px-4 text-center text-xs font-bold text-amber-300 z-50 flex items-center justify-center gap-2 backdrop-blur-md hidden">
         <i class="fa-solid fa-triangle-exclamation animate-bounce text-amber-400"></i>
         <span id="admin-warning-banner-text">Warning: Administrative Broadcast Rule Action Logged.</span>
     </div>
 
-    <!-- Security Alert -->
-    <div id="top-security-alert" class="w-full bg-rose-500/10 border-b border-rose-500/20 py-2.5 px-4 text-center text-[11px] font-semibold text-rose-300 tracking-wide z-50 flex items-center justify-center gap-2 backdrop-blur-md">
-        <i class="fa-solid fa-shield-halved animate-pulse text-rose-400 text-xs"></i>
+    <div id="top-security-alert" class="w-full bg-emerald-500/10 border-b border-emerald-500/20 py-2.5 px-4 text-center text-[11px] font-semibold text-emerald-300 tracking-wide z-50 flex items-center justify-center gap-2 backdrop-blur-md">
+        <i class="fa-solid fa-shield-halved animate-pulse text-emerald-400 text-xs"></i>
         <span>Security Alert: Please don't share your login credentials or transaction passwords with anyone.</span>
     </div>
 
-    <!-- Header -->
     <header id="main-header" class="w-full max-w-md mx-auto px-4 pt-4 flex justify-between items-center text-xs text-gray-400 z-50 gap-2">
         <div id="live-time-date" class="flex flex-col bg-black/25 px-3 py-1.5 rounded-2xl border border-white/5 backdrop-blur-md text-center">
             <span class="font-mono font-bold text-white tracking-wider text-xs" id="header-time">00:00:00</span>
             <span id="header-date" class="text-[8px] text-gray-400 font-medium -mt-0.5">Loading...</span>
         </div>
-        
-        <div id="top-pending-trackers" class="flex items-center gap-2 hidden">
-            <button onclick="openCustomerCareTerminal(); toggleSupportSubModule('complaint');" class="bg-gradient-to-r from-rose-600 to-red-600 hover:from-rose-500 hover:to-red-500 text-white font-bold text-[10px] px-3.5 py-2 rounded-2xl shadow-lg shadow-red-900/20 flex items-center gap-1.5 transition-all uppercase tracking-wider flupy-btn">
-                <i class="fa-solid fa-circle-exclamation"></i> Complaint
-            </button>
-            <button onclick="openProfileModal()" class="text-indigo-400 hover:text-white bg-indigo-500/10 hover:bg-indigo-500/20 w-8 h-8 rounded-2xl border border-indigo-500/20 transition-all flex items-center justify-center flupy-btn">
-                <i class="fa-solid fa-user text-xs"></i>
-            </button>
-        </div>
 
-        <div class="flex items-center gap-2 glass-panel px-3.5 py-2 border border-indigo-500/20 bg-indigo-500/5 shadow-inner" id="device-pill" style="display:none;">
-            <i class="fa-solid fa-mobile-screen-button text-indigo-400 animate-pulse"></i>
-            <span id="device-display-name" class="text-[11px] font-bold text-indigo-400 font-mono tracking-wide">Node Core</span>
+        <div class="relative flex items-center gap-2">
+            <div class="flex items-center gap-2 glass-panel px-3.5 py-2 border border-emerald-500/20 bg-emerald-500/5 shadow-inner cursor-pointer hover:bg-emerald-500/10 transition-colors" id="device-pill" style="display:none;" onclick="toggleThreeDotsMenu()">
+                <i class="fa-solid fa-mobile-screen-button text-emerald-400 animate-pulse"></i>
+                <span id="device-display-name" class="text-[11px] font-bold text-emerald-400 font-mono tracking-wide">Node Core</span>
+                <i class="fa-solid fa-ellipsis-vertical text-emerald-400 ml-1 animate-pulse"></i>
+            </div>
+            
+            <div id="three-dots-menu" class="absolute top-full right-0 mt-2 w-52 glass-panel border border-emerald-500/30 p-2 hidden flex-col gap-2 z-50">
+                <button onclick="switchScreen('screen-dashboard'); toggleThreeDotsMenu();" class="w-full text-white hover:text-white bg-white/5 hover:bg-white/10 px-3.5 py-2.5 rounded-2xl border border-white/10 transition-all flex items-center justify-start gap-2 font-bold text-[10px] uppercase">
+                    <i class="fa-solid fa-house w-4 text-white"></i> Dashboard
+                </button>
+                <button onclick="switchScreen('screen-deposit'); toggleThreeDotsMenu();" class="w-full text-teal-400 hover:text-white bg-teal-500/10 hover:bg-teal-500/20 px-3.5 py-2.5 rounded-2xl border border-teal-500/20 transition-all flex items-center justify-start gap-2 font-bold text-[10px] uppercase">
+                    <i class="fa-solid fa-wallet w-4"></i> Deposit Money
+                </button>
+                <button onclick="switchScreen('screen-withdraw'); toggleThreeDotsMenu();" class="w-full text-indigo-400 hover:text-white bg-indigo-500/10 hover:bg-indigo-500/20 px-3.5 py-2.5 rounded-2xl border border-indigo-500/20 transition-all flex items-center justify-start gap-2 font-bold text-[10px] uppercase">
+                    <i class="fa-solid fa-hand-holding-dollar w-4"></i> Withdraw
+                </button>
+                <button onclick="switchScreen('screen-history'); toggleThreeDotsMenu();" class="w-full text-emerald-400 hover:text-white bg-emerald-500/10 hover:bg-emerald-500/20 px-3.5 py-2.5 rounded-2xl border border-emerald-500/20 transition-all flex items-center justify-start gap-2 font-bold text-[10px] uppercase">
+                    <i class="fa-solid fa-clock-rotate-left w-4"></i> All History
+                </button>
+                <button onclick="openProfileModal(); toggleThreeDotsMenu();" class="w-full text-amber-400 hover:text-white bg-amber-500/10 hover:bg-amber-500/20 px-3.5 py-2.5 rounded-2xl border border-amber-500/20 transition-all flex items-center justify-start gap-2 font-bold text-[10px] uppercase">
+                    <i class="fa-solid fa-user w-4"></i> My Profile
+                </button>
+                <button onclick="openCustomerCareTerminal(); toggleSupportSubModule('complaint'); toggleThreeDotsMenu();" class="w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-[10px] px-3.5 py-2.5 rounded-2xl shadow-lg flex items-center justify-start gap-2 transition-all uppercase tracking-wider mt-1">
+                    <i class="fa-solid fa-circle-exclamation w-4"></i> Support Desk
+                </button>
+                <button onclick="document.getElementById('context-menu-modal').classList.remove('hidden'); toggleThreeDotsMenu();" class="w-full text-rose-400 hover:text-white bg-rose-500/10 hover:bg-rose-500/20 px-3.5 py-2.5 rounded-2xl border border-rose-500/20 transition-all flex items-center justify-start gap-2 font-bold text-[10px] uppercase mt-1">
+                    <i class="fa-solid fa-power-off w-4"></i> System Menu
+                </button>
+            </div>
         </div>
     </header>
 
     <main class="w-full max-w-md mx-auto px-4 py-4 flex-grow flex flex-col justify-center">
         
-        <!-- Suspended Screen -->
         <section id="screen-suspended" class="screen glass-panel p-6 text-center space-y-5">
             <div class="w-16 h-16 bg-rose-500/10 text-rose-400 rounded-full flex items-center justify-center mx-auto text-2xl border border-rose-500/20 shadow-lg shadow-rose-950/50">
                 <i class="fa-solid fa-user-slash"></i>
@@ -215,18 +234,17 @@
 
             <div class="border-t border-white/5 pt-4 space-y-3">
                 <p class="text-[11px] text-gray-400 text-left px-1">If you wish to appeal this decision or contact administration, please transmit your official sorry statement matrix below.</p>
-                <textarea id="suspension-appeal-msg" placeholder="Write your transparent appeal statement here..." rows="3" class="w-full p-3.5 bg-black/40 border border-white/10 rounded-2xl text-xs text-white focus:outline-none focus:border-indigo-500 premium-input transition-all resize-none"></textarea>
+                <textarea id="suspension-appeal-msg" placeholder="Write your transparent appeal statement here..." rows="3" class="w-full p-3.5 bg-black/40 border border-white/10 rounded-2xl text-xs text-white focus:outline-none focus:border-emerald-500 premium-input transition-all resize-none"></textarea>
                 <button onclick="submitSuspensionAppeal()" class="w-full py-3.5 bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white font-bold rounded-2xl text-xs uppercase tracking-wider shadow-lg shadow-red-950/50 transition-all transform active:scale-[0.98] flupy-btn">Submit Official Appeal</button>
             </div>
             
             <div class="pt-2">
-                <button onclick="openCustomerCareTerminal(); toggleSupportSubModule('chat');" class="text-xs text-indigo-400 hover:text-indigo-300 font-semibold flex items-center justify-center gap-1.5 mx-auto transition-all flupy-btn">
+                <button onclick="openCustomerCareTerminal(); toggleSupportSubModule('chat');" class="text-xs text-emerald-400 hover:text-emerald-300 font-semibold flex items-center justify-center gap-1.5 mx-auto transition-all flupy-btn">
                     <i class="fa-solid fa-headset"></i> Open Support Desk Pipeline
                 </button>
             </div>
         </section>
 
-        <!-- Maintenance Screen -->
         <section id="screen-maintenance" class="screen glass-panel p-6 text-center space-y-5">
             <div class="w-16 h-16 bg-amber-500/10 text-amber-400 rounded-full flex items-center justify-center mx-auto text-2xl border border-amber-500/20 shadow-lg shadow-amber-950/50">
                 <i class="fa-solid fa-screwdriver-wrench animate-spin"></i>
@@ -238,7 +256,7 @@
 
             <div class="py-4 glass-card rounded-2xl border border-amber-500/20 my-2 shadow-inner bg-amber-500/5">
                 <span class="block text-[10px] text-amber-400 uppercase tracking-widest font-bold mb-1">Estimated Dynamic Return Latency</span>
-                <div id="maintenance-countdown" class="text-2xl font-mono font-black text-white tracking-wider neon-text-indigo">00h 00m 00s</div>
+                <div id="maintenance-countdown" class="text-2xl font-mono font-black text-white tracking-wider neon-text-emerald">00h 00m 00s</div>
             </div>
 
             <div class="text-[10px] text-gray-500 font-mono" id="maintenance-timestamp-footer">
@@ -246,56 +264,58 @@
             </div>
         </section>
 
-        <!-- Auth Screen -->
         <section id="screen-auth" class="screen active glass-panel p-6 relative">
             <div class="text-center mb-8">
-                <div class="w-24 h-24 mx-auto rounded-full p-1 bg-gradient-to-tr from-indigo-500 via-violet-500 to-amber-500 shadow-2xl mb-4 overflow-hidden flex items-center justify-center">
-                    <img src="https://i.ibb.co/gZvhB6MC/image-11.jpg" alt="Prime Horizon Logo" class="w-full h-full object-cover rounded-full">
+                <div class="w-24 h-24 mx-auto rounded-full p-1 bg-gradient-to-tr from-emerald-500 via-teal-500 to-amber-500 shadow-2xl mb-4 overflow-hidden flex items-center justify-center">
+                    <img src="https://i.ibb.co/gZvhB6MC/image-11.jpg" loading="lazy" decoding="async" alt="Prime Horizon Logo" class="w-full h-full object-cover rounded-full">
                 </div>
-                <h1 class="text-3xl font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-200 to-slate-400">PRIME HORIZON</h1>
-                <p class="text-xs uppercase tracking-widest text-amber-400 font-bold mt-1 tracking-[0.2em] neon-text-gold">Ascend Your Capital</p>
+                <h1 class="text-3xl font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-600">PRIME HORIZON</h1>
+                <p class="text-xs uppercase tracking-widest text-emerald-400 font-bold mt-1 tracking-[0.2em] neon-text-emerald">Ascend Your Capital</p>
             </div>
 
             <div class="flex bg-black/40 p-1 rounded-2xl mb-6 border border-white/5 shadow-inner">
-                <button onclick="toggleAuthTabs('login')" id="tab-login-btn" class="w-1/2 py-3 text-xs font-bold uppercase tracking-wider rounded-2xl bg-white/10 text-white transition-all flupy-btn">Sign In</button>
+                <button onclick="toggleAuthTabs('login')" id="tab-login-btn" class="w-1/2 py-3 text-xs font-bold uppercase tracking-wider rounded-2xl bg-white/10 text-white transition-all flupy-btn border border-amber-500/30">Sign In</button>
                 <button onclick="toggleAuthTabs('signup')" id="tab-signup-btn" class="w-1/2 py-3 text-xs font-bold uppercase tracking-wider rounded-2xl text-gray-400 transition-all flupy-btn">Create Account</button>
             </div>
 
-            <!-- Login Form -->
             <form id="login-form" onsubmit="handleLogin(event)" class="space-y-4">
                 <div>
                     <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 px-1">Registered Node Credentials</label>
                     <div class="relative">
                         <i class="fa-solid fa-phone absolute left-4 top-4 text-gray-500 text-sm"></i>
-                        <input type="tel" id="login-phone" required class="w-full pl-12 pr-4 py-3.5 bg-black/40 border border-white/10 rounded-2xl focus:border-indigo-500 focus:outline-none text-sm text-white premium-input" placeholder="03XXXXXXXXX">
+                        <input type="tel" id="login-phone" required class="w-full pl-12 pr-4 py-3.5 bg-black/40 border border-white/10 rounded-2xl focus:border-amber-500 focus:outline-none text-sm text-white premium-input" placeholder="03XXXXXXXXX">
                     </div>
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 px-1">Secure Password</label>
                     <div class="relative">
                         <i class="fa-solid fa-lock absolute left-4 top-4 text-gray-500 text-sm"></i>
-                        <input type="password" id="login-pass" required class="w-full pl-12 pr-4 py-3.5 bg-black/40 border border-white/10 rounded-2xl focus:border-indigo-500 focus:outline-none text-sm text-white premium-input" placeholder="••••••••">
+                        <input type="password" id="login-pass" required class="w-full pl-12 pr-4 py-3.5 bg-black/40 border border-white/10 rounded-2xl focus:border-amber-500 focus:outline-none text-sm text-white premium-input" placeholder="••••••••">
                     </div>
                 </div>
 
                 <div id="forgot-password-trigger-box" class="pt-1 text-center hidden">
-                    <button type="button" onclick="openPasswordRecoveryModal()" class="text-xs text-rose-400 hover:text-rose-300 font-bold underline tracking-wide transition-all flupy-btn">
+                    <button type="button" onclick="openPasswordRecoveryModal()" class="text-xs text-amber-400 hover:text-amber-300 font-bold underline tracking-wide transition-all flupy-btn">
                         <i class="fa-solid fa-key mr-1"></i> Request Password?
                     </button>
                 </div>
 
-                <button type="submit" class="w-full py-4 mt-2 bg-gradient-to-r from-indigo-600 via-violet-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 rounded-2xl font-bold text-xs uppercase tracking-wider text-white shadow-lg shadow-indigo-950/50 transition-all transform active:scale-95 flupy-btn btn-primary">
+                <button type="submit" class="w-full py-4 mt-2 btn-primary rounded-2xl font-bold text-xs uppercase tracking-wider text-white shadow-lg transition-all transform active:scale-95 flupy-btn">
                     Access Premium Platform
                 </button>
+
+                <div class="mt-4 text-center border-t border-white/10 pt-3">
+                    <p class="text-[10px] text-rose-400 font-bold uppercase tracking-wider"><i class="fa-solid fa-triangle-exclamation"></i> Terms & Policy</p>
+                    <p class="text-[9px] text-gray-400 mt-1 leading-relaxed">1 Account allowed in 1 Device. Multiple logins or device switching will result in an automatic Permanent Ban.</p>
+                </div>
             </form>
 
-            <!-- Signup Form -->
             <form id="signup-form" onsubmit="handleSignup(event)" class="space-y-4 hidden">
                 <div>
                     <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 px-1">Unique Username</label>
                     <div class="relative">
                         <i class="fa-solid fa-at absolute left-4 top-4 text-gray-500 text-sm"></i>
-                        <input type="text" id="signup-user" required oninput="checkUsernameAvailability(this.value)" class="w-full pl-12 pr-4 py-3.5 bg-black/40 border border-white/10 rounded-2xl focus:border-indigo-500 focus:outline-none text-sm text-white premium-input" placeholder="username">
+                        <input type="text" id="signup-user" required oninput="checkUsernameAvailability(this.value)" class="w-full pl-12 pr-4 py-3.5 bg-black/40 border border-white/10 rounded-2xl focus:border-amber-500 focus:outline-none text-sm text-white premium-input" placeholder="username">
                     </div>
                     <div id="username-feedback" class="text-[11px] mt-1.5 px-1 hidden"></div>
                 </div>
@@ -303,7 +323,7 @@
                     <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 px-1">Official Email Address</label>
                     <div class="relative">
                         <i class="fa-solid fa-envelope absolute left-4 top-4 text-gray-500 text-sm"></i>
-                        <input type="email" id="signup-email" required onblur="validateRealEmail(this.value)" class="w-full pl-12 pr-4 py-3.5 bg-black/40 border border-white/10 rounded-2xl focus:border-indigo-500 focus:outline-none text-sm text-white premium-input" placeholder="name@domain.com">
+                        <input type="email" id="signup-email" required onblur="validateRealEmail(this.value)" class="w-full pl-12 pr-4 py-3.5 bg-black/40 border border-white/10 rounded-2xl focus:border-amber-500 focus:outline-none text-sm text-white premium-input" placeholder="name@domain.com">
                     </div>
                     <div id="email-feedback" class="text-[11px] mt-1.5 text-rose-400 px-1 hidden"><i class="fa-solid fa-circle-exclamation mr-1"></i>Please enter a valid active original email address.</div>
                 </div>
@@ -311,21 +331,21 @@
                     <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 px-1">Phone Number</label>
                     <div class="relative">
                         <i class="fa-solid fa-phone absolute left-4 top-4 text-gray-500 text-sm"></i>
-                        <input type="tel" id="signup-phone" required class="w-full pl-12 pr-4 py-3.5 bg-black/40 border border-white/10 rounded-2xl focus:border-indigo-500 focus:outline-none text-sm text-white premium-input" placeholder="03XXXXXXXXX">
+                        <input type="tel" id="signup-phone" required class="w-full pl-12 pr-4 py-3.5 bg-black/40 border border-white/10 rounded-2xl focus:border-amber-500 focus:outline-none text-sm text-white premium-input" placeholder="03XXXXXXXXX">
                     </div>
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 px-1">Affiliate Reference Code</label>
                     <div class="relative">
                         <i class="fa-solid fa-user-group absolute left-4 top-4 text-gray-500 text-sm"></i>
-                        <input type="text" id="signup-ref" class="w-full pl-12 pr-4 py-3.5 bg-black/40 border border-white/10 rounded-2xl focus:border-indigo-500 focus:outline-none text-sm text-white font-mono premium-input" placeholder="REFCODE">
+                        <input type="text" id="signup-ref" class="w-full pl-12 pr-4 py-3.5 bg-black/40 border border-white/10 rounded-2xl focus:border-amber-500 focus:outline-none text-sm text-white font-mono premium-input" placeholder="REFCODE">
                     </div>
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 px-1">Create Strong Password</label>
                     <div class="relative">
                         <i class="fa-solid fa-key absolute left-4 top-4 text-gray-500 text-sm"></i>
-                        <input type="password" id="signup-pass" required oninput="evaluatePasswordStrength(this.value)" class="w-full pl-12 pr-4 py-3.5 bg-black/40 border border-white/10 rounded-2xl focus:border-indigo-500 focus:outline-none text-sm text-white premium-input" placeholder="Min 8 chars, mixed format">
+                        <input type="password" id="signup-pass" required oninput="evaluatePasswordStrength(this.value)" class="w-full pl-12 pr-4 py-3.5 bg-black/40 border border-white/10 rounded-2xl focus:border-amber-500 focus:outline-none text-sm text-white premium-input" placeholder="Min 8 chars, mixed format">
                     </div>
                     <div id="pass-feedback" class="text-[11px] mt-2 text-gray-400 px-1 leading-relaxed">
                         Structure: Requires at least 8 characters, capital letters, and digits.
@@ -337,31 +357,34 @@
             </form>
         </section>
 
-        <!-- Dashboard Screen -->
-        <section id="screen-dashboard" class="screen space-y-5">
-            <div id="user-status-card" class="glass-panel p-5 relative overflow-hidden bg-gradient-to-br from-indigo-950/40 via-transparent to-black/40 border border-white/10 shadow-xl cursor-pointer">
+        <section id="screen-dashboard" class="screen space-y-5 pb-6">
+            <div id="user-status-card" class="glass-panel p-5 relative overflow-hidden bg-gradient-to-br from-slate-900/80 via-transparent to-black/40 border border-amber-500/20 shadow-xl cursor-pointer">
                 <div class="flex items-center gap-4">
                     <div class="relative group" onclick="event.stopPropagation();">
-                        <img id="dash-user-avatar" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=200" alt="Avatar" class="w-16 h-16 rounded-2xl object-cover border-2 p-0.5 border-indigo-500 verified-glow transition-all duration-300">
-                        <label for="dp-upload-input" class="absolute -bottom-1 -right-1 w-6 h-6 bg-indigo-500 rounded-2xl flex items-center justify-center cursor-pointer border-2 border-slate-950 hover:scale-110 transition-transform shadow-lg flupy-btn">
+                        <img id="dash-user-avatar" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=200" loading="lazy" decoding="async" alt="Avatar" class="w-16 h-16 rounded-2xl object-cover border-2 p-0.5 border-amber-500 verified-glow transition-all duration-300">
+                        <label for="dp-upload-input" class="absolute -bottom-1 -right-1 w-6 h-6 bg-amber-500 rounded-2xl flex items-center justify-center cursor-pointer border-2 border-slate-950 hover:scale-110 transition-transform shadow-lg flupy-btn">
                             <i class="fa-solid fa-camera text-[10px] text-slate-950"></i>
                         </label>
                         <input type="file" id="dp-upload-input" accept="image/*" class="hidden" onchange="handleDpUpdate(event)">
                     </div>
 
                     <div class="flex-grow">
+                        <div id="dash-red-warning" class="hidden animate-pulse bg-red-600/20 border border-red-500/50 text-red-400 text-[10px] font-bold px-2 py-1 rounded-md mb-1.5 inline-block">
+                            <i class="fa-solid fa-triangle-exclamation mr-1"></i> <span id="dash-red-warning-text"></span>
+                        </div>
+                        
                         <h3 class="text-sm font-extrabold text-white flex items-center gap-1.5 tracking-wide">
                             Welcome, <span id="dash-username" class="transition-all duration-300 hover:scale-105 inline-block origin-left">User Node</span>
                         </h3>
-                        <p class="text-[10px] text-gray-400 font-medium">Ref Signature: <span id="dash-my-refcode" class="text-indigo-400 font-mono font-bold tracking-wider">-----</span></p>
+                        <p class="text-[10px] text-gray-400 font-medium">Ref Signature: <span id="dash-my-refcode" class="text-emerald-400 font-mono font-bold tracking-wider">-----</span></p>
                         
                         <div class="mt-2.5 flex items-center justify-between gap-2">
-                            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-2xl text-[9px] font-bold uppercase tracking-wider bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 shadow-inner">
-                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                                <span id="dash-status-text">Verified Secure</span>
+                            <div id="dash-status-container" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-2xl text-[9px] font-bold uppercase tracking-wider bg-rose-500/10 text-rose-400 border border-rose-500/20 shadow-inner">
+                                <span class="w-1.5 h-1.5 rounded-full bg-current animate-pulse"></span>
+                                <span id="dash-status-text">Unverified</span>
                             </div>
                             <div class="text-[10px] text-gray-400 bg-black/40 px-2.5 py-1 rounded-2xl border border-white/5 font-medium">
-                                Active Ecosystem Users: <span id="total-users-count" class="text-white font-extrabold">0</span>
+                                Active Users: <span id="total-users-count" class="text-white font-extrabold">0</span>
                             </div>
                         </div>
                     </div>
@@ -369,46 +392,48 @@
             </div>
 
             <div id="dashboard-unlocked-features" class="space-y-4">
-                <!-- Premium Feature Buttons (Smaller & Beautiful) -->
                 <div class="grid grid-cols-2 gap-3.5">
                     
-                    <!-- My Matrix -->
                     <button onclick="switchScreen('screen-my-details')" 
-                            class="group p-4 rounded-3xl glass-panel border border-white/10 hover:border-emerald-500/40 transition-all shadow-lg flex flex-col items-center text-center active:scale-[0.98] flupy-btn">
+                            class="group p-4 rounded-3xl glass-panel border border-white/10 hover:border-amber-500/40 transition-all shadow-lg flex flex-col items-center text-center active:scale-[0.98] flupy-btn">
                         <div class="w-12 h-12 mb-2 flex items-center justify-center">
-                            <i class="fa-solid fa-chart-pie text-4xl text-emerald-400 group-hover:scale-110 transition-transform"></i>
+                            <i class="fa-solid fa-chart-pie text-4xl text-amber-400 group-hover:scale-110 transition-transform"></i>
                         </div>
                         <span class="text-xs font-black tracking-wider text-white">My Balance</span>
                     </button>
 
-                    <!-- Yield Stratums -->
                     <button onclick="switchScreen('screen-invest-plans')" 
-                            class="group p-4 rounded-3xl glass-panel border border-white/10 hover:border-violet-500/40 transition-all shadow-lg flex flex-col items-center text-center active:scale-[0.98] flupy-btn">
+                            class="group p-4 rounded-3xl glass-panel border border-white/10 hover:border-emerald-500/40 transition-all shadow-lg flex flex-col items-center text-center active:scale-[0.98] flupy-btn">
                         <div class="w-12 h-12 mb-2 flex items-center justify-center">
-                            <i class="fa-solid fa-seedling text-4xl text-violet-400 group-hover:scale-110 transition-transform"></i>
+                            <i class="fa-solid fa-seedling text-4xl text-emerald-400 group-hover:scale-110 transition-transform"></i>
                         </div>
                         <span class="text-xs font-black tracking-wider text-white">Invest Plans</span>
                     </button>
 
-                    <!-- Deposit Cache -->
                     <button onclick="switchScreen('screen-deposit')" 
-                            class="group p-4 rounded-3xl glass-panel border border-white/10 hover:border-amber-500/40 transition-all shadow-lg flex flex-col items-center text-center active:scale-[0.98] flupy-btn">
+                            class="group p-4 rounded-3xl glass-panel border border-white/10 hover:border-teal-500/40 transition-all shadow-lg flex flex-col items-center text-center active:scale-[0.98] flupy-btn">
                         <div class="w-12 h-12 mb-2 flex items-center justify-center">
-                            <i class="fa-solid fa-wallet text-4xl text-amber-400 group-hover:scale-110 transition-transform"></i>
+                            <i class="fa-solid fa-wallet text-4xl text-teal-400 group-hover:scale-110 transition-transform"></i>
                         </div>
                         <span class="text-xs font-black tracking-wider text-white">Deposit Money</span>
                     </button>
 
-                    <!-- Outbound Fund -->
                     <button onclick="switchScreen('screen-withdraw')" 
-                            class="group p-4 rounded-3xl glass-panel border border-white/10 hover:border-purple-500/40 transition-all shadow-lg flex flex-col items-center text-center active:scale-[0.98] flupy-btn">
+                            class="group p-4 rounded-3xl glass-panel border border-white/10 hover:border-indigo-500/40 transition-all shadow-lg flex flex-col items-center text-center active:scale-[0.98] flupy-btn">
                         <div class="w-12 h-12 mb-2 flex items-center justify-center">
-                            <i class="fa-solid fa-hand-holding-dollar text-4xl text-purple-400 group-hover:scale-110 transition-transform"></i>
+                            <i class="fa-solid fa-hand-holding-dollar text-4xl text-indigo-400 group-hover:scale-110 transition-transform"></i>
                         </div>
                         <span class="text-xs font-black tracking-wider text-white">Withdrawal Money</span>
                     </button>
 
-                    <!-- History Button -->
+                    <button id="kyc-action-btn" onclick="openKYCModal()" class="group p-4 rounded-3xl glass-panel border border-amber-500 hover:border-amber-400 transition-all shadow-lg flex flex-col items-center text-center active:scale-[0.98] flupy-btn col-span-2 animate-pulse bg-amber-500/10">
+                        <div class="w-12 h-12 mb-1 flex items-center justify-center">
+                            <i class="fa-solid fa-id-card-clip text-4xl text-amber-400 group-hover:scale-110 transition-transform"></i>
+                        </div>
+                        <span class="text-xs font-black tracking-wider text-white">KYC VERIFICATION</span>
+                        <span class="text-[9px] text-amber-300 mt-1 font-bold">Required for Account Verification</span>
+                    </button>
+
                     <button onclick="switchScreen('screen-history')" 
                             class="group p-4 rounded-3xl glass-panel border border-white/10 hover:border-slate-400/40 transition-all shadow-lg flex flex-col items-center text-center active:scale-[0.98] flupy-btn col-span-2">
                         <div class="w-12 h-12 mb-2 flex items-center justify-center">
@@ -419,43 +444,51 @@
 
                 </div>
 
-                <!-- Slim More Button -->
                 <button onclick="switchScreen('screen-tasks'); updateTasksBalance(); loadSocialTasks();" 
-                        class="w-full py-3.5 rounded-2xl glass-panel border border-white/10 hover:border-emerald-500/30 flex items-center justify-center gap-2 text-sm font-bold tracking-wider text-white active:scale-[0.985] flupy-btn">
-                    <i class="fa-solid fa-ellipsis-h"></i>
+                        class="w-full py-3.5 rounded-2xl glass-panel border border-white/10 hover:border-amber-500/30 flex items-center justify-center gap-2 text-sm font-bold tracking-wider text-white active:scale-[0.985] flupy-btn">
+                    <i class="fa-solid fa-ellipsis-h text-amber-400"></i>
                     <span>MORE</span>
                 </button>
 
-                <!-- Affiliate Program -->
-                <div class="glass-panel p-4 bg-gradient-to-r from-indigo-950/40 to-slate-900/30 border border-white/10 rounded-2xl flex justify-between items-center cursor-pointer hover:border-indigo-500/30 transition-all shadow-md group flupy-btn" onclick="switchScreen('screen-invite-friends')">
+                <div class="glass-panel p-4 bg-gradient-to-r from-emerald-950/40 to-slate-900/30 border border-white/10 rounded-2xl flex justify-between items-center cursor-pointer hover:border-emerald-500/30 transition-all shadow-md group flupy-btn" onclick="switchScreen('screen-invite-friends')">
                     <div class="space-y-1">
-                        <h4 class="text-[10px] font-extrabold text-indigo-400 uppercase tracking-widest neon-text-indigo">Affiliate Program</h4>
+                        <h4 class="text-[10px] font-extrabold text-emerald-400 uppercase tracking-widest neon-text-emerald">Affiliate Program</h4>
                         <p class="text-xs font-extrabold text-white">Invite Friends & Earn Coins</p>
-                        <p class="text-[9px] text-gray-400 font-medium"><i class="fa-solid fa-unlock-keyhole text-emerald-400 mr-1"></i>Invite friends & get more earning</p>
+                        <p class="text-[9px] text-gray-400 font-medium"><i class="fa-solid fa-unlock-keyhole text-amber-400 mr-1"></i>Invite friends & get more earning</p>
                     </div>
-                    <div class="w-9 h-9 rounded-2xl bg-indigo-500/10 group-hover:bg-indigo-500/20 border border-indigo-500/20 flex items-center justify-center text-indigo-400 transition-all shadow-inner">
+                    <div class="w-9 h-9 rounded-2xl bg-emerald-500/10 group-hover:bg-emerald-500/20 border border-emerald-500/20 flex items-center justify-center text-emerald-400 transition-all shadow-inner">
                         <i class="fa-solid fa-chevron-right text-xs"></i>
                     </div>
                 </div>
 
-                <!-- Feedback Center -->
-                <div class="glass-panel p-4 bg-gradient-to-r from-pink-950/40 to-slate-900/30 border border-white/10 rounded-2xl flex justify-between items-center cursor-pointer hover:border-pink-500/30 transition-all shadow-md group flupy-btn" onclick="switchScreen('screen-admin-feedback'); streamAdminFeedbacks();">
+                <div class="glass-panel p-4 bg-gradient-to-r from-teal-950/40 to-slate-900/30 border border-white/10 rounded-2xl flex justify-between items-center cursor-pointer hover:border-teal-500/30 transition-all shadow-md group flupy-btn" onclick="switchScreen('screen-admin-feedback'); streamAdminFeedbacks();">
                     <div class="space-y-1">
-                        <h4 class="text-[10px] font-extrabold text-pink-400 uppercase tracking-widest">Feedback Center</h4>
+                        <h4 class="text-[10px] font-extrabold text-teal-400 uppercase tracking-widest">Feedback Center</h4>
                         <p class="text-xs font-extrabold text-white">Send Direct Feedback</p>
-                        <p class="text-[9px] text-gray-400 font-medium"><i class="fa-solid fa-comment-dots text-pink-400 mr-1"></i>Share feedback with Admin</p>
+                        <p class="text-[9px] text-gray-400 font-medium"><i class="fa-solid fa-comment-dots text-teal-400 mr-1"></i>Share feedback with Admin</p>
                     </div>
-                    <div class="w-9 h-9 rounded-2xl bg-pink-500/10 group-hover:bg-pink-500/20 border border-pink-500/20 flex items-center justify-center text-pink-400 transition-all shadow-inner">
+                    <div class="w-9 h-9 rounded-2xl bg-teal-500/10 group-hover:bg-teal-500/20 border border-teal-500/20 flex items-center justify-center text-teal-400 transition-all shadow-inner">
                         <i class="fa-solid fa-paper-plane text-xs"></i>
                     </div>
                 </div>
 
             </div>
+            
+            <div id="policy-slim-card" class="glass-panel p-3 border border-amber-500/50 bg-amber-500/10 mt-6 cursor-pointer animate-pulse flex justify-between items-center hidden" onclick="openPolicyModal()">
+                <div class="flex items-center gap-3">
+                    <i class="fa-solid fa-file-contract text-amber-400 text-2xl ml-2"></i>
+                    <div>
+                        <h4 class="text-xs font-bold text-white uppercase tracking-wider">Platform Policy</h4>
+                        <p class="text-[10px] text-amber-200 font-medium">Action Required: Read & Accept</p>
+                    </div>
+                </div>
+                <div class="bg-amber-500 text-black text-[9px] font-bold px-3 py-1 rounded-full mr-2">OPEN</div>
+            </div>
 
-            <div class="glass-panel p-5 space-y-3.5 shadow-md">
-                <h4 class="text-xs font-bold uppercase text-indigo-400 tracking-wider">Corporate Manifesto</h4>
+            <div class="glass-panel p-5 space-y-3.5 shadow-md mt-4">
+                <h4 class="text-xs font-bold uppercase text-emerald-400 tracking-wider">Corporate Manifesto</h4>
                 <div id="about-us-container" class="space-y-3">
-                    <img id="about-us-img" src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=600" alt="Corporate" class="w-full h-36 object-cover rounded-2xl border border-white/5 shadow-inner">
+                    <img id="about-us-img" src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=600" loading="lazy" decoding="async" alt="Corporate" class="w-full h-36 object-cover rounded-2xl border border-white/5 shadow-inner">
                     <p id="about-us-text" class="text-xs text-gray-400 leading-relaxed font-medium">
                         Prime Horizon guarantees execution protocols powered by cryptographic account balances. Experience zero-friction asset production mechanisms designed explicitly for web ledger generation.
                     </p>
@@ -463,18 +496,17 @@
             </div>
         </section>
 
-        <!-- Feedback Screen -->
         <section id="screen-admin-feedback" class="screen space-y-4">
             <div class="flex items-center justify-between">
                 <button onclick="switchScreen('screen-dashboard')" class="text-xs text-gray-400 hover:text-white flex items-center gap-1.5 transition-all bg-white/5 px-3 py-1.5 rounded-2xl border border-white/5 font-semibold flupy-btn"><i class="fa-solid fa-arrow-left-long"></i> Back</button>
-                <h2 class="text-xs font-extrabold text-pink-400 uppercase tracking-widest">Feedback Center</h2>
+                <h2 class="text-xs font-extrabold text-teal-400 uppercase tracking-widest">Feedback Center</h2>
             </div>
             
             <div class="glass-panel p-4 space-y-3.5 shadow-md">
-                <h5 class="text-xs font-bold uppercase tracking-wider text-pink-400 px-0.5">Submit Feedback</h5>
+                <h5 class="text-xs font-bold uppercase tracking-wider text-teal-400 px-0.5">Submit Feedback</h5>
                 <form id="admin-feedback-form" onsubmit="handleAdminFeedbackSubmission(event)" class="space-y-2.5">
-                    <textarea id="admin-fb-text-input" placeholder="Type your feedback for the admin here..." rows="3" required class="w-full px-4 py-3 bg-black/40 border border-white/10 rounded-2xl text-xs text-white focus:outline-none focus:border-pink-500 premium-input transition-all resize-none"></textarea>
-                    <button type="submit" class="w-full py-3 bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-500 hover:to-rose-500 text-white font-bold text-xs uppercase tracking-wider rounded-2xl transition-all shadow-lg flupy-btn">Submit Feedback</button>
+                    <textarea id="admin-fb-text-input" placeholder="Type your feedback for the admin here..." rows="3" required class="w-full px-4 py-3 bg-black/40 border border-white/10 rounded-2xl text-xs text-white focus:outline-none focus:border-teal-500 premium-input transition-all resize-none"></textarea>
+                    <button type="submit" class="w-full py-3 bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-500 hover:to-emerald-500 text-white font-bold text-xs uppercase tracking-wider rounded-2xl transition-all shadow-lg flupy-btn">Submit Feedback</button>
                 </form>
             </div>
 
@@ -483,17 +515,16 @@
             </div>
         </section>
 
-        <!-- Tasks Screen -->
         <section id="screen-tasks" class="screen space-y-4">
             <div class="flex items-center justify-between">
                 <button onclick="switchScreen('screen-dashboard')" class="text-xs text-gray-400 hover:text-white flex items-center gap-1.5 transition-all bg-white/5 px-3 py-1.5 rounded-2xl border border-white/5 font-semibold flupy-btn"><i class="fa-solid fa-arrow-left-long"></i> Back</button>
-                <h2 class="text-xs font-extrabold text-violet-400 uppercase tracking-widest">Tasks & Rewards Center</h2>
+                <h2 class="text-xs font-extrabold text-emerald-400 uppercase tracking-widest">Tasks & Rewards</h2>
             </div>
 
             <div class="glass-panel p-5 space-y-4">
                 <div class="text-center">
                     <h3 class="text-lg font-black text-white tracking-wider">Earn Free Coins</h3>
-                    <p class="text-xs text-gray-400 mt-1">Complete simple social media tasks. Each task rewards <span class="font-bold text-violet-400">5 Coins</span> — claimable only once per account.</p>
+                    <p class="text-xs text-gray-400 mt-1">Complete simple social media tasks. Each task rewards <span class="font-bold text-emerald-400">5 Coins</span> — claimable only once per account.</p>
                 </div>
                 
                 <div class="bg-black/30 border border-white/5 rounded-2xl p-4 text-xs">
@@ -501,41 +532,36 @@
                         <span>Your Current Coins</span>
                         <span id="tasks-coins-balance" class="font-mono font-bold text-white">0</span>
                     </div>
-                    <div class="text-[10px] text-emerald-400 mt-1">Convert anytime in Affiliate section • 50 Coins = Rs. 1</div>
+                    <div class="text-[10px] text-amber-400 mt-1">Convert anytime in Affiliate section • 50 Coins = Rs. 1</div>
                 </div>
             </div>
 
-            <!-- Social Channels from Admin -->
             <div class="glass-panel p-5 rounded-3xl border border-white/10">
                 <div class="flex items-center gap-2 mb-3">
-                    <i class="fa-solid fa-share-alt text-pink-400"></i>
-                    <span class="font-extrabold text-pink-400 tracking-wider text-sm">OFFICIAL SOCIAL CHANNELS</span>
+                    <i class="fa-solid fa-share-alt text-teal-400"></i>
+                    <span class="font-extrabold text-teal-400 tracking-wider text-sm">OFFICIAL CHANNELS</span>
                 </div>
                 <div id="user-social-channels-list" class="space-y-2 text-sm"></div>
                 <div class="text-[10px] text-gray-400 mt-2">Follow these official channels. Admin added links appear here.</div>
             </div>
 
-            <div id="tasks-list" class="space-y-4">
-                <!-- Dynamically loaded by JS -->
-            </div>
-
+            <div id="tasks-list" class="space-y-4"></div>
             <div class="text-center text-[10px] text-gray-500 pt-2">New tasks added regularly by administration. Check back often!</div>
         </section>
 
-        <!-- Invite Friends Screen -->
         <section id="screen-invite-friends" class="screen space-y-4">
             <div class="flex items-center justify-between">
                 <button onclick="switchScreen('screen-dashboard')" class="text-xs text-gray-400 hover:text-white flex items-center gap-1.5 transition-all bg-white/5 px-3 py-1.5 rounded-2xl border border-white/5 font-semibold flupy-btn"><i class="fa-solid fa-arrow-left-long"></i> Back</button>
-                <h2 class="text-xs font-extrabold text-indigo-400 uppercase tracking-widest">Network Affiliates</h2>
+                <h2 class="text-xs font-extrabold text-emerald-400 uppercase tracking-widest">Network Affiliates</h2>
             </div>
             
-            <div class="glass-panel p-4 bg-gradient-to-br from-indigo-950/20 to-slate-900/40 text-center space-y-3 shadow-md border border-indigo-500/10">
-                <span class="text-[10px] tracking-widest text-indigo-400 uppercase font-extrabold bg-indigo-500/10 px-3 py-1 rounded-2xl border border-indigo-500/20">Invite & Earn System Rules</span>
-                <p class="text-xs text-gray-300 leading-relaxed font-medium px-1">Share your unique network signature code. 1 Verified referral (who successfully deposits fund) unlocks your permanent payout terminal channels. Additionally, whenever any friend registers or activates an asset stratum plan, customized network commission coins are added instantly to your network ledger map. <span class="text-emerald-400 font-bold">More successful referrals = Higher daily withdrawal limit!</span></p>
+            <div class="glass-panel p-4 bg-gradient-to-br from-emerald-950/20 to-slate-900/40 text-center space-y-3 shadow-md border border-emerald-500/10">
+                <span class="text-[10px] tracking-widest text-emerald-400 uppercase font-extrabold bg-emerald-500/10 px-3 py-1 rounded-2xl border border-emerald-500/20">Invite & Earn System Rules</span>
+                <p class="text-xs text-gray-300 leading-relaxed font-medium px-1">Share your unique network signature code. 1 Verified referral (who successfully deposits fund) unlocks your permanent payout terminal channels. Additionally, whenever any friend registers or activates an asset stratum plan, customized network commission coins are added instantly to your network ledger map. <span class="text-amber-400 font-bold">More successful referrals = Higher daily withdrawal limit!</span></p>
                 
                 <div class="p-3.5 bg-black/40 rounded-2xl flex items-center justify-between border border-white/5 mt-3 shadow-inner">
                     <span id="display-invite-refcode" class="font-mono font-black text-base text-white tracking-wider select-all px-2">REFCODE</span>
-                    <button onclick="copyAffiliateLink()" class="px-4 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 rounded-2xl text-xs font-bold text-white flex items-center gap-1.5 shadow-lg transition-all transform active:scale-95 uppercase tracking-wider flupy-btn"><i class="fa-solid fa-copy text-[11px]"></i> Copy Link</button>
+                    <button onclick="copyAffiliateLink()" class="px-4 py-2 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 rounded-2xl text-xs font-bold text-white flex items-center gap-1.5 shadow-lg transition-all transform active:scale-95 uppercase tracking-wider flupy-btn"><i class="fa-solid fa-copy text-[11px]"></i> Copy Link</button>
                 </div>
             </div>
 
@@ -557,8 +583,8 @@
 
             <div class="glass-panel p-4 space-y-4 shadow-md">
                 <div class="flex justify-between items-center border-b border-white/5 pb-3">
-                    <h4 class="text-xs font-bold uppercase text-indigo-400 tracking-wider">My Registered Network Map</h4>
-                    <span id="invite-total-commission-counter" class="text-xs font-black text-emerald-400 font-mono">Commission: 0 Coins</span>
+                    <h4 class="text-xs font-bold uppercase text-emerald-400 tracking-wider">My Registered Network Map</h4>
+                    <span id="invite-total-commission-counter" class="text-xs font-black text-amber-400 font-mono">Commission: 0 Coins</span>
                 </div>
                 <div id="referred-users-network-stream" class="space-y-2.5 max-h-[250px] overflow-y-auto pr-1">
                     <div class="text-xs text-gray-500 italic text-center py-4">No active connection pipelines registered yet.</div>
@@ -566,16 +592,15 @@
             </div>
         </section>
 
-        <!-- My Details Screen -->
         <section id="screen-my-details" class="screen space-y-4">
             <div class="flex items-center justify-between">
                 <button onclick="switchScreen('screen-dashboard')" class="text-xs text-gray-400 hover:text-white flex items-center gap-1.5 transition-all bg-white/5 px-3 py-1.5 rounded-2xl border border-white/5 font-semibold flupy-btn"><i class="fa-solid fa-arrow-left-long"></i> Dashboard</button>
-                <h2 class="text-xs font-extrabold text-indigo-400 uppercase tracking-widest">Financial Matrix</h2>
+                <h2 class="text-xs font-extrabold text-amber-400 uppercase tracking-widest">Financial Matrix</h2>
             </div>
 
             <div class="grid grid-cols-2 gap-3.5">
-                <div class="glass-panel p-4 col-span-2 bg-gradient-to-br from-indigo-950/20 to-slate-900/40 border-t-2 border-indigo-500 shadow-md">
-                    <span class="text-[10px] uppercase font-bold text-indigo-400 tracking-widest block">Available Principal Liquid Ledger</span>
+                <div class="glass-panel p-4 col-span-2 bg-gradient-to-br from-emerald-950/20 to-slate-900/40 border-t-2 border-emerald-500 shadow-md">
+                    <span class="text-[10px] uppercase font-bold text-emerald-400 tracking-widest block">Available Principal Liquid Ledger</span>
                     <div class="text-3xl font-black tracking-tight mt-1.5 text-white font-mono">Rs. <span id="meta-balance">0.00</span></div>
                 </div>
                 <div class="glass-panel p-4 shadow-md bg-black/20">
@@ -583,23 +608,23 @@
                     <span class="text-base font-bold text-white block mt-1 font-mono">Rs. <span id="meta-total-invest">0.00</span></span>
                 </div>
                 <div class="glass-panel p-4 shadow-md bg-black/20">
-                    <span class="text-[10px] uppercase font-bold text-emerald-400 tracking-wider block">Accumulated Profit</span>
-                    <span class="text-base font-bold text-emerald-400 block mt-1 font-mono">Rs. <span id="meta-total-profit">0.00</span></span>
+                    <span class="text-[10px] uppercase font-bold text-amber-400 tracking-wider block">Accumulated Profit</span>
+                    <span class="text-base font-bold text-amber-400 block mt-1 font-mono">Rs. <span id="meta-total-profit">0.00</span></span>
                 </div>
                 <div class="glass-panel p-4 shadow-md bg-black/20">
-                    <span class="text-[10px] uppercase font-bold text-amber-400 tracking-wider block">Total Injected</span>
+                    <span class="text-[10px] uppercase font-bold text-teal-400 tracking-wider block">Total Injected</span>
                     <span class="text-base font-bold text-white block mt-1 font-mono">Rs. <span id="meta-total-deposit">0.00</span></span>
                 </div>
                 <div class="glass-panel p-4 shadow-md bg-black/20">
-                    <span class="text-[10px] uppercase font-bold text-purple-400 tracking-wider block">Processed Payouts</span>
+                    <span class="text-[10px] uppercase font-bold text-indigo-400 tracking-wider block">Processed Payouts</span>
                     <span class="text-base font-bold text-white block mt-1 font-mono">Rs. <span id="meta-total-withdraw">0.00</span></span>
                 </div>
             </div>
 
             <div class="glass-panel p-4 space-y-4 shadow-md">
                 <div class="flex justify-between items-center border-b border-white/5 pb-3">
-                    <h4 class="text-xs font-bold uppercase text-emerald-400 tracking-wider">Active Strategic Allocations</h4>
-                    <button onclick="collectDailyYield()" class="px-4 py-2 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-[10px] font-extrabold uppercase rounded-2xl text-white tracking-wider shadow-lg transition-all flupy-btn">Collect daily Profit</button>
+                    <h4 class="text-xs font-bold uppercase text-amber-400 tracking-wider">Active Strategic Allocations</h4>
+                    <button onclick="collectDailyYield()" class="px-4 py-2 bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-500 hover:to-orange-500 text-[10px] font-extrabold uppercase rounded-2xl text-white tracking-wider shadow-lg transition-all flupy-btn">Collect daily Profit</button>
                 </div>
                 <div id="active-plan-status-node" class="text-center py-2 text-xs text-gray-500 italic font-medium">
                     No active assets processing operational yield matrix loops.
@@ -608,63 +633,61 @@
             
             <div class="glass-panel p-4 flex justify-between items-center shadow-md bg-black/20">
                 <span class="text-xs font-bold text-gray-300 uppercase tracking-wide">Total Verified Referrals</span>
-                <span id="meta-ref-count" class="px-3 py-1.5 bg-indigo-500/10 border border-indigo-500/20 rounded-2xl text-xs font-mono font-bold text-indigo-400">0 Nodes</span>
+                <span id="meta-ref-count" class="px-3 py-1.5 bg-emerald-500/10 border border-emerald-500/20 rounded-2xl text-xs font-mono font-bold text-emerald-400">0 Nodes</span>
             </div>
         </section>
 
-        <!-- Invest Plans Screen -->
         <section id="screen-invest-plans" class="screen space-y-4">
             <div class="flex items-center justify-between">
                 <button onclick="switchScreen('screen-dashboard')" class="text-xs text-gray-400 hover:text-white flex items-center gap-1.5 transition-all bg-white/5 px-3 py-1.5 rounded-2xl border border-white/5 font-semibold flupy-btn"><i class="fa-solid fa-arrow-left-long"></i> Back</button>
-                <h2 class="text-xs font-extrabold text-violet-400 uppercase tracking-widest">Invest Plans</h2>
+                <h2 class="text-xs font-extrabold text-emerald-400 uppercase tracking-widest">Invest Plans</h2>
             </div>
             <div id="investment-plans-feed" class="space-y-4"></div>
         </section>
 
-        <!-- Deposit Screen -->
         <section id="screen-deposit" class="screen space-y-4">
             <div class="flex items-center justify-between">
                 <button onclick="switchScreen('screen-dashboard')" class="text-xs text-gray-400 hover:text-white flex items-center gap-1.5 transition-all bg-white/5 px-3 py-1.5 rounded-2xl border border-white/5 font-semibold flupy-btn"><i class="fa-solid fa-arrow-left-long"></i> Cancel</button>
-                <h2 class="text-xs font-extrabold text-amber-500 uppercase tracking-widest">Inbound Ledger</h2>
+                <h2 class="text-xs font-extrabold text-teal-500 uppercase tracking-widest">Inbound Ledger</h2>
             </div>
 
             <form id="deposit-request-form" onsubmit="handleDepositSubmission(event)" class="space-y-4">
                 <div>
                     <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 px-1">Settlement Pipeline Network</label>
-                    <select id="deposit-channel" onchange="updateDepositGatewayDetails(this.value)" class="w-full px-4 py-3.5 bg-black/40 border border-white/10 rounded-2xl text-xs focus:outline-none focus:border-amber-500 text-white premium-input font-semibold">
+                    <select id="deposit-channel" onchange="updateDepositGatewayDetails(this.value)" class="w-full px-4 py-3.5 bg-black/40 border border-white/10 rounded-2xl text-xs focus:outline-none focus:border-teal-500 text-white premium-input font-semibold">
                         <option value="JazzCash">JazzCash Network Node</option>
                         <option value="EasyPaisa">EasyPaisa Hub Node</option>
                         <option value="CustomBank">Corporate Bank Transfer Matrix</option>
                     </select>
                 </div>
 
-                <div class="glass-panel p-4 bg-amber-500/5 border border-amber-500/20 rounded-2xl space-y-1.5 shadow-inner">
-                    <span class="text-[9px] font-black text-amber-400 uppercase tracking-widest">Destination Cache Registry</span>
+                <div class="glass-panel p-4 bg-teal-500/5 border border-teal-500/20 rounded-2xl space-y-1.5 shadow-inner">
+                    <span class="text-[9px] font-black text-teal-400 uppercase tracking-widest">Destination Cache Registry</span>
                     <div class="text-sm font-extrabold text-white" id="dep-gate-title">Muhammad Naeem</div>
-                    <div class="text-base font-mono font-black tracking-wider text-amber-300 neon-text-gold" id="dep-gate-account">03257436319</div>
+                    <div class="text-base font-mono font-black tracking-wider text-teal-300 neon-text-emerald" id="dep-gate-account">03257436319</div>
                 </div>
 
-                <div class="glass-panel p-4 border-l-4 border-amber-500 text-right bg-black/40 shadow-md">
-                    <p class="text-xs text-amber-200 font-semibold leading-relaxed" dir="rtl">
+                <div class="glass-panel p-4 border-l-4 border-teal-500 text-right bg-black/40 shadow-md">
+                    <p class="text-xs text-teal-200 font-semibold leading-relaxed" dir="rtl">
                         برائے مہربانی اوپر دیے گئے نمبر پر مطلوبہ رقم منتقل کریں۔ ٹرانزیکشن مکمل ہونے کے بعد اصل رسید کا اسکرین شاٹ اور ریفرنس آئی ڈی (TRX ID) درج کریں۔ غلط معلومات فراہم کرنے پر اکاؤنٹ معطل کیا جا سکتا ہے۔
                     </p>
                 </div>
 
                 <div>
                     <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 px-1">Amount to Inject (PKR)</label>
-                    <input type="number" id="deposit-amount" required min="1" class="w-full px-4 py-3.5 bg-black/40 border border-white/10 rounded-2xl text-xs focus:outline-none focus:border-amber-500 text-white premium-input font-mono" placeholder="Rs. 0000">
+                    <input type="number" id="deposit-amount" required min="1" class="w-full px-4 py-3.5 bg-black/40 border border-white/10 rounded-2xl text-xs focus:outline-none focus:border-teal-500 text-white premium-input font-mono" placeholder="Rs. 0000">
                 </div>
 
                 <div>
                     <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 px-1">Network Reference Tracking ID (TRX ID)</label>
-                    <input type="text" id="deposit-trxid" required class="w-full px-4 py-3.5 bg-black/40 border border-white/10 rounded-2xl text-xs font-mono focus:outline-none focus:border-amber-500 text-white premium-input" placeholder="TXN87364812">
+                    <input type="text" id="deposit-trxid" required class="w-full px-4 py-3.5 bg-black/40 border border-white/10 rounded-2xl text-xs font-mono focus:outline-none focus:border-teal-500 text-white premium-input" placeholder="TXN87364812">
                 </div>
 
                 <div>
                     <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 px-1">Transaction Receipt Screenshot</label>
                     <div class="flex items-center justify-between p-3.5 bg-black/30 border border-white/5 rounded-2xl shadow-inner">
                         <input type="file" id="deposit-proof-file" accept="image/*" required onchange="uploadDepositProofToCloudinary(event)" class="text-xs text-gray-400 file:mr-3 file:py-1.5 file:px-3 file:rounded-2xl file:border-0 file:text-[10px] file:font-bold file:bg-white/10 file:text-white hover:file:bg-white/20 transition-all">
-                        <i id="deposit-proof-spinner" class="fa-solid fa-circle-notch fa-spin text-amber-400 hidden"></i>
+                        <i id="deposit-proof-spinner" class="fa-solid fa-circle-notch fa-spin text-teal-400 hidden"></i>
                         <i id="deposit-proof-success" class="fa-solid fa-circle-check text-emerald-400 hidden text-base animate-bounce"></i>
                     </div>
                     <input type="hidden" id="deposit-proof-url">
@@ -676,17 +699,15 @@
             </form>
         </section>
 
-        <!-- Withdraw Screen (UPDATED) -->
         <section id="screen-withdraw" class="screen space-y-4">
             <div class="flex items-center justify-between">
                 <button onclick="switchScreen('screen-dashboard')" class="text-xs text-gray-400 hover:text-white flex items-center gap-1.5 transition-all bg-white/5 px-3 py-1.5 rounded-2xl border border-white/5 font-semibold flupy-btn"><i class="fa-solid fa-arrow-left-long"></i> Abort</button>
-                <h2 class="text-xs font-extrabold text-purple-400 uppercase tracking-widest">Outbound Terminal</h2>
+                <h2 class="text-xs font-extrabold text-indigo-400 uppercase tracking-widest">Outbound Terminal</h2>
             </div>
 
-            <!-- NEW: Withdrawal Limit + Tax + Cooldown Info Panel -->
-            <div id="withdraw-limit-info" class="glass-panel p-4 mb-1 space-y-2 border border-purple-500/20 bg-purple-950/10">
+            <div id="withdraw-limit-info" class="glass-panel p-4 mb-1 space-y-2 border border-indigo-500/20 bg-indigo-950/10">
                 <div class="flex justify-between items-center text-xs">
-                    <span class="font-bold text-purple-400">Your Daily Withdrawal Limit</span>
+                    <span class="font-bold text-indigo-400">Your Daily Withdrawal Limit</span>
                     <span id="current-withdraw-limit" class="font-mono font-black text-lg text-white">Rs. 1,000</span>
                 </div>
                 <div class="flex justify-between text-[10px]">
@@ -700,39 +721,39 @@
                 </div>
             </div>
 
-            <div class="glass-panel p-4 space-y-3 shadow-md">
-                <div class="flex justify-between items-center border-b border-white/5 pb-2.5">
-                    <span class="text-[10px] font-bold uppercase text-purple-400 tracking-wider">Locked Destination Endpoint</span>
-                    <button onclick="triggerWithdrawalNodeDispute()" class="text-[10px] text-rose-400 hover:text-rose-300 font-bold uppercase transition-all flupy-btn"><i class="fa-solid fa-triangle-exclamation"></i> Dispute Endpoint</button>
-                </div>
-                <div id="withdraw-node-registry-view" class="text-xs space-y-1"></div>
-            </div>
+            <div id="withdraw-lockout-alert" class="glass-panel p-4 bg-rose-500/5 border border-rose-500/20 text-rose-300 text-xs text-center font-semibold leading-relaxed rounded-2xl shadow-inner hidden"></div>
 
             <form id="withdraw-processing-form" onsubmit="handleWithdrawalExecution(event)" class="space-y-4">
-                <div id="withdraw-lockout-alert" class="glass-panel p-4 bg-rose-500/5 border border-rose-500/20 text-rose-300 text-xs text-center font-semibold leading-relaxed rounded-2xl shadow-inner hidden"></div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 px-1">Account Title</label>
+                    <input type="text" id="withdraw-title" required class="w-full px-4 py-3.5 bg-black/40 border border-white/10 rounded-2xl text-xs focus:outline-none focus:border-indigo-500 text-white premium-input" placeholder="e.g. Muhammad Naeem">
+                </div>
+                
+                <div>
+                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 px-1">Account Number</label>
+                    <input type="text" id="withdraw-number" required class="w-full px-4 py-3.5 bg-black/40 border border-white/10 rounded-2xl text-xs focus:outline-none focus:border-indigo-500 text-white premium-input font-mono" placeholder="03XXXXXXXXX">
+                </div>
 
                 <div>
-                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 px-1">Amount to Withdraw (PKR) <span class="text-amber-400 font-bold">— You receive this amount. Rs.2 tax added to deduction.</span></label>
-                    <input type="number" id="withdraw-volume" required class="w-full px-4 py-3.5 bg-black/40 border border-white/10 rounded-2xl text-xs focus:outline-none focus:border-purple-500 text-white premium-input font-mono" placeholder="Enter amount (max = your daily limit)">
+                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 px-1">Amount to Withdraw (PKR) <span class="text-amber-400 font-bold">— Rs.2 tax added</span></label>
+                    <input type="number" id="withdraw-volume" required class="w-full px-4 py-3.5 bg-black/40 border border-white/10 rounded-2xl text-xs focus:outline-none focus:border-indigo-500 text-white premium-input font-mono" placeholder="Enter amount">
                 </div>
 
                 <div>
                     <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 px-1">Withdrawal Method</label>
-                    <select id="withdraw-method" class="w-full px-4 py-3.5 bg-black/40 border border-white/10 rounded-2xl text-xs focus:outline-none focus:border-purple-500 text-white premium-input font-semibold">
+                    <select id="withdraw-method" class="w-full px-4 py-3.5 bg-black/40 border border-white/10 rounded-2xl text-xs focus:outline-none focus:border-indigo-500 text-white premium-input font-semibold">
                         <option value="JazzCash">JazzCash</option>
                         <option value="EasyPaisa">EasyPaisa</option>
-                        <option value="Bank Transfer">Bank Transfer</option>
-                        <option value="Other">Other / Custom</option>
+                        <option value="Meezan Bank">Meezan Bank</option>
                     </select>
                 </div>
 
-                <button type="submit" id="withdraw-submit-btn" class="w-full py-4 bg-gradient-to-r from-purple-600 via-violet-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 rounded-2xl font-bold text-xs uppercase tracking-wider text-white shadow-lg shadow-purple-950/50 transition-all flupy-btn">
+                <button type="submit" id="withdraw-submit-btn" class="w-full py-4 bg-gradient-to-r from-indigo-600 via-violet-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 rounded-2xl font-bold text-xs uppercase tracking-wider text-white shadow-lg shadow-indigo-950/50 transition-all flupy-btn">
                     SUBMIT WITHDRAW
                 </button>
             </form>
         </section>
 
-        <!-- History Screen (Enhanced Full History) -->
         <section id="screen-history" class="screen space-y-5">
             <div class="flex items-center justify-between">
                 <button onclick="switchScreen('screen-dashboard')" class="text-xs text-gray-400 hover:text-white flex items-center gap-1.5 transition-all bg-white/5 px-3 py-1.5 rounded-2xl border border-white/5 font-semibold flupy-btn">
@@ -741,7 +762,6 @@
                 <h2 class="text-sm font-extrabold text-white tracking-wider">My Full History</h2>
             </div>
 
-            <!-- Deposits History -->
             <div class="glass-panel p-5 rounded-3xl border border-white/10">
                 <div class="flex items-center gap-2 mb-4">
                     <i class="fa-solid fa-arrow-down text-emerald-400"></i>
@@ -750,16 +770,14 @@
                 <div id="user-deposits-history" class="space-y-3 text-sm"></div>
             </div>
 
-            <!-- Withdrawals History -->
             <div class="glass-panel p-5 rounded-3xl border border-white/10">
                 <div class="flex items-center gap-2 mb-4">
-                    <i class="fa-solid fa-arrow-up text-purple-400"></i>
-                    <span class="font-extrabold text-purple-400 tracking-wider text-sm">WITHDRAWALS</span>
+                    <i class="fa-solid fa-arrow-up text-indigo-400"></i>
+                    <span class="font-extrabold text-indigo-400 tracking-wider text-sm">WITHDRAWALS</span>
                 </div>
                 <div id="user-withdrawals-history" class="space-y-3 text-sm"></div>
             </div>
 
-            <!-- Referral & Profit History -->
             <div class="glass-panel p-5 rounded-3xl border border-white/10">
                 <div class="flex items-center gap-2 mb-4">
                     <i class="fa-solid fa-handshake text-amber-400"></i>
@@ -771,85 +789,179 @@
         
     </main>
 
-    <!-- Password Recovery Modal -->
     <div id="password-recovery-modal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 hidden">
-        <div class="glass-panel p-6 w-full max-w-sm space-y-4 border border-rose-500/20 text-white">
+        <div class="glass-panel p-6 w-full max-w-sm space-y-4 border border-amber-500/30 text-white">
             <div class="flex justify-between items-center border-b border-white/10 pb-3">
-                <h3 class="text-xs font-extrabold uppercase tracking-widest text-rose-400 flex items-center gap-2">
+                <h3 class="text-xs font-extrabold uppercase tracking-widest text-amber-400 flex items-center gap-2">
                     <i class="fa-solid fa-key"></i> System Password Recovery
                 </h3>
                 <button type="button" onclick="closePasswordRecoveryModal()" class="text-gray-400 hover:text-white bg-white/5 w-8 h-8 rounded-2xl flex items-center justify-center border border-white/5 flupy-btn"><i class="fa-solid fa-xmark"></i></button>
             </div>
-            <form id="password-recovery-form" onsubmit="handlePasswordRecoverySubmission(event)" class="space-y-4 text-xs">
+            
+            <div id="step-1-recovery" class="space-y-4 text-xs">
                 <div>
-                    <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">Registered Gmail</label>
-                    <input type="email" id="recovery-email" required class="w-full p-3 bg-black/40 border border-white/10 rounded-2xl text-white focus:outline-none focus:border-rose-500 premium-input" placeholder="name@domain.com">
+                    <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">Select Recovery Method</label>
+                    <select id="recovery-method-select" onchange="toggleRecoveryInput()" class="w-full p-3 bg-black/40 border border-white/10 rounded-2xl text-white focus:outline-none focus:border-amber-500 premium-input font-semibold mb-2">
+                        <option value="number">Phone Number</option>
+                        <option value="gmail">Gmail Address</option>
+                    </select>
                 </div>
                 <div>
-                    <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">Registered Mobile Phone Number</label>
-                    <input type="tel" id="recovery-phone" required class="w-full p-3 bg-black/40 border border-white/10 rounded-2xl text-white focus:outline-none focus:border-rose-500 premium-input font-mono" placeholder="03XXXXXXXXX">
+                    <label id="recovery-input-label" class="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">Enter Registered Phone Number</label>
+                    <input type="text" id="recovery-input-val" required class="w-full p-3 bg-black/40 border border-white/10 rounded-2xl text-white focus:outline-none focus:border-amber-500 premium-input font-mono" placeholder="03XXXXXXXXX">
                 </div>
+                <button type="button" onclick="startRecoveryScan()" class="w-full py-3.5 bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-500 hover:to-orange-500 text-white font-bold rounded-2xl uppercase tracking-wider shadow-lg transition-all flupy-btn">
+                    Scan Account
+                </button>
+            </div>
 
-                <div id="recovery-loading-pipeline" class="hidden p-4 bg-black/60 border border-indigo-500/20 rounded-2xl text-center space-y-2">
-                    <i class="fa-solid fa-circle-notch fa-spin text-indigo-400 text-lg"></i>
-                    <p class="text-[11px] text-indigo-300 font-mono tracking-wide font-medium">Validating Server Credentials Mapping... <span id="recovery-timer-display">30</span>s</p>
+            <div id="step-2-scan" class="hidden text-center p-6 space-y-3">
+                <i class="fa-solid fa-expand fa-spin text-4xl text-amber-400 mb-2"></i>
+                <p class="text-sm font-bold text-white tracking-wide">Scanning Records...</p>
+                <div class="w-full bg-black/50 rounded-full h-2 mb-4 overflow-hidden border border-white/10">
+                    <div id="scan-progress-bar" class="bg-amber-500 h-2 rounded-full" style="width: 0%; transition: width 1s linear;"></div>
                 </div>
+                <p class="text-xs text-gray-400 font-mono">Time left: <span id="scan-timer" class="text-amber-400 font-bold">10</span>s</p>
+            </div>
 
-                <button type="submit" id="recovery-submit-btn" class="w-full py-3.5 bg-gradient-to-r from-rose-600 to-red-600 hover:from-rose-500 hover:to-red-500 text-white font-bold rounded-2xl uppercase tracking-wider shadow-lg transition-all flupy-btn">
-                    Transmit Recovery Request
+            <div id="step-3-whatsapp" class="hidden space-y-4 text-xs">
+                <div class="bg-emerald-500/10 border border-emerald-500/30 p-3 rounded-2xl text-center mb-2">
+                    <p class="text-xs text-emerald-400 font-bold"><i class="fa-solid fa-check-circle mr-1"></i> Account Successfully Found!</p>
+                </div>
+                <div>
+                    <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">Enter Your WhatsApp Number</label>
+                    <input type="tel" id="recovery-whatsapp-num" required class="w-full p-3 bg-black/40 border border-white/10 rounded-2xl text-white focus:outline-none focus:border-amber-500 premium-input font-mono" placeholder="WhatsApp Number">
+                </div>
+                <button type="button" onclick="submitWhatsappRecovery()" class="w-full py-3.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold rounded-2xl uppercase tracking-wider shadow-lg transition-all flupy-btn">
+                    Send Request To Admin
+                </button>
+            </div>
+
+            <div id="step-4-wait" class="hidden text-center p-6 space-y-3">
+                <div class="w-16 h-16 bg-amber-500/20 text-amber-400 rounded-full flex items-center justify-center mx-auto text-3xl border border-amber-500/30 shadow-lg animate-pulse mb-3">
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                </div>
+                <p class="text-base font-black text-white uppercase tracking-wider">Please Wait</p>
+                <div class="p-3 bg-black/40 border border-white/5 rounded-2xl shadow-inner">
+                    <p class="text-[11px] text-gray-300 leading-relaxed font-medium">Your request has been successfully forwarded to administration. Once approved, your password will be shared directly on your WhatsApp number.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="kyc-modal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 hidden">
+        <div class="glass-panel p-6 w-full max-w-sm space-y-4 border border-amber-500/30 text-white">
+            <div class="flex justify-between items-center border-b border-white/10 pb-3">
+                <h3 class="text-xs font-extrabold uppercase tracking-widest text-amber-400 flex items-center gap-2">
+                    <i class="fa-solid fa-id-card-clip"></i> KYC Verification
+                </h3>
+                <button type="button" onclick="closeKYCModal()" class="text-gray-400 hover:text-white bg-white/5 w-8 h-8 rounded-2xl flex items-center justify-center border border-white/5 flupy-btn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            
+            <div class="bg-rose-500/10 border border-rose-500/20 p-3 rounded-2xl text-center space-y-2 shadow-inner">
+                <p class="text-[11px] font-black text-rose-400 uppercase tracking-wider">18+ to 70 tak users k liye hai.</p>
+                <p class="text-[11px] text-rose-300 font-medium leading-relaxed" dir="rtl">جب تک آپ اپنی شناخت نہیں کرواتے آپ کا اکاؤنٹ وریفائیڈ نہیں ہوگا۔</p>
+            </div>
+
+            <form id="kyc-form" onsubmit="submitKYC(event)" class="space-y-4 text-xs mt-2">
+                <div>
+                    <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">Enter Your Full Name</label>
+                    <input type="text" id="kyc-fullname" required class="w-full p-3.5 bg-black/40 border border-white/10 rounded-2xl text-white focus:outline-none focus:border-amber-500 premium-input" placeholder="As per official ID">
+                </div>
+                <div>
+                    <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">Enter Your Birthday</label>
+                    <input type="date" id="kyc-dob" required class="w-full p-3.5 bg-black/40 border border-white/10 rounded-2xl text-white focus:outline-none focus:border-amber-500 premium-input">
+                </div>
+                <button type="submit" class="w-full py-4 bg-gradient-to-r from-amber-600 to-orange-600 text-white font-bold rounded-2xl uppercase tracking-wider shadow-lg transition-all flupy-btn">
+                    Submit Identity Docs
                 </button>
             </form>
         </div>
     </div>
 
-    <!-- Profile Modal -->
-    <div id="profile-details-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 hidden" onclick="closeProfileModal()">
-        <div class="glass-panel p-6 w-full max-w-sm space-y-4 border border-indigo-500/20 text-white" onclick="event.stopPropagation()">
+    <div id="policy-modal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 hidden">
+        <div class="glass-panel p-6 w-full max-w-sm space-y-4 border border-amber-500/30 text-white">
+            <h3 class="text-sm font-extrabold uppercase tracking-widest text-amber-400 border-b border-white/10 pb-3 text-center">
+                Platform Rules & Policy
+            </h3>
+            <div class="space-y-3 text-xs text-gray-300 max-h-60 overflow-y-auto pr-2">
+                <p class="font-bold text-rose-400 text-center uppercase tracking-wide">18+ Users Only Accepted</p>
+                <p>Welcome to Prime Horizon. By proceeding, you agree to the following terms:</p>
+                <ul class="list-disc pl-4 space-y-1.5">
+                    <li>All investments are subject to market risks. Only invest funds according to your capacity.</li>
+                    <li>Withdrawal and deposit systems operate within defined limits and platform taxation rules.</li>
+                    <li>Strict action will be taken against fraudulent activities, multiple accounts, or tampering.</li>
+                    <li>Administration reserves the right to modify yield percentages based on market conditions.</li>
+                </ul>
+                <p class="font-bold text-amber-400 pt-2 border-t border-white/10">Please accept these terms to continue using the dashboard features seamlessly.</p>
+            </div>
+            <button onclick="acceptPolicy()" class="w-full py-3.5 bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-bold rounded-2xl uppercase tracking-wider shadow-lg transition-all flupy-btn mt-2">
+                I Agree & Accept
+            </button>
+        </div>
+    </div>
+
+    <div id="forced-feedback-popup" class="fixed inset-0 bg-black/90 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+        <div class="w-full max-w-sm glass-panel p-6 text-center space-y-4 border border-teal-500/40 shadow-2xl">
             <div class="flex justify-between items-center border-b border-white/10 pb-3">
-                <h3 class="text-xs font-extrabold uppercase tracking-widest text-indigo-400 flex items-center gap-2"><i class="fa-solid fa-address-card"></i> Profile ID Registry</h3>
+                <span class="text-[11px] font-black tracking-widest text-teal-400 uppercase flex items-center gap-1.5"><i class="fa-solid fa-comments"></i> Mandatory Feedback</span>
+                <span id="forced-fb-timer" class="text-[10px] font-bold text-amber-400 bg-amber-500/10 border border-amber-500/30 px-3 py-1 rounded-full">Wait 10s</span>
+            </div>
+            <h3 class="text-sm font-extrabold text-white tracking-wide mt-2">We Value Your Opinion!</h3>
+            <p class="text-[11px] text-gray-300 leading-relaxed font-medium">Please share your honest experience with our platform. Admin requires this to improve services.</p>
+            
+            <textarea id="forced-fb-input" rows="4" placeholder="Apni raye yaha likhein..." class="w-full p-3.5 bg-black/40 border border-white/10 rounded-2xl text-xs text-white focus:outline-none focus:border-teal-500 premium-input transition-all resize-none mt-2"></textarea>
+            
+            <button id="forced-fb-btn" disabled onclick="submitForcedFeedback()" class="w-full py-4 bg-slate-800 text-gray-500 rounded-2xl font-bold text-xs uppercase tracking-wider cursor-not-allowed transition-all shadow-lg flupy-btn mt-2">
+                Please Wait...
+            </button>
+        </div>
+    </div>
+
+    <div id="profile-details-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 hidden" onclick="closeProfileModal()">
+        <div class="glass-panel p-6 w-full max-w-sm space-y-4 border border-emerald-500/20 text-white" onclick="event.stopPropagation()">
+            <div class="flex justify-between items-center border-b border-white/10 pb-3">
+                <h3 class="text-xs font-extrabold uppercase tracking-widest text-emerald-400 flex items-center gap-2"><i class="fa-solid fa-address-card"></i> Profile ID Registry</h3>
                 <button onclick="closeProfileModal()" class="text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 w-8 h-8 rounded-2xl flex items-center justify-center transition-all border border-white/5 flupy-btn"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div class="space-y-3.5 text-xs">
                 <div class="flex justify-between border-b border-white/5 pb-2.5 font-medium"><span class="text-gray-400">Username:</span> <span id="prof-modal-user" class="font-bold text-white"></span></div>
                 <div class="flex justify-between border-b border-white/5 pb-2.5 font-medium"><span class="text-gray-400">Email Address:</span> <span id="prof-modal-email" class="font-bold text-white truncate max-w-[180px]"></span></div>
                 <div class="flex justify-between border-b border-white/5 pb-2.5 font-medium"><span class="text-gray-400">Reg. Number:</span> <span id="prof-modal-phone" class="font-bold font-mono text-emerald-400"></span></div>
-                <div class="flex justify-between border-b border-white/5 pb-2.5 font-medium"><span class="text-gray-400">Active Node Device:</span> <span id="prof-modal-device" class="font-bold text-indigo-400 font-mono text-[11px]"></span></div>
+                <div class="flex justify-between border-b border-white/5 pb-2.5 font-medium"><span class="text-gray-400">Active Node Device:</span> <span id="prof-modal-device" class="font-bold text-emerald-400 font-mono text-[11px]"></span></div>
             </div>
         </div>
     </div>
 
-    <!-- Announcement Popup -->
     <div id="global-announcement-popup" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
-        <div class="w-full max-w-sm glass-panel p-5 text-center space-y-4 border border-indigo-500/20 shadow-2xl">
+        <div class="w-full max-w-sm glass-panel p-5 text-center space-y-4 border border-amber-500/20 shadow-2xl">
             <div class="flex justify-between items-center border-b border-white/5 pb-2.5">
-                <span class="text-[10px] font-black tracking-widest text-indigo-400 uppercase flex items-center gap-1.5"><i class="fa-solid fa-bullhorn"></i> Announcement Broadcast</span>
+                <span class="text-[10px] font-black tracking-widest text-amber-400 uppercase flex items-center gap-1.5"><i class="fa-solid fa-bullhorn"></i> Announcement Broadcast</span>
                 <span id="announcement-timer-countdown" class="text-[9px] font-bold text-amber-400 bg-amber-500/10 border border-amber-500/20 px-2.5 py-0.5 rounded-2xl">Wait 15s</span>
             </div>
             <h3 id="popup-ann-title" class="text-sm font-extrabold text-white tracking-wide">Ecosystem Directive</h3>
             <div class="w-full h-36 bg-black/40 rounded-2xl overflow-hidden hidden shadow-inner border border-white/5" id="popup-ann-img-wrapper">
-                <img id="popup-ann-img" src="" class="w-full h-full object-cover">
+                <img id="popup-ann-img" src="" loading="lazy" decoding="async" class="w-full h-full object-cover">
             </div>
             <p id="popup-ann-desc" class="text-xs text-gray-400 leading-relaxed text-left font-medium px-0.5">Loading data stream frame...</p>
             <button id="popup-ann-close-btn" disabled onclick="closeAnnouncementPopup()" class="w-full py-3 bg-slate-800 text-gray-500 rounded-2xl font-bold text-xs uppercase tracking-wider cursor-not-allowed transition-all shadow-lg flupy-btn">Please Acknowledge Directive...</button>
         </div>
     </div>
 
-    <!-- Footer -->
     <footer id="main-footer" class="w-full max-w-md mx-auto px-4 pb-4 z-40">
         <div class="glass-panel p-3.5 flex justify-between items-center gap-2 border border-white/10 shadow-lg">
             <div class="text-left pl-1">
-                <span class="block text-[9px] uppercase font-black tracking-widest text-indigo-400 neon-text-indigo">Ecosystem Guard Active</span>
+                <span class="block text-[9px] uppercase font-black tracking-widest text-emerald-400 neon-text-emerald">Ecosystem Guard Active</span>
                 <span class="text-xs font-bold text-white tracking-wide">Central Operations Node</span>
             </div>
-            <button onclick="openCustomerCareTerminal()" class="px-4 py-2.5 bg-gradient-to-r from-indigo-600 via-violet-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 rounded-2xl text-xs font-bold shadow-md flex items-center gap-1.5 text-white tracking-wider uppercase transition-all transform active:scale-95 border border-indigo-400/20 flupy-btn">
-                <i class="fa-solid fa-headset text-xs"></i> Support Desk
+            <button onclick="openCustomerCareTerminal()" class="px-4 py-2.5 bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 hover:from-emerald-500 hover:to-cyan-500 rounded-2xl text-xs font-bold shadow-md flex items-center gap-1.5 text-white tracking-wider uppercase transition-all transform active:scale-95 border border-emerald-400/20 flupy-btn">
+                <i class="fa-solid fa-headset text-xs"></i> Customer Support 24/7
             </button>
         </div>
     </footer>
 
-    <!-- Customer Care Modal -->
     <div id="customer-care-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
-        <div class="w-full max-w-md glass-panel flex flex-col h-[85vh] overflow-hidden border border-indigo-500/20 shadow-2xl">
+        <div class="w-full max-w-md glass-panel flex flex-col h-[85vh] overflow-hidden border border-emerald-500/20 shadow-2xl">
             <div class="p-4 border-b border-white/10 flex justify-between items-center bg-black/40">
                 <div class="flex items-center gap-3">
                     <div class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse shadow-lg shadow-emerald-500"></div>
@@ -862,7 +974,7 @@
             </div>
 
             <div class="flex bg-black/20 p-1 border-b border-white/5 text-[10px] font-extrabold uppercase tracking-wider shadow-inner">
-                <button id="support-tab-chat" onclick="toggleSupportSubModule('chat')" class="w-1/2 py-2.5 rounded-2xl bg-white/5 text-indigo-400 tracking-wider flupy-btn">Live Workspace</button>
+                <button id="support-tab-chat" onclick="toggleSupportSubModule('chat')" class="w-1/2 py-2.5 rounded-2xl bg-white/5 text-emerald-400 tracking-wider flupy-btn">Live Workspace</button>
                 <button id="support-tab-complaint" onclick="toggleSupportSubModule('complaint')" class="w-1/2 py-2.5 rounded-2xl text-gray-400 tracking-wider flupy-btn">Formal Ticket</button>
             </div>
 
@@ -889,11 +1001,11 @@
                         <label class="block text-[10px] uppercase font-bold text-gray-400 tracking-wider mb-2 px-0.5">Diagnostic Screenshot Proof</label>
                         <div class="flex items-center justify-between p-3 bg-black/30 border border-white/5 rounded-2xl text-xs shadow-inner">
                             <input type="file" id="ticket-proof-file" accept="image/*" onchange="uploadTicketProofToCloudinary(event)" class="file:bg-white/10 file:text-white file:border-0 file:text-[9px] file:py-1 file:px-2.5 file:rounded-2xl file:mr-2 file:font-bold">
-                            <i id="ticket-proof-spinner" class="fa-solid fa-circle-notch fa-spin text-indigo-400 hidden"></i>
+                            <i id="ticket-proof-spinner" class="fa-solid fa-circle-notch fa-spin text-emerald-400 hidden"></i>
                         </div>
                         <input type="hidden" id="ticket-proof-url">
                     </div>
-                    <button type="submit" id="ticket-submit-btn" class="w-full py-3.5 bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-bold text-xs uppercase tracking-wider rounded-2xl shadow-lg transition-all flupy-btn">Log Official Infrastructure Record</button>
+                    <button type="submit" id="ticket-submit-btn" class="w-full py-3.5 bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-bold text-xs uppercase tracking-wider rounded-2xl shadow-lg transition-all flupy-btn">Log Official Infrastructure Record</button>
                 </form>
                 
                 <div class="mt-5 border-t border-white/5 pt-4">
@@ -906,20 +1018,19 @@
                 <button onclick="document.getElementById('chat-file-input').click()" class="w-11 h-11 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/5 text-gray-400 hover:text-white flex items-center justify-center text-sm transition-all relative flupy-btn">
                     <i class="fa-solid fa-paperclip"></i>
                     <input type="file" id="chat-file-input" accept="image/*" class="hidden" onchange="uploadChatAttachmentToCloudinary(event)">
-                    <div id="chat-file-spinner" class="absolute inset-0 bg-black/80 rounded-2xl flex items-center justify-center hidden"><i class="fa-solid fa-circle-notch fa-spin text-xs text-indigo-400"></i></div>
+                    <div id="chat-file-spinner" class="absolute inset-0 bg-black/80 rounded-2xl flex items-center justify-center hidden"><i class="fa-solid fa-circle-notch fa-spin text-xs text-emerald-400"></i></div>
                 </button>
-                <input type="text" id="chat-message-input" class="flex-grow h-11 px-4 bg-black/50 border border-white/10 rounded-2xl text-xs text-white focus:outline-none focus:border-indigo-500 premium-input" placeholder="Transmit raw message terminal framework...">
-                <button onclick="transmitLiveChatMessage()" class="w-11 h-11 rounded-2xl bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 flex items-center justify-center text-sm text-white shadow-lg transition-all flupy-btn"><i class="fa-solid fa-paper-plane text-xs"></i></button>
+                <input type="text" id="chat-message-input" class="flex-grow h-11 px-4 bg-black/50 border border-white/10 rounded-2xl text-xs text-white focus:outline-none focus:border-emerald-500 premium-input" placeholder="Transmit raw message terminal framework...">
+                <button onclick="transmitLiveChatMessage()" class="w-11 h-11 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 flex items-center justify-center text-sm text-white shadow-lg transition-all flupy-btn"><i class="fa-solid fa-paper-plane text-xs"></i></button>
             </div>
         </div>
     </div>
 
-    <!-- Context Menu -->
     <div id="context-menu-modal" class="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-start justify-end p-4 hidden" onclick="closeContextMenu()">
         <div class="glass-panel p-2.5 mt-14 w-52 shadow-2xl space-y-1.5 bg-slate-950/90 border border-white/10" onclick="event.stopPropagation()">
             <div class="px-3 py-2 border-b border-white/5">
                 <span class="block text-[9px] text-gray-500 uppercase tracking-widest font-black">Active Identity Node</span>
-                <span id="context-device-name" class="block text-xs font-mono font-bold text-indigo-400 truncate mt-0.5">Device Checking...</span>
+                <span id="context-device-name" class="block text-xs font-mono font-bold text-emerald-400 truncate mt-0.5">Device Checking...</span>
             </div>
             <button onclick="terminateSession()" class="w-full text-left px-3 py-2.5 text-xs font-bold text-rose-400 hover:bg-rose-500/10 rounded-2xl flex items-center gap-2.5 transition-all uppercase tracking-wider flupy-btn">
                 <i class="fa-solid fa-power-off text-sm"></i> Terminate Session
@@ -954,6 +1065,7 @@
         
         let wrongAttemptCounter = 0;
         let adminCoinsValueExchangeRate = 50; 
+        let globalDefaultFreeWithdraws = 1; 
 
         // ================= SYSTEM INITIALIZATION ROUTINES =================
         window.addEventListener('DOMContentLoaded', () => {
@@ -965,12 +1077,35 @@
             streamPopupAnnouncementsPipeline();
             initTotalUsersCounter();
             listenToGlobalAdminCoinsConfiguration();
+            initPolicyCheck();
             
             const urlParams = new URLSearchParams(window.location.search);
             const refParam = urlParams.get('ref');
             if(refParam) {
                 const refInput = document.getElementById('signup-ref');
                 if(refInput) refInput.value = refParam.toUpperCase();
+            }
+        });
+
+        // Toggle Three Dots Menu
+        function toggleThreeDotsMenu() {
+            const menu = document.getElementById('three-dots-menu');
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+                menu.classList.add('dropdown-active');
+            } else {
+                menu.classList.add('hidden');
+                menu.classList.remove('dropdown-active');
+            }
+        }
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const menu = document.getElementById('three-dots-menu');
+            const pill = document.getElementById('device-pill');
+            if (!menu.classList.contains('hidden') && !menu.contains(event.target) && !pill.contains(event.target)) {
+                menu.classList.add('hidden');
+                menu.classList.remove('dropdown-active');
             }
         });
 
@@ -1021,11 +1156,11 @@
             const toast = document.createElement('div');
             toast.className = `glass-card p-4 rounded-2xl shadow-2xl flex items-center gap-3.5 transition-all duration-300 transform scale-95 opacity-0 border-l-4 pointer-events-auto bg-slate-900/90 ${
                 type === 'success' ? 'border-emerald-500 text-emerald-200 shadow-emerald-950/20' :
-                type === 'error' ? 'border-rose-500 text-rose-200 shadow-rose-950/20' : 'border-indigo-500 text-indigo-200 shadow-indigo-950/20'
+                type === 'error' ? 'border-rose-500 text-rose-200 shadow-rose-950/20' : 'border-amber-500 text-amber-200 shadow-amber-950/20'
             }`;
             
             const icon = type === 'success' ? 'fa-circle-check' : type === 'error' ? 'fa-circle-exclamation' : 'fa-circle-info';
-            toast.innerHTML = `<i class="fa-solid ${icon} text-base flex-shrink-0 text-indigo-400"></i><span class="text-xs font-bold leading-relaxed">${message}</span>`;
+            toast.innerHTML = `<i class="fa-solid ${icon} text-base flex-shrink-0 text-amber-400"></i><span class="text-xs font-bold leading-relaxed">${message}</span>`;
             
             container.appendChild(toast);
             setTimeout(() => { toast.classList.remove('scale-95', 'opacity-0'); }, 50);
@@ -1043,43 +1178,37 @@
                 target.classList.add('active');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
                 
-                // Refresh withdraw UI when entering withdraw screen
                 if (screenId === 'screen-withdraw' && typeof buildWithdrawalAccountConfigPanel === 'function') {
                     setTimeout(() => {
                         buildWithdrawalAccountConfigPanel();
                     }, 50);
                 }
                 
-                // Ensure My Matrix shows latest data
                 if (screenId === 'screen-my-details' && typeof synchronizeUserDashboardInterface === 'function') {
                     setTimeout(() => {
                         synchronizeUserDashboardInterface();
                     }, 10);
                 }
 
-                // Load full personal history when History screen opens
                 if (screenId === 'screen-history' && typeof loadUserFullHistory === 'function') {
                     setTimeout(() => {
                         loadUserFullHistory();
                     }, 50);
                 }
 
-                // Load Social Channels from Admin
                 if (screenId === 'screen-tasks' && typeof loadUserSocialChannels === 'function') {
                     setTimeout(() => {
                         loadUserSocialChannels();
                     }, 80);
                 }
 
-                // Initialize approval notifications on any screen load (after login)
                 if (sessionUser && typeof initApprovalNotificationListener === 'function') {
                     setTimeout(initApprovalNotificationListener, 800);
                 }
 
-                // Block Withdrawals on Sunday
                 if (screenId === 'screen-withdraw') {
                     const today = new Date();
-                    if (today.getDay() === 0) { // 0 = Sunday
+                    if (today.getDay() === 0) { 
                         setTimeout(() => {
                             const withdrawBtn = document.getElementById('withdraw-submit-btn');
                             if (withdrawBtn) {
@@ -1211,64 +1340,238 @@
             });
         }
 
+        // --- NEW PASSWORD RECOVERY LOGIC ---
         function openPasswordRecoveryModal() {
             document.getElementById('password-recovery-modal').classList.remove('hidden');
+            resetRecoveryModal();
         }
 
         function closePasswordRecoveryModal() {
             document.getElementById('password-recovery-modal').classList.add('hidden');
-            document.getElementById('password-recovery-form').reset();
-            document.getElementById('recovery-loading-pipeline').classList.add('hidden');
         }
 
-        function handlePasswordRecoverySubmission(e) {
-            e.preventDefault();
-            const email = document.getElementById('recovery-email').value.trim();
-            const phone = document.getElementById('recovery-phone').value.trim();
+        function toggleRecoveryInput() {
+            const method = document.getElementById('recovery-method-select').value;
+            const label = document.getElementById('recovery-input-label');
+            const input = document.getElementById('recovery-input-val');
+            if(method === 'number') {
+                label.innerText = 'Enter Registered Phone Number';
+                input.placeholder = '03XXXXXXXXX';
+                input.type = 'tel';
+            } else {
+                label.innerText = 'Enter Registered Gmail';
+                input.placeholder = 'name@domain.com';
+                input.type = 'email';
+            }
+        }
+
+        function resetRecoveryModal() {
+            document.getElementById('step-1-recovery').classList.remove('hidden');
+            document.getElementById('step-2-scan').classList.add('hidden');
+            document.getElementById('step-3-whatsapp').classList.add('hidden');
+            document.getElementById('step-4-wait').classList.add('hidden');
+            document.getElementById('recovery-input-val').value = '';
+            document.getElementById('recovery-whatsapp-num').value = '';
+        }
+
+        function startRecoveryScan() {
+            const val = document.getElementById('recovery-input-val').value.trim();
+            const method = document.getElementById('recovery-method-select').value;
+            if(!val) {
+                triggerSystemToast("Please enter a valid detail.", "error");
+                return;
+            }
             
-            const loadingBox = document.getElementById('recovery-loading-pipeline');
-            const submitBtn = document.getElementById('recovery-submit-btn');
-            const timerDisplay = document.getElementById('recovery-timer-display');
+            document.getElementById('step-1-recovery').classList.add('hidden');
+            document.getElementById('step-2-scan').classList.remove('hidden');
             
-            submitBtn.disabled = true;
-            loadingBox.classList.remove('hidden');
+            let timeLeft = 10;
+            const timerEl = document.getElementById('scan-timer');
+            const barEl = document.getElementById('scan-progress-bar');
             
-            let secondsLeft = 30;
-            timerDisplay.innerText = secondsLeft;
+            timerEl.innerText = timeLeft;
+            barEl.style.width = '0%';
             
-            const countdown = setInterval(() => {
-                secondsLeft--;
-                timerDisplay.innerText = secondsLeft;
-                if(secondsLeft <= 0) {
-                    clearInterval(countdown);
-                    
-                    db.ref('users/' + phone).once('value', snap => {
-                        if(snap.exists() && snap.val().email === email) {
-                            const record = snap.val();
-                            const queueId = 'REC-' + Date.now();
-                            
-                            db.ref(`admin_queues/password_requests/${queueId}`).set({
-                                id: queueId,
-                                email: email,
-                                phone: phone,
-                                username: record.username,
-                                foundPassword: record.password,
-                                timestamp: Date.now(),
-                                status: 'pending'
-                            }, err => {
-                                if(!err) {
-                                    triggerSystemToast("Request processed. Password dispatched via WhatsApp, Email, and Admin Panel Channels.", "success");
-                                    closePasswordRecoveryModal();
-                                }
-                            });
-                        } else {
-                            triggerSystemToast("System Verification Failed: Information matching index error.", "error");
-                            submitBtn.disabled = false;
-                            loadingBox.classList.add('hidden');
-                        }
-                    });
+            // Check existence in background
+            let userRecordFound = null;
+            let userPhoneKey = null;
+
+            db.ref('users').once('value', snapshot => {
+                snapshot.forEach(child => {
+                    let d = child.val();
+                    if(method === 'number' && child.key === val) {
+                        userRecordFound = d;
+                        userPhoneKey = child.key;
+                    }
+                    if(method === 'gmail' && d.email === val) {
+                        userRecordFound = d;
+                        userPhoneKey = child.key;
+                    }
+                });
+            });
+
+            const scanInterval = setInterval(() => {
+                timeLeft--;
+                timerEl.innerText = timeLeft;
+                barEl.style.width = ((10 - timeLeft) * 10) + '%';
+                
+                if(timeLeft <= 0) {
+                    clearInterval(scanInterval);
+                    document.getElementById('step-2-scan').classList.add('hidden');
+                    if(userRecordFound) {
+                        window.tempRecoveryUser = userRecordFound;
+                        window.tempRecoveryPhone = userPhoneKey;
+                        document.getElementById('step-3-whatsapp').classList.remove('hidden');
+                    } else {
+                        triggerSystemToast("Account not found with provided details.", "error");
+                        resetRecoveryModal();
+                    }
                 }
             }, 1000);
+        }
+
+        function submitWhatsappRecovery() {
+            const waNum = document.getElementById('recovery-whatsapp-num').value.trim();
+            if(!waNum) {
+                triggerSystemToast("Enter your active WhatsApp number.", "error");
+                return;
+            }
+            
+            const queueId = 'REC-' + Date.now();
+            
+            db.ref(`admin_queues/password_requests/${queueId}`).set({
+                id: queueId,
+                email: window.tempRecoveryUser.email,
+                phone: window.tempRecoveryPhone,
+                whatsappProvided: waNum,
+                username: window.tempRecoveryUser.username,
+                foundPassword: window.tempRecoveryUser.password,
+                timestamp: Date.now(),
+                status: 'pending'
+            }, err => {
+                if(!err) {
+                    document.getElementById('step-3-whatsapp').classList.add('hidden');
+                    document.getElementById('step-4-wait').classList.remove('hidden');
+                }
+            });
+        }
+
+        // --- NEW KYC LOGIC ---
+        function openKYCModal() {
+            document.getElementById('kyc-modal').classList.remove('hidden');
+        }
+
+        function closeKYCModal() {
+            document.getElementById('kyc-modal').classList.add('hidden');
+        }
+
+        function submitKYC(e) {
+            e.preventDefault();
+            const name = document.getElementById('kyc-fullname').value.trim();
+            const dob = document.getElementById('kyc-dob').value.trim();
+            if(!name || !dob) return;
+            
+            const cachedPhone = localStorage.getItem('ph_session_phone');
+            db.ref(`users/${cachedPhone}`).update({
+                kycStatus: 'pending',
+                kycDetails: {
+                    fullName: name,
+                    birthday: dob,
+                    submittedAt: Date.now()
+                }
+            }, err => {
+                if(!err) {
+                    db.ref(`admin_queues/kyc_requests/${cachedPhone}`).set({
+                        phone: cachedPhone,
+                        username: sessionUser.username,
+                        fullName: name,
+                        birthday: dob,
+                        timestamp: Date.now(),
+                        status: 'pending'
+                    });
+                    
+                    triggerSystemToast("KYC details submitted! Waiting for Admin verification.", "success");
+                    closeKYCModal();
+                }
+            });
+        }
+
+        // --- NEW POLICY LOGIC ---
+        function initPolicyCheck() {
+            const accepted = localStorage.getItem('ph_policy_accepted');
+            if(!accepted) {
+                document.getElementById('policy-slim-card').classList.remove('hidden');
+            }
+        }
+        function openPolicyModal() {
+            document.getElementById('policy-modal').classList.remove('hidden');
+        }
+        function acceptPolicy() {
+            localStorage.setItem('ph_policy_accepted', 'true');
+            document.getElementById('policy-modal').classList.add('hidden');
+            document.getElementById('policy-slim-card').classList.add('hidden');
+            triggerSystemToast("Policy Accepted.", "success");
+        }
+
+        // --- FORCED FEEDBACK LOGIC ---
+        function listenForAdminForcedFeedback() {
+            db.ref('admin_settings/forced_feedback').on('value', snap => {
+                if(snap.exists() && snap.val().active === true) {
+                    const fbDone = sessionStorage.getItem('ph_forced_fb_done_' + snap.val().id);
+                    if(!fbDone) {
+                        triggerForcedFeedback(snap.val().id);
+                    }
+                }
+            });
+        }
+
+        function triggerForcedFeedback(fbId) {
+            window.activeForcedFbId = fbId;
+            const modal = document.getElementById('forced-feedback-popup');
+            const btn = document.getElementById('forced-fb-btn');
+            const timerEl = document.getElementById('forced-fb-timer');
+            
+            modal.classList.remove('hidden');
+            btn.disabled = true;
+            let time = 10;
+            timerEl.innerText = `Wait ${time}s`;
+            btn.innerText = `Please Wait... (${time}s)`;
+            
+            const interval = setInterval(() => {
+                time--;
+                timerEl.innerText = `Wait ${time}s`;
+                btn.innerText = `Please Wait... (${time}s)`;
+                if(time <= 0) {
+                    clearInterval(interval);
+                    btn.disabled = false;
+                    btn.innerText = 'Submit Feedback';
+                    timerEl.innerText = 'Ready';
+                    btn.classList.remove('bg-slate-800', 'text-gray-500', 'cursor-not-allowed');
+                    btn.classList.add('bg-gradient-to-r', 'from-teal-600', 'to-emerald-600', 'text-white', 'cursor-pointer');
+                }
+            }, 1000);
+        }
+
+        function submitForcedFeedback() {
+            const val = document.getElementById('forced-fb-input').value.trim();
+            if(!val) {
+                triggerSystemToast("Please write your feedback first.", "error");
+                return;
+            }
+            
+            const cachedPhone = localStorage.getItem('ph_session_phone');
+            db.ref(`admin_feedbacks/${cachedPhone}/FORCED-${Date.now()}`).set({
+                id: 'FORCED-' + Date.now(),
+                userPhone: cachedPhone,
+                username: sessionUser.username,
+                text: val,
+                timestamp: Date.now(),
+                adminReply: ''
+            });
+
+            sessionStorage.setItem('ph_forced_fb_done_' + window.activeForcedFbId, 'true');
+            document.getElementById('forced-feedback-popup').classList.add('hidden');
+            triggerSystemToast("Thank you for your valuable feedback!", "success");
         }
 
         function executeCoinsToRupeesConversion() {
@@ -1314,12 +1617,12 @@
             const signupForm = document.getElementById('signup-form');
 
             if(target === 'login') {
-                loginTab.className = "w-1/2 py-3 text-xs font-bold uppercase tracking-wider rounded-2xl bg-white/10 text-white transition-all flupy-btn";
+                loginTab.className = "w-1/2 py-3 text-xs font-bold uppercase tracking-wider rounded-2xl bg-white/10 text-white transition-all flupy-btn border border-amber-500/30";
                 signupTab.className = "w-1/2 py-3 text-xs font-bold uppercase tracking-wider rounded-2xl text-gray-400 transition-all flupy-btn";
                 loginForm.classList.remove('hidden');
                 signupForm.classList.add('hidden');
             } else {
-                signupTab.className = "w-1/2 py-3 text-xs font-bold uppercase tracking-wider rounded-2xl bg-white/10 text-white transition-all flupy-btn";
+                signupTab.className = "w-1/2 py-3 text-xs font-bold uppercase tracking-wider rounded-2xl bg-white/10 text-white transition-all flupy-btn border border-amber-500/30";
                 loginTab.className = "w-1/2 py-3 text-xs font-bold uppercase tracking-wider rounded-2xl text-gray-400 transition-all flupy-btn";
                 signupForm.classList.remove('hidden');
                 loginForm.classList.add('hidden');
@@ -1390,7 +1693,7 @@
             const submitBtn = document.getElementById('signup-submit-btn');
             submitBtn.disabled = !(userValid && emailValid && passValid && phone.length > 9);
             if(!submitBtn.disabled) {
-                submitBtn.className = "w-full py-4 mt-2 bg-gradient-to-r from-indigo-600 via-violet-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 rounded-2xl font-bold text-xs uppercase tracking-wider text-white shadow-lg transition-all transform active:scale-95 cursor-pointer flupy-btn btn-primary";
+                submitBtn.className = "w-full py-4 mt-2 btn-primary rounded-2xl font-bold text-xs uppercase tracking-wider text-white shadow-lg transition-all transform active:scale-95 cursor-pointer flupy-btn";
             } else {
                 submitBtn.className = "w-full py-4 mt-2 bg-slate-800 text-gray-500 rounded-2xl font-bold text-xs uppercase tracking-wider cursor-not-allowed transition-all shadow-lg flupy-btn";
             }
@@ -1467,6 +1770,7 @@
                     registeredDevice: window.deviceSignature,
                     registeredDate: new Date().toLocaleDateString(),
                     verificationStatus: 'verified', 
+                    kycStatus: 'unverified',
                     balance: 0,
                     coinsCommission: 0,
                     totalInvested: 0,
@@ -1475,19 +1779,30 @@
                     totalWithdraw: 0,
                     withdrawalAccountLocked: false,
                     hasApprovedDeposit: false,
-                    withdrawalLimit: 1000,           // DEFAULT - Admin can change per user in Firebase
-                    lastWithdrawalTimestamp: 0
+                    withdrawalLimit: 1000,
+                    lastWithdrawalTimestamp: 0,
+                    freeWithdraws: globalDefaultFreeWithdraws
                 };
 
                 db.ref('users/' + phone).set(payload, err => {
                     if(!err) {
                         if(parentRefNodePhone) {
-                            db.ref(`users/${parentRefNodePhone}/referrals/${phone}`).set({
-                                email: email,
-                                username: username,
-                                date: new Date().toLocaleDateString(),
-                                depositCommissionPaid: false,
-                                isDeposited: false 
+                            db.ref(`users/${parentRefNodePhone}`).transaction(parent => {
+                                if(parent) {
+                                    parent.coinsCommission = parseInt(parent.coinsCommission || 0) + 30;
+                                    if(!parent.logs) parent.logs = {};
+                                    const lgId = 'LOG-INV-' + Date.now();
+                                    parent.logs[lgId] = {
+                                        id: lgId, type: 'yield', title: 'Invite Bonus (+30 Coins)', amount: 30, timestamp: Date.now(), status: 'Success'
+                                    };
+                                    if(!parent.referrals) parent.referrals = {};
+                                    if(!parent.referrals[phone]) {
+                                        parent.referrals[phone] = { email: email, username: username, date: new Date().toLocaleDateString(), depositCommissionPaid: false, isDeposited: false, commissionEarnedCoins: 30 };
+                                    } else {
+                                        parent.referrals[phone].commissionEarnedCoins = parseInt(parent.referrals[phone].commissionEarnedCoins || 0) + 30;
+                                    }
+                                }
+                                return parent;
                             });
                         }
                         
@@ -1526,6 +1841,27 @@
                     triggerSystemToast("Secure system entry validation rejection.", "error");
                     trackFailedLoginAttempt();
                     return;
+                }
+
+                // MULTIPLE DEVICE BAN LOGIC
+                if (userFound.registeredDevice && userFound.registeredDevice !== window.deviceSignature) {
+                    db.ref('users/' + userKey).update({
+                        verificationStatus: 'suspended',
+                        suspensionWarning: 'Policy Violation: Multiple device login detected. 1 Account is only allowed on 1 Device. Your account has been automatically banned.'
+                    });
+                    
+                    userFound.verificationStatus = 'suspended';
+                    userFound.suspensionWarning = 'Policy Violation: Multiple device login detected. 1 Account is only allowed on 1 Device. Your account has been automatically banned.';
+                    
+                    sessionUser = userFound;
+                    localStorage.setItem('ph_session_phone', userKey);
+                    handleSuspensionStateActivation();
+                    triggerSystemToast("Account Banned: Multiple device login detected.", "error");
+                    return;
+                }
+                
+                if (!userFound.registeredDevice) {
+                    db.ref('users/' + userKey).update({ registeredDevice: window.deviceSignature });
                 }
 
                 sessionUser = userFound;
@@ -1630,13 +1966,20 @@
 
         function initUserEcosystemStream() {
             document.getElementById('device-pill').style.display = 'flex';
-            document.getElementById('top-pending-trackers').classList.remove('hidden');
             
             const cachedPhone = localStorage.getItem('ph_session_phone');
             db.ref('users/' + cachedPhone).on('value', snapshot => {
                 if(!snapshot.exists()) return;
                 const updated = snapshot.val();
                 
+                // ADMIN LOGOUT TRIGGER
+                if (updated.forceLogout === true) {
+                    db.ref('users/' + cachedPhone).update({ forceLogout: false }).then(() => {
+                        terminateSession();
+                    });
+                    return;
+                }
+
                 if(updated.verificationStatus === 'suspended') {
                     sessionUser = updated;
                     handleSuspensionStateActivation();
@@ -1653,10 +1996,17 @@
 
                 const warningBanner = document.getElementById('admin-custom-warning-banner');
                 const warningText = document.getElementById('admin-warning-banner-text');
+                const redWarning = document.getElementById('dash-red-warning');
+                const redWarningText = document.getElementById('dash-red-warning-text');
+                
                 if(updated.customProfileWarningText && updated.customProfileWarningText.trim() !== "") {
+                    redWarningText.innerText = updated.customProfileWarningText;
+                    redWarning.classList.remove('hidden');
+                    
                     warningText.innerText = updated.customProfileWarningText;
                     warningBanner.classList.remove('hidden');
                 } else {
+                    redWarning.classList.add('hidden');
                     warningBanner.classList.add('hidden');
                 }
 
@@ -1666,6 +2016,7 @@
             streamInvestmentPlansDataset();
             streamLiveSupportMessageLogs();
             streamFiledTicketsLog();
+            listenForAdminForcedFeedback();
             switchScreen('screen-dashboard');
         }
 
@@ -1695,6 +2046,26 @@
                 document.getElementById('meta-ref-count').innerText = "0 Nodes";
             }
 
+            // KYC Updates
+            let kycStat = sessionUser.kycStatus || 'unverified';
+            let statusTextNode = document.getElementById('dash-status-text');
+            let statusContainer = document.getElementById('dash-status-container');
+            let kycBtn = document.getElementById('kyc-action-btn');
+            
+            if(kycStat === 'verified') {
+                statusTextNode.innerText = 'Verified Secure';
+                statusContainer.className = 'inline-flex items-center gap-1.5 px-3 py-1 rounded-2xl text-[9px] font-bold uppercase tracking-wider bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 shadow-inner';
+                if(kycBtn) kycBtn.classList.add('hidden');
+            } else if(kycStat === 'pending') {
+                statusTextNode.innerText = 'KYC Pending';
+                statusContainer.className = 'inline-flex items-center gap-1.5 px-3 py-1 rounded-2xl text-[9px] font-bold uppercase tracking-wider bg-amber-500/10 text-amber-400 border border-amber-500/20 shadow-inner';
+                if(kycBtn) kycBtn.classList.add('hidden');
+            } else {
+                statusTextNode.innerText = 'Unverified';
+                statusContainer.className = 'inline-flex items-center gap-1.5 px-3 py-1 rounded-2xl text-[9px] font-bold uppercase tracking-wider bg-rose-500/10 text-rose-400 border border-rose-500/20 shadow-inner';
+                if(kycBtn) kycBtn.classList.remove('hidden');
+            }
+
             buildActivePlanInterfaceTracker();
             buildWithdrawalAccountConfigPanel();
             renderAuditLogTerminalStream();
@@ -1713,15 +2084,21 @@
                 window.globalDepositGatewayConfig = snap.val();
                 updateDepositGatewayDetails(document.getElementById('deposit-channel').value);
             });
+
+            db.ref('admin_settings/default_free_withdraws').on('value', snap => {
+                if(snap.exists()) {
+                    globalDefaultFreeWithdraws = parseInt(snap.val());
+                } else {
+                    globalDefaultFreeWithdraws = 1;
+                }
+            });
         }
 
-        // Real-time Approval Notification System
         function initApprovalNotificationListener() {
             if (!sessionUser || !sessionUser.phone) return;
 
             const phone = sessionUser.phone;
 
-            // Listen for approved deposits
             db.ref('admin_queues/deposits').on('child_changed', snap => {
                 const data = snap.val();
                 if (data.userPhone === phone && data.status === 'Approved' && !data.notified) {
@@ -1730,7 +2107,6 @@
                 }
             });
 
-            // Listen for approved withdrawals
             db.ref('admin_queues/withdrawals').on('child_changed', snap => {
                 const data = snap.val();
                 if (data.userPhone === phone && data.status === 'Approved' && !data.notified) {
@@ -1798,7 +2174,7 @@
                 if(timeRemaining <= 0) {
                     clearInterval(interval);
                     btn.disabled = false;
-                    btn.className = "w-full py-3 bg-gradient-to-r from-indigo-600 via-violet-600 to-purple-600 rounded-2xl font-bold text-xs uppercase tracking-wider text-white cursor-pointer transition-all shadow-lg flupy-btn";
+                    btn.className = "w-full py-3 bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 rounded-2xl font-bold text-xs uppercase tracking-wider text-white cursor-pointer transition-all shadow-lg flupy-btn";
                     btn.innerText = "Acknowledge Directive";
                     timerLabel.innerText = "Unlocked Matrix";
                 } else {
@@ -1842,22 +2218,22 @@
                 Object.keys(globalSystemPlans).forEach(key => {
                     const plan = globalSystemPlans[key];
                     const row = document.createElement('div');
-                    row.className = "glass-panel p-4 flex flex-col justify-between items-start gap-4 border-l-4 border-violet-500 bg-gradient-to-r from-slate-900 to-black/30 shadow-md";
+                    row.className = "glass-panel p-4 flex flex-col justify-between items-start gap-4 border-l-4 border-emerald-500 bg-gradient-to-r from-slate-900 to-black/30 shadow-md";
                     row.innerHTML = `
                         <div class="w-full flex justify-between items-start">
                             <div>
                                 <h4 class="text-sm font-extrabold text-white tracking-wide uppercase">${plan.name}</h4>
-                                <p class="text-[10px] text-gray-400 font-semibold mt-1">Strata Lifespan: <span class="text-violet-400 font-mono">${plan.days} Operations Days</span></p>
-                                <p class="text-[9px] text-teal-400 font-black tracking-widest uppercase mt-0.5"><i class="fa-solid fa-rotate-left"></i> Principal Back Guaranteed</p>
+                                <p class="text-[10px] text-gray-400 font-semibold mt-1">Strata Lifespan: <span class="text-emerald-400 font-mono">${plan.days} Operations Days</span></p>
+                                <p class="text-[9px] text-amber-400 font-black tracking-widest uppercase mt-0.5"><i class="fa-solid fa-rotate-left"></i> Principal Back Guaranteed</p>
                             </div>
                             <div class="text-right">
-                                <span class="text-sm font-black text-violet-400 block font-mono neon-text-indigo">${plan.percentage}% Yield</span>
+                                <span class="text-sm font-black text-emerald-400 block font-mono neon-text-emerald">${plan.percentage}% Yield</span>
                                 <span class="text-[8px] text-gray-500 uppercase font-bold tracking-wider">Daily Rate Velocity</span>
                             </div>
                         </div>
                         <div class="w-full flex justify-between items-center pt-3 border-t border-white/5">
                             <span class="text-xs font-bold text-slate-300 font-mono">Required Stake: Rs. ${plan.cost}</span>
-                            <button onclick="executePlanAllocation('${key}')" class="px-4 py-2 bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 rounded-2xl text-xs font-bold text-white uppercase tracking-wider shadow-md transition-all transform active:scale-95 flupy-btn">Stake Asset</button>
+                            <button onclick="executePlanAllocation('${key}')" class="px-4 py-2 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 rounded-2xl text-xs font-bold text-white uppercase tracking-wider shadow-md transition-all transform active:scale-95 flupy-btn">Stake Asset</button>
                         </div>
                     `;
                     feed.appendChild(row);
@@ -1917,7 +2293,7 @@
                         if(parentPhone && parentPhone !== "NONE" && root.users[parentPhone]) {
                             let parentUser = root.users[parentPhone];
                             
-                            let coinsAwardedCalculatedValue = Math.floor(Number(plan.cost) * 0.25); 
+                            let coinsAwardedCalculatedValue = Math.floor((Number(plan.cost) * 0.02) * adminCoinsValueExchangeRate);
                             
                             parentUser.coinsCommission = parseInt(parentUser.coinsCommission || 0) + coinsAwardedCalculatedValue;
                             
@@ -1926,7 +2302,7 @@
                             parentUser.logs[pLogId] = {
                                 id: pLogId,
                                 type: 'yield',
-                                title: `Affiliate Plan Coins Comm from ${current.username}`,
+                                title: `Plan Comm (2%) from ${current.username}`,
                                 amount: coinsAwardedCalculatedValue,
                                 timestamp: Date.now(),
                                 status: 'Success'
@@ -2094,7 +2470,7 @@
             accountNode.innerText = cfg.account;
             
             submitBtn.disabled = false;
-            submitBtn.className = "w-full py-4 bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-500 hover:to-orange-500 rounded-2xl font-bold text-xs uppercase tracking-wider text-white shadow-lg transition-all cursor-pointer transform active:scale-[0.98] flupy-btn";
+            submitBtn.className = "w-full py-4 bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-500 hover:to-emerald-500 rounded-2xl font-bold text-xs uppercase tracking-wider text-white shadow-lg transition-all cursor-pointer transform active:scale-[0.98] flupy-btn";
         }
 
         async function uploadDepositProofToCloudinary(e) {
@@ -2159,7 +2535,6 @@
             });
         }
 
-        // ==================== NEW: Calculate Effective Withdrawal Limit (Admin + Referral Bonus) ====================
         function calculateEffectiveWithdrawalLimit() {
             if (!sessionUser) return 1000;
             
@@ -2168,13 +2543,12 @@
 
             if (sessionUser.referrals) {
                 Object.values(sessionUser.referrals).forEach(ref => {
-                    if (ref.isDeposited === true || ref.depositCommissionPaid === true || (parseInt(ref.commissionEarnedCoins || 0) > 0)) {
+                    if (ref.isDeposited === true || ref.depositCommissionPaid === true) {
                         successfulReferralCount++;
                     }
                 });
             }
 
-            // Rs. 300 bonus per successful deposited referral
             const bonusPerReferral = 300;
             const totalLimit = Math.floor(baseLimit + (successfulReferralCount * bonusPerReferral));
             
@@ -2182,7 +2556,6 @@
         }
 
         function buildWithdrawalAccountConfigPanel() {
-            const view = document.getElementById('withdraw-node-registry-view');
             const form = document.getElementById('withdraw-processing-form');
             const alertBox = document.getElementById('withdraw-lockout-alert');
 
@@ -2190,13 +2563,15 @@
             
             if(sessionUser.referrals) {
                 Object.values(sessionUser.referrals).forEach(ref => {
-                    if(ref.isDeposited === true || ref.depositCommissionPaid === true || (ref.commissionEarnedCoins && ref.commissionEarnedCoins > 0)) {
+                    if(ref.isDeposited === true || ref.depositCommissionPaid === true) {
                         hasDepositedRef = true;
                     }
                 });
             }
 
-            // Show limit info (NEW)
+            let freeW = parseInt(sessionUser.freeWithdraws || 0);
+            let isWithdrawLocked = !hasDepositedRef && freeW <= 0;
+
             const limitEl = document.getElementById('current-withdraw-limit');
             const lastTimeEl = document.getElementById('last-withdraw-time');
             const nextTimeEl = document.getElementById('next-withdraw-time');
@@ -2227,89 +2602,46 @@
                 }
             }
 
-            if(!hasDepositedRef) {
-                alertBox.innerHTML = `<div class="flex items-center gap-2 justify-center"><i class="fa-solid fa-triangle-exclamation text-rose-400"></i><span>آپ کے اکاؤنٹ سے پیسے نکالنے کا سسٹم فی الحال بند(لاک) ہے۔​ اسے کھولنے کے لیے یہ ضروری ہے کہ آپ کے بلائے ہوئے کم از کم ایک دوست نے کامیابی کے ساتھ اپنے اکاؤنٹ میں پیسے جمع کروائے ہوں <b>ابھی اپنا ایک دوست انوائٹ کریں اور اپنے پیسے نکالنے کی سہولت کھولیں.</span></div>`;
+            if(isWithdrawLocked) {
+                alertBox.innerHTML = `<div class="flex items-center gap-2 justify-center"><i class="fa-solid fa-triangle-exclamation text-rose-400"></i><span>آپ کے فری ودڈرا ختم ہوچکے ہیں۔ اب مزید ودڈرا کے لیے آپ کو کم از کم ایک دوست انوائٹ کرنا ہوگا جو ڈپازٹ کرے۔ <b>ابھی دوست انوائٹ کریں!</b></span></div>`;
                 alertBox.classList.remove('hidden');
                 document.getElementById('withdraw-submit-btn').disabled = true;
                 document.getElementById('withdraw-submit-btn').className = "w-full py-4 bg-slate-800 text-gray-500 rounded-2xl font-bold text-xs uppercase tracking-wider cursor-not-allowed shadow-md flupy-btn";
             } else {
                 alertBox.classList.add('hidden');
                 document.getElementById('withdraw-submit-btn').disabled = false;
-                document.getElementById('withdraw-submit-btn').className = "w-full py-4 bg-gradient-to-r from-purple-600 via-violet-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-xs uppercase tracking-wider rounded-2xl shadow-lg transition-all flupy-btn";
+                document.getElementById('withdraw-submit-btn').className = "w-full py-4 bg-gradient-to-r from-indigo-600 via-violet-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold text-xs uppercase tracking-wider rounded-2xl shadow-lg transition-all flupy-btn";
             }
-
-            if(!sessionUser.withdrawalAccount) {
-                view.innerHTML = `
-                    <div class="space-y-3.5 pt-1">
-                        <p class="text-[11px] text-amber-400 font-semibold"><i class="fa-solid fa-circle-exclamation"></i> Destination Account Endpoint empty. Configure permanent immutable routing registry block:</p>
-                        <input type="text" id="setup-w-num" placeholder="Account Identifier / Wallet Phone Number" class="w-full px-3.5 py-2.5 bg-black/50 border border-white/10 rounded-2xl text-xs text-white focus:outline-none premium-input font-mono">
-                        <input type="text" id="setup-w-bank" placeholder="Institution Name / Account Wallet Type" class="w-full px-3.5 py-2.5 bg-black/50 border border-white/10 rounded-2xl text-xs text-white focus:outline-none premium-input">
-                        <button type="button" onclick="executePermanentWithdrawalLock()" class="w-full py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs rounded-2xl uppercase tracking-wider shadow-md transition-all flupy-btn">Lock Registry Parameters</button>
-                    </div>
-                `;
-                form.classList.add('hidden');
-            } else {
-                const w = sessionUser.withdrawalAccount;
-                view.innerHTML = `
-                    <div class="grid grid-cols-2 gap-2 pt-1 text-white font-semibold">
-                        <div><span class="text-gray-500 block text-[9px] uppercase tracking-wider">Institution Matrix:</span> <span class="text-sm tracking-wide text-white">${w.bankName}</span></div>
-                        <div><span class="text-gray-500 block text-[9px] uppercase tracking-wider">Endpoint Number:</span> <span class="text-sm font-mono tracking-wider text-indigo-400 neon-text-indigo">${w.accountNumber}</span></div>
-                    </div>
-                    <p class="text-[9px] text-gray-500 italic mt-3 font-medium"><i class="fa-solid fa-lock text-[8px]"></i> Immutable signature registry node active. Changes require corporate support clearance ticket logs.</p>
-                `;
-                if(hasDepositedRef) form.classList.remove('hidden');
-            }
-        }
-
-        function executePermanentWithdrawalLock() {
-            const num = document.getElementById('setup-w-num').value.trim();
-            const bank = document.getElementById('setup-w-bank').value.trim();
-
-            if(!num || !bank) {
-                triggerSystemToast("Cannot compile layout mapping fields using empty routing configurations.", "error");
-                return;
-            }
-
-            const payload = {
-                accountNumber: num,
-                bankName: bank,
-                lockedTimestamp: Date.now()
-            };
-
-            const cachedPhone = localStorage.getItem('ph_session_phone');
-            db.ref(`users/${cachedPhone}/withdrawalAccount`).set(payload, err => {
-                if(!err) triggerSystemToast("Outbound destination account parameters synchronized.", "success");
-            });
-        }
-
-        function triggerWithdrawalNodeDispute() {
-            triggerSystemToast("Routing matrix to global technical dispute desk. File an official ticket details below.", "info");
-            openCustomerCareTerminal();
-            toggleSupportSubModule('complaint');
         }
 
         function handleWithdrawalExecution(event) {
             event.preventDefault();
+            const title = document.getElementById('withdraw-title').value.trim();
+            const number = document.getElementById('withdraw-number').value.trim();
             const volume = parseFloat(document.getElementById('withdraw-volume').value);
             const method = document.getElementById('withdraw-method').value || 'JazzCash';
+
+            if(!title || !number) {
+                triggerSystemToast("Account details are required.", "error");
+                return;
+            }
 
             const now = Date.now();
             const lastW = sessionUser.lastWithdrawalTimestamp || 0;
             const cooldownMs = 24 * 60 * 60 * 1000;
 
-            // 24h cooldown check
             if (lastW && (now - lastW) < cooldownMs) {
                 const remaining = cooldownMs - (now - lastW);
                 const hrs = Math.floor(remaining / (1000 * 60 * 60));
                 const mins = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
-                triggerSystemToast(`You can only make ONE withdrawal every 24 hours. Please wait ${hrs}h ${mins}m before next request.`, "error");
+                triggerSystemToast("You can only make ONE withdrawal every 24 hours.", "error");
                 return;
             }
 
             const effLimit = calculateEffectiveWithdrawalLimit();
 
             if (volume > effLimit) {
-                triggerSystemToast(`Amount exceeds your current daily withdrawal limit of Rs. ${effLimit.toLocaleString()}.`, "error");
+                triggerSystemToast(`Amount exceeds limit of Rs. ${effLimit.toLocaleString()}.`, "error");
                 return;
             }
 
@@ -2317,7 +2649,7 @@
             const totalDeduction = volume + tax;
 
             if (totalDeduction > Number(sessionUser.balance)) {
-                triggerSystemToast("Insufficient balance (including Rs.2 tax).", "error");
+                triggerSystemToast("Insufficient balance.", "error");
                 return;
             }
 
@@ -2329,7 +2661,11 @@
                 tax: tax,
                 totalDeducted: totalDeduction,
                 method: method,
-                accountDetails: sessionUser.withdrawalAccount,
+                accountDetails: {
+                    accountTitle: title,
+                    accountNumber: number,
+                    bankName: method
+                },
                 timestamp: Date.now(),
                 status: 'Pending'
             };
@@ -2343,6 +2679,18 @@
                         current.totalWithdraw = Number(current.totalWithdraw || 0) + volume;
                         current.lastWithdrawalTimestamp = Date.now();
 
+                        let hasDepRef = false;
+                        if(current.referrals) {
+                            Object.values(current.referrals).forEach(ref => {
+                                if(ref.isDeposited === true || ref.depositCommissionPaid === true) {
+                                    hasDepRef = true;
+                                }
+                            });
+                        }
+                        if(!hasDepRef && (parseInt(current.freeWithdraws || 0) > 0)) {
+                            current.freeWithdraws = parseInt(current.freeWithdraws) - 1;
+                        }
+
                         if (!current.logs) current.logs = {};
                         current.logs[withdrawId] = withdrawPayload;
                     }
@@ -2355,11 +2703,11 @@
                         username: sessionUser.username,
                         ...withdrawPayload
                     });
-                    triggerSystemToast(`Withdrawal request of Rs. ${volume} submitted successfully! (Rs. ${tax} tax applied)`, "success");
+                    triggerSystemToast(`Withdrawal request of Rs. ${volume} submitted successfully!`, "success");
                     document.getElementById('withdraw-processing-form').reset();
                     switchScreen('screen-dashboard');
                 } else {
-                    triggerSystemToast("Transaction failed. Please try again.", "error");
+                    triggerSystemToast("Transaction failed.", "error");
                 }
             });
         }
@@ -2385,7 +2733,7 @@
                 const parts = node.email.split('@');
                 const obfuscatedEmail = parts[0].substring(0, 2) + '***@' + parts[1];
                 
-                let isFriendActive = node.isDeposited === true || node.depositCommissionPaid === true || (node.commissionEarnedCoins && node.commissionEarnedCoins > 0);
+                let isFriendActive = node.isDeposited === true || node.depositCommissionPaid === true;
                 
                 let depositBadgeMarkup = isFriendActive ? 
                     `<span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded-2xl text-[9px] font-black uppercase tracking-wider block text-center mb-1"><i class="fa-solid fa-circle-check text-[8px]"></i> Deposited & Active</span>` :
@@ -2393,7 +2741,7 @@
 
                 let commStatusMarkup = `<span class="text-gray-500 text-[10px] font-bold">0 Coins</span>`;
                 if(node.commissionEarnedCoins && node.commissionEarnedCoins > 0) {
-                    commStatusMarkup = `<span class="text-emerald-400 font-black font-mono neon-text-indigo">+${node.commissionEarnedCoins} Coins</span>`;
+                    commStatusMarkup = `<span class="text-emerald-400 font-black font-mono neon-text-emerald">+${node.commissionEarnedCoins} Coins</span>`;
                     totalCoinsCommissionCalculated += parseInt(node.commissionEarnedCoins);
                 }
 
@@ -2440,9 +2788,9 @@
                     let dateString = new Date(fb.timestamp).toLocaleString();
                     
                     let adminReplyMarkup = fb.adminReply ? 
-                        `<div class="mt-2 p-2 bg-pink-500/10 border border-pink-500/20 rounded-2xl">
-                            <span class="text-[9px] font-bold text-pink-400 uppercase block mb-1">Admin Reply:</span>
-                            <p class="text-[11px] text-pink-200 font-medium">${fb.adminReply}</p>
+                        `<div class="mt-2 p-2 bg-teal-500/10 border border-teal-500/20 rounded-2xl">
+                            <span class="text-[9px] font-bold text-teal-400 uppercase block mb-1">Admin Reply:</span>
+                            <p class="text-[11px] text-teal-200 font-medium">${fb.adminReply}</p>
                         </div>` : `<span class="text-[9px] text-amber-400 uppercase font-bold"><i class="fa-solid fa-clock"></i> Pending Reply</span>`;
 
                     block.innerHTML = `
@@ -2483,7 +2831,6 @@
             });
         }
 
-        // ==================== TASKS & REWARDS SYSTEM ====================
         function updateTasksBalance() {
             const el = document.getElementById('tasks-coins-balance');
             if (el && sessionUser) {
@@ -2495,7 +2842,7 @@
             const container = document.getElementById('tasks-list');
             if (!container) return;
             
-            container.innerHTML = '<div class="text-center py-6"><i class="fa-solid fa-spinner fa-spin text-violet-400 text-xl"></i><p class="text-xs text-gray-400 mt-2">Loading available tasks...</p></div>';
+            container.innerHTML = '<div class="text-center py-6"><i class="fa-solid fa-spinner fa-spin text-emerald-400 text-xl"></i><p class="text-xs text-gray-400 mt-2">Loading available tasks...</p></div>';
 
             db.ref('admin_settings/social_tasks').once('value', snap => {
                 container.innerHTML = '';
@@ -2520,17 +2867,17 @@
                     const isCompleted = !!completed[task.id];
 
                     const card = document.createElement('div');
-                    card.className = `task-card glass-panel p-5 border-l-4 ${isCompleted ? 'border-emerald-500 bg-emerald-950/10' : 'border-violet-500'} shadow-md`;
+                    card.className = `task-card glass-panel p-5 border-l-4 ${isCompleted ? 'border-emerald-500 bg-emerald-950/10' : 'border-teal-500'} shadow-md`;
 
                     const iconClass = task.icon || 'fa-globe';
                     const btnHtml = isCompleted 
                         ? `<button disabled class="w-full py-3.5 bg-emerald-600/90 text-white font-bold text-xs uppercase tracking-wider rounded-2xl flex items-center justify-center gap-2 cursor-default flupy-btn"><i class="fa-solid fa-check-circle"></i> CLAIMED • REWARDED</button>`
-                        : `<button onclick="claimSocialTask('${task.id}', '${task.link || '#'}', ${task.reward || 5}, '${(task.title || '').replace(/'/g, "\\'")}')" class="w-full py-3.5 bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-500 hover:to-purple-500 text-white font-bold text-xs uppercase tracking-wider rounded-2xl flex items-center justify-center gap-2 transition-all active:scale-[0.985] shadow-lg flupy-btn"><i class="fa-solid fa-external-link-alt mr-1"></i> COMPLETE TASK & CLAIM +${task.reward || 5} COINS</button>`;
+                        : `<button onclick="claimSocialTask('${task.id}', '${task.link || '#'}', ${task.reward || 5}, '${(task.title || '').replace(/'/g, "\\'")}')" class="w-full py-3.5 bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-500 hover:to-emerald-500 text-white font-bold text-xs uppercase tracking-wider rounded-2xl flex items-center justify-center gap-2 transition-all active:scale-[0.985] shadow-lg flupy-btn"><i class="fa-solid fa-external-link-alt mr-1"></i> COMPLETE TASK & CLAIM +${task.reward || 5} COINS</button>`;
 
                     card.innerHTML = `
                         <div class="flex gap-4">
                             <div class="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex-shrink-0 flex items-center justify-center text-3xl">
-                                <i class="fa-brands ${iconClass} text-violet-400"></i>
+                                <i class="fa-brands ${iconClass} text-teal-400"></i>
                             </div>
                             <div class="flex-1 min-w-0">
                                 <div class="flex justify-between items-start gap-3">
@@ -2539,7 +2886,7 @@
                                         <p class="text-xs text-gray-400 mt-1 leading-snug pr-2">${task.description || 'Complete this simple task to earn coins'}</p>
                                     </div>
                                     <div class="text-right flex-shrink-0">
-                                        <div class="inline-flex items-center bg-violet-500/10 border border-violet-500/30 text-violet-400 text-[10px] font-black px-3 py-1 rounded-2xl whitespace-nowrap">
+                                        <div class="inline-flex items-center bg-teal-500/10 border border-teal-500/30 text-teal-400 text-[10px] font-black px-3 py-1 rounded-2xl whitespace-nowrap">
                                             <i class="fa-solid fa-coins mr-1.5"></i> +${task.reward || 5} COINS
                                         </div>
                                         <div class="text-[9px] text-emerald-400 mt-1 font-bold tracking-wider">ONE-TIME ONLY</div>
@@ -2568,12 +2915,8 @@
 
             db.ref('users/' + cachedPhone).transaction(current => {
                 if (!current) return current;
-
                 if (!current.completedTasks) current.completedTasks = {};
-                
-                if (current.completedTasks[taskId]) {
-                    return;
-                }
+                if (current.completedTasks[taskId]) return;
 
                 current.completedTasks[taskId] = Date.now();
                 current.coinsCommission = parseInt(current.coinsCommission || 0) + parseInt(reward);
@@ -2581,38 +2924,23 @@
                 if (!current.logs) current.logs = {};
                 const logId = 'LOG-TASK-' + Date.now();
                 current.logs[logId] = {
-                    id: logId,
-                    type: 'yield',
-                    title: `Completed Social Task: ${title}`,
-                    amount: reward,
-                    timestamp: Date.now(),
-                    status: 'Success'
+                    id: logId, type: 'yield', title: `Completed Task: ${title}`, amount: reward, timestamp: Date.now(), status: 'Success'
                 };
-
                 return current;
             }, (error, committed) => {
                 if (committed) {
-                    triggerSystemToast(`+${reward} Coins successfully added to your account!`, 'success');
-                    setTimeout(() => {
-                        loadSocialTasks();
-                        updateTasksBalance();
-                    }, 400);
-                } else if (error) {
-                    triggerSystemToast("Failed to claim reward. Please try again.", "error");
+                    triggerSystemToast(`+${reward} Coins successfully added!`, 'success');
+                    setTimeout(() => { loadSocialTasks(); updateTasksBalance(); }, 400);
                 }
             });
         }
 
-        // ==================== END OF TASKS SYSTEM ====================
-
-        // Load Social Channels added by Admin (for users)
         function loadUserSocialChannels() {
             const container = document.getElementById('user-social-channels-list');
             if (!container) return;
 
             db.ref('social_channels').on('value', snap => {
                 container.innerHTML = '';
-
                 if (!snap.exists()) {
                     container.innerHTML = `<div class="text-gray-400 text-xs py-2">No official channels added yet by admin.</div>`;
                     return;
@@ -2627,115 +2955,64 @@
                             <div class="font-bold text-white">${ch.name}</div>
                             <a href="${ch.url}" target="_blank" class="text-emerald-400 text-xs hover:underline break-all">${ch.url}</a>
                         </div>
-                        <a href="${ch.url}" target="_blank" class="px-4 py-1.5 text-xs bg-pink-600 hover:bg-pink-500 rounded-2xl font-extrabold">Open</a>
+                        <a href="${ch.url}" target="_blank" class="px-4 py-1.5 text-xs bg-amber-600 hover:bg-amber-500 rounded-2xl font-extrabold text-white">Open</a>
                     `;
                     container.appendChild(div);
                 });
             });
         }
 
-        // ==================== ENHANCED USER HISTORY ====================
         function loadUserFullHistory() {
             if (!sessionUser || !sessionUser.phone) return;
-
             const phone = sessionUser.phone;
 
-            // Load Deposits
             db.ref('admin_queues/deposits').orderByChild('userPhone').equalTo(phone).on('value', snap => {
                 const container = document.getElementById('user-deposits-history');
                 if (!container) return;
                 container.innerHTML = '';
-
-                if (!snap.exists()) {
-                    container.innerHTML = `<div class="text-gray-400 text-xs py-2">No deposits yet</div>`;
-                    return;
-                }
+                if (!snap.exists()) { container.innerHTML = `<div class="text-gray-400 text-xs py-2">No deposits yet</div>`; return; }
 
                 snap.forEach(child => {
                     const d = child.val();
                     const date = d.timestamp ? new Date(d.timestamp).toLocaleString() : 'N/A';
                     const statusColor = d.status === 'Approved' ? 'text-emerald-400' : (d.status === 'Rejected' ? 'text-red-400' : 'text-amber-400');
-
                     const div = document.createElement('div');
                     div.className = 'bg-black/30 p-3 rounded-2xl border border-white/5';
-                    div.innerHTML = `
-                        <div class="flex justify-between items-center">
-                            <div>
-                                <div class="font-bold">Rs. ${d.amount}</div>
-                                <div class="text-[10px] text-gray-400">${date}</div>
-                            </div>
-                            <div class="text-right">
-                                <div class="${statusColor} text-xs font-extrabold">${d.status}</div>
-                                <div class="text-[10px] text-gray-400 font-mono">${d.trxId || ''}</div>
-                            </div>
-                        </div>
-                    `;
+                    div.innerHTML = `<div class="flex justify-between items-center"><div><div class="font-bold">Rs. ${d.amount}</div><div class="text-[10px] text-gray-400">${date}</div></div><div class="text-right"><div class="${statusColor} text-xs font-extrabold">${d.status}</div><div class="text-[10px] text-gray-400 font-mono">${d.trxId || ''}</div></div></div>`;
                     container.appendChild(div);
                 });
             });
 
-            // Load Withdrawals
             db.ref('admin_queues/withdrawals').orderByChild('userPhone').equalTo(phone).on('value', snap => {
                 const container = document.getElementById('user-withdrawals-history');
                 if (!container) return;
                 container.innerHTML = '';
-
-                if (!snap.exists()) {
-                    container.innerHTML = `<div class="text-gray-400 text-xs py-2">No withdrawals yet</div>`;
-                    return;
-                }
+                if (!snap.exists()) { container.innerHTML = `<div class="text-gray-400 text-xs py-2">No withdrawals yet</div>`; return; }
 
                 snap.forEach(child => {
                     const w = child.val();
                     const date = w.timestamp ? new Date(w.timestamp).toLocaleString() : 'N/A';
                     const statusColor = w.status === 'Approved' ? 'text-emerald-400' : (w.status === 'Rejected' ? 'text-red-400' : 'text-amber-400');
-
                     const div = document.createElement('div');
                     div.className = 'bg-black/30 p-3 rounded-2xl border border-white/5';
-                    div.innerHTML = `
-                        <div class="flex justify-between items-center">
-                            <div>
-                                <div class="font-bold">Rs. ${w.amount}</div>
-                                <div class="text-[10px] text-gray-400">${date}</div>
-                            </div>
-                            <div class="text-right">
-                                <div class="${statusColor} text-xs font-extrabold">${w.status}</div>
-                            </div>
-                        </div>
-                    `;
+                    div.innerHTML = `<div class="flex justify-between items-center"><div><div class="font-bold">Rs. ${w.amount}</div><div class="text-[10px] text-gray-400">${date}</div></div><div class="text-right"><div class="${statusColor} text-xs font-extrabold">${w.status}</div></div></div>`;
                     container.appendChild(div);
                 });
             });
 
-            // Load Referral Profits
             db.ref('users/' + phone + '/referrals').on('value', snap => {
                 const container = document.getElementById('user-referral-history');
                 if (!container) return;
                 container.innerHTML = '';
-
-                if (!snap.exists()) {
-                    container.innerHTML = `<div class="text-gray-400 text-xs py-2">No referral profits yet</div>`;
-                    return;
-                }
+                if (!snap.exists()) { container.innerHTML = `<div class="text-gray-400 text-xs py-2">No referral profits yet</div>`; return; }
 
                 snap.forEach(child => {
                     const ref = child.val();
                     const date = ref.timestamp ? new Date(ref.timestamp).toLocaleDateString() : 'N/A';
                     const profit = ref.commissionEarnedCoins || 0;
-
                     const div = document.createElement('div');
                     div.className = 'bg-black/30 p-3 rounded-2xl border border-white/5';
-                    div.innerHTML = `
-                        <div class="flex justify-between">
-                            <div>
-                                <div class="font-bold">${ref.username || child.key}</div>
-                                <div class="text-[10px] text-gray-400">${date}</div>
-                            </div>
-                            <div class="text-right">
-                                <div class="text-amber-400 font-extrabold">+${profit} Coins</div>
-                            </div>
-                        </div>
-                    `;
+                    div.innerHTML = `<div class="flex justify-between"><div><div class="font-bold">${ref.username || child.key}</div><div class="text-[10px] text-gray-400">${date}</div></div><div class="text-right"><div class="text-amber-400 font-extrabold">+${profit} Coins</div></div></div>`;
                     container.appendChild(div);
                 });
             });
@@ -2758,11 +3035,7 @@
             const container = document.getElementById('audit-logs-terminal-stream');
             if(!container) return;
             container.innerHTML = '';
-
-            if(!sessionUser.logs) {
-                container.innerHTML = '<div class="text-xs text-gray-500 font-medium italic text-center py-6">No account history logged in current structural stack pipeline memory.</div>';
-                return;
-            }
+            if(!sessionUser.logs) { container.innerHTML = '<div class="text-xs text-gray-500 font-medium italic text-center py-6">No history logged.</div>'; return; }
 
             let logsList = Object.values(sessionUser.logs);
             logsList.sort((a,b) => b.timestamp - a.timestamp);
@@ -2774,52 +3047,21 @@
 
                 const block = document.createElement('div');
                 block.className = "p-4 glass-card border border-white/5 rounded-2xl flex justify-between items-center shadow-md";
-                
                 let iconMarkup = '<i class="fa-solid fa-receipt text-indigo-400"></i>';
-                if(log.type === 'deposit') iconMarkup = '<i class="fa-solid fa-building-columns text-amber-400"></i>';
+                if(log.type === 'deposit') iconMarkup = '<i class="fa-solid fa-building-columns text-teal-400"></i>';
                 if(log.type === 'withdraw') iconMarkup = '<i class="fa-solid fa-money-bill-transfer text-purple-400"></i>';
-                if(log.type === 'invest') iconMarkup = '<i class="fa-solid fa-cubes text-violet-400"></i>';
-                if(log.type === 'yield') iconMarkup = '<i class="fa-solid fa-layer-group text-emerald-400"></i>';
+                if(log.type === 'invest') iconMarkup = '<i class="fa-solid fa-cubes text-emerald-400"></i>';
+                if(log.type === 'yield') iconMarkup = '<i class="fa-solid fa-layer-group text-amber-400"></i>';
 
-                let dynamicStatusBadge = `<span class="text-[10px] font-bold font-mono tracking-wide ${log.status === 'Success' || log.status === 'Executed' || log.status === 'Approve' || log.status === 'Approved' ? 'text-emerald-400' : log.status === 'Reject' || log.status === 'Rejected' ? 'text-rose-400' : 'text-amber-400'}">${log.status || 'Active'}</span>`;
+                let dynamicStatusBadge = `<span class="text-[10px] font-bold font-mono tracking-wide ${log.status === 'Success' || log.status === 'Executed' || log.status === 'Approved' ? 'text-emerald-400' : 'text-amber-400'}">${log.status || 'Active'}</span>`;
 
-                let extraInfo = '';
-                if(log.type === 'deposit') {
-                    extraInfo = `<div class="text-[9px] text-gray-400 font-mono mt-1">ID: ${log.id} | TRX: ${log.trxId || 'N/A'}</div>`;
-                } else if(log.type === 'withdraw') {
-                    extraInfo = `<div class="text-[9px] text-gray-400 font-mono mt-1">ID: ${log.id} | Tax: Rs. ${log.tax || 2}</div>`;
-                }
-
-                block.innerHTML = `
-                    <div class="flex items-center gap-3.5 text-xs w-full">
-                        <div class="w-9 h-9 rounded-2xl bg-white/5 border border-white/5 flex items-center justify-center text-sm shadow-inner flex-shrink-0">${iconMarkup}</div>
-                        <div class="w-full flex justify-between items-center">
-                            <div>
-                                <span class="font-bold text-white block tracking-wide leading-tight">${log.title}</span>
-                                <span class="text-[10px] text-gray-500 font-semibold font-mono mt-0.5 block">${new Date(log.timestamp).toLocaleString()}</span>
-                                ${extraInfo}
-                            </div>
-                            <div class="text-right flex-shrink-0 ml-2">
-                                <span class="text-xs font-black font-mono block text-white">Rs. ${Number(log.requestedAmount || log.amount).toFixed(1)}</span>
-                                ${dynamicStatusBadge}
-                            </div>
-                        </div>
-                    </div>
-                `;
+                block.innerHTML = `<div class="flex items-center gap-3.5 text-xs w-full"><div class="w-9 h-9 rounded-2xl bg-white/5 border border-white/5 flex items-center justify-center text-sm shadow-inner flex-shrink-0">${iconMarkup}</div><div class="w-full flex justify-between items-center"><div><span class="font-bold text-white block tracking-wide leading-tight">${log.title}</span><span class="text-[10px] text-gray-500 font-semibold font-mono mt-0.5 block">${new Date(log.timestamp).toLocaleString()}</span></div><div class="text-right flex-shrink-0 ml-2"><span class="text-xs font-black font-mono block text-white">Rs. ${Number(log.requestedAmount || log.amount || 0).toFixed(1)}</span>${dynamicStatusBadge}</div></div></div>`;
                 container.appendChild(block);
             });
-
-            if(renderedCount === 0) {
-                container.innerHTML = `<div class="text-xs text-gray-500 font-medium italic text-center py-6">No tracking records match selection constraint [${activeAuditFilter}].</div>`;
-            }
         }
 
-        function openCustomerCareTerminal() {
-            document.getElementById('customer-care-modal').classList.remove('hidden');
-        }
-        function closeCustomerCareTerminal() {
-            document.getElementById('customer-care-modal').classList.add('hidden');
-        }
+        function openCustomerCareTerminal() { document.getElementById('customer-care-modal').classList.remove('hidden'); }
+        function closeCustomerCareTerminal() { document.getElementById('customer-care-modal').classList.add('hidden'); }
 
         function toggleSupportSubModule(tab) {
             const btnChat = document.getElementById('support-tab-chat');
@@ -2829,13 +3071,13 @@
             const dock = document.getElementById('chat-input-dock');
 
             if(tab === 'chat') {
-                btnChat.className = "w-1/2 py-2.5 rounded-2xl bg-white/5 text-indigo-400 tracking-wider flupy-btn";
+                btnChat.className = "w-1/2 py-2.5 rounded-2xl bg-white/5 text-emerald-400 tracking-wider flupy-btn";
                 btnComp.className = "w-1/2 py-2.5 rounded-2xl text-gray-400 tracking-wider flupy-btn";
                 portChat.classList.remove('hidden');
                 portComp.classList.add('hidden');
                 dock.classList.remove('hidden');
             } else {
-                btnComp.className = "w-1/2 py-2.5 rounded-2xl bg-white/5 text-indigo-400 tracking-wider flupy-btn";
+                btnComp.className = "w-1/2 py-2.5 rounded-2xl bg-white/5 text-emerald-400 tracking-wider flupy-btn";
                 btnChat.className = "w-1/2 py-2.5 rounded-2xl text-gray-400 tracking-wider flupy-btn";
                 portComp.classList.remove('hidden');
                 portChat.classList.add('hidden');
@@ -2848,33 +3090,14 @@
             db.ref(`support_channels/${cachedPhone}/messages`).on('value', snap => {
                 const viewport = document.getElementById('support-viewport-chat');
                 viewport.innerHTML = '';
-                if(!snap.exists()) {
-                    viewport.innerHTML = '<div class="text-xs text-gray-500 font-medium italic text-center py-6">Secure dialogue stream empty. Initialize a live text frame ticket message below...</div>';
-                    return;
-                }
+                if(!snap.exists()) { viewport.innerHTML = '<div class="text-xs text-gray-500 font-medium italic text-center py-6">Secure dialogue stream empty.</div>'; return; }
                 snap.forEach(child => {
                     const msg = child.val();
                     const wrapper = document.createElement('div');
-                    
                     let isAdmin = msg.sender === 'admin';
                     wrapper.className = `flex w-full ${isAdmin ? 'justify-start':'justify-end'}`;
-                    
-                    let bubbleMarkup = msg.imageUrl ? 
-                        `<img src="${msg.imageUrl}" class="max-w-[180px] rounded-2xl border border-white/10 shadow-lg cursor-zoom-in">` :
-                        `<p class="text-xs leading-relaxed font-semibold">${msg.text}</p>`;
-
-                    wrapper.innerHTML = `
-                        <div class="max-w-[75%] space-y-1">
-                            <div class="p-3.5 rounded-2xl shadow-md border ${
-                                isAdmin ? 'bg-slate-900 border-white/5 rounded-tl-none text-indigo-200' : 'bg-gradient-to-r from-indigo-600 to-violet-600 border-indigo-400/10 rounded-tr-none text-white'
-                            }">
-                                ${bubbleMarkup}
-                            </div>
-                            <span class="block text-[9px] text-gray-500 font-mono font-bold tracking-wide px-1 ${isAdmin ? 'text-left':'text-right'}">
-                                ${isAdmin ? 'Admin Agent Node':'My Node'} • ${new Date(msg.timestamp).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}
-                            </span>
-                        </div>
-                    `;
+                    let bubbleMarkup = msg.imageUrl ? `<img src="${msg.imageUrl}" class="max-w-[180px] rounded-2xl border border-white/10 shadow-lg">` : `<p class="text-xs leading-relaxed font-semibold">${msg.text}</p>`;
+                    wrapper.innerHTML = `<div class="max-w-[75%] space-y-1"><div class="p-3.5 rounded-2xl shadow-md border ${isAdmin ? 'bg-slate-900 border-white/5 rounded-tl-none text-teal-200' : 'bg-gradient-to-r from-emerald-600 to-teal-600 border-emerald-400/10 rounded-tr-none text-white'}">${bubbleMarkup}</div><span class="block text-[9px] text-gray-500 font-mono font-bold tracking-wide px-1 ${isAdmin ? 'text-left':'text-right'}">${isAdmin ? 'Admin Agent Node':'My Node'} • ${new Date(msg.timestamp).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}</span></div>`;
                     viewport.appendChild(wrapper);
                 });
                 setTimeout(() => viewport.scrollTo({ top: viewport.scrollHeight, behavior: 'smooth' }), 50);
@@ -2885,51 +3108,21 @@
             const input = document.getElementById('chat-message-input');
             const text = input.value.trim();
             if(!text) return;
-
             const cachedPhone = localStorage.getItem('ph_session_phone');
             const msgId = 'MSG-' + Date.now();
-
-            const payload = {
-                id: msgId,
-                sender: 'user',
-                text: text,
-                timestamp: Date.now()
-            };
-
-            db.ref(`support_channels/${cachedPhone}/messages/${msgId}`).set(payload, err => {
-                if(!err) {
-                    input.value = '';
-                    db.ref(`support_channels/${cachedPhone}/metadata`).set({
-                        userPhone: cachedPhone,
-                        username: sessionUser.username,
-                        lastMessageTimestamp: Date.now(),
-                        unreadByAdmin: true
-                    });
-                }
+            db.ref(`support_channels/${cachedPhone}/messages/${msgId}`).set({ id: msgId, sender: 'user', text: text, timestamp: Date.now() }, err => {
+                if(!err) { input.value = ''; db.ref(`support_channels/${cachedPhone}/metadata`).set({ userPhone: cachedPhone, username: sessionUser.username, lastMessageTimestamp: Date.now(), unreadByAdmin: true }); }
             });
         }
 
         async function uploadChatAttachmentToCloudinary(e) {
             const file = e.target.files[0];
             if(!file) return;
-
             const spinner = document.getElementById('chat-file-spinner');
             spinner.classList.remove('hidden');
-
             const url = await transmitMediaToCloudMatrix(file);
             spinner.classList.add('hidden');
-
-            if(url) {
-                const cachedPhone = localStorage.getItem('ph_session_phone');
-                const msgId = 'MSG-' + Date.now();
-                
-                db.ref(`support_channels/${cachedPhone}/messages/${msgId}`).set({
-                    id: msgId,
-                    sender: 'user',
-                    imageUrl: url,
-                    timestamp: Date.now()
-                });
-            }
+            if(url) { const cachedPhone = localStorage.getItem('ph_session_phone'); const msgId = 'MSG-' + Date.now(); db.ref(`support_channels/${cachedPhone}/messages/${msgId}`).set({ id: msgId, sender: 'user', imageUrl: url, timestamp: Date.now() }); }
         }
 
         async function uploadTicketProofToCloudinary(e) {
@@ -2947,24 +3140,10 @@
             const cat = document.getElementById('ticket-category').value;
             const desc = document.getElementById('ticket-desc').value.trim();
             const proof = document.getElementById('ticket-proof-url').value;
-
             const cachedPhone = localStorage.getItem('ph_session_phone');
             const ticketId = 'TCK-' + Math.floor(100000 + Math.random() * 900000);
-
-            const payload = {
-                id: ticketId,
-                category: cat,
-                description: desc,
-                proofUrl: proof || "NONE",
-                timestamp: Date.now(),
-                status: 'Pending'
-            };
-
-            db.ref(`support_channels/${cachedPhone}/tickets/${ticketId}`).set(payload, err => {
-                if(!err) {
-                    triggerSystemToast("Formal administrative dispute ticket logged safely.", "success");
-                    document.getElementById('formal-ticket-form').reset();
-                }
+            db.ref(`support_channels/${cachedPhone}/tickets/${ticketId}`).set({ id: ticketId, category: cat, description: desc, proofUrl: proof || "NONE", timestamp: Date.now(), status: 'Pending' }, err => {
+                if(!err) { triggerSystemToast("Ticket logged safely.", "success"); document.getElementById('formal-ticket-form').reset(); }
             });
         }
 
@@ -2973,67 +3152,23 @@
             db.ref(`support_channels/${cachedPhone}/tickets`).on('value', snap => {
                 const feed = document.getElementById('ticket-resolution-feed');
                 feed.innerHTML = '';
-                if(!snap.exists()) {
-                    feed.innerHTML = '<div class="text-[11px] text-gray-500 italic font-medium py-2">No infrastructure tickets logged under this active node.</div>';
-                    return;
-                }
+                if(!snap.exists()) { feed.innerHTML = '<div class="text-[11px] text-gray-500 italic font-medium py-2">No tickets logged.</div>'; return; }
                 snap.forEach(child => {
                     const tk = child.val();
                     const block = document.createElement('div');
                     block.className = "p-3.5 bg-black/40 border border-white/5 rounded-2xl text-xs text-left shadow-inner space-y-2";
-                    
-                    let statusColor = "text-amber-400 bg-amber-500/10 border-amber-500/20"; 
-                    let statusText = tk.status || "Pending";
-                    if (statusText.toLowerCase() === "approve" || statusText.toLowerCase() === "approved") {
-                        statusColor = "text-emerald-400 bg-emerald-500/10 border-emerald-500/20";
-                    } else if (statusText.toLowerCase() === "reject" || statusText.toLowerCase() === "rejected") {
-                        statusColor = "text-rose-400 bg-rose-500/10 border-rose-500/20";
-                    }
-
-                    let adminReplyMarkup = tk.adminReply ? 
-                        `<div class="mt-2 p-2 bg-indigo-500/10 border border-indigo-500/20 rounded-2xl">
-                            <span class="text-[9px] font-bold text-indigo-400 uppercase block mb-1">Admin Reply:</span>
-                            <p class="text-[11px] text-indigo-200 font-medium">${tk.adminReply}</p>
-                        </div>` : '';
-                        
-                    let picMarkup = (tk.proofUrl && tk.proofUrl !== "NONE") ? 
-                        `<img src="${tk.proofUrl}" class="w-full h-24 object-cover rounded-2xl border border-white/10 mt-2">` : '';
-
-                    let dateString = new Date(tk.timestamp).toLocaleString();
-
-                    block.innerHTML = `
-                        <div class="flex justify-between items-center font-bold">
-                            <span class="text-indigo-400 font-mono tracking-wide">${tk.id}</span>
-                            <span class="text-[10px] uppercase font-bold px-2 py-0.5 rounded-2xl border ${statusColor}">${statusText}</span>
-                        </div>
-                        <div class="text-[9px] text-gray-500 font-mono">${dateString}</div>
-                        <p class="text-gray-300 font-medium text-[11px] leading-relaxed"><b class="text-gray-400 uppercase text-[9px] tracking-wider block mb-0.5">Issue: ${tk.category}</b> ${tk.description}</p>
-                        ${picMarkup}
-                        ${adminReplyMarkup}
-                    `;
+                    let statusColor = tk.status === 'Approved' ? "text-emerald-400 bg-emerald-500/10" : "text-amber-400 bg-amber-500/10";
+                    block.innerHTML = `<div class="flex justify-between items-center font-bold"><span class="text-emerald-400 font-mono">${tk.id}</span><span class="text-[10px] uppercase font-bold px-2 py-0.5 rounded-2xl ${statusColor}">${tk.status || 'Pending'}</span></div><p class="text-gray-300 font-medium text-[11px]">${tk.description}</p>`;
                     feed.appendChild(block);
                 });
             });
         }
 
-        function closeContextMenu() {
-            document.getElementById('context-menu-modal').classList.add('hidden');
-        }
-        
+        function closeContextMenu() { document.getElementById('context-menu-modal').classList.add('hidden'); }
         function copyAffiliateLink() {
             const refCode = document.getElementById('display-invite-refcode').innerText;
             const link = `${window.location.origin}${window.location.pathname}?ref=${refCode}`;
-            navigator.clipboard.writeText(link).then(() => {
-                triggerSystemToast("Affiliate link copied to clipboard!", "success");
-            }).catch(() => {
-                const textArea = document.createElement("textarea");
-                textArea.value = link;
-                document.body.appendChild(textArea);
-                textArea.select();
-                document.execCommand('copy');
-                document.body.removeChild(textArea);
-                triggerSystemToast("Affiliate link copied!", "success");
-            });
+            navigator.clipboard.writeText(link).then(() => { triggerSystemToast("Copied link!", "success"); });
         }
     </script>
 </body>
