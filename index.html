@@ -12,7 +12,7 @@
         
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background: radial-gradient(circle at 50% 0%, #06261f 0%, #020617 100%); /* Premium Emerald/Dark Theme */
+            background: radial-gradient(circle at 50% 0%, #06261f 0%, #020617 100%);
             color: #f1f5f9;
             overflow-x: hidden;
         }
@@ -166,6 +166,15 @@
             to { opacity: 1; transform: translateY(0) scale(1); }
         }
         .dropdown-active { display: flex; animation: dropdownFade 0.2s ease forwards; }
+
+        .camera-viewport {
+            width: 100%;
+            border-radius: 16px;
+            border: 2px solid rgba(16, 185, 129, 0.5);
+            background: #000;
+            aspect-ratio: 3/4;
+            object-fit: cover;
+        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between antialiased">
@@ -221,6 +230,40 @@
 
     <main class="w-full max-w-md mx-auto px-4 py-4 flex-grow flex flex-col justify-center">
         
+        <!-- Double Verification Wait Screen -->
+        <section id="screen-verifying" class="screen glass-panel p-6 text-center space-y-5">
+            <div class="w-16 h-16 bg-blue-500/10 text-blue-400 rounded-full flex items-center justify-center mx-auto text-2xl border border-blue-500/20 shadow-lg shadow-blue-950/50">
+                <i class="fa-solid fa-user-shield animate-pulse"></i>
+            </div>
+            <h2 class="text-xl font-extrabold text-white uppercase tracking-wider">Wait for Verification Complete</h2>
+            
+            <div class="p-4 bg-blue-950/30 border border-blue-500/30 rounded-2xl text-xs text-blue-300 text-center leading-relaxed font-medium shadow-inner">
+                <p>Your Double Verification live capture has been securely transmitted to the administration network.</p>
+                <p class="mt-2 font-bold text-white">Temporary account access active. Full platform functionality unlocks upon admin verification.</p>
+            </div>
+            <div class="pt-4">
+                <button onclick="terminateSession()" class="w-full py-3.5 bg-slate-800 text-gray-400 font-bold rounded-2xl text-xs uppercase tracking-wider shadow-lg transition-all flupy-btn">Logout for now</button>
+            </div>
+        </section>
+
+        <!-- Double Verification Login Challenge -->
+        <section id="screen-double-auth-challenge" class="screen glass-panel p-6 text-center space-y-5">
+            <div class="w-16 h-16 bg-emerald-500/10 text-emerald-400 rounded-full flex items-center justify-center mx-auto text-2xl border border-emerald-500/20 shadow-lg shadow-emerald-950/50">
+                <i class="fa-solid fa-camera-retro"></i>
+            </div>
+            <h2 class="text-lg font-extrabold text-white uppercase tracking-wider">Double Verification Required</h2>
+            <p class="text-xs text-gray-400">Security threshold triggered. Please capture a live photo to verify your identity against the registered baseline.</p>
+            
+            <div class="w-full relative rounded-2xl overflow-hidden border-2 border-emerald-500/30 mt-4">
+                <video id="login-challenge-video" class="camera-viewport" autoplay playsinline></video>
+                <canvas id="login-challenge-canvas" class="hidden"></canvas>
+            </div>
+
+            <button onclick="submitDoubleAuthChallenge()" id="btn-submit-challenge" class="w-full py-3.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold rounded-2xl text-xs uppercase tracking-wider shadow-lg transition-all flupy-btn mt-4">
+                <i class="fa-solid fa-camera mr-1"></i> Start Verification Capture
+            </button>
+        </section>
+
         <section id="screen-suspended" class="screen glass-panel p-6 text-center space-y-5">
             <div class="w-16 h-16 bg-rose-500/10 text-rose-400 rounded-full flex items-center justify-center mx-auto text-2xl border border-rose-500/20 shadow-lg shadow-rose-950/50">
                 <i class="fa-solid fa-user-slash"></i>
@@ -305,8 +348,8 @@
                 </button>
 
                 <div class="mt-4 text-center border-t border-white/10 pt-3">
-                    <p class="text-[10px] text-rose-400 font-bold uppercase tracking-wider"><i class="fa-solid fa-triangle-exclamation"></i> Terms & Policy</p>
-                    <p class="text-[9px] text-gray-400 mt-1 leading-relaxed">1 Account allowed in 1 Device. Multiple logins or device switching will result in an automatic Permanent Ban.</p>
+                    <p class="text-[10px] text-emerald-400 font-bold uppercase tracking-wider"><i class="fa-solid fa-shield-check"></i> Multi-Device Access Enabled</p>
+                    <p class="text-[9px] text-gray-400 mt-1 leading-relaxed">Secure Multi-Device Login Enabled. Access your account freely from any verified device.</p>
                 </div>
             </form>
 
@@ -378,6 +421,12 @@
                         </h3>
                         <p class="text-[10px] text-gray-400 font-medium">Ref Signature: <span id="dash-my-refcode" class="text-emerald-400 font-mono font-bold tracking-wider">-----</span></p>
                         
+                        <div class="mt-1">
+                            <button onclick="openDoubleAuthSetup()" class="text-[9px] bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 px-2 py-1 rounded-md uppercase font-bold flex items-center gap-1 transition-all hover:bg-indigo-500/30">
+                                <i class="fa-solid fa-shield-halved"></i> Set Double Verification Security
+                            </button>
+                        </div>
+
                         <div class="mt-2.5 flex items-center justify-between gap-2">
                             <div id="dash-status-container" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-2xl text-[9px] font-bold uppercase tracking-wider bg-rose-500/10 text-rose-400 border border-rose-500/20 shadow-inner">
                                 <span class="w-1.5 h-1.5 rounded-full bg-current animate-pulse"></span>
@@ -555,9 +604,17 @@
                 <h2 class="text-xs font-extrabold text-emerald-400 uppercase tracking-widest">Network Affiliates</h2>
             </div>
             
-            <div class="glass-panel p-4 bg-gradient-to-br from-emerald-950/20 to-slate-900/40 text-center space-y-3 shadow-md border border-emerald-500/10">
-                <span class="text-[10px] tracking-widest text-emerald-400 uppercase font-extrabold bg-emerald-500/10 px-3 py-1 rounded-2xl border border-emerald-500/20">Invite & Earn System Rules</span>
-                <p class="text-xs text-gray-300 leading-relaxed font-medium px-1">Share your unique network signature code. 1 Verified referral (who successfully deposits fund) unlocks your permanent payout terminal channels. Additionally, whenever any friend registers or activates an asset stratum plan, customized network commission coins are added instantly to your network ledger map. <span class="text-amber-400 font-bold">More successful referrals = Higher daily withdrawal limit!</span></p>
+            <div class="glass-panel p-4 bg-gradient-to-br from-emerald-950/20 to-slate-900/40 text-center space-y-3 shadow-md border border-emerald-500/10 relative overflow-hidden">
+                <div class="absolute -right-4 -top-4 w-16 h-16 bg-amber-500/20 rounded-full blur-xl"></div>
+                
+                <span class="text-[10px] tracking-widest text-emerald-400 uppercase font-extrabold bg-emerald-500/10 px-3 py-1 rounded-2xl border border-emerald-500/20 inline-block mb-1">Invite & Earn System Rules</span>
+                
+                <div id="affiliate-tier-badge" class="mt-2 mb-3 mx-auto max-w-[200px] py-1.5 px-3 bg-gradient-to-r from-amber-600 to-yellow-600 rounded-lg shadow-lg flex items-center justify-center gap-2 border border-amber-300">
+                    <i class="fa-solid fa-medal text-white"></i>
+                    <span class="text-xs font-bold text-white uppercase tracking-wider" id="affiliate-tier-name">Level 1</span>
+                </div>
+
+                <p class="text-[11px] text-gray-300 leading-relaxed font-medium px-1 text-justify">Share your unique network signature code. <span class="text-emerald-400 font-bold">Withdrawals open ONLY when your referred friend deposits & activates a plan!</span> For every 10 active referrals, your Affiliate Tier increases, giving you higher bonus commissions!</p>
                 
                 <div class="p-3.5 bg-black/40 rounded-2xl flex items-center justify-between border border-white/5 mt-3 shadow-inner">
                     <span id="display-invite-refcode" class="font-mono font-black text-base text-white tracking-wider select-all px-2">REFCODE</span>
@@ -748,6 +805,14 @@
                     </select>
                 </div>
 
+                <div>
+                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 px-1">Security PIN Code</label>
+                    <div class="relative">
+                        <input type="password" id="withdraw-security-pin" required class="w-full px-4 py-3.5 bg-black/40 border border-white/10 rounded-2xl text-xs focus:outline-none focus:border-indigo-500 text-white premium-input font-mono tracking-widest" placeholder="••••">
+                        <button type="button" onclick="openPinResetModal()" class="absolute right-4 top-3.5 text-[10px] text-amber-400 font-bold uppercase hover:underline">Forgot?</button>
+                    </div>
+                </div>
+
                 <button type="submit" id="withdraw-submit-btn" class="w-full py-4 bg-gradient-to-r from-indigo-600 via-violet-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 rounded-2xl font-bold text-xs uppercase tracking-wider text-white shadow-lg shadow-indigo-950/50 transition-all flupy-btn">
                     SUBMIT WITHDRAW
                 </button>
@@ -788,6 +853,92 @@
         </section>
         
     </main>
+
+    <!-- Pin Setup Modal -->
+    <div id="pin-setup-modal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 hidden">
+        <div class="glass-panel p-6 w-full max-w-sm space-y-4 border border-indigo-500/30 text-white">
+            <h3 class="text-sm font-extrabold uppercase tracking-widest text-indigo-400 border-b border-white/10 pb-3 text-center flex justify-center items-center gap-2">
+                <i class="fa-solid fa-lock"></i> Set Withdrawal PIN
+            </h3>
+            <p class="text-[11px] text-gray-300 text-center leading-relaxed font-medium">Please set a secure 4-digit PIN for future withdrawals. You must provide your Date of Birth for recovery purposes.</p>
+            <form onsubmit="handlePinSetup(event)" class="space-y-4 text-xs mt-2">
+                <div>
+                    <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">Enter 4-Digit PIN</label>
+                    <input type="password" id="setup-pin-val" required minlength="4" maxlength="4" class="w-full p-3.5 bg-black/40 border border-white/10 rounded-2xl text-white focus:outline-none focus:border-indigo-500 premium-input text-center tracking-widest font-mono text-lg" placeholder="••••">
+                </div>
+                <div>
+                    <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">Your Date of Birth (For Recovery)</label>
+                    <input type="date" id="setup-pin-dob" required class="w-full p-3.5 bg-black/40 border border-white/10 rounded-2xl text-white focus:outline-none focus:border-indigo-500 premium-input">
+                </div>
+                <button type="submit" class="w-full py-3.5 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold rounded-2xl uppercase tracking-wider shadow-lg transition-all flupy-btn">
+                    Save Secure PIN
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Pin Reset Modal -->
+    <div id="pin-reset-modal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 hidden">
+        <div class="glass-panel p-6 w-full max-w-sm space-y-4 border border-amber-500/30 text-white relative">
+            <button type="button" onclick="closePinResetModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white bg-white/5 w-8 h-8 rounded-2xl flex items-center justify-center border border-white/5 flupy-btn"><i class="fa-solid fa-xmark"></i></button>
+            <h3 class="text-sm font-extrabold uppercase tracking-widest text-amber-400 border-b border-white/10 pb-3 text-center flex justify-center items-center gap-2">
+                <i class="fa-solid fa-key"></i> Reset PIN
+            </h3>
+            <p class="text-[11px] text-gray-300 text-center leading-relaxed font-medium">Verify your identity by entering your registered Date of Birth.</p>
+            <form onsubmit="handlePinReset(event)" class="space-y-4 text-xs mt-2">
+                <div>
+                    <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">Registered Date of Birth</label>
+                    <input type="date" id="reset-pin-dob" required class="w-full p-3.5 bg-black/40 border border-white/10 rounded-2xl text-white focus:outline-none focus:border-amber-500 premium-input">
+                </div>
+                <div id="new-pin-section" class="hidden">
+                    <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">New 4-Digit PIN</label>
+                    <input type="password" id="reset-new-pin" minlength="4" maxlength="4" class="w-full p-3.5 bg-black/40 border border-white/10 rounded-2xl text-white focus:outline-none focus:border-amber-500 premium-input text-center tracking-widest font-mono text-lg" placeholder="••••">
+                </div>
+                <button type="button" id="btn-verify-dob" onclick="verifyDobForPin()" class="w-full py-3.5 bg-amber-600 text-white font-bold rounded-2xl uppercase tracking-wider shadow-lg transition-all flupy-btn">Verify DOB</button>
+                <button type="submit" id="btn-save-new-pin" class="w-full py-3.5 bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-bold rounded-2xl uppercase tracking-wider shadow-lg transition-all flupy-btn hidden">
+                    Update PIN
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Double Auth Setup Modal -->
+    <div id="double-auth-setup-modal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 hidden">
+        <div class="glass-panel p-6 w-full max-w-sm space-y-4 border border-indigo-500/30 text-white relative">
+            <button type="button" onclick="closeDoubleAuthSetup()" class="absolute top-4 right-4 text-gray-400 hover:text-white bg-white/5 w-8 h-8 rounded-2xl flex items-center justify-center border border-white/5 flupy-btn"><i class="fa-solid fa-xmark"></i></button>
+            <h3 class="text-sm font-extrabold uppercase tracking-widest text-indigo-400 border-b border-white/10 pb-3 text-center flex justify-center items-center gap-2">
+                <i class="fa-solid fa-shield-halved"></i> Double Verification
+            </h3>
+            
+            <div class="flex items-center justify-between bg-black/40 p-3 rounded-2xl border border-white/5">
+                <div>
+                    <span class="block text-[11px] font-bold text-white uppercase tracking-wide">Security Status</span>
+                    <span id="da-status-text" class="text-[9px] text-rose-400 font-bold tracking-wider">DISABLED</span>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" id="da-toggle-input" class="sr-only peer" onchange="toggleDoubleAuthUI()">
+                    <div class="w-11 h-6 bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-500"></div>
+                </label>
+            </div>
+
+            <div id="da-setup-camera-section" class="hidden space-y-3">
+                <p class="text-[10px] text-gray-300 text-center leading-relaxed">To enable Double Verification, please capture a baseline profile picture. This will be securely saved and reviewed by Admin for future logins.</p>
+                <div class="w-full relative rounded-2xl overflow-hidden border-2 border-indigo-500/30">
+                    <video id="da-setup-video" class="camera-viewport" autoplay playsinline></video>
+                    <canvas id="da-setup-canvas" class="hidden"></canvas>
+                </div>
+                <button onclick="captureBaselineImage()" id="btn-da-capture" class="w-full py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-2xl text-xs uppercase tracking-wider shadow-lg transition-all flupy-btn">
+                    <i class="fa-solid fa-camera mr-1"></i> Capture Live Image
+                </button>
+            </div>
+            
+            <div id="da-setup-loading" class="hidden py-6 text-center">
+                <i class="fa-solid fa-spinner fa-spin text-3xl text-indigo-400 mb-2"></i>
+                <p class="text-xs text-gray-400">Processing security protocols...</p>
+            </div>
+        </div>
+    </div>
+
 
     <div id="password-recovery-modal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 hidden">
         <div class="glass-panel p-6 w-full max-w-sm space-y-4 border border-amber-500/30 text-white">
@@ -901,6 +1052,7 @@
         </div>
     </div>
 
+    <!-- FORCE FEEDBACK MODAL -->
     <div id="forced-feedback-popup" class="fixed inset-0 bg-black/90 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
         <div class="w-full max-w-sm glass-panel p-6 text-center space-y-4 border border-teal-500/40 shadow-2xl">
             <div class="flex justify-between items-center border-b border-white/10 pb-3">
@@ -1067,6 +1219,9 @@
         let adminCoinsValueExchangeRate = 50; 
         let globalDefaultFreeWithdraws = 1; 
 
+        // Double Auth Variables
+        let daCameraStream = null;
+        
         // ================= SYSTEM INITIALIZATION ROUTINES =================
         window.addEventListener('DOMContentLoaded', () => {
             initClockTrackingEngine();
@@ -1172,16 +1327,34 @@
         }
 
         function switchScreen(screenId) {
+            if(daCameraStream && screenId !== 'screen-double-auth-challenge') {
+                stopDoubleAuthCamera();
+            }
+
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
             const target = document.getElementById(screenId);
             if(target) {
                 target.classList.add('active');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
                 
-                if (screenId === 'screen-withdraw' && typeof buildWithdrawalAccountConfigPanel === 'function') {
+                if (screenId === 'screen-withdraw') {
+                    if (sessionUser && !sessionUser.withdrawPin) {
+                        document.getElementById('pin-setup-modal').classList.remove('hidden');
+                    }
                     setTimeout(() => {
                         buildWithdrawalAccountConfigPanel();
                     }, 50);
+                    const today = new Date();
+                    if (today.getDay() === 0) { 
+                        setTimeout(() => {
+                            const withdrawBtn = document.getElementById('withdraw-submit-btn');
+                            if (withdrawBtn) {
+                                withdrawBtn.disabled = true;
+                                withdrawBtn.innerHTML = 'Withdrawals Blocked on Sunday';
+                                withdrawBtn.classList.add('opacity-50', 'cursor-not-allowed');
+                            }
+                        }, 300);
+                    }
                 }
                 
                 if (screenId === 'screen-my-details' && typeof synchronizeUserDashboardInterface === 'function') {
@@ -1205,22 +1378,273 @@
                 if (sessionUser && typeof initApprovalNotificationListener === 'function') {
                     setTimeout(initApprovalNotificationListener, 800);
                 }
-
-                if (screenId === 'screen-withdraw') {
-                    const today = new Date();
-                    if (today.getDay() === 0) { 
-                        setTimeout(() => {
-                            const withdrawBtn = document.getElementById('withdraw-submit-btn');
-                            if (withdrawBtn) {
-                                withdrawBtn.disabled = true;
-                                withdrawBtn.innerHTML = 'Withdrawals Blocked on Sunday';
-                                withdrawBtn.classList.add('opacity-50', 'cursor-not-allowed');
-                            }
-                        }, 300);
-                    }
-                }
             }
         }
+
+        // ================= REFERRAL TIERS SYSTEM =================
+        function calculateTier(refCount) {
+            let tier = Math.floor(refCount / 10) + 1;
+            if (tier > 10) tier = 10; // Max tier visually
+            let commissionMultiplier = 1 + ((tier - 1) * 0.1); // 10% boost per tier (Level 1 = 1x, Level 2 = 1.1x...)
+            let tierName = `Level ${tier}`;
+            if (tier >= 10) tierName = `Gold Level`;
+            return { tier, tierName, commissionMultiplier };
+        }
+
+        function updateAffiliateTierDisplay() {
+            if(!sessionUser) return;
+            let validRefs = 0;
+            if (sessionUser.referrals) {
+                Object.values(sessionUser.referrals).forEach(ref => {
+                    if (ref.isDeposited === true || ref.depositCommissionPaid === true) {
+                        validRefs++;
+                    }
+                });
+            }
+            
+            const tierData = calculateTier(validRefs);
+            const tierNameEl = document.getElementById('affiliate-tier-name');
+            const tierBadge = document.getElementById('affiliate-tier-badge');
+            
+            if (tierNameEl) {
+                tierNameEl.innerText = tierData.tierName;
+                if(tierData.tier >= 10) {
+                    tierBadge.className = "mt-2 mb-3 mx-auto max-w-[200px] py-1.5 px-3 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-lg shadow-[0_0_15px_rgba(250,204,21,0.6)] flex items-center justify-center gap-2 border border-yellow-300 animate-pulse";
+                } else {
+                    tierBadge.className = "mt-2 mb-3 mx-auto max-w-[200px] py-1.5 px-3 bg-gradient-to-r from-emerald-600 to-teal-600 rounded-lg shadow-lg flex items-center justify-center gap-2 border border-emerald-400";
+                }
+            }
+            return tierData;
+        }
+
+
+        // ================= WITHDRAW PIN SYSTEM =================
+        function handlePinSetup(e) {
+            e.preventDefault();
+            const pin = document.getElementById('setup-pin-val').value;
+            const dob = document.getElementById('setup-pin-dob').value;
+            
+            if(!pin || !dob) return;
+
+            const cachedPhone = localStorage.getItem('ph_session_phone');
+            db.ref(`users/${cachedPhone}`).update({
+                withdrawPin: pin,
+                dob: dob
+            }, err => {
+                if(!err) {
+                    triggerSystemToast("Withdrawal PIN securely saved.", "success");
+                    document.getElementById('pin-setup-modal').classList.add('hidden');
+                }
+            });
+        }
+
+        function openPinResetModal() {
+            document.getElementById('pin-reset-modal').classList.remove('hidden');
+            document.getElementById('reset-pin-dob').value = '';
+            document.getElementById('reset-new-pin').value = '';
+            document.getElementById('new-pin-section').classList.add('hidden');
+            document.getElementById('btn-save-new-pin').classList.add('hidden');
+            document.getElementById('btn-verify-dob').classList.remove('hidden');
+        }
+
+        function closePinResetModal() {
+            document.getElementById('pin-reset-modal').classList.add('hidden');
+        }
+
+        function verifyDobForPin() {
+            const inputDob = document.getElementById('reset-pin-dob').value;
+            if(!inputDob) {
+                triggerSystemToast("Please enter your DOB.", "error");
+                return;
+            }
+            
+            if(sessionUser.dob === inputDob) {
+                triggerSystemToast("DOB Verified. Set new PIN.", "success");
+                document.getElementById('new-pin-section').classList.remove('hidden');
+                document.getElementById('btn-save-new-pin').classList.remove('hidden');
+                document.getElementById('btn-verify-dob').classList.add('hidden');
+            } else {
+                triggerSystemToast("Incorrect Date of Birth.", "error");
+            }
+        }
+
+        function handlePinReset(e) {
+            e.preventDefault();
+            const newPin = document.getElementById('reset-new-pin').value;
+            if(!newPin || newPin.length !== 4) {
+                triggerSystemToast("Invalid 4-digit PIN.", "error");
+                return;
+            }
+
+            const cachedPhone = localStorage.getItem('ph_session_phone');
+            db.ref(`users/${cachedPhone}`).update({
+                withdrawPin: newPin
+            }, err => {
+                if(!err) {
+                    triggerSystemToast("Withdrawal PIN reset successful.", "success");
+                    closePinResetModal();
+                }
+            });
+        }
+
+
+        // ================= DOUBLE AUTHENTICATION SYSTEM =================
+        async function startDoubleAuthCamera(videoId) {
+            try {
+                daCameraStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } });
+                const videoEl = document.getElementById(videoId);
+                videoEl.srcObject = daCameraStream;
+                videoEl.play();
+            } catch (err) {
+                triggerSystemToast("Camera access is required for Double Verification.", "error");
+            }
+        }
+
+        function stopDoubleAuthCamera() {
+            if(daCameraStream) {
+                daCameraStream.getTracks().forEach(t => t.stop());
+                daCameraStream = null;
+            }
+        }
+
+        function captureImageFromVideo(videoId, canvasId) {
+            const video = document.getElementById(videoId);
+            const canvas = document.getElementById(canvasId);
+            canvas.width = video.videoWidth || 480;
+            canvas.height = video.videoHeight || 640;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+            // 0.4 quality keeps it under 100kb usually
+            return canvas.toDataURL('image/jpeg', 0.4); 
+        }
+
+        function dataURLtoFile(dataurl, filename) {
+            let arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+            bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+            while(n--){ u8arr[n] = bstr.charCodeAt(n); }
+            return new File([u8arr], filename, {type:mime});
+        }
+
+        function openDoubleAuthSetup() {
+            document.getElementById('double-auth-setup-modal').classList.remove('hidden');
+            const toggle = document.getElementById('da-toggle-input');
+            const statusText = document.getElementById('da-status-text');
+            const cameraSection = document.getElementById('da-setup-camera-section');
+            
+            if(sessionUser && sessionUser.doubleAuthEnabled) {
+                toggle.checked = true;
+                statusText.innerText = "ENABLED";
+                statusText.className = "text-[9px] text-emerald-400 font-bold tracking-wider";
+                cameraSection.classList.add('hidden');
+            } else {
+                toggle.checked = false;
+                statusText.innerText = "DISABLED";
+                statusText.className = "text-[9px] text-rose-400 font-bold tracking-wider";
+                cameraSection.classList.add('hidden');
+            }
+        }
+
+        function closeDoubleAuthSetup() {
+            document.getElementById('double-auth-setup-modal').classList.add('hidden');
+            stopDoubleAuthCamera();
+        }
+
+        function toggleDoubleAuthUI() {
+            const toggle = document.getElementById('da-toggle-input');
+            const statusText = document.getElementById('da-status-text');
+            const cameraSection = document.getElementById('da-setup-camera-section');
+
+            if(toggle.checked) {
+                if(!sessionUser.baseAuthImage) {
+                    // Turn on camera to capture base image
+                    statusText.innerText = "PENDING SETUP";
+                    statusText.className = "text-[9px] text-amber-400 font-bold tracking-wider";
+                    cameraSection.classList.remove('hidden');
+                    startDoubleAuthCamera('da-setup-video');
+                } else {
+                    // Just enabling
+                    statusText.innerText = "ENABLED";
+                    statusText.className = "text-[9px] text-emerald-400 font-bold tracking-wider";
+                    cameraSection.classList.add('hidden');
+                    db.ref(`users/${localStorage.getItem('ph_session_phone')}`).update({ doubleAuthEnabled: true });
+                }
+            } else {
+                statusText.innerText = "DISABLED";
+                statusText.className = "text-[9px] text-rose-400 font-bold tracking-wider";
+                cameraSection.classList.add('hidden');
+                stopDoubleAuthCamera();
+                db.ref(`users/${localStorage.getItem('ph_session_phone')}`).update({ doubleAuthEnabled: false });
+            }
+        }
+
+        async function captureBaselineImage() {
+            const base64Data = captureImageFromVideo('da-setup-video', 'da-setup-canvas');
+            if(!base64Data) return;
+            
+            document.getElementById('da-setup-camera-section').classList.add('hidden');
+            document.getElementById('da-setup-loading').classList.remove('hidden');
+            stopDoubleAuthCamera();
+
+            const file = dataURLtoFile(base64Data, 'base_auth.jpg');
+            const url = await transmitMediaToCloudMatrix(file);
+
+            if(url) {
+                db.ref(`users/${localStorage.getItem('ph_session_phone')}`).update({
+                    baseAuthImage: url,
+                    doubleAuthEnabled: true
+                }, err => {
+                    if(!err) {
+                        triggerSystemToast("Double Verification Baseline captured successfully.", "success");
+                        closeDoubleAuthSetup();
+                        document.getElementById('da-setup-loading').classList.add('hidden');
+                    }
+                });
+            } else {
+                triggerSystemToast("Upload failed. Try again.", "error");
+                document.getElementById('da-setup-camera-section').classList.remove('hidden');
+                document.getElementById('da-setup-loading').classList.add('hidden');
+                startDoubleAuthCamera('da-setup-video');
+            }
+        }
+
+        async function submitDoubleAuthChallenge() {
+            const btn = document.getElementById('btn-submit-challenge');
+            btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Processing...`;
+            btn.disabled = true;
+
+            const base64Data = captureImageFromVideo('login-challenge-video', 'login-challenge-canvas');
+            stopDoubleAuthCamera();
+            const file = dataURLtoFile(base64Data, 'login_challenge.jpg');
+            const url = await transmitMediaToCloudMatrix(file);
+
+            if(url) {
+                const phone = window.tempLoginPhone || localStorage.getItem('ph_session_phone');
+                
+                db.ref(`users/${phone}`).update({ verificationStatus: 'verifying' });
+                
+                db.ref(`admin_queues/double_auth/${phone}`).set({
+                    phone: phone,
+                    username: window.tempLoginUser ? window.tempLoginUser.username : sessionUser.username,
+                    oldImage: (window.tempLoginUser ? window.tempLoginUser.baseAuthImage : sessionUser.baseAuthImage) || "",
+                    newImage: url,
+                    timestamp: Date.now(),
+                    status: 'pending'
+                }, err => {
+                    if(!err) {
+                        triggerSystemToast("Live image sent to Admin. Account in temporary wait mode.", "success");
+                        switchScreen('screen-verifying');
+                    }
+                });
+            } else {
+                triggerSystemToast("Upload failed.", "error");
+                btn.innerHTML = `<i class="fa-solid fa-camera mr-1"></i> Start Verification Capture`;
+                btn.disabled = false;
+                startDoubleAuthCamera('login-challenge-video');
+            }
+        }
+
+
+        // ================= GENERAL ROUTINES (Updated) =================
 
         function initTotalUsersCounter() {
             db.ref('users').on('value', snapshot => {
@@ -1321,7 +1745,7 @@
                     document.getElementById('main-header').classList.remove('hidden');
                     document.getElementById('main-footer').classList.remove('hidden');
                     if(maintenanceCountdownInterval) clearInterval(maintenanceCountdownInterval);
-                    if(sessionUser && sessionUser.verificationStatus !== 'suspended') {
+                    if(sessionUser && sessionUser.verificationStatus !== 'suspended' && sessionUser.verificationStatus !== 'verifying') {
                         switchScreen('screen-dashboard');
                     }
                 }
@@ -1340,7 +1764,7 @@
             });
         }
 
-        // --- NEW PASSWORD RECOVERY LOGIC ---
+        // --- PASSWORD RECOVERY LOGIC ---
         function openPasswordRecoveryModal() {
             document.getElementById('password-recovery-modal').classList.remove('hidden');
             resetRecoveryModal();
@@ -1456,7 +1880,7 @@
             });
         }
 
-        // --- NEW KYC LOGIC ---
+        // --- KYC LOGIC ---
         function openKYCModal() {
             document.getElementById('kyc-modal').classList.remove('hidden');
         }
@@ -1474,6 +1898,7 @@
             const cachedPhone = localStorage.getItem('ph_session_phone');
             db.ref(`users/${cachedPhone}`).update({
                 kycStatus: 'pending',
+                dob: dob, // Setting DOB for PIN recovery too
                 kycDetails: {
                     fullName: name,
                     birthday: dob,
@@ -1496,7 +1921,7 @@
             });
         }
 
-        // --- NEW POLICY LOGIC ---
+        // --- POLICY LOGIC ---
         function initPolicyCheck() {
             const accepted = localStorage.getItem('ph_policy_accepted');
             if(!accepted) {
@@ -1517,10 +1942,15 @@
         function listenForAdminForcedFeedback() {
             db.ref('admin_settings/forced_feedback').on('value', snap => {
                 if(snap.exists() && snap.val().active === true) {
-                    const fbDone = sessionStorage.getItem('ph_forced_fb_done_' + snap.val().id);
+                    const snapVal = snap.val();
+                    const fbId = snapVal.id || 'DEFAULT_FB_ID';
+                    const fbDone = localStorage.getItem('ph_forced_fb_done_' + fbId);
+                    
                     if(!fbDone) {
-                        triggerForcedFeedback(snap.val().id);
+                        triggerForcedFeedback(fbId);
                     }
+                } else {
+                    document.getElementById('forced-feedback-popup').classList.add('hidden');
                 }
             });
         }
@@ -1528,6 +1958,8 @@
         function triggerForcedFeedback(fbId) {
             window.activeForcedFbId = fbId;
             const modal = document.getElementById('forced-feedback-popup');
+            if (!modal.classList.contains('hidden')) return;
+            
             const btn = document.getElementById('forced-fb-btn');
             const timerEl = document.getElementById('forced-fb-timer');
             
@@ -1537,12 +1969,14 @@
             timerEl.innerText = `Wait ${time}s`;
             btn.innerText = `Please Wait... (${time}s)`;
             
-            const interval = setInterval(() => {
+            if (window.forcedFbInterval) clearInterval(window.forcedFbInterval);
+            
+            window.forcedFbInterval = setInterval(() => {
                 time--;
                 timerEl.innerText = `Wait ${time}s`;
                 btn.innerText = `Please Wait... (${time}s)`;
                 if(time <= 0) {
-                    clearInterval(interval);
+                    clearInterval(window.forcedFbInterval);
                     btn.disabled = false;
                     btn.innerText = 'Submit Feedback';
                     timerEl.innerText = 'Ready';
@@ -1569,7 +2003,7 @@
                 adminReply: ''
             });
 
-            sessionStorage.setItem('ph_forced_fb_done_' + window.activeForcedFbId, 'true');
+            localStorage.setItem('ph_forced_fb_done_' + window.activeForcedFbId, 'true');
             document.getElementById('forced-feedback-popup').classList.add('hidden');
             triggerSystemToast("Thank you for your valuable feedback!", "success");
         }
@@ -1709,22 +2143,13 @@
 
             db.ref('users').once('value', mainSnapshot => {
                 let duplicateFound = false;
-                let deviceBoundAccountExists = false;
 
                 mainSnapshot.forEach(child => {
                     const node = child.val();
                     if(node.email === email || node.phone === phone) {
                         duplicateFound = true;
                     }
-                    if(node.registeredDevice === window.deviceSignature) {
-                        deviceBoundAccountExists = true;
-                    }
                 });
-
-                if(deviceBoundAccountExists) {
-                    triggerSystemToast("Device parameters violation. Multiple registrations strictly blocked on this device.", "error");
-                    return;
-                }
 
                 if(duplicateFound) {
                     const fakePayload = {
@@ -1781,7 +2206,9 @@
                     hasApprovedDeposit: false,
                     withdrawalLimit: 1000,
                     lastWithdrawalTimestamp: 0,
-                    freeWithdraws: globalDefaultFreeWithdraws
+                    freeWithdraws: globalDefaultFreeWithdraws,
+                    doubleAuthEnabled: false,
+                    withdrawPin: ""
                 };
 
                 db.ref('users/' + phone).set(payload, err => {
@@ -1789,6 +2216,7 @@
                         if(parentRefNodePhone) {
                             db.ref(`users/${parentRefNodePhone}`).transaction(parent => {
                                 if(parent) {
+                                    // Tier logic will be applied on deposits, initial sign up is flat
                                     parent.coinsCommission = parseInt(parent.coinsCommission || 0) + 30;
                                     if(!parent.logs) parent.logs = {};
                                     const lgId = 'LOG-INV-' + Date.now();
@@ -1843,35 +2271,36 @@
                     return;
                 }
 
-                // MULTIPLE DEVICE BAN LOGIC
-                if (userFound.registeredDevice && userFound.registeredDevice !== window.deviceSignature) {
-                    db.ref('users/' + userKey).update({
-                        verificationStatus: 'suspended',
-                        suspensionWarning: 'Policy Violation: Multiple device login detected. 1 Account is only allowed on 1 Device. Your account has been automatically banned.'
-                    });
-                    
-                    userFound.verificationStatus = 'suspended';
-                    userFound.suspensionWarning = 'Policy Violation: Multiple device login detected. 1 Account is only allowed on 1 Device. Your account has been automatically banned.';
-                    
+                if(userFound.verificationStatus === 'suspended') {
                     sessionUser = userFound;
                     localStorage.setItem('ph_session_phone', userKey);
                     handleSuspensionStateActivation();
-                    triggerSystemToast("Account Banned: Multiple device login detected.", "error");
                     return;
                 }
-                
-                if (!userFound.registeredDevice) {
+
+                // Check Double Auth for new device or re-login
+                if (userFound.doubleAuthEnabled && userFound.verificationStatus !== 'verifying') {
+                    window.tempLoginUser = userFound;
+                    window.tempLoginPhone = userKey;
+                    switchScreen('screen-double-auth-challenge');
+                    startDoubleAuthCamera('login-challenge-video');
+                    return;
+                } else if (userFound.verificationStatus === 'verifying') {
+                    sessionUser = userFound;
+                    localStorage.setItem('ph_session_phone', userKey);
+                    switchScreen('screen-verifying');
+                    return;
+                }
+
+                // Allow users to freely login across devices without ban
+                if (userFound.registeredDevice !== window.deviceSignature) {
                     db.ref('users/' + userKey).update({ registeredDevice: window.deviceSignature });
+                    userFound.registeredDevice = window.deviceSignature;
                 }
 
                 sessionUser = userFound;
                 localStorage.setItem('ph_session_phone', userKey);
                 
-                if(userFound.verificationStatus === 'suspended') {
-                    handleSuspensionStateActivation();
-                    return;
-                }
-
                 triggerSystemToast("Session link initialized successfully.", "success");
                 initUserEcosystemStream();
             });
@@ -1892,6 +2321,8 @@
                         sessionUser = snapshot.val();
                         if(sessionUser.verificationStatus === 'suspended') {
                             handleSuspensionStateActivation();
+                        } else if (sessionUser.verificationStatus === 'verifying') {
+                            switchScreen('screen-verifying');
                         } else {
                             initUserEcosystemStream();
                         }
@@ -1966,6 +2397,9 @@
 
         function initUserEcosystemStream() {
             document.getElementById('device-pill').style.display = 'flex';
+            document.getElementById('top-security-alert').classList.remove('hidden');
+            document.getElementById('main-header').classList.remove('hidden');
+            document.getElementById('main-footer').classList.remove('hidden');
             
             const cachedPhone = localStorage.getItem('ph_session_phone');
             db.ref('users/' + cachedPhone).on('value', snapshot => {
@@ -1985,11 +2419,21 @@
                     handleSuspensionStateActivation();
                     return;
                 }
+
+                if(updated.verificationStatus === 'verifying') {
+                    sessionUser = updated;
+                    document.getElementById('top-security-alert').classList.add('hidden');
+                    document.getElementById('main-header').classList.add('hidden');
+                    document.getElementById('main-footer').classList.add('hidden');
+                    switchScreen('screen-verifying');
+                    return;
+                }
                 
-                if(sessionUser && sessionUser.verificationStatus === 'suspended' && updated.verificationStatus === 'verified') {
+                if(sessionUser && (sessionUser.verificationStatus === 'suspended' || sessionUser.verificationStatus === 'verifying') && updated.verificationStatus === 'verified') {
                     document.getElementById('top-security-alert').classList.remove('hidden');
                     document.getElementById('main-header').classList.remove('hidden');
                     document.getElementById('main-footer').classList.remove('hidden');
+                    switchScreen('screen-dashboard');
                 }
 
                 sessionUser = updated;
@@ -2017,7 +2461,11 @@
             streamLiveSupportMessageLogs();
             streamFiledTicketsLog();
             listenForAdminForcedFeedback();
-            switchScreen('screen-dashboard');
+            
+            // Only switch to dashboard if we aren't currently forced to verification
+            if(sessionUser && sessionUser.verificationStatus !== 'verifying' && sessionUser.verificationStatus !== 'suspended') {
+                switchScreen('screen-dashboard');
+            }
         }
 
         function synchronizeUserDashboardInterface() {
@@ -2045,6 +2493,9 @@
             } else {
                 document.getElementById('meta-ref-count').innerText = "0 Nodes";
             }
+
+            // Tier Update
+            updateAffiliateTierDisplay();
 
             // KYC Updates
             let kycStat = sessionUser.kycStatus || 'unverified';
@@ -2293,17 +2744,27 @@
                         if(parentPhone && parentPhone !== "NONE" && root.users[parentPhone]) {
                             let parentUser = root.users[parentPhone];
                             
-                            let coinsAwardedCalculatedValue = Math.floor((Number(plan.cost) * 0.02) * adminCoinsValueExchangeRate);
+                            // Calculate parent's valid referrals to get their tier commission multiplier
+                            let parentValidRefs = 0;
+                            if (parentUser.referrals) {
+                                Object.values(parentUser.referrals).forEach(r => {
+                                    if (r.isDeposited || r.depositCommissionPaid) parentValidRefs++;
+                                });
+                            }
+                            let parentTierData = calculateTier(parentValidRefs);
                             
-                            parentUser.coinsCommission = parseInt(parentUser.coinsCommission || 0) + coinsAwardedCalculatedValue;
+                            let baseCoinsAwarded = Math.floor((Number(plan.cost) * 0.02) * adminCoinsValueExchangeRate);
+                            let finalCoinsAwarded = Math.floor(baseCoinsAwarded * parentTierData.commissionMultiplier);
+                            
+                            parentUser.coinsCommission = parseInt(parentUser.coinsCommission || 0) + finalCoinsAwarded;
                             
                             if(!parentUser.logs) parentUser.logs = {};
                             const pLogId = 'LOG-COMM-' + Date.now();
                             parentUser.logs[pLogId] = {
                                 id: pLogId,
                                 type: 'yield',
-                                title: `Plan Comm (2%) from ${current.username}`,
-                                amount: coinsAwardedCalculatedValue,
+                                title: `Plan Comm (Tier ${parentTierData.tier}) from ${current.username}`,
+                                amount: finalCoinsAwarded,
                                 timestamp: Date.now(),
                                 status: 'Success'
                             };
@@ -2311,7 +2772,7 @@
                             if(!parentUser.referrals) parentUser.referrals = {};
                             if(parentUser.referrals[cachedPhone]) {
                                 let refData = parentUser.referrals[cachedPhone];
-                                refData.commissionEarnedCoins = parseInt(refData.commissionEarnedCoins || 0) + coinsAwardedCalculatedValue;
+                                refData.commissionEarnedCoins = parseInt(refData.commissionEarnedCoins || 0) + finalCoinsAwarded;
                                 refData.depositCommissionPaid = true; 
                                 refData.isDeposited = true; 
                             }
@@ -2570,6 +3031,7 @@
             }
 
             let freeW = parseInt(sessionUser.freeWithdraws || 0);
+            // LOCKOUT Logic updated: if no free withdraws and NO active friend, lock it.
             let isWithdrawLocked = !hasDepositedRef && freeW <= 0;
 
             const limitEl = document.getElementById('current-withdraw-limit');
@@ -2603,7 +3065,7 @@
             }
 
             if(isWithdrawLocked) {
-                alertBox.innerHTML = `<div class="flex items-center gap-2 justify-center"><i class="fa-solid fa-triangle-exclamation text-rose-400"></i><span>آپ کے فری ودڈرا ختم ہوچکے ہیں۔ اب مزید ودڈرا کے لیے آپ کو کم از کم ایک دوست انوائٹ کرنا ہوگا جو ڈپازٹ کرے۔ <b>ابھی دوست انوائٹ کریں!</b></span></div>`;
+                alertBox.innerHTML = `<div class="flex flex-col gap-2 justify-center items-center"><div class="flex items-center gap-1.5"><i class="fa-solid fa-triangle-exclamation text-rose-400 text-lg"></i><span class="font-bold text-sm uppercase">Withdraw Locked!</span></div><p class="text-[11px] leading-relaxed">Your free withdrawals are exhausted. You must invite at least 1 friend and they must deposit/activate a plan to unlock your withdrawals again.</p></div>`;
                 alertBox.classList.remove('hidden');
                 document.getElementById('withdraw-submit-btn').disabled = true;
                 document.getElementById('withdraw-submit-btn').className = "w-full py-4 bg-slate-800 text-gray-500 rounded-2xl font-bold text-xs uppercase tracking-wider cursor-not-allowed shadow-md flupy-btn";
@@ -2620,9 +3082,15 @@
             const number = document.getElementById('withdraw-number').value.trim();
             const volume = parseFloat(document.getElementById('withdraw-volume').value);
             const method = document.getElementById('withdraw-method').value || 'JazzCash';
+            const enteredPin = document.getElementById('withdraw-security-pin').value;
 
-            if(!title || !number) {
-                triggerSystemToast("Account details are required.", "error");
+            if(!title || !number || !enteredPin) {
+                triggerSystemToast("All fields including PIN are required.", "error");
+                return;
+            }
+
+            if(enteredPin !== sessionUser.withdrawPin) {
+                triggerSystemToast("Security PIN is incorrect.", "error");
                 return;
             }
 
