@@ -9,6 +9,11 @@
     
     <!-- Link to external CSS -->
     <link rel="stylesheet" href="index.css">
+    <style>
+        /* Hide scrollbar for history filters */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between antialiased">
 
@@ -29,10 +34,10 @@
         </div>
 
         <div class="relative flex items-center gap-2">
-            <div class="flex items-center gap-2 glass-panel px-3.5 py-2 border border-emerald-500/20 bg-emerald-500/5 shadow-inner cursor-pointer hover:bg-emerald-500/10 transition-colors" id="device-pill" style="display:none;" onclick="toggleThreeDotsMenu()">
-                <i class="fa-solid fa-mobile-screen-button text-emerald-400 animate-pulse"></i>
-                <span id="device-display-name" class="text-[11px] font-bold text-emerald-400 font-mono tracking-wide">Node Core</span>
-                <i class="fa-solid fa-ellipsis-vertical text-emerald-400 ml-1 animate-pulse"></i>
+            <!-- Updated Device Pill to show only 3 dots -->
+            <div class="flex items-center justify-center w-10 h-10 rounded-full glass-panel border border-emerald-500/20 bg-emerald-500/5 shadow-inner cursor-pointer hover:bg-emerald-500/10 transition-colors" id="device-pill" style="display:none;" onclick="toggleThreeDotsMenu()">
+                <span id="device-display-name" class="hidden"></span> <!-- Hidden so JS doesn't crash -->
+                <i class="fa-solid fa-ellipsis-vertical text-emerald-400 text-lg animate-pulse"></i>
             </div>
             
             <div id="three-dots-menu" class="absolute top-full right-0 mt-2 w-52 glass-panel border border-emerald-500/30 p-2 hidden flex-col gap-2 z-50">
@@ -46,7 +51,7 @@
                     <i class="fa-solid fa-hand-holding-dollar w-4"></i> Withdraw
                 </button>
                 <button onclick="switchScreen('screen-history'); toggleThreeDotsMenu();" class="w-full text-emerald-400 hover:text-white bg-emerald-500/10 hover:bg-emerald-500/20 px-3.5 py-2.5 rounded-2xl border border-emerald-500/20 transition-all flex items-center justify-start gap-2 font-bold text-[10px] uppercase">
-                    <i class="fa-solid fa-clock-rotate-left w-4"></i> All History
+                    <i class="fa-solid fa-clock-rotate-left w-4"></i> Overall History
                 </button>
                 <button onclick="openProfileModal(); toggleThreeDotsMenu();" class="w-full text-amber-400 hover:text-white bg-amber-500/10 hover:bg-amber-500/20 px-3.5 py-2.5 rounded-2xl border border-amber-500/20 transition-all flex items-center justify-start gap-2 font-bold text-[10px] uppercase">
                     <i class="fa-solid fa-user w-4"></i> My Profile
@@ -244,23 +249,31 @@
                         <input type="file" id="dp-upload-input" accept="image/*" class="hidden" onchange="handleDpUpdate(event)">
                     </div>
 
-                    <div class="flex-grow">
+                    <div class="flex-grow min-w-0">
                         <div id="dash-red-warning" class="hidden animate-pulse bg-red-600/20 border border-red-500/50 text-red-400 text-[10px] font-bold px-2 py-1 rounded-md mb-1.5 inline-block">
                             <i class="fa-solid fa-triangle-exclamation mr-1"></i> <span id="dash-red-warning-text"></span>
                         </div>
                         
-                        <h3 class="text-sm font-extrabold text-white flex items-center gap-1.5 tracking-wide">
-                            Welcome, <span id="dash-username" class="transition-all duration-300 hover:scale-105 inline-block origin-left">User Node</span>
-                        </h3>
-                        <p class="text-[10px] text-gray-400 font-medium">Ref Signature: <span id="dash-my-refcode" class="text-emerald-400 font-mono font-bold tracking-wider">-----</span></p>
+                        <!-- Slim Live Ticker -->
+                        <div class="bg-black/30 border border-emerald-500/30 rounded-full px-2.5 py-1 mb-1.5 flex items-center gap-1.5 w-max max-w-full h-6 overflow-hidden shadow-inner">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse flex-shrink-0"></span>
+                            <span id="slim-live-feed" class="text-[9px] font-bold text-emerald-300 whitespace-nowrap overflow-hidden text-ellipsis feed-animate">Connecting Live Secure Socket...</span>
+                        </div>
 
-                        <div class="mt-2.5 flex items-center justify-between gap-2">
+                        <h3 class="text-sm font-extrabold text-white flex items-center gap-1.5 tracking-wide truncate">
+                            Welcome, <span id="dash-username" class="transition-all duration-300 hover:scale-105 inline-block origin-left truncate">User Node</span>
+                        </h3>
+                        <p class="text-[10px] text-gray-400 font-medium truncate">Ref Signature: <span id="dash-my-refcode" class="text-emerald-400 font-mono font-bold tracking-wider">-----</span></p>
+
+                        <div class="mt-2 flex items-center justify-between gap-2">
                             <div id="dash-status-container" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-2xl text-[9px] font-bold uppercase tracking-wider bg-rose-500/10 text-rose-400 border border-rose-500/20 shadow-inner">
                                 <span class="w-1.5 h-1.5 rounded-full bg-current animate-pulse"></span>
                                 <span id="dash-status-text">Unverified</span>
                             </div>
-                            <div class="text-[10px] text-gray-400 bg-black/40 px-2.5 py-1 rounded-2xl border border-white/5 font-medium">
-                                Active Users: <span id="total-users-count" class="text-white font-extrabold">0</span>
+                            
+                            <!-- Updated: Replaced Total Users with Balance -->
+                            <div class="text-[10px] text-gray-400 bg-black/40 px-2.5 py-1 rounded-2xl border border-white/5 font-medium flex items-center gap-1 shadow-inner">
+                                <i class="fa-solid fa-wallet text-amber-400"></i> <span id="dash-small-balance" class="text-white font-extrabold font-mono">0.00</span>
                             </div>
                         </div>
                     </div>
@@ -268,6 +281,12 @@
             </div>
 
             <div id="dashboard-unlocked-features" class="space-y-4">
+                
+                <!-- Daily Reward Option -->
+                <button id="daily-reward-btn" onclick="claimDailyBonusReward()" class="w-full mb-1 py-3.5 glass-panel bg-gradient-to-r from-amber-500/10 to-yellow-500/10 border-amber-500/30 text-amber-400 font-black text-xs uppercase tracking-wider rounded-3xl shadow-lg daily-reward-btn flex items-center justify-center gap-2 flupy-btn">
+                    <i class="fa-solid fa-gift text-lg animate-pulse"></i> Claim Your Daily Reward
+                </button>
+
                 <div class="grid grid-cols-2 gap-3.5">
                     
                     <button onclick="switchScreen('screen-my-details')" 
@@ -620,7 +639,7 @@
 
             <form id="withdraw-processing-form" onsubmit="handleWithdrawalExecution(event)" class="space-y-4">
                 <div>
-                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 px-1">Account Title</label>
+                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 px-1">Account Title / Name</label>
                     <input type="text" id="withdraw-title" required class="w-full px-4 py-3.5 bg-black/40 border border-white/10 rounded-2xl text-xs focus:outline-none focus:border-indigo-500 text-white premium-input" placeholder="e.g. Muhammad Naeem">
                 </div>
                 
@@ -639,7 +658,7 @@
                     <select id="withdraw-method" class="w-full px-4 py-3.5 bg-black/40 border border-white/10 rounded-2xl text-xs focus:outline-none focus:border-indigo-500 text-white premium-input font-semibold">
                         <option value="JazzCash">JazzCash</option>
                         <option value="EasyPaisa">EasyPaisa</option>
-                        <option value="Meezan Bank">Meezan Bank</option>
+                        <option value="Bank Transfer">Bank Transfer</option>
                     </select>
                 </div>
 
@@ -657,36 +676,33 @@
             </form>
         </section>
 
+        <!-- UPDATED UNIFIED HISTORY SECTION -->
         <section id="screen-history" class="screen space-y-5">
             <div class="flex items-center justify-between">
                 <button onclick="switchScreen('screen-dashboard')" class="text-xs text-gray-400 hover:text-white flex items-center gap-1.5 transition-all bg-white/5 px-3 py-1.5 rounded-2xl border border-white/5 font-semibold flupy-btn">
                     <i class="fa-solid fa-arrow-left-long"></i> Return
                 </button>
-                <h2 class="text-sm font-extrabold text-white tracking-wider">My Full History</h2>
+                <h2 class="text-sm font-extrabold text-white tracking-wider">Overall History</h2>
             </div>
 
-            <div class="glass-panel p-5 rounded-3xl border border-white/10">
-                <div class="flex items-center gap-2 mb-4">
-                    <i class="fa-solid fa-arrow-down text-emerald-400"></i>
-                    <span class="font-extrabold text-emerald-400 tracking-wider text-sm">DEPOSITS</span>
+            <div class="glass-panel p-4 rounded-3xl border border-white/10">
+                
+                <!-- Scrollable Horizontal Options/Filters -->
+                <div class="flex gap-2 overflow-x-auto pb-3 mb-3 border-b border-white/5 no-scrollbar" id="history-filters">
+                    <button onclick="filterUnifiedHistory('all')" class="hist-filter-btn px-4 py-1.5 text-[10px] font-bold rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 whitespace-nowrap transition-all active" data-type="all">All History</button>
+                    <button onclick="filterUnifiedHistory('login')" class="hist-filter-btn px-4 py-1.5 text-[10px] font-bold rounded-full bg-white/5 text-gray-400 border border-white/5 whitespace-nowrap transition-all" data-type="login">Logins</button>
+                    <button onclick="filterUnifiedHistory('deposit')" class="hist-filter-btn px-4 py-1.5 text-[10px] font-bold rounded-full bg-white/5 text-gray-400 border border-white/5 whitespace-nowrap transition-all" data-type="deposit">Deposits</button>
+                    <button onclick="filterUnifiedHistory('withdraw')" class="hist-filter-btn px-4 py-1.5 text-[10px] font-bold rounded-full bg-white/5 text-gray-400 border border-white/5 whitespace-nowrap transition-all" data-type="withdraw">Withdraws</button>
+                    <button onclick="filterUnifiedHistory('plan')" class="hist-filter-btn px-4 py-1.5 text-[10px] font-bold rounded-full bg-white/5 text-gray-400 border border-white/5 whitespace-nowrap transition-all" data-type="plan">Plans</button>
+                    <button onclick="filterUnifiedHistory('bonus')" class="hist-filter-btn px-4 py-1.5 text-[10px] font-bold rounded-full bg-white/5 text-gray-400 border border-white/5 whitespace-nowrap transition-all" data-type="bonus">Bonus/Profit</button>
+                    <button onclick="filterUnifiedHistory('complaint')" class="hist-filter-btn px-4 py-1.5 text-[10px] font-bold rounded-full bg-white/5 text-gray-400 border border-white/5 whitespace-nowrap transition-all" data-type="complaint">Complaints</button>
                 </div>
-                <div id="user-deposits-history" class="space-y-3 text-sm"></div>
-            </div>
 
-            <div class="glass-panel p-5 rounded-3xl border border-white/10">
-                <div class="flex items-center gap-2 mb-4">
-                    <i class="fa-solid fa-arrow-up text-indigo-400"></i>
-                    <span class="font-extrabold text-indigo-400 tracking-wider text-sm">WITHDRAWALS</span>
+                <!-- Unified Step by Step Timeline List -->
+                <div id="unified-history-list" class="space-y-4 history-timeline max-h-[60vh] overflow-y-auto pr-1">
+                    <div class="text-xs text-gray-500 italic text-center py-6">Aggregating records...</div>
                 </div>
-                <div id="user-withdrawals-history" class="space-y-3 text-sm"></div>
-            </div>
 
-            <div class="glass-panel p-5 rounded-3xl border border-white/10">
-                <div class="flex items-center gap-2 mb-4">
-                    <i class="fa-solid fa-handshake text-amber-400"></i>
-                    <span class="font-extrabold text-amber-400 tracking-wider text-sm">REFERRAL PROFITS</span>
-                </div>
-                <div id="user-referral-history" class="space-y-3 text-sm"></div>
             </div>
         </section>
         
