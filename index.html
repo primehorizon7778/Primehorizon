@@ -1,1071 +1,517 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prime Horizon - Ultimate Investment Ecosystem</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Link to external CSS -->
-    <link rel="stylesheet" href="index.css">
-    <style>
-        /* Hide scrollbar for history filters */
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>Prime Horizon Official App</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy-deep:#0A0F1C;
+    --navy-mid:#111C2E;
+    --horizon-gold:#D4AF6A;
+    --amber:#F2B565;
+    --paper:#F5F3EE;
+    --slate:#8592A6;
+    --danger:#E8734A;
+    --android-green: #3DDC84;
+    --error-red: #FF4C4C;
+    --safe-top: env(safe-area-inset-top, 0px);
+    --safe-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  *{box-sizing:border-box;}
+  html,body{
+    margin:0;padding:0;height:100%;width:100%;
+    background:var(--navy-deep);
+    font-family:'Inter',sans-serif;
+    color:var(--paper);
+    overflow:hidden;
+    -webkit-tap-highlight-color: transparent;
+  }
+  #app{
+    position:fixed;inset:0;
+    display:flex;flex-direction:column;
+    padding-top:calc(var(--safe-top) + 14px);
+    padding-bottom:calc(var(--safe-bottom) + 18px);
+    background:
+      radial-gradient(120% 65% at 50% 0%, rgba(212,175,106,0.10) 0%, rgba(212,175,106,0) 60%),
+      linear-gradient(180deg, var(--navy-deep) 0%, var(--navy-mid) 55%, #0D1626 100%);
+  }
+
+  /* ================= SPLASH / 3D ENTRY SCREEN ================= */
+  #splash{
+    position:absolute;inset:0;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    background:radial-gradient(120% 70% at 50% 10%, #17263E 0%, var(--navy-deep) 70%);
+    z-index:50;
+    transition:opacity .8s cubic-bezier(0.4, 0, 0.2, 1), visibility .8s ease;
+  }
+  #splash.hide{opacity:0;visibility:hidden;pointer-events:none;transform:scale(1.05);}
+
+  .horizon-stage{
+    position:relative; width:220px; height:220px;
+    perspective:1000px; margin-bottom:40px;
+    display:flex; align-items:center; justify-content:center;
+  }
+  
+  .horizon-ring.outer{
+    position:absolute; inset:0; border-radius:50%; transform-style:preserve-3d;
+    animation: tiltSpinOuter 6s linear infinite;
+  }
+  .horizon-ring.outer::before{
+    content:""; position:absolute;inset:0; border-radius:50%;
+    background:conic-gradient(from 0deg, var(--horizon-gold) 0deg, var(--amber) 90deg, transparent 180deg, var(--horizon-gold) 270deg, var(--amber) 360deg);
+    -webkit-mask:radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 2px));
+    mask:radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 2px));
+    filter: drop-shadow(0 0 15px rgba(212,175,106,0.6));
+  }
+
+  .horizon-ring.inner{
+    position:absolute; inset:25px; border-radius:50%; transform-style:preserve-3d;
+    animation: tiltSpinInner 4s linear infinite;
+  }
+  .horizon-ring.inner::before{
+    content:""; position:absolute;inset:0; border-radius:50%;
+    background:conic-gradient(from 180deg, rgba(255,255,255,0.8) 0deg, transparent 120deg, rgba(212,175,106,0.8) 240deg, transparent 360deg);
+    -webkit-mask:radial-gradient(farthest-side, transparent calc(100% - 1.5px), #000 calc(100% - 1.5px));
+    mask:radial-gradient(farthest-side, transparent calc(100% - 1.5px), #000 calc(100% - 1.5px));
+    filter: drop-shadow(0 0 8px rgba(255,255,255,0.4));
+  }
+
+  @keyframes tiltSpinOuter{
+    0%  { transform: rotateX(65deg) rotateY(-15deg) rotateZ(0deg); }
+    100%{ transform: rotateX(65deg) rotateY(-15deg) rotateZ(360deg); }
+  }
+  @keyframes tiltSpinInner{
+    0%  { transform: rotateX(60deg) rotateY(15deg) rotateZ(360deg); }
+    100%{ transform: rotateX(60deg) rotateY(15deg) rotateZ(0deg); }
+  }
+
+  .logo-orb{
+    position:absolute; width:125px; height:125px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    background:linear-gradient(160deg,#1A2740,#0C1524);
+    box-shadow: 0 0 0 1px rgba(212,175,106,0.4), 0 20px 50px -10px rgba(0,0,0,0.8), inset 0 2px 10px rgba(255,255,255,0.1);
+    animation: pulseGlow 3s ease-in-out infinite, floatY 4s ease-in-out infinite;
+    z-index: 2;
+  }
+  @keyframes floatY{
+    0%,100%{ transform: translateY(0px) scale(1); }
+    50%{ transform: translateY(-10px) scale(1.02); }
+  }
+  @keyframes pulseGlow{
+    0%,100%{ box-shadow: 0 0 0 1px rgba(212,175,106,0.4), 0 20px 50px -10px rgba(0,0,0,0.8); }
+    50%{ box-shadow: 0 0 20px 2px rgba(212,175,106,0.6), 0 25px 60px -10px rgba(0,0,0,0.9); }
+  }
+  .logo-orb img{
+    width:94px; height:94px; border-radius:50%; object-fit:cover;
+    box-shadow:0 0 0 2px rgba(255,255,255,0.08);
+  }
+
+  .brand-word{
+    font-family:'Fraunces',serif; font-weight:700; font-size:26px;
+    letter-spacing:1px; color:var(--paper); text-align:center;
+    text-shadow: 0 4px 15px rgba(0,0,0,0.5);
+  }
+  .brand-word b{ color:var(--horizon-gold); }
+  .brand-sub{ margin-top:8px; font-size:12px; letter-spacing:4px; color:var(--slate); text-transform:uppercase; }
+
+  .load-track{
+    margin-top:35px; width:160px; height:4px; border-radius:4px;
+    background:rgba(255,255,255,0.06); overflow:hidden; box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
+  }
+  .load-fill{
+    height:100%; width:40%; border-radius:4px;
+    background:linear-gradient(90deg, transparent, var(--horizon-gold), var(--amber), transparent);
+    animation: loadMove 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  }
+  @keyframes loadMove{ 0%{ transform:translateX(-100%); } 100%{ transform:translateX(250%); } }
+
+  /* ================= MAIN SCREEN ================= */
+  #main{
+    flex:1; display:flex; flex-direction:column; padding:4px 20px 0 20px;
+    opacity:0; transform:translateY(20px);
+    transition: opacity .7s ease .2s, transform .7s cubic-bezier(0.4, 0, 0.2, 1) .2s;
+    overflow-y: auto;
+  }
+  #main.show{ opacity:1; transform:translateY(0); }
+
+  .logo-circle-static{
+    width:70px; height:70px; margin:2px auto 0 auto; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    background:linear-gradient(160deg,#1A2740,#0C1524);
+    box-shadow: 0 0 0 1px rgba(212,175,106,0.3), 0 10px 22px -8px rgba(0,0,0,0.7); flex-shrink: 0;
+  }
+  .logo-circle-static img{ width:54px;height:54px;border-radius:50%;object-fit:cover; }
+
+  .app-title{
+    margin-top:8px; text-align:center; font-family:'Fraunces',serif;
+    font-weight:700; font-size:18px; line-height:1.2; letter-spacing:0.5px;
+  }
+  .app-title span{ color:var(--horizon-gold); }
+  .app-tagline{
+    margin-top:2px; text-align:center; font-size:10px;
+    letter-spacing:1.8px; text-transform:uppercase; color:var(--slate); margin-bottom: 10px;
+  }
+
+  /* Buttons */
+  .btn-login, .btn-download, .btn-donate{
+    display:flex; align-items:center; justify-content:center; gap:8px; width:100%;
+    padding:11px 18px; border-radius:12px; border:none; font-family:'Inter',sans-serif;
+    font-weight:700; font-size:13px; letter-spacing:0.3px; -webkit-tap-highlight-color:transparent;
+    transition: transform .15s ease, box-shadow .15s ease; text-decoration:none; margin-bottom: 8px; cursor: pointer;
+  }
+  .btn-login{
+    background:linear-gradient(135deg,var(--horizon-gold),#C79A54); color:#1A1204;
+    box-shadow:0 8px 18px -8px rgba(212,175,106,0.5);
+  }
+  .btn-login:active{ transform:scale(0.97); }
+  
+  .btn-download{
+    background:linear-gradient(135deg, #222E42, #162032); color:var(--android-green);
+    border: 1px solid rgba(61, 220, 132, 0.3); box-shadow:0 8px 18px -8px rgba(0,0,0,0.6);
+  }
+  .btn-download:active{ transform:scale(0.97); }
+
+  /* Donate Button Style */
+  .btn-donate{
+    background:linear-gradient(135deg, #E8734A, #C7532A); color:#ffffff;
+    box-shadow:0 8px 18px -8px rgba(232,115,74,0.5);
+  }
+  .btn-donate:active{ transform:scale(0.97); }
+
+  .btn-login svg, .btn-download svg, .btn-donate svg{ width:15px;height:15px; }
+
+  /* Download Progress Card */
+  .dl-card{
+    display: none; background: rgba(16, 25, 42, 0.7);
+    border: 1px solid rgba(61, 220, 132, 0.2); border-radius: 12px; padding: 12px; margin-bottom: 10px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5); animation: fadeInDown 0.4s ease forwards;
+  }
+  @keyframes fadeInDown{ from{ opacity:0; transform:translateY(-10px); } to{ opacity:1; transform:translateY(0); } }
+  
+  .dl-header{ display: flex; justify-content: space-between; align-items: center; font-size: 11.5px; font-weight: 600; color: #fff; margin-bottom: 8px; }
+  .dl-header span{ color: var(--android-green); font-size: 10.5px; font-weight: 700; }
+  .dl-track{ width: 100%; height: 5px; background: rgba(255,255,255,0.1); border-radius: 10px; overflow: hidden; margin-bottom: 6px; }
+  .dl-fill{ height: 100%; width: 0%; border-radius: 10px; background: var(--android-green); transition: width 0.1s linear; }
+  .dl-stats{ display: flex; justify-content: space-between; font-size: 10.5px; color: var(--slate); font-weight: 500; }
+  
+  .dl-success, .dl-error{
+    display: none; margin-top: 8px; padding-top: 8px; border-top: 1px dashed rgba(255,255,255,0.1);
+    font-size: 11px; text-align: center; font-weight: 600; line-height: 1.4;
+  }
+  .dl-success{ color: var(--android-green); }
+  .dl-error{ color: var(--error-red); }
+
+  .notice-box{
+    margin-bottom: 10px; padding: 9px 11px; border-radius: 10px; background: rgba(232,115,74,0.08); border: 1px solid rgba(232,115,74,0.25);
+  }
+  .notice-title{
+    display:flex;align-items:center;gap:5px; font-size:10.5px; font-weight:700; color:var(--danger); letter-spacing:0.3px; margin-bottom:3px;
+  }
+  .notice-title svg{width:11px;height:11px;flex-shrink:0;}
+  .notice-text{ font-size:10px; line-height:1.4; color:#D8DCE4; }
+  .notice-text b{ color:var(--paper); }
+
+  /* ================= LANDSCAPE VIDEO FRAME ================= */
+  .video-section {
+    margin-bottom: 10px;
+  }
+  .video-label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--slate);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+  .video-frame {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: #000;
+    border-radius: 10px;
+    border: 1px solid rgba(212,175,106,0.35);
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+    pointer-events: none;
+  }
+  .video-frame video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* Donate Section Container */
+  .donate-container {
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  .donate-urdu-text {
+    margin-top: 5px;
+    font-size: 12px;
+    color: var(--horizon-gold);
+    font-weight: 600;
+    letter-spacing: 0.2px;
+  }
+
+  .spacer{ flex:1; min-height: 4px; }
+
+  .footer{ text-align:center; padding-bottom: 4px; }
+  .footer-label{ font-size:8.5px; letter-spacing:2px; text-transform:uppercase; color:var(--slate); margin-bottom:3px; }
+  .footer-mail{
+    display:inline-flex; align-items:center; gap:5px; font-size:10.5px; color:var(--horizon-gold); text-decoration:none;
+    font-weight:600; padding:4px 10px; border-radius:20px; border:1px solid rgba(212,175,106,0.3);
+  }
+  .footer-copy{ margin-top:6px; font-size:8px; color:#4E5A6E; letter-spacing:0.5px; }
+
+</style>
 </head>
-<body class="min-h-screen flex flex-col justify-between antialiased">
+<body>
+<div id="app">
 
-    <div id="admin-custom-warning-banner" class="w-full bg-amber-500/20 border-b border-amber-500/30 py-2.5 px-4 text-center text-xs font-bold text-amber-300 z-50 flex items-center justify-center gap-2 backdrop-blur-md hidden">
-        <i class="fa-solid fa-triangle-exclamation animate-bounce text-amber-400"></i>
-        <span id="admin-warning-banner-text">Warning: Administrative Broadcast Rule Action Logged.</span>
+  <!-- ===================== HIDDEN BACKGROUND AUDIO ===================== -->
+  <!-- assets/Aud.mp3 will play automatically in background without showing any UI -->
+  <audio id="bgAudio" src="assets/Aud.mp3" loop preload="auto" style="display:none;"></audio>
+
+  <!-- ===================== SPLASH / 3D ENTRY ===================== -->
+  <div id="splash">
+    <div class="horizon-stage">
+      <div class="horizon-ring outer"></div>
+      <div class="horizon-ring inner"></div>
+      <div class="logo-orb">
+        <img src="https://i.ibb.co/p6KZbMYX/ic-launcher-round.png" alt="Prime Horizon Logo">
+      </div>
+    </div>
+    <div class="brand-word">PRIME <b>HORIZON</b></div>
+    <div class="brand-sub">Official Secure App</div>
+    <div class="load-track"><div class="load-fill"></div></div>
+  </div>
+
+  <!-- ===================== MAIN SCREEN ===================== -->
+  <div id="main">
+    
+    <div class="logo-circle-static">
+      <img src="https://i.ibb.co/p6KZbMYX/ic-launcher-round.png" alt="Prime Horizon Logo">
     </div>
 
-    <div id="top-security-alert" class="w-full bg-emerald-500/10 border-b border-emerald-500/20 py-2.5 px-4 text-center text-[11px] font-semibold text-emerald-300 tracking-wide z-50 flex items-center justify-center gap-2 backdrop-blur-md">
-        <i class="fa-solid fa-shield-halved animate-pulse text-emerald-400 text-xs"></i>
-        <span>Security Alert: Please don't share your login credentials or transaction passwords with anyone.</span>
+    <div class="app-title">PRIME <span>HORIZON</span></div>
+    <div class="app-tagline">Secure &middot; Trusted &middot; Official</div>
+
+    <!-- Login Button -->
+    <a class="btn-login" id="loginBtn" href="https://mrcrazy7778.github.io/Primehorizon/">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#1A1204" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="M10 17l5-5-5-5"/><path d="M15 12H3"/></svg>
+      Login App
+    </a>
+
+    <!-- Download Android App Button -->
+    <button class="btn-download" id="downloadBtn">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.523 15.3414c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993s-.4482.9997-.9993.9997m-11.046 0c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993s-.4482.9997-.9993.9997m11.4045-6.02l1.9973-3.4592c.1158-.2006.0468-.4566-.1538-.5724-.2006-.1158-.4566-.0468-.5724.1538l-2.019 3.4967C15.6593 8.3582 13.9113 7.95 12 7.95c-1.9113 0-3.6593.4082-5.1336 1.1396L4.8474 5.5929c-.1158-.2006-.3718-.2696-.5724-.1538-.2006.1158-.2696.3718-.1538.5724l1.9973 3.4592C2.6889 11.3783.343 14.7351 0 18.7997h24c-.343-4.0646-2.6889-7.4214-6.1185-9.4783"/></svg>
+      Download Android App
+    </button>
+
+    <!-- Download Progress / Error Card -->
+    <div class="dl-card" id="downloadCard">
+      <div class="dl-header">
+        <span style="color:#fff;">Primehorizon.apk</span> 
+        <span id="dlPercent">Detecting size...</span>
+      </div>
+      
+      <div id="dlUiElements">
+        <div class="dl-track"><div class="dl-fill" id="dlFill"></div></div>
+        <div class="dl-stats">
+          <span id="dlSize">Connecting...</span>
+          <span id="dlSpeed">-- MB/s</span>
+        </div>
+      </div>
+
+      <div class="dl-success" id="dlSuccess">
+        Download complete!<br>Saved to File Manager &gt; Downloads
+      </div>
+
+      <div class="dl-error" id="dlError">
+        <span id="errorMsgText">Error: Primehorizon.apk not found in assets folder.</span>
+      </div>
     </div>
 
-    <header id="main-header" class="w-full max-w-md mx-auto px-4 pt-4 flex justify-between items-center text-xs text-gray-400 z-50 gap-2">
-        <div id="live-time-date" class="flex flex-col bg-black/25 px-3 py-1.5 rounded-2xl border border-white/5 backdrop-blur-md text-center">
-            <span class="font-mono font-bold text-white tracking-wider text-xs" id="header-time">00:00:00</span>
-            <span id="header-date" class="text-[8px] text-gray-400 font-medium -mt-0.5">Loading...</span>
-        </div>
+    <!-- Security Notice -->
+    <div class="notice-box">
+      <div class="notice-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        SECURITY NOTICE
+      </div>
+      <div class="notice-text">
+        Please do not share your <b>password, username, or Gmail</b> on WhatsApp or with anyone.
+        <b>Prime Horizon</b> will never ask for your details through any channel. Thank you.
+      </div>
+    </div>
 
-        <div class="relative flex items-center gap-2">
-            <!-- Updated Device Pill to show only 3 dots -->
-            <div class="flex items-center justify-center w-10 h-10 rounded-full glass-panel border border-emerald-500/20 bg-emerald-500/5 shadow-inner cursor-pointer hover:bg-emerald-500/10 transition-colors" id="device-pill" style="display:none;" onclick="toggleThreeDotsMenu()">
-                <span id="device-display-name" class="hidden"></span> <!-- Hidden so JS doesn't crash -->
-                <i class="fa-solid fa-ellipsis-vertical text-emerald-400 text-lg animate-pulse"></i>
-            </div>
-            
-            <div id="three-dots-menu" class="absolute top-full right-0 mt-2 w-52 glass-panel border border-emerald-500/30 p-2 hidden flex-col gap-2 z-50">
-                <button onclick="switchScreen('screen-dashboard'); toggleThreeDotsMenu();" class="w-full text-white hover:text-white bg-white/5 hover:bg-white/10 px-3.5 py-2.5 rounded-2xl border border-white/10 transition-all flex items-center justify-start gap-2 font-bold text-[10px] uppercase">
-                    <i class="fa-solid fa-house w-4 text-white"></i> Dashboard
-                </button>
-                <button onclick="switchScreen('screen-deposit'); toggleThreeDotsMenu();" class="w-full text-teal-400 hover:text-white bg-teal-500/10 hover:bg-teal-500/20 px-3.5 py-2.5 rounded-2xl border border-teal-500/20 transition-all flex items-center justify-start gap-2 font-bold text-[10px] uppercase">
-                    <i class="fa-solid fa-wallet w-4"></i> Deposit Money
-                </button>
-                <button onclick="switchScreen('screen-withdraw'); toggleThreeDotsMenu();" class="w-full text-indigo-400 hover:text-white bg-indigo-500/10 hover:bg-indigo-500/20 px-3.5 py-2.5 rounded-2xl border border-indigo-500/20 transition-all flex items-center justify-start gap-2 font-bold text-[10px] uppercase">
-                    <i class="fa-solid fa-hand-holding-dollar w-4"></i> Withdraw
-                </button>
-                <button onclick="switchScreen('screen-history'); toggleThreeDotsMenu();" class="w-full text-emerald-400 hover:text-white bg-emerald-500/10 hover:bg-emerald-500/20 px-3.5 py-2.5 rounded-2xl border border-emerald-500/20 transition-all flex items-center justify-start gap-2 font-bold text-[10px] uppercase">
-                    <i class="fa-solid fa-clock-rotate-left w-4"></i> Overall History
-                </button>
-                <button onclick="openProfileModal(); toggleThreeDotsMenu();" class="w-full text-amber-400 hover:text-white bg-amber-500/10 hover:bg-amber-500/20 px-3.5 py-2.5 rounded-2xl border border-amber-500/20 transition-all flex items-center justify-start gap-2 font-bold text-[10px] uppercase">
-                    <i class="fa-solid fa-user w-4"></i> My Profile
-                </button>
-                <button onclick="openCustomerCareTerminal(); toggleSupportSubModule('complaint'); toggleThreeDotsMenu();" class="w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-[10px] px-3.5 py-2.5 rounded-2xl shadow-lg flex items-center justify-start gap-2 transition-all uppercase tracking-wider mt-1">
-                    <i class="fa-solid fa-circle-exclamation w-4"></i> Support Desk
-                </button>
-                <button onclick="document.getElementById('context-menu-modal').classList.remove('hidden'); toggleThreeDotsMenu();" class="w-full text-rose-400 hover:text-white bg-rose-500/10 hover:bg-rose-500/20 px-3.5 py-2.5 rounded-2xl border border-rose-500/20 transition-all flex items-center justify-start gap-2 font-bold text-[10px] uppercase mt-1">
-                    <i class="fa-solid fa-power-off w-4"></i> System Menu
-                </button>
-            </div>
-        </div>
-    </header>
+    <!-- LANDSCAPE VIDEO FRAME -->
+    <div class="video-section">
+      <div class="video-label">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:11px;height:11px;color:var(--horizon-gold)"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+        غریبوں کی مدد کیجیے
+      </div>
+      <div class="video-frame">
+        <video id="previewVideo" src="assets/Vid.mp4" autoplay muted loop playsinline preload="auto"></video>
+      </div>
+    </div>
 
-    <main class="w-full max-w-md mx-auto px-4 py-4 flex-grow flex flex-col justify-center">
+    <!-- DONATE SECTION WITH URDU TEXT -->
+    <div class="donate-container">
+      <a class="btn-donate" href="https://ihcamerasecurity-cmyk.github.io/Donate/" target="_blank">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+        Donate
+      </a>
+      <div class="donate-urdu-text">غریبوں، یتیموں اور بے سہاراؤں کی مدد کریں</div>
+    </div>
+
+    <div class="spacer"></div>
+
+    <div class="footer">
+      <div class="footer-label">Customer Complaint</div>
+      <a class="footer-mail" href="mailto:primehorizonj26@gmail.com">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:11px;height:11px;"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6l-10 7L2 6"/></svg>
+        primehorizonj26@gmail.com
+      </a>
+      <div class="footer-copy">&copy; Prime Horizon. All rights reserved.</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // Splash -> Main transition
+  window.addEventListener('load', function(){
+    setTimeout(function(){
+      document.getElementById('splash').classList.add('hide');
+      document.getElementById('main').classList.add('show');
+    }, 3500);
+
+    // Try playing background audio automatically on load
+    const audio = document.getElementById('bgAudio');
+    if (audio) {
+      audio.play().catch(() => {
+        // Handled via user interaction listeners below for mobile strict autoplay policies
+      });
+    }
+  });
+
+  // ---- Play Background Audio (`assets/Aud.mp3`) on First Touch/Click ----
+  const startBackgroundAudio = function() {
+    const audio = document.getElementById('bgAudio');
+    if (audio && audio.paused) {
+      audio.play().catch(e => console.log("Audio play error:", e));
+    }
+  };
+  document.body.addEventListener('touchstart', startBackgroundAudio, { once: true });
+  document.body.addEventListener('click', startBackgroundAudio, { once: true });
+
+  // ---- Real File Size & Real Byte Stream Download Logic ----
+  document.getElementById('downloadBtn').addEventListener('click', async function() {
+    const btn = this;
+    const dlCard = document.getElementById('downloadCard');
+    const dlUiElements = document.getElementById('dlUiElements');
+    const dlError = document.getElementById('dlError');
+    const dlSuccess = document.getElementById('dlSuccess');
+    const errorMsgText = document.getElementById('errorMsgText');
+    const dlPercent = document.getElementById('dlPercent');
+    const dlFill = document.getElementById('dlFill');
+    const dlSize = document.getElementById('dlSize');
+    const dlSpeed = document.getElementById('dlSpeed');
+
+    btn.style.display = 'none';
+    dlCard.style.display = 'block';
+    
+    dlUiElements.style.display = 'block';
+    dlError.style.display = 'none';
+    dlSuccess.style.display = 'none';
+    dlPercent.innerText = 'Connecting...';
+    dlFill.style.width = '0%';
+    dlSize.innerText = 'Checking file...';
+    dlSpeed.innerText = '-- MB/s';
+
+    const apkFilePath = 'assets/Primehorizon.apk';
+
+    try {
+      const response = await fetch(apkFilePath);
+      
+      if (!response.ok) {
+        throw new Error("Primehorizon.apk not found in the assets folder!");
+      }
+
+      const contentLength = response.headers.get('content-length');
+      const totalBytes = contentLength ? parseInt(contentLength, 10) : 0;
+      const totalMB = totalBytes > 0 ? (totalBytes / (1024 * 1024)).toFixed(2) : "Unknown";
+
+      if (totalBytes === 0) {
+        throw new Error("File is empty or content length is unreadable.");
+      }
+
+      const reader = response.body.getReader();
+      let receivedBytes = 0;
+      let chunks = [];
+      let startTime = Date.now();
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        chunks.push(value);
+        receivedBytes += value.length;
+
+        let elapsedTime = (Date.now() - startTime) / 1000;
+        let currentMB = (receivedBytes / (1024 * 1024)).toFixed(2);
+        let speedMBps = elapsedTime > 0 ? ((receivedBytes / (1024 * 1024)) / elapsedTime).toFixed(1) : "0.0";
+        let percent = Math.floor((receivedBytes / totalBytes) * 100);
+
+        dlFill.style.width = `${percent}%`;
+        dlPercent.innerText = `${percent}%`;
+        dlSize.innerText = `${currentMB} MB / ${totalMB} MB`;
+        dlSpeed.innerText = `${speedMBps} MB/s`;
+      }
+
+      dlFill.style.width = '100%';
+      dlPercent.innerText = '100%';
+      dlSize.innerText = `${totalMB} MB / ${totalMB} MB`;
+      dlSpeed.innerText = 'Completed';
+
+      const blob = new Blob(chunks, { type: 'application/vnd.android.package-archive'});
+      const blobUrl = URL.createObjectURL(blob);
+
+      setTimeout(() => {
+        dlSuccess.style.display = 'block';
         
-        <!-- Double Verification Wait Screen -->
-        <section id="screen-verifying" class="screen glass-panel p-6 text-center space-y-5">
-            <div class="w-16 h-16 bg-blue-500/10 text-blue-400 rounded-full flex items-center justify-center mx-auto text-2xl border border-blue-500/20 shadow-lg shadow-blue-950/50">
-                <i class="fa-solid fa-user-shield animate-pulse"></i>
-            </div>
-            <h2 class="text-xl font-extrabold text-white uppercase tracking-wider">Wait for Verification Complete</h2>
-            
-            <div class="p-4 bg-blue-950/30 border border-blue-500/30 rounded-2xl text-xs text-blue-300 text-center leading-relaxed font-medium shadow-inner">
-                <p>Your Double Verification live capture has been securely transmitted to the administration network.</p>
-                <p class="mt-2 font-bold text-white">Temporary account access active. Full platform functionality unlocks upon admin verification.</p>
-            </div>
-            <div class="pt-4">
-                <button onclick="terminateSession()" class="w-full py-3.5 bg-slate-800 text-gray-400 font-bold rounded-2xl text-xs uppercase tracking-wider shadow-lg transition-all flupy-btn">Logout for now</button>
-            </div>
-        </section>
-
-        <!-- Double Verification Login Challenge -->
-        <section id="screen-double-auth-challenge" class="screen glass-panel p-6 text-center space-y-5">
-            <div class="w-16 h-16 bg-emerald-500/10 text-emerald-400 rounded-full flex items-center justify-center mx-auto text-2xl border border-emerald-500/20 shadow-lg shadow-emerald-950/50">
-                <i class="fa-solid fa-camera-retro"></i>
-            </div>
-            <h2 class="text-lg font-extrabold text-white uppercase tracking-wider">Double Verification Required</h2>
-            <p class="text-xs text-gray-400">Security threshold triggered. Please capture a live photo to verify your identity against the registered baseline.</p>
-            
-            <div class="w-full relative rounded-2xl overflow-hidden border-2 border-emerald-500/30 mt-4">
-                <video id="login-challenge-video" class="camera-viewport" autoplay playsinline></video>
-                <canvas id="login-challenge-canvas" class="hidden"></canvas>
-            </div>
-
-            <button onclick="submitDoubleAuthChallenge()" id="btn-submit-challenge" class="w-full py-3.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold rounded-2xl text-xs uppercase tracking-wider shadow-lg transition-all flupy-btn mt-4">
-                <i class="fa-solid fa-camera mr-1"></i> Start Verification Capture
-            </button>
-        </section>
-
-        <section id="screen-suspended" class="screen glass-panel p-6 text-center space-y-5">
-            <div class="w-16 h-16 bg-rose-500/10 text-rose-400 rounded-full flex items-center justify-center mx-auto text-2xl border border-rose-500/20 shadow-lg shadow-rose-950/50">
-                <i class="fa-solid fa-user-slash"></i>
-            </div>
-            <h2 class="text-xl font-extrabold text-white uppercase tracking-wider">Your Account Has Been Banned</h2>
-            
-            <div id="suspension-warning-box" class="p-4 bg-red-950/30 border border-red-500/30 rounded-2xl text-xs text-red-400 text-left leading-relaxed font-medium shadow-inner">
-                <i class="fa-solid fa-circle-exclamation mr-1.5 text-red-400"></i>
-                <span id="suspension-warning-text">Your profile has been locked by administration due to malicious activities or security parameter parameters violation.</span>
-            </div>
-
-            <div class="border-t border-white/5 pt-4 space-y-3">
-                <p class="text-[11px] text-gray-400 text-left px-1">If you wish to appeal this decision or contact administration, please transmit your official sorry statement matrix below.</p>
-                <textarea id="suspension-appeal-msg" placeholder="Write your transparent appeal statement here..." rows="3" class="w-full p-3.5 bg-black/40 border border-white/10 rounded-2xl text-xs text-white focus:outline-none focus:border-emerald-500 premium-input transition-all resize-none"></textarea>
-                <button onclick="submitSuspensionAppeal()" class="w-full py-3.5 bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white font-bold rounded-2xl text-xs uppercase tracking-wider shadow-lg shadow-red-950/50 transition-all transform active:scale-[0.98] flupy-btn">Submit Official Appeal</button>
-            </div>
-            
-            <div class="pt-2">
-                <button onclick="openCustomerCareTerminal(); toggleSupportSubModule('chat');" class="text-xs text-emerald-400 hover:text-emerald-300 font-semibold flex items-center justify-center gap-1.5 mx-auto transition-all flupy-btn">
-                    <i class="fa-solid fa-headset"></i> Open Support Desk Pipeline
-                </button>
-            </div>
-        </section>
-
-        <section id="screen-maintenance" class="screen glass-panel p-6 text-center space-y-5">
-            <div class="w-16 h-16 bg-amber-500/10 text-amber-400 rounded-full flex items-center justify-center mx-auto text-2xl border border-amber-500/20 shadow-lg shadow-amber-950/50">
-                <i class="fa-solid fa-screwdriver-wrench animate-spin"></i>
-            </div>
-            <h2 class="text-xl font-extrabold text-white uppercase tracking-wider">Optimizations In Progress</h2>
-            <div id="maintenance-note" class="p-4 bg-amber-950/20 border border-amber-500/20 rounded-2xl text-xs text-amber-200 leading-relaxed font-medium shadow-inner">
-                Platform performance routine optimization is currently processing. Services will resume shortly.
-            </div>
-
-            <div class="py-4 glass-card rounded-2xl border border-amber-500/20 my-2 shadow-inner bg-amber-500/5">
-                <span class="block text-[10px] text-amber-400 uppercase tracking-widest font-bold mb-1">Estimated Dynamic Return Latency</span>
-                <div id="maintenance-countdown" class="text-2xl font-mono font-black text-white tracking-wider neon-text-emerald">00h 00m 00s</div>
-            </div>
-
-            <div class="text-[10px] text-gray-500 font-mono" id="maintenance-timestamp-footer">
-                Epoch target validation cycle tracking active.
-            </div>
-        </section>
-
-        <section id="screen-auth" class="screen active glass-panel p-6 relative">
-            <div class="text-center mb-8">
-                <div class="w-24 h-24 mx-auto rounded-full p-1 bg-gradient-to-tr from-emerald-500 via-teal-500 to-amber-500 shadow-2xl mb-4 overflow-hidden flex items-center justify-center">
-                    <img src="https://i.ibb.co/gZvhB6MC/image-11.jpg" loading="lazy" decoding="async" alt="Prime Horizon Logo" class="w-full h-full object-cover rounded-full">
-                </div>
-                <h1 class="text-3xl font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-600">PRIME HORIZON</h1>
-                <p class="text-xs uppercase tracking-widest text-emerald-400 font-bold mt-1 tracking-[0.2em] neon-text-emerald">Ascend Your Capital</p>
-            </div>
-
-            <div class="flex bg-black/40 p-1 rounded-2xl mb-6 border border-white/5 shadow-inner">
-                <button onclick="toggleAuthTabs('login')" id="tab-login-btn" class="w-1/2 py-3 text-xs font-bold uppercase tracking-wider rounded-2xl bg-white/10 text-white transition-all flupy-btn border border-amber-500/30">Sign In</button>
-                <button onclick="toggleAuthTabs('signup')" id="tab-signup-btn" class="w-1/2 py-3 text-xs font-bold uppercase tracking-wider rounded-2xl text-gray-400 transition-all flupy-btn">Create Account</button>
-            </div>
-
-            <form id="login-form" onsubmit="handleLogin(event)" class="space-y-4">
-                <div>
-                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 px-1">Registered Node Credentials</label>
-                    <div class="relative">
-                        <i class="fa-solid fa-phone absolute left-4 top-4 text-gray-500 text-sm"></i>
-                        <input type="tel" id="login-phone" required class="w-full pl-12 pr-4 py-3.5 bg-black/40 border border-white/10 rounded-2xl focus:border-amber-500 focus:outline-none text-sm text-white premium-input" placeholder="03XXXXXXXXX">
-                    </div>
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 px-1">Secure Password</label>
-                    <div class="relative">
-                        <i class="fa-solid fa-lock absolute left-4 top-4 text-gray-500 text-sm"></i>
-                        <input type="password" id="login-pass" required class="w-full pl-12 pr-4 py-3.5 bg-black/40 border border-white/10 rounded-2xl focus:border-amber-500 focus:outline-none text-sm text-white premium-input" placeholder="••••••••">
-                    </div>
-                </div>
-
-                <div id="forgot-password-trigger-box" class="pt-1 text-center hidden">
-                    <button type="button" onclick="openPasswordRecoveryModal()" class="text-xs text-amber-400 hover:text-amber-300 font-bold underline tracking-wide transition-all flupy-btn">
-                        <i class="fa-solid fa-key mr-1"></i> Request Password?
-                    </button>
-                </div>
-
-                <button type="submit" class="w-full py-4 mt-2 btn-primary rounded-2xl font-bold text-xs uppercase tracking-wider text-white shadow-lg transition-all transform active:scale-95 flupy-btn">
-                    Access Premium Platform
-                </button>
-
-                <div class="mt-4 text-center border-t border-white/10 pt-3">
-                    <p class="text-[10px] text-emerald-400 font-bold uppercase tracking-wider"><i class="fa-solid fa-shield-check"></i> Multi-Device Access Enabled</p>
-                    <p class="text-[9px] text-gray-400 mt-1 leading-relaxed">Secure Multi-Device Login Enabled. Access your account freely from any verified device.</p>
-                </div>
-            </form>
-
-            <form id="signup-form" onsubmit="handleSignup(event)" class="space-y-4 hidden">
-                <div>
-                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 px-1">Unique Username</label>
-                    <div class="relative">
-                        <i class="fa-solid fa-at absolute left-4 top-4 text-gray-500 text-sm"></i>
-                        <input type="text" id="signup-user" required oninput="checkUsernameAvailability(this.value)" class="w-full pl-12 pr-4 py-3.5 bg-black/40 border border-white/10 rounded-2xl focus:border-amber-500 focus:outline-none text-sm text-white premium-input" placeholder="username">
-                    </div>
-                    <div id="username-feedback" class="text-[11px] mt-1.5 px-1 hidden"></div>
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 px-1">Official Email Address</label>
-                    <div class="relative">
-                        <i class="fa-solid fa-envelope absolute left-4 top-4 text-gray-500 text-sm"></i>
-                        <input type="email" id="signup-email" required onblur="validateRealEmail(this.value)" class="w-full pl-12 pr-4 py-3.5 bg-black/40 border border-white/10 rounded-2xl focus:border-amber-500 focus:outline-none text-sm text-white premium-input" placeholder="name@domain.com">
-                    </div>
-                    <div id="email-feedback" class="text-[11px] mt-1.5 text-rose-400 px-1 hidden"><i class="fa-solid fa-circle-exclamation mr-1"></i>Please enter a valid active original email address.</div>
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 px-1">Phone Number</label>
-                    <div class="relative">
-                        <i class="fa-solid fa-phone absolute left-4 top-4 text-gray-500 text-sm"></i>
-                        <input type="tel" id="signup-phone" required class="w-full pl-12 pr-4 py-3.5 bg-black/40 border border-white/10 rounded-2xl focus:border-amber-500 focus:outline-none text-sm text-white premium-input" placeholder="03XXXXXXXXX">
-                    </div>
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 px-1">Affiliate Reference Code</label>
-                    <div class="relative">
-                        <i class="fa-solid fa-user-group absolute left-4 top-4 text-gray-500 text-sm"></i>
-                        <input type="text" id="signup-ref" class="w-full pl-12 pr-4 py-3.5 bg-black/40 border border-white/10 rounded-2xl focus:border-amber-500 focus:outline-none text-sm text-white font-mono premium-input" placeholder="REFCODE">
-                    </div>
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 px-1">Create Strong Password</label>
-                    <div class="relative">
-                        <i class="fa-solid fa-key absolute left-4 top-4 text-gray-500 text-sm"></i>
-                        <input type="password" id="signup-pass" required oninput="evaluatePasswordStrength(this.value)" class="w-full pl-12 pr-4 py-3.5 bg-black/40 border border-white/10 rounded-2xl focus:border-amber-500 focus:outline-none text-sm text-white premium-input" placeholder="Min 8 chars, mixed format">
-                    </div>
-                    <div id="pass-feedback" class="text-[11px] mt-2 text-gray-400 px-1 leading-relaxed">
-                        Structure: Requires at least 8 characters, capital letters, and digits.
-                    </div>
-                </div>
-                <button type="submit" id="signup-submit-btn" disabled class="w-full py-4 mt-2 bg-slate-800 text-gray-500 rounded-2xl font-bold text-xs uppercase tracking-wider cursor-not-allowed transition-all shadow-lg flupy-btn">
-                    Register Secure Profile
-                </button>
-            </form>
-        </section>
-
-        <section id="screen-dashboard" class="screen space-y-5 pb-6">
-            <div id="user-status-card" class="glass-panel p-5 relative overflow-hidden bg-gradient-to-br from-slate-900/80 via-transparent to-black/40 border border-amber-500/20 shadow-xl cursor-pointer">
-                <div class="flex items-center gap-4">
-                    <div class="relative group" onclick="event.stopPropagation();">
-                        <img id="dash-user-avatar" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=200" loading="lazy" decoding="async" alt="Avatar" class="w-16 h-16 rounded-2xl object-cover border-2 p-0.5 border-amber-500 verified-glow transition-all duration-300">
-                        <label for="dp-upload-input" class="absolute -bottom-1 -right-1 w-6 h-6 bg-amber-500 rounded-2xl flex items-center justify-center cursor-pointer border-2 border-slate-950 hover:scale-110 transition-transform shadow-lg flupy-btn">
-                            <i class="fa-solid fa-camera text-[10px] text-slate-950"></i>
-                        </label>
-                        <input type="file" id="dp-upload-input" accept="image/*" class="hidden" onchange="handleDpUpdate(event)">
-                    </div>
-
-                    <div class="flex-grow min-w-0">
-                        <div id="dash-red-warning" class="hidden animate-pulse bg-red-600/20 border border-red-500/50 text-red-400 text-[10px] font-bold px-2 py-1 rounded-md mb-1.5 inline-block">
-                            <i class="fa-solid fa-triangle-exclamation mr-1"></i> <span id="dash-red-warning-text"></span>
-                        </div>
-                        
-                        <!-- Slim Live Ticker -->
-                        <div class="bg-black/30 border border-emerald-500/30 rounded-full px-2.5 py-1 mb-1.5 flex items-center gap-1.5 w-max max-w-full h-6 overflow-hidden shadow-inner">
-                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse flex-shrink-0"></span>
-                            <span id="slim-live-feed" class="text-[9px] font-bold text-emerald-300 whitespace-nowrap overflow-hidden text-ellipsis feed-animate">Connecting Live Secure Socket...</span>
-                        </div>
-
-                        <h3 class="text-sm font-extrabold text-white flex items-center gap-1.5 tracking-wide truncate">
-                            Welcome, <span id="dash-username" class="transition-all duration-300 hover:scale-105 inline-block origin-left truncate">User Node</span>
-                        </h3>
-                        <p class="text-[10px] text-gray-400 font-medium truncate">Ref Signature: <span id="dash-my-refcode" class="text-emerald-400 font-mono font-bold tracking-wider">-----</span></p>
-
-                        <div class="mt-2 flex items-center justify-between gap-2">
-                            <div id="dash-status-container" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-2xl text-[9px] font-bold uppercase tracking-wider bg-rose-500/10 text-rose-400 border border-rose-500/20 shadow-inner">
-                                <span class="w-1.5 h-1.5 rounded-full bg-current animate-pulse"></span>
-                                <span id="dash-status-text">Unverified</span>
-                            </div>
-                            
-                            <!-- Updated: Replaced Total Users with Balance -->
-                            <div class="text-[10px] text-gray-400 bg-black/40 px-2.5 py-1 rounded-2xl border border-white/5 font-medium flex items-center gap-1 shadow-inner">
-                                <i class="fa-solid fa-wallet text-amber-400"></i> <span id="dash-small-balance" class="text-white font-extrabold font-mono">0.00</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div id="dashboard-unlocked-features" class="space-y-4">
-                
-                <!-- Daily Reward Option -->
-                <button id="daily-reward-btn" onclick="claimDailyBonusReward()" class="w-full mb-1 py-3.5 glass-panel bg-gradient-to-r from-amber-500/10 to-yellow-500/10 border-amber-500/30 text-amber-400 font-black text-xs uppercase tracking-wider rounded-3xl shadow-lg daily-reward-btn flex items-center justify-center gap-2 flupy-btn">
-                    <i class="fa-solid fa-gift text-lg animate-pulse"></i> Claim Your Daily Reward
-                </button>
-
-                <div class="grid grid-cols-2 gap-3.5">
-                    
-                    <button onclick="switchScreen('screen-my-details')" 
-                            class="group p-4 rounded-3xl glass-panel border border-white/10 hover:border-amber-500/40 transition-all shadow-lg flex flex-col items-center text-center active:scale-[0.98] flupy-btn">
-                        <div class="w-12 h-12 mb-2 flex items-center justify-center">
-                            <i class="fa-solid fa-chart-pie text-4xl text-amber-400 group-hover:scale-110 transition-transform"></i>
-                        </div>
-                        <span class="text-xs font-black tracking-wider text-white">My Balance</span>
-                    </button>
-
-                    <button onclick="switchScreen('screen-invest-plans')" 
-                            class="group p-4 rounded-3xl glass-panel border border-white/10 hover:border-emerald-500/40 transition-all shadow-lg flex flex-col items-center text-center active:scale-[0.98] flupy-btn">
-                        <div class="w-12 h-12 mb-2 flex items-center justify-center">
-                            <i class="fa-solid fa-seedling text-4xl text-emerald-400 group-hover:scale-110 transition-transform"></i>
-                        </div>
-                        <span class="text-xs font-black tracking-wider text-white">Invest Plans</span>
-                    </button>
-
-                    <button onclick="switchScreen('screen-deposit')" 
-                            class="group p-4 rounded-3xl glass-panel border border-white/10 hover:border-teal-500/40 transition-all shadow-lg flex flex-col items-center text-center active:scale-[0.98] flupy-btn">
-                        <div class="w-12 h-12 mb-2 flex items-center justify-center">
-                            <i class="fa-solid fa-wallet text-4xl text-teal-400 group-hover:scale-110 transition-transform"></i>
-                        </div>
-                        <span class="text-xs font-black tracking-wider text-white">Deposit Money</span>
-                    </button>
-
-                    <button onclick="switchScreen('screen-withdraw')" 
-                            class="group p-4 rounded-3xl glass-panel border border-white/10 hover:border-indigo-500/40 transition-all shadow-lg flex flex-col items-center text-center active:scale-[0.98] flupy-btn">
-                        <div class="w-12 h-12 mb-2 flex items-center justify-center">
-                            <i class="fa-solid fa-hand-holding-dollar text-4xl text-indigo-400 group-hover:scale-110 transition-transform"></i>
-                        </div>
-                        <span class="text-xs font-black tracking-wider text-white">Withdrawal Money</span>
-                    </button>
-
-                    <button id="kyc-action-btn" onclick="openKYCModal()" class="group p-4 rounded-3xl glass-panel border border-amber-500 hover:border-amber-400 transition-all shadow-lg flex flex-col items-center text-center active:scale-[0.98] flupy-btn col-span-2 animate-pulse bg-amber-500/10">
-                        <div class="w-12 h-12 mb-1 flex items-center justify-center">
-                            <i class="fa-solid fa-id-card-clip text-4xl text-amber-400 group-hover:scale-110 transition-transform"></i>
-                        </div>
-                        <span class="text-xs font-black tracking-wider text-white">KYC VERIFICATION</span>
-                        <span class="text-[9px] text-amber-300 mt-1 font-bold">Required for Account Verification</span>
-                    </button>
-
-                    <button onclick="switchScreen('screen-history')" 
-                            class="group p-4 rounded-3xl glass-panel border border-white/10 hover:border-slate-400/40 transition-all shadow-lg flex flex-col items-center text-center active:scale-[0.98] flupy-btn col-span-2">
-                        <div class="w-12 h-12 mb-2 flex items-center justify-center">
-                            <i class="fa-solid fa-clock-rotate-left text-4xl text-slate-300 group-hover:scale-110 transition-transform"></i>
-                        </div>
-                        <span class="text-xs font-black tracking-wider text-white">MY HISTORY</span>
-                    </button>
-
-                </div>
-
-                <button onclick="switchScreen('screen-tasks'); updateTasksBalance(); loadSocialTasks();" 
-                        class="w-full py-3.5 rounded-2xl glass-panel border border-white/10 hover:border-amber-500/30 flex items-center justify-center gap-2 text-sm font-bold tracking-wider text-white active:scale-[0.985] flupy-btn">
-                    <i class="fa-solid fa-ellipsis-h text-amber-400"></i>
-                    <span>MORE</span>
-                </button>
-
-                <div class="glass-panel p-4 bg-gradient-to-r from-emerald-950/40 to-slate-900/30 border border-white/10 rounded-2xl flex justify-between items-center cursor-pointer hover:border-emerald-500/30 transition-all shadow-md group flupy-btn" onclick="switchScreen('screen-invite-friends')">
-                    <div class="space-y-1">
-                        <h4 class="text-[10px] font-extrabold text-emerald-400 uppercase tracking-widest neon-text-emerald">Affiliate Program</h4>
-                        <p class="text-xs font-extrabold text-white">Invite Friends & Earn Coins</p>
-                        <p class="text-[9px] text-gray-400 font-medium"><i class="fa-solid fa-unlock-keyhole text-amber-400 mr-1"></i>Invite friends & get more earning</p>
-                    </div>
-                    <div class="w-9 h-9 rounded-2xl bg-emerald-500/10 group-hover:bg-emerald-500/20 border border-emerald-500/20 flex items-center justify-center text-emerald-400 transition-all shadow-inner">
-                        <i class="fa-solid fa-chevron-right text-xs"></i>
-                    </div>
-                </div>
-
-                <div class="glass-panel p-4 bg-gradient-to-r from-teal-950/40 to-slate-900/30 border border-white/10 rounded-2xl flex justify-between items-center cursor-pointer hover:border-teal-500/30 transition-all shadow-md group flupy-btn" onclick="switchScreen('screen-admin-feedback'); streamAdminFeedbacks();">
-                    <div class="space-y-1">
-                        <h4 class="text-[10px] font-extrabold text-teal-400 uppercase tracking-widest">Feedback Center</h4>
-                        <p class="text-xs font-extrabold text-white">Send Direct Feedback</p>
-                        <p class="text-[9px] text-gray-400 font-medium"><i class="fa-solid fa-comment-dots text-teal-400 mr-1"></i>Share feedback with Admin</p>
-                    </div>
-                    <div class="w-9 h-9 rounded-2xl bg-teal-500/10 group-hover:bg-teal-500/20 border border-teal-500/20 flex items-center justify-center text-teal-400 transition-all shadow-inner">
-                        <i class="fa-solid fa-paper-plane text-xs"></i>
-                    </div>
-                </div>
-
-                <div class="glass-panel p-4 bg-gradient-to-r from-indigo-950/40 to-slate-900/30 border border-white/10 rounded-2xl flex justify-between items-center cursor-pointer hover:border-indigo-500/30 transition-all shadow-md group flupy-btn" onclick="openDoubleAuthSetup()">
-                    <div class="space-y-1">
-                        <h4 class="text-[10px] font-extrabold text-indigo-400 uppercase tracking-widest">Account Security</h4>
-                        <p class="text-xs font-extrabold text-white">Set Double Verification Security</p>
-                        <p class="text-[9px] text-gray-400 font-medium"><i class="fa-solid fa-shield-halved text-indigo-400 mr-1"></i>Enable extra login protection</p>
-                    </div>
-                    <div class="w-9 h-9 rounded-2xl bg-indigo-500/10 group-hover:bg-indigo-500/20 border border-indigo-500/20 flex items-center justify-center text-indigo-400 transition-all shadow-inner">
-                        <i class="fa-solid fa-chevron-right text-xs"></i>
-                    </div>
-                </div>
-
-            </div>
-            
-            <div id="policy-slim-card" class="glass-panel p-3 border border-amber-500/50 bg-amber-500/10 mt-6 cursor-pointer animate-pulse flex justify-between items-center hidden" onclick="openPolicyModal()">
-                <div class="flex items-center gap-3">
-                    <i class="fa-solid fa-file-contract text-amber-400 text-2xl ml-2"></i>
-                    <div>
-                        <h4 class="text-xs font-bold text-white uppercase tracking-wider">Platform Policy</h4>
-                        <p class="text-[10px] text-amber-200 font-medium">Action Required: Read & Accept</p>
-                    </div>
-                </div>
-                <div class="bg-amber-500 text-black text-[9px] font-bold px-3 py-1 rounded-full mr-2">OPEN</div>
-            </div>
-
-            <div class="glass-panel p-5 space-y-3.5 shadow-md mt-4">
-                <h4 class="text-xs font-bold uppercase text-emerald-400 tracking-wider">Corporate Manifesto</h4>
-                <div id="about-us-container" class="space-y-3">
-                    <img id="about-us-img" src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=600" loading="lazy" decoding="async" alt="Corporate" class="w-full h-36 object-cover rounded-2xl border border-white/5 shadow-inner">
-                    <p id="about-us-text" class="text-xs text-gray-400 leading-relaxed font-medium">
-                        Prime Horizon guarantees execution protocols powered by cryptographic account balances. Experience zero-friction asset production mechanisms designed explicitly for web ledger generation.
-                    </p>
-                </div>
-            </div>
-        </section>
-
-        <section id="screen-admin-feedback" class="screen space-y-4">
-            <div class="flex items-center justify-between">
-                <button onclick="switchScreen('screen-dashboard')" class="text-xs text-gray-400 hover:text-white flex items-center gap-1.5 transition-all bg-white/5 px-3 py-1.5 rounded-2xl border border-white/5 font-semibold flupy-btn"><i class="fa-solid fa-arrow-left-long"></i> Back</button>
-                <h2 class="text-xs font-extrabold text-teal-400 uppercase tracking-widest">Feedback Center</h2>
-            </div>
-            
-            <div class="glass-panel p-4 space-y-3.5 shadow-md">
-                <h5 class="text-xs font-bold uppercase tracking-wider text-teal-400 px-0.5">Submit Feedback</h5>
-                <form id="admin-feedback-form" onsubmit="handleAdminFeedbackSubmission(event)" class="space-y-2.5">
-                    <textarea id="admin-fb-text-input" placeholder="Type your feedback for the admin here..." rows="3" required class="w-full px-4 py-3 bg-black/40 border border-white/10 rounded-2xl text-xs text-white focus:outline-none focus:border-teal-500 premium-input transition-all resize-none"></textarea>
-                    <button type="submit" class="w-full py-3 bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-500 hover:to-emerald-500 text-white font-bold text-xs uppercase tracking-wider rounded-2xl transition-all shadow-lg flupy-btn">Submit Feedback</button>
-                </form>
-            </div>
-
-            <div id="admin-feedback-stream" class="space-y-3.5 max-h-[50vh] overflow-y-auto pb-4 pr-1">
-                <div class="text-xs text-gray-500 italic text-center py-4">Fetching your feedbacks...</div>
-            </div>
-        </section>
-
-        <section id="screen-tasks" class="screen space-y-4">
-            <div class="flex items-center justify-between">
-                <button onclick="switchScreen('screen-dashboard')" class="text-xs text-gray-400 hover:text-white flex items-center gap-1.5 transition-all bg-white/5 px-3 py-1.5 rounded-2xl border border-white/5 font-semibold flupy-btn"><i class="fa-solid fa-arrow-left-long"></i> Back</button>
-                <h2 class="text-xs font-extrabold text-emerald-400 uppercase tracking-widest">Tasks & Rewards</h2>
-            </div>
-
-            <div class="glass-panel p-5 space-y-4">
-                <div class="text-center">
-                    <h3 class="text-lg font-black text-white tracking-wider">Earn Free Coins</h3>
-                    <p class="text-xs text-gray-400 mt-1">Complete simple social media tasks. Each task rewards <span class="font-bold text-emerald-400">5 Coins</span> — claimable only once per account.</p>
-                </div>
-                
-                <div class="bg-black/30 border border-white/5 rounded-2xl p-4 text-xs">
-                    <div class="flex justify-between text-gray-400">
-                        <span>Your Current Coins</span>
-                        <span id="tasks-coins-balance" class="font-mono font-bold text-white">0</span>
-                    </div>
-                    <div class="text-[10px] text-amber-400 mt-1">Convert anytime in Affiliate section • 50 Coins = Rs. 1</div>
-                </div>
-            </div>
-
-            <div class="glass-panel p-5 rounded-3xl border border-white/10">
-                <div class="flex items-center gap-2 mb-3">
-                    <i class="fa-solid fa-share-alt text-teal-400"></i>
-                    <span class="font-extrabold text-teal-400 tracking-wider text-sm">OFFICIAL CHANNELS</span>
-                </div>
-                <div id="user-social-channels-list" class="space-y-2 text-sm"></div>
-                <div class="text-[10px] text-gray-400 mt-2">Follow these official channels. Admin added links appear here.</div>
-            </div>
-
-            <div id="tasks-list" class="space-y-4"></div>
-            <div class="text-center text-[10px] text-gray-500 pt-2">New tasks added regularly by administration. Check back often!</div>
-        </section>
-
-        <section id="screen-invite-friends" class="screen space-y-4">
-            <div class="flex items-center justify-between">
-                <button onclick="switchScreen('screen-dashboard')" class="text-xs text-gray-400 hover:text-white flex items-center gap-1.5 transition-all bg-white/5 px-3 py-1.5 rounded-2xl border border-white/5 font-semibold flupy-btn"><i class="fa-solid fa-arrow-left-long"></i> Back</button>
-                <h2 class="text-xs font-extrabold text-emerald-400 uppercase tracking-widest">Network Affiliates</h2>
-            </div>
-            
-            <div class="glass-panel p-4 bg-gradient-to-br from-emerald-950/20 to-slate-900/40 text-center space-y-3 shadow-md border border-emerald-500/10 relative overflow-hidden">
-                <div class="absolute -right-4 -top-4 w-16 h-16 bg-amber-500/20 rounded-full blur-xl"></div>
-                
-                <span class="text-[10px] tracking-widest text-emerald-400 uppercase font-extrabold bg-emerald-500/10 px-3 py-1 rounded-2xl border border-emerald-500/20 inline-block mb-1">Invite & Earn System Rules</span>
-                
-                <div id="affiliate-tier-badge" class="mt-2 mb-3 mx-auto max-w-[200px] py-1.5 px-3 bg-gradient-to-r from-amber-600 to-yellow-600 rounded-lg shadow-lg flex items-center justify-center gap-2 border border-amber-300">
-                    <i class="fa-solid fa-medal text-white"></i>
-                    <span class="text-xs font-bold text-white uppercase tracking-wider" id="affiliate-tier-name">Level 1</span>
-                </div>
-
-                <p class="text-[11px] text-gray-300 leading-relaxed font-medium px-1 text-justify">Share your unique network signature code. <span class="text-emerald-400 font-bold">Withdrawals open ONLY when your referred friend deposits & activates a plan!</span> For every 10 active referrals, your Affiliate Tier increases, giving you higher bonus commissions!</p>
-                
-                <div class="p-3.5 bg-black/40 rounded-2xl flex items-center justify-between border border-white/5 mt-3 shadow-inner">
-                    <span id="display-invite-refcode" class="font-mono font-black text-base text-white tracking-wider select-all px-2">REFCODE</span>
-                    <button onclick="copyAffiliateLink()" class="px-4 py-2 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 rounded-2xl text-xs font-bold text-white flex items-center gap-1.5 shadow-lg transition-all transform active:scale-95 uppercase tracking-wider flupy-btn"><i class="fa-solid fa-copy text-[11px]"></i> Copy Link</button>
-                </div>
-            </div>
-
-            <div class="glass-panel p-4 space-y-3.5 shadow-md bg-gradient-to-r from-amber-500/5 to-yellow-500/5 border border-amber-500/10">
-                <div class="flex justify-between items-center">
-                    <div>
-                        <span class="text-[10px] uppercase font-bold text-amber-400 tracking-wider block">Network Affiliate Coins</span>
-                        <div class="text-2xl font-black text-white font-mono mt-1" id="matrix-coins-counter">0 <span class="text-xs text-gray-400 font-normal">Coins</span></div>
-                    </div>
-                    <div class="text-right">
-                        <span class="text-[9px] uppercase font-bold text-gray-500 block">Exchange Index</span>
-                        <span class="text-xs font-bold text-amber-400 font-mono" id="matrix-exchange-rate-text">50 Coins = Rs. 1</span>
-                    </div>
-                </div>
-                <button onclick="executeCoinsToRupeesConversion()" class="w-full py-2.5 bg-gradient-to-r from-amber-600 to-yellow-600 hover:from-amber-500 hover:to-yellow-500 text-white text-xs font-bold uppercase tracking-wider rounded-2xl shadow-md transition-all transform active:scale-[0.98] flupy-btn">
-                    <i class="fa-solid fa-rotate mr-1"></i> Convert Coins to Rupees
-                </button>
-            </div>
-
-            <div class="glass-panel p-4 space-y-4 shadow-md">
-                <div class="flex justify-between items-center border-b border-white/5 pb-3">
-                    <h4 class="text-xs font-bold uppercase text-emerald-400 tracking-wider">My Registered Network Map</h4>
-                    <span id="invite-total-commission-counter" class="text-xs font-black text-amber-400 font-mono">Commission: 0 Coins</span>
-                </div>
-                <div id="referred-users-network-stream" class="space-y-2.5 max-h-[250px] overflow-y-auto pr-1">
-                    <div class="text-xs text-gray-500 italic text-center py-4">No active connection pipelines registered yet.</div>
-                </div>
-            </div>
-        </section>
-
-        <section id="screen-my-details" class="screen space-y-4">
-            <div class="flex items-center justify-between">
-                <button onclick="switchScreen('screen-dashboard')" class="text-xs text-gray-400 hover:text-white flex items-center gap-1.5 transition-all bg-white/5 px-3 py-1.5 rounded-2xl border border-white/5 font-semibold flupy-btn"><i class="fa-solid fa-arrow-left-long"></i> Dashboard</button>
-                <h2 class="text-xs font-extrabold text-amber-400 uppercase tracking-widest">Financial Matrix</h2>
-            </div>
-
-            <div class="grid grid-cols-2 gap-3.5">
-                <div class="glass-panel p-4 col-span-2 bg-gradient-to-br from-emerald-950/20 to-slate-900/40 border-t-2 border-emerald-500 shadow-md">
-                    <span class="text-[10px] uppercase font-bold text-emerald-400 tracking-widest block">Available Principal Liquid Ledger</span>
-                    <div class="text-3xl font-black tracking-tight mt-1.5 text-white font-mono">Rs. <span id="meta-balance">0.00</span></div>
-                </div>
-                <div class="glass-panel p-4 shadow-md bg-black/20">
-                    <span class="text-[10px] uppercase font-bold text-gray-400 tracking-wider block">Locked Capital</span>
-                    <span class="text-base font-bold text-white block mt-1 font-mono">Rs. <span id="meta-total-invest">0.00</span></span>
-                </div>
-                <div class="glass-panel p-4 shadow-md bg-black/20">
-                    <span class="text-[10px] uppercase font-bold text-amber-400 tracking-wider block">Accumulated Profit</span>
-                    <span class="text-base font-bold text-amber-400 block mt-1 font-mono">Rs. <span id="meta-total-profit">0.00</span></span>
-                </div>
-                <div class="glass-panel p-4 shadow-md bg-black/20">
-                    <span class="text-[10px] uppercase font-bold text-teal-400 tracking-wider block">Total Injected</span>
-                    <span class="text-base font-bold text-white block mt-1 font-mono">Rs. <span id="meta-total-deposit">0.00</span></span>
-                </div>
-                <div class="glass-panel p-4 shadow-md bg-black/20">
-                    <span class="text-[10px] uppercase font-bold text-indigo-400 tracking-wider block">Processed Payouts</span>
-                    <span class="text-base font-bold text-white block mt-1 font-mono">Rs. <span id="meta-total-withdraw">0.00</span></span>
-                </div>
-            </div>
-
-            <div class="glass-panel p-4 space-y-4 shadow-md">
-                <div class="flex justify-between items-center border-b border-white/5 pb-3">
-                    <h4 class="text-xs font-bold uppercase text-amber-400 tracking-wider">Active Strategic Allocations</h4>
-                    <button onclick="collectDailyYield()" class="px-4 py-2 bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-500 hover:to-orange-500 text-[10px] font-extrabold uppercase rounded-2xl text-white tracking-wider shadow-lg transition-all flupy-btn">Collect daily Profit</button>
-                </div>
-                <div id="active-plan-status-node" class="text-center py-2 text-xs text-gray-500 italic font-medium">
-                    No active assets processing operational yield matrix loops.
-                </div>
-            </div>
-            
-            <div class="glass-panel p-4 flex justify-between items-center shadow-md bg-black/20">
-                <span class="text-xs font-bold text-gray-300 uppercase tracking-wide">Total Verified Referrals</span>
-                <span id="meta-ref-count" class="px-3 py-1.5 bg-emerald-500/10 border border-emerald-500/20 rounded-2xl text-xs font-mono font-bold text-emerald-400">0 Nodes</span>
-            </div>
-        </section>
-
-        <section id="screen-invest-plans" class="screen space-y-4">
-            <div class="flex items-center justify-between">
-                <button onclick="switchScreen('screen-dashboard')" class="text-xs text-gray-400 hover:text-white flex items-center gap-1.5 transition-all bg-white/5 px-3 py-1.5 rounded-2xl border border-white/5 font-semibold flupy-btn"><i class="fa-solid fa-arrow-left-long"></i> Back</button>
-                <h2 class="text-xs font-extrabold text-emerald-400 uppercase tracking-widest">Invest Plans</h2>
-            </div>
-            <div id="investment-plans-feed" class="space-y-4"></div>
-        </section>
-
-        <section id="screen-deposit" class="screen space-y-4">
-            <div class="flex items-center justify-between">
-                <button onclick="switchScreen('screen-dashboard')" class="text-xs text-gray-400 hover:text-white flex items-center gap-1.5 transition-all bg-white/5 px-3 py-1.5 rounded-2xl border border-white/5 font-semibold flupy-btn"><i class="fa-solid fa-arrow-left-long"></i> Cancel</button>
-                <h2 class="text-xs font-extrabold text-teal-500 uppercase tracking-widest">Inbound Ledger</h2>
-            </div>
-
-            <form id="deposit-request-form" onsubmit="handleDepositSubmission(event)" class="space-y-4">
-                <div>
-                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 px-1">Settlement Pipeline Network</label>
-                    <select id="deposit-channel" onchange="updateDepositGatewayDetails(this.value)" class="w-full px-4 py-3.5 bg-black/40 border border-white/10 rounded-2xl text-xs focus:outline-none focus:border-teal-500 text-white premium-input font-semibold">
-                        <option value="JazzCash">JazzCash Network Node</option>
-                        <option value="EasyPaisa">EasyPaisa Hub Node</option>
-                        <option value="CustomBank">Corporate Bank Transfer Matrix</option>
-                    </select>
-                </div>
-
-                <div class="glass-panel p-4 bg-teal-500/5 border border-teal-500/20 rounded-2xl space-y-1.5 shadow-inner">
-                    <span class="text-[9px] font-black text-teal-400 uppercase tracking-widest">Destination Cache Registry</span>
-                    <div class="text-sm font-extrabold text-white" id="dep-gate-title">Muhammad Naeem</div>
-                    <div class="text-base font-mono font-black tracking-wider text-teal-300 neon-text-emerald" id="dep-gate-account">03257436319</div>
-                </div>
-
-                <div class="glass-panel p-4 border-l-4 border-teal-500 text-right bg-black/40 shadow-md">
-                    <p class="text-xs text-teal-200 font-semibold leading-relaxed" dir="rtl">
-                        برائے مہربانی اوپر دیے گئے نمبر پر مطلوبہ رقم منتقل کریں۔ ٹرانزیکشن مکمل ہونے کے بعد اصل رسید کا اسکرین شاٹ اور ریفرنس آئی ڈی (TRX ID) درج کریں۔ غلط معلومات فراہم کرنے پر اکاؤنٹ معطل کیا جا سکتا ہے۔
-                    </p>
-                </div>
-
-                <div>
-                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 px-1">Amount to Inject (PKR)</label>
-                    <input type="number" id="deposit-amount" required min="1" class="w-full px-4 py-3.5 bg-black/40 border border-white/10 rounded-2xl text-xs focus:outline-none focus:border-teal-500 text-white premium-input font-mono" placeholder="Rs. 0000">
-                </div>
-
-                <div>
-                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 px-1">Network Reference Tracking ID (TRX ID)</label>
-                    <input type="text" id="deposit-trxid" required class="w-full px-4 py-3.5 bg-black/40 border border-white/10 rounded-2xl text-xs font-mono focus:outline-none focus:border-teal-500 text-white premium-input" placeholder="TXN87364812">
-                </div>
-
-                <div>
-                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 px-1">Transaction Receipt Screenshot</label>
-                    <div class="flex items-center justify-between p-3.5 bg-black/30 border border-white/5 rounded-2xl shadow-inner">
-                        <input type="file" id="deposit-proof-file" accept="image/*" required onchange="uploadDepositProofToCloudinary(event)" class="text-xs text-gray-400 file:mr-3 file:py-1.5 file:px-3 file:rounded-2xl file:border-0 file:text-[10px] file:font-bold file:bg-white/10 file:text-white hover:file:bg-white/20 transition-all">
-                        <i id="deposit-proof-spinner" class="fa-solid fa-circle-notch fa-spin text-teal-400 hidden"></i>
-                        <i id="deposit-proof-success" class="fa-solid fa-circle-check text-emerald-400 hidden text-base animate-bounce"></i>
-                    </div>
-                    <input type="hidden" id="deposit-proof-url">
-                </div>
-
-                <button type="submit" id="deposit-submit-btn" disabled class="w-full py-4 bg-slate-800 text-gray-500 rounded-2xl font-bold text-xs uppercase tracking-wider cursor-not-allowed transition-all shadow-lg flupy-btn">
-                    Transmit Verification Ticket
-                </button>
-            </form>
-        </section>
-
-        <section id="screen-withdraw" class="screen space-y-4">
-            <div class="flex items-center justify-between">
-                <button onclick="switchScreen('screen-dashboard')" class="text-xs text-gray-400 hover:text-white flex items-center gap-1.5 transition-all bg-white/5 px-3 py-1.5 rounded-2xl border border-white/5 font-semibold flupy-btn"><i class="fa-solid fa-arrow-left-long"></i> Abort</button>
-                <h2 class="text-xs font-extrabold text-indigo-400 uppercase tracking-widest">Outbound Terminal</h2>
-            </div>
-
-            <div id="withdraw-limit-info" class="glass-panel p-4 mb-1 space-y-2 border border-indigo-500/20 bg-indigo-950/10">
-                <div class="flex justify-between items-center text-xs">
-                    <span class="font-bold text-indigo-400">Your Daily Withdrawal Limit</span>
-                    <span id="current-withdraw-limit" class="font-mono font-black text-lg text-white">Rs. 1,000</span>
-                </div>
-                <div class="flex justify-between text-[10px]">
-                    <span class="text-gray-400">Platform Tax (per withdrawal)</span>
-                    <span class="font-bold text-amber-400">Rs. 2.00</span>
-                </div>
-                <div id="last-withdraw-time" class="text-[10px] text-gray-400 font-medium"></div>
-                <div id="next-withdraw-time" class="text-[10px] font-bold"></div>
-                <div class="text-[9px] text-gray-500 pt-1 border-t border-white/10">
-                    More invite more limit
-                </div>
-            </div>
-
-            <div id="withdraw-lockout-alert" class="glass-panel p-4 bg-rose-500/5 border border-rose-500/20 text-rose-300 text-xs text-center font-semibold leading-relaxed rounded-2xl shadow-inner hidden"></div>
-
-            <form id="withdraw-processing-form" onsubmit="handleWithdrawalExecution(event)" class="space-y-4">
-                <div>
-                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 px-1">Account Title / Name</label>
-                    <input type="text" id="withdraw-title" required class="w-full px-4 py-3.5 bg-black/40 border border-white/10 rounded-2xl text-xs focus:outline-none focus:border-indigo-500 text-white premium-input" placeholder="e.g. Muhammad Naeem">
-                </div>
-                
-                <div>
-                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 px-1">Account Number</label>
-                    <input type="text" id="withdraw-number" required class="w-full px-4 py-3.5 bg-black/40 border border-white/10 rounded-2xl text-xs focus:outline-none focus:border-indigo-500 text-white premium-input font-mono" placeholder="03XXXXXXXXX">
-                </div>
-
-                <div>
-                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 px-1">Amount to Withdraw (PKR) <span class="text-amber-400 font-bold">— Rs.2 tax added</span></label>
-                    <input type="number" id="withdraw-volume" required class="w-full px-4 py-3.5 bg-black/40 border border-white/10 rounded-2xl text-xs focus:outline-none focus:border-indigo-500 text-white premium-input font-mono" placeholder="Enter amount">
-                </div>
-
-                <div>
-                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 px-1">Withdrawal Method</label>
-                    <select id="withdraw-method" class="w-full px-4 py-3.5 bg-black/40 border border-white/10 rounded-2xl text-xs focus:outline-none focus:border-indigo-500 text-white premium-input font-semibold">
-                        <option value="JazzCash">JazzCash</option>
-                        <option value="EasyPaisa">EasyPaisa</option>
-                        <option value="Bank Transfer">Bank Transfer</option>
-                    </select>
-                </div>
-
-                <div>
-                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 px-1">Security PIN Code</label>
-                    <div class="relative">
-                        <input type="password" id="withdraw-security-pin" required class="w-full px-4 py-3.5 bg-black/40 border border-white/10 rounded-2xl text-xs focus:outline-none focus:border-indigo-500 text-white premium-input font-mono tracking-widest" placeholder="••••">
-                        <button type="button" onclick="openPinResetModal()" class="absolute right-4 top-3.5 text-[10px] text-amber-400 font-bold uppercase hover:underline">Forgot?</button>
-                    </div>
-                </div>
-
-                <button type="submit" id="withdraw-submit-btn" class="w-full py-4 bg-gradient-to-r from-indigo-600 via-violet-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 rounded-2xl font-bold text-xs uppercase tracking-wider text-white shadow-lg shadow-indigo-950/50 transition-all flupy-btn">
-                    SUBMIT WITHDRAW
-                </button>
-            </form>
-        </section>
-
-        <!-- UPDATED UNIFIED HISTORY SECTION -->
-        <section id="screen-history" class="screen space-y-5">
-            <div class="flex items-center justify-between">
-                <button onclick="switchScreen('screen-dashboard')" class="text-xs text-gray-400 hover:text-white flex items-center gap-1.5 transition-all bg-white/5 px-3 py-1.5 rounded-2xl border border-white/5 font-semibold flupy-btn">
-                    <i class="fa-solid fa-arrow-left-long"></i> Return
-                </button>
-                <h2 class="text-sm font-extrabold text-white tracking-wider">Overall History</h2>
-            </div>
-
-            <div class="glass-panel p-4 rounded-3xl border border-white/10">
-                
-                <!-- Scrollable Horizontal Options/Filters -->
-                <div class="flex gap-2 overflow-x-auto pb-3 mb-3 border-b border-white/5 no-scrollbar" id="history-filters">
-                    <button onclick="filterUnifiedHistory('all')" class="hist-filter-btn px-4 py-1.5 text-[10px] font-bold rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 whitespace-nowrap transition-all active" data-type="all">All History</button>
-                    <button onclick="filterUnifiedHistory('login')" class="hist-filter-btn px-4 py-1.5 text-[10px] font-bold rounded-full bg-white/5 text-gray-400 border border-white/5 whitespace-nowrap transition-all" data-type="login">Logins</button>
-                    <button onclick="filterUnifiedHistory('deposit')" class="hist-filter-btn px-4 py-1.5 text-[10px] font-bold rounded-full bg-white/5 text-gray-400 border border-white/5 whitespace-nowrap transition-all" data-type="deposit">Deposits</button>
-                    <button onclick="filterUnifiedHistory('withdraw')" class="hist-filter-btn px-4 py-1.5 text-[10px] font-bold rounded-full bg-white/5 text-gray-400 border border-white/5 whitespace-nowrap transition-all" data-type="withdraw">Withdraws</button>
-                    <button onclick="filterUnifiedHistory('plan')" class="hist-filter-btn px-4 py-1.5 text-[10px] font-bold rounded-full bg-white/5 text-gray-400 border border-white/5 whitespace-nowrap transition-all" data-type="plan">Plans</button>
-                    <button onclick="filterUnifiedHistory('bonus')" class="hist-filter-btn px-4 py-1.5 text-[10px] font-bold rounded-full bg-white/5 text-gray-400 border border-white/5 whitespace-nowrap transition-all" data-type="bonus">Bonus/Profit</button>
-                    <button onclick="filterUnifiedHistory('complaint')" class="hist-filter-btn px-4 py-1.5 text-[10px] font-bold rounded-full bg-white/5 text-gray-400 border border-white/5 whitespace-nowrap transition-all" data-type="complaint">Complaints</button>
-                </div>
-
-                <!-- Unified Step by Step Timeline List -->
-                <div id="unified-history-list" class="space-y-4 history-timeline max-h-[60vh] overflow-y-auto pr-1">
-                    <div class="text-xs text-gray-500 italic text-center py-6">Aggregating records...</div>
-                </div>
-
-            </div>
-        </section>
+        const a = document.createElement('a');
+        a.href = blobUrl;
+        a.download = 'Primehorizon.apk';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
         
-    </main>
+        setTimeout(() => URL.revokeObjectURL(blobUrl), 1000);
+      }, 400);
 
-    <!-- NEW PLAN ALERT MODAL (Added for "Do you want new plan" functionality) -->
-    <div id="new-plan-alert-modal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 hidden">
-        <div class="glass-panel p-6 w-full max-w-sm space-y-4 border border-rose-500/30 text-white text-center">
-            <h3 class="text-lg font-extrabold uppercase tracking-widest text-rose-400 border-b border-white/10 pb-3 flex justify-center items-center gap-2">
-                <i class="fa-solid fa-triangle-exclamation animate-bounce"></i> Error
-            </h3>
-            <p class="text-sm font-bold text-white mt-2">Do you want new plan?</p>
-            <p class="text-[11px] text-gray-300 leading-relaxed font-medium">You already have an active plan. Clicking 'Yes' will automatically submit a formal request to the admin to allow a new plan.</p>
-            
-            <div class="flex gap-3 mt-4">
-                <button onclick="closeNewPlanAlert()" class="w-1/2 py-3 bg-slate-800 text-gray-400 font-bold rounded-2xl uppercase tracking-wider shadow-lg transition-all flupy-btn">No</button>
-                <button onclick="autoSubmitNewPlanComplaint()" class="w-1/2 py-3 bg-gradient-to-r from-rose-600 to-red-600 text-white font-bold rounded-2xl uppercase tracking-wider shadow-lg transition-all flupy-btn">Yes</button>
-            </div>
-        </div>
-    </div>
+    } catch (err) {
+      dlUiElements.style.display = 'none';
+      dlPercent.innerText = 'Failed';
+      dlPercent.style.color = 'var(--error-red)';
+      errorMsgText.innerText = err.message || "Error downloading real file from assets folder.";
+      dlError.style.display = 'block';
 
-    <!-- Pin Setup Modal -->
-    <div id="pin-setup-modal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 hidden">
-        <div class="glass-panel p-6 w-full max-w-sm space-y-4 border border-indigo-500/30 text-white">
-            <h3 class="text-sm font-extrabold uppercase tracking-widest text-indigo-400 border-b border-white/10 pb-3 text-center flex justify-center items-center gap-2">
-                <i class="fa-solid fa-lock"></i> Set Withdrawal PIN
-            </h3>
-            <p class="text-[11px] text-gray-300 text-center leading-relaxed font-medium">Please set a secure 4-digit PIN for future withdrawals. You must provide your Date of Birth for recovery purposes.</p>
-            <form onsubmit="handlePinSetup(event)" class="space-y-4 text-xs mt-2">
-                <div>
-                    <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">Enter 4-Digit PIN</label>
-                    <input type="password" id="setup-pin-val" required minlength="4" maxlength="4" class="w-full p-3.5 bg-black/40 border border-white/10 rounded-2xl text-white focus:outline-none focus:border-indigo-500 premium-input text-center tracking-widest font-mono text-lg" placeholder="••••">
-                </div>
-                <div>
-                    <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">Your Date of Birth (For Recovery)</label>
-                    <input type="date" id="setup-pin-dob" required class="w-full p-3.5 bg-black/40 border border-white/10 rounded-2xl text-white focus:outline-none focus:border-indigo-500 premium-input">
-                </div>
-                <button type="submit" class="w-full py-3.5 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold rounded-2xl uppercase tracking-wider shadow-lg transition-all flupy-btn">
-                    Save Secure PIN
-                </button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Pin Reset Modal -->
-    <div id="pin-reset-modal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 hidden">
-        <div class="glass-panel p-6 w-full max-w-sm space-y-4 border border-amber-500/30 text-white relative">
-            <button type="button" onclick="closePinResetModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white bg-white/5 w-8 h-8 rounded-2xl flex items-center justify-center border border-white/5 flupy-btn"><i class="fa-solid fa-xmark"></i></button>
-            <h3 class="text-sm font-extrabold uppercase tracking-widest text-amber-400 border-b border-white/10 pb-3 text-center flex justify-center items-center gap-2">
-                <i class="fa-solid fa-key"></i> Reset PIN
-            </h3>
-            <p class="text-[11px] text-gray-300 text-center leading-relaxed font-medium">Verify your identity by entering your registered Date of Birth.</p>
-            <form onsubmit="handlePinReset(event)" class="space-y-4 text-xs mt-2">
-                <div>
-                    <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">Registered Date of Birth</label>
-                    <input type="date" id="reset-pin-dob" required class="w-full p-3.5 bg-black/40 border border-white/10 rounded-2xl text-white focus:outline-none focus:border-amber-500 premium-input">
-                </div>
-                <div id="new-pin-section" class="hidden">
-                    <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">New 4-Digit PIN</label>
-                    <input type="password" id="reset-new-pin" minlength="4" maxlength="4" class="w-full p-3.5 bg-black/40 border border-white/10 rounded-2xl text-white focus:outline-none focus:border-amber-500 premium-input text-center tracking-widest font-mono text-lg" placeholder="••••">
-                </div>
-                <button type="button" id="btn-verify-dob" onclick="verifyDobForPin()" class="w-full py-3.5 bg-amber-600 text-white font-bold rounded-2xl uppercase tracking-wider shadow-lg transition-all flupy-btn">Verify DOB</button>
-                <button type="submit" id="btn-save-new-pin" class="w-full py-3.5 bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-bold rounded-2xl uppercase tracking-wider shadow-lg transition-all flupy-btn hidden">
-                    Update PIN
-                </button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Double Auth Setup Modal -->
-    <div id="double-auth-setup-modal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 hidden">
-        <div class="glass-panel p-6 w-full max-w-sm space-y-4 border border-indigo-500/30 text-white relative">
-            <button type="button" onclick="closeDoubleAuthSetup()" class="absolute top-4 right-4 text-gray-400 hover:text-white bg-white/5 w-8 h-8 rounded-2xl flex items-center justify-center border border-white/5 flupy-btn"><i class="fa-solid fa-xmark"></i></button>
-            <h3 class="text-sm font-extrabold uppercase tracking-widest text-indigo-400 border-b border-white/10 pb-3 text-center flex justify-center items-center gap-2">
-                <i class="fa-solid fa-shield-halved"></i> Double Verification
-            </h3>
-            
-            <div class="flex items-center justify-between bg-black/40 p-3 rounded-2xl border border-white/5">
-                <div>
-                    <span class="block text-[11px] font-bold text-white uppercase tracking-wide">Security Status</span>
-                    <span id="da-status-text" class="text-[9px] text-rose-400 font-bold tracking-wider">DISABLED</span>
-                </div>
-                <label class="relative inline-flex items-center cursor-pointer">
-                    <input type="checkbox" id="da-toggle-input" class="sr-only peer" onchange="toggleDoubleAuthUI()">
-                    <div class="w-11 h-6 bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-500"></div>
-                </label>
-            </div>
-
-            <div id="da-setup-camera-section" class="hidden space-y-3">
-                <p class="text-[10px] text-gray-300 text-center leading-relaxed">To enable Double Verification, please capture a baseline profile picture. This will be securely saved and reviewed by Admin for future logins.</p>
-                <div class="w-full relative rounded-2xl overflow-hidden border-2 border-indigo-500/30">
-                    <video id="da-setup-video" class="camera-viewport" autoplay playsinline></video>
-                    <canvas id="da-setup-canvas" class="hidden"></canvas>
-                </div>
-                <button onclick="captureBaselineImage()" id="btn-da-capture" class="w-full py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-2xl text-xs uppercase tracking-wider shadow-lg transition-all flupy-btn">
-                    <i class="fa-solid fa-camera mr-1"></i> Capture Live Image
-                </button>
-            </div>
-            
-            <div id="da-setup-loading" class="hidden py-6 text-center">
-                <i class="fa-solid fa-spinner fa-spin text-3xl text-indigo-400 mb-2"></i>
-                <p class="text-xs text-gray-400">Processing security protocols...</p>
-            </div>
-        </div>
-    </div>
-
-
-    <div id="password-recovery-modal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 hidden">
-        <div class="glass-panel p-6 w-full max-w-sm space-y-4 border border-amber-500/30 text-white">
-            <div class="flex justify-between items-center border-b border-white/10 pb-3">
-                <h3 class="text-xs font-extrabold uppercase tracking-widest text-amber-400 flex items-center gap-2">
-                    <i class="fa-solid fa-key"></i> System Password Recovery
-                </h3>
-                <button type="button" onclick="closePasswordRecoveryModal()" class="text-gray-400 hover:text-white bg-white/5 w-8 h-8 rounded-2xl flex items-center justify-center border border-white/5 flupy-btn"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-            
-            <div id="step-1-recovery" class="space-y-4 text-xs">
-                <div>
-                    <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">Select Recovery Method</label>
-                    <select id="recovery-method-select" onchange="toggleRecoveryInput()" class="w-full p-3 bg-black/40 border border-white/10 rounded-2xl text-white focus:outline-none focus:border-amber-500 premium-input font-semibold mb-2">
-                        <option value="number">Phone Number</option>
-                        <option value="gmail">Gmail Address</option>
-                    </select>
-                </div>
-                <div>
-                    <label id="recovery-input-label" class="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">Enter Registered Phone Number</label>
-                    <input type="text" id="recovery-input-val" required class="w-full p-3 bg-black/40 border border-white/10 rounded-2xl text-white focus:outline-none focus:border-amber-500 premium-input font-mono" placeholder="03XXXXXXXXX">
-                </div>
-                <button type="button" onclick="startRecoveryScan()" class="w-full py-3.5 bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-500 hover:to-orange-500 text-white font-bold rounded-2xl uppercase tracking-wider shadow-lg transition-all flupy-btn">
-                    Scan Account
-                </button>
-            </div>
-
-            <div id="step-2-scan" class="hidden text-center p-6 space-y-3">
-                <i class="fa-solid fa-expand fa-spin text-4xl text-amber-400 mb-2"></i>
-                <p class="text-sm font-bold text-white tracking-wide">Scanning Records...</p>
-                <div class="w-full bg-black/50 rounded-full h-2 mb-4 overflow-hidden border border-white/10">
-                    <div id="scan-progress-bar" class="bg-amber-500 h-2 rounded-full" style="width: 0%; transition: width 1s linear;"></div>
-                </div>
-                <p class="text-xs text-gray-400 font-mono">Time left: <span id="scan-timer" class="text-amber-400 font-bold">10</span>s</p>
-            </div>
-
-            <div id="step-3-whatsapp" class="hidden space-y-4 text-xs">
-                <div class="bg-emerald-500/10 border border-emerald-500/30 p-3 rounded-2xl text-center mb-2">
-                    <p class="text-xs text-emerald-400 font-bold"><i class="fa-solid fa-check-circle mr-1"></i> Account Successfully Found!</p>
-                </div>
-                <div>
-                    <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">Enter Your WhatsApp Number</label>
-                    <input type="tel" id="recovery-whatsapp-num" required class="w-full p-3 bg-black/40 border border-white/10 rounded-2xl text-white focus:outline-none focus:border-amber-500 premium-input font-mono" placeholder="WhatsApp Number">
-                </div>
-                <button type="button" onclick="submitWhatsappRecovery()" class="w-full py-3.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold rounded-2xl uppercase tracking-wider shadow-lg transition-all flupy-btn">
-                    Send Request To Admin
-                </button>
-            </div>
-
-            <div id="step-4-wait" class="hidden text-center p-6 space-y-3">
-                <div class="w-16 h-16 bg-amber-500/20 text-amber-400 rounded-full flex items-center justify-center mx-auto text-3xl border border-amber-500/30 shadow-lg animate-pulse mb-3">
-                    <i class="fa-solid fa-clock-rotate-left"></i>
-                </div>
-                <p class="text-base font-black text-white uppercase tracking-wider">Please Wait</p>
-                <div class="p-3 bg-black/40 border border-white/5 rounded-2xl shadow-inner">
-                    <p class="text-[11px] text-gray-300 leading-relaxed font-medium">Your request has been successfully forwarded to administration. Once approved, your password will be shared directly on your WhatsApp number.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="kyc-modal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 hidden">
-        <div class="glass-panel p-6 w-full max-w-sm space-y-4 border border-amber-500/30 text-white">
-            <div class="flex justify-between items-center border-b border-white/10 pb-3">
-                <h3 class="text-xs font-extrabold uppercase tracking-widest text-amber-400 flex items-center gap-2">
-                    <i class="fa-solid fa-id-card-clip"></i> KYC Verification
-                </h3>
-                <button type="button" onclick="closeKYCModal()" class="text-gray-400 hover:text-white bg-white/5 w-8 h-8 rounded-2xl flex items-center justify-center border border-white/5 flupy-btn"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-            
-            <div class="bg-rose-500/10 border border-rose-500/20 p-3 rounded-2xl text-center space-y-2 shadow-inner">
-                <p class="text-[11px] font-black text-rose-400 uppercase tracking-wider">18+ to 70 tak users k liye hai.</p>
-                <p class="text-[11px] text-rose-300 font-medium leading-relaxed" dir="rtl">جب تک آپ اپنی شناخت نہیں کرواتے آپ کا اکاؤنٹ وریفائیڈ نہیں ہوگا۔</p>
-            </div>
-
-            <form id="kyc-form" onsubmit="submitKYC(event)" class="space-y-4 text-xs mt-2">
-                <div>
-                    <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">Enter Your Full Name</label>
-                    <input type="text" id="kyc-fullname" required class="w-full p-3.5 bg-black/40 border border-white/10 rounded-2xl text-white focus:outline-none focus:border-amber-500 premium-input" placeholder="As per official ID">
-                </div>
-                <div>
-                    <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">Enter Your Birthday</label>
-                    <input type="date" id="kyc-dob" required class="w-full p-3.5 bg-black/40 border border-white/10 rounded-2xl text-white focus:outline-none focus:border-amber-500 premium-input">
-                </div>
-                <button type="submit" class="w-full py-4 bg-gradient-to-r from-amber-600 to-orange-600 text-white font-bold rounded-2xl uppercase tracking-wider shadow-lg transition-all flupy-btn">
-                    Submit Identity Docs
-                </button>
-            </form>
-        </div>
-    </div>
-
-    <div id="policy-modal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 hidden">
-        <div class="glass-panel p-6 w-full max-w-sm space-y-4 border border-amber-500/30 text-white">
-            <h3 class="text-sm font-extrabold uppercase tracking-widest text-amber-400 border-b border-white/10 pb-3 text-center">
-                Platform Rules & Policy
-            </h3>
-            <div class="space-y-3 text-xs text-gray-300 max-h-60 overflow-y-auto pr-2">
-                <p class="font-bold text-rose-400 text-center uppercase tracking-wide">18+ Users Only Accepted</p>
-                <p>Welcome to Prime Horizon. By proceeding, you agree to the following terms:</p>
-                <ul class="list-disc pl-4 space-y-1.5">
-                    <li>All investments are subject to market risks. Only invest funds according to your capacity.</li>
-                    <li>Withdrawal and deposit systems operate within defined limits and platform taxation rules.</li>
-                    <li>Strict action will be taken against fraudulent activities, multiple accounts, or tampering.</li>
-                    <li>Administration reserves the right to modify yield percentages based on market conditions.</li>
-                </ul>
-                <p class="font-bold text-amber-400 pt-2 border-t border-white/10">Please accept these terms to continue using the dashboard features seamlessly.</p>
-            </div>
-            <button onclick="acceptPolicy()" class="w-full py-3.5 bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-bold rounded-2xl uppercase tracking-wider shadow-lg transition-all flupy-btn mt-2">
-                I Agree & Accept
-            </button>
-        </div>
-    </div>
-
-    <!-- FORCE FEEDBACK MODAL -->
-    <div id="forced-feedback-popup" class="fixed inset-0 bg-black/90 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
-        <div class="w-full max-w-sm glass-panel p-6 text-center space-y-4 border border-teal-500/40 shadow-2xl">
-            <div class="flex justify-between items-center border-b border-white/10 pb-3">
-                <span class="text-[11px] font-black tracking-widest text-teal-400 uppercase flex items-center gap-1.5"><i class="fa-solid fa-comments"></i> Mandatory Feedback</span>
-                <span id="forced-fb-timer" class="text-[10px] font-bold text-amber-400 bg-amber-500/10 border border-amber-500/30 px-3 py-1 rounded-full">Wait 10s</span>
-            </div>
-            <h3 class="text-sm font-extrabold text-white tracking-wide mt-2">We Value Your Opinion!</h3>
-            <p class="text-[11px] text-gray-300 leading-relaxed font-medium">Please share your honest experience with our platform. Admin requires this to improve services.</p>
-            
-            <textarea id="forced-fb-input" rows="4" placeholder="Apni raye yaha likhein..." class="w-full p-3.5 bg-black/40 border border-white/10 rounded-2xl text-xs text-white focus:outline-none focus:border-teal-500 premium-input transition-all resize-none mt-2"></textarea>
-            
-            <button id="forced-fb-btn" disabled onclick="submitForcedFeedback()" class="w-full py-4 bg-slate-800 text-gray-500 rounded-2xl font-bold text-xs uppercase tracking-wider cursor-not-allowed transition-all shadow-lg flupy-btn mt-2">
-                Please Wait...
-            </button>
-        </div>
-    </div>
-
-    <div id="profile-details-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 hidden" onclick="closeProfileModal()">
-        <div class="glass-panel p-6 w-full max-w-sm space-y-4 border border-emerald-500/20 text-white" onclick="event.stopPropagation()">
-            <div class="flex justify-between items-center border-b border-white/10 pb-3">
-                <h3 class="text-xs font-extrabold uppercase tracking-widest text-emerald-400 flex items-center gap-2"><i class="fa-solid fa-address-card"></i> Profile ID Registry</h3>
-                <button onclick="closeProfileModal()" class="text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 w-8 h-8 rounded-2xl flex items-center justify-center transition-all border border-white/5 flupy-btn"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-            <div class="space-y-3.5 text-xs">
-                <div class="flex justify-between border-b border-white/5 pb-2.5 font-medium"><span class="text-gray-400">Username:</span> <span id="prof-modal-user" class="font-bold text-white"></span></div>
-                <div class="flex justify-between border-b border-white/5 pb-2.5 font-medium"><span class="text-gray-400">Email Address:</span> <span id="prof-modal-email" class="font-bold text-white truncate max-w-[180px]"></span></div>
-                <div class="flex justify-between border-b border-white/5 pb-2.5 font-medium"><span class="text-gray-400">Reg. Number:</span> <span id="prof-modal-phone" class="font-bold font-mono text-emerald-400"></span></div>
-                <div class="flex justify-between border-b border-white/5 pb-2.5 font-medium"><span class="text-gray-400">Active Node Device:</span> <span id="prof-modal-device" class="font-bold text-emerald-400 font-mono text-[11px]"></span></div>
-            </div>
-        </div>
-    </div>
-
-    <div id="global-announcement-popup" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
-        <div class="w-full max-w-sm glass-panel p-5 text-center space-y-4 border border-amber-500/20 shadow-2xl">
-            <div class="flex justify-between items-center border-b border-white/5 pb-2.5">
-                <span class="text-[10px] font-black tracking-widest text-amber-400 uppercase flex items-center gap-1.5"><i class="fa-solid fa-bullhorn"></i> Announcement Broadcast</span>
-                <span id="announcement-timer-countdown" class="text-[9px] font-bold text-amber-400 bg-amber-500/10 border border-amber-500/20 px-2.5 py-0.5 rounded-2xl">Wait 15s</span>
-            </div>
-            <h3 id="popup-ann-title" class="text-sm font-extrabold text-white tracking-wide">Ecosystem Directive</h3>
-            <div class="w-full h-36 bg-black/40 rounded-2xl overflow-hidden hidden shadow-inner border border-white/5" id="popup-ann-img-wrapper">
-                <img id="popup-ann-img" src="" loading="lazy" decoding="async" class="w-full h-full object-cover">
-            </div>
-            <p id="popup-ann-desc" class="text-xs text-gray-400 leading-relaxed text-left font-medium px-0.5">Loading data stream frame...</p>
-            <button id="popup-ann-close-btn" disabled onclick="closeAnnouncementPopup()" class="w-full py-3 bg-slate-800 text-gray-500 rounded-2xl font-bold text-xs uppercase tracking-wider cursor-not-allowed transition-all shadow-lg flupy-btn">Please Acknowledge Directive...</button>
-        </div>
-    </div>
-
-    <footer id="main-footer" class="w-full max-w-md mx-auto px-4 pb-4 z-40">
-        <div class="glass-panel p-3.5 flex justify-between items-center gap-2 border border-white/10 shadow-lg">
-            <div class="text-left pl-1">
-                <span class="block text-[9px] uppercase font-black tracking-widest text-emerald-400 neon-text-emerald">Ecosystem Guard Active</span>
-                <span class="text-xs font-bold text-white tracking-wide">Central Operations Node</span>
-            </div>
-            <button onclick="openCustomerCareTerminal()" class="px-4 py-2.5 bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 hover:from-emerald-500 hover:to-cyan-500 rounded-2xl text-xs font-bold shadow-md flex items-center gap-1.5 text-white tracking-wider uppercase transition-all transform active:scale-95 border border-emerald-400/20 flupy-btn">
-                <i class="fa-solid fa-headset text-xs"></i> Customer Support 24/7
-            </button>
-        </div>
-    </footer>
-
-    <div id="customer-care-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
-        <div class="w-full max-w-md glass-panel flex flex-col h-[85vh] overflow-hidden border border-emerald-500/20 shadow-2xl">
-            <div class="p-4 border-b border-white/10 flex justify-between items-center bg-black/40">
-                <div class="flex items-center gap-3">
-                    <div class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse shadow-lg shadow-emerald-500"></div>
-                    <div>
-                        <h3 class="text-xs font-extrabold text-white uppercase tracking-wider">Live Workspace Tunnel</h3>
-                        <p class="text-[9px] text-gray-400 font-mono tracking-wide">Encrypted Diagnostic Vector</p>
-                    </div>
-                </div>
-                <button onclick="closeCustomerCareTerminal()" class="w-8 h-8 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/5 flex items-center justify-center text-gray-400 hover:text-white transition-all flupy-btn"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-
-            <div class="flex bg-black/20 p-1 border-b border-white/5 text-[10px] font-extrabold uppercase tracking-wider shadow-inner">
-                <button id="support-tab-chat" onclick="toggleSupportSubModule('chat')" class="w-1/2 py-2.5 rounded-2xl bg-white/5 text-emerald-400 tracking-wider flupy-btn">Live Workspace</button>
-                <button id="support-tab-complaint" onclick="toggleSupportSubModule('complaint')" class="w-1/2 py-2.5 rounded-2xl text-gray-400 tracking-wider flupy-btn">Formal Ticket</button>
-            </div>
-
-            <div class="flex-grow p-4 overflow-y-auto space-y-4" id="support-viewport-chat">
-                <div class="text-center text-[10px] text-gray-500 italic py-8 font-medium">Initializing diagnostic pipeline synchronization tokens...</div>
-            </div>
-
-            <div class="flex-grow p-4 overflow-y-auto hidden" id="support-viewport-complaint">
-                <form id="formal-ticket-form" onsubmit="handleTicketSubmission(event)" class="space-y-4 text-left">
-                    <div>
-                        <label class="block text-[10px] uppercase font-bold text-gray-400 tracking-wider mb-2 px-0.5">Issue Classification Matrix</label>
-                        <select id="ticket-category" class="w-full px-3.5 py-3 bg-black/40 border border-white/10 rounded-2xl text-xs text-white focus:outline-none premium-input font-semibold">
-                            <option value="Withdrawal Issue">Withdrawal Issue</option>
-                            <option value="Deposit Issue">Deposit Issue</option>
-                            <option value="Invite Friend Issue">Friend Invite Issue</option>
-                            <option value="Other Issue">Other issue</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-[10px] uppercase font-bold text-gray-400 tracking-wider mb-2 px-0.5">Detailed System Description</label>
-                        <textarea id="ticket-desc" required rows="3" class="w-full px-3.5 py-3 bg-black/40 border border-white/10 rounded-2xl text-xs text-white focus:outline-none premium-input resize-none" placeholder="اپنا مسلا تفصیل سے لکھیں..."></textarea>
-                    </div>
-                    <div>
-                        <label class="block text-[10px] uppercase font-bold text-gray-400 tracking-wider mb-2 px-0.5">Diagnostic Screenshot Proof</label>
-                        <div class="flex items-center justify-between p-3 bg-black/30 border border-white/5 rounded-2xl text-xs shadow-inner">
-                            <input type="file" id="ticket-proof-file" accept="image/*" onchange="uploadTicketProofToCloudinary(event)" class="file:bg-white/10 file:text-white file:border-0 file:text-[9px] file:py-1 file:px-2.5 file:rounded-2xl file:mr-2 file:font-bold">
-                            <i id="ticket-proof-spinner" class="fa-solid fa-circle-notch fa-spin text-emerald-400 hidden"></i>
-                        </div>
-                        <input type="hidden" id="ticket-proof-url">
-                    </div>
-                    <button type="submit" id="ticket-submit-btn" class="w-full py-3.5 bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-bold text-xs uppercase tracking-wider rounded-2xl shadow-lg transition-all flupy-btn">Log Official Infrastructure Record</button>
-                </form>
-                
-                <div class="mt-5 border-t border-white/5 pt-4">
-                    <h4 class="text-[10px] uppercase font-bold text-gray-400 tracking-wider mb-3 px-0.5">Resolution Architecture History</h4>
-                    <div id="ticket-resolution-feed" class="space-y-3"></div>
-                </div>
-            </div>
-
-            <div class="p-3.5 border-t border-white/10 bg-black/40 flex items-center gap-2.5 shadow-inner" id="chat-input-dock">
-                <button onclick="document.getElementById('chat-file-input').click()" class="w-11 h-11 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/5 text-gray-400 hover:text-white flex items-center justify-center text-sm transition-all relative flupy-btn">
-                    <i class="fa-solid fa-paperclip"></i>
-                    <input type="file" id="chat-file-input" accept="image/*" class="hidden" onchange="uploadChatAttachmentToCloudinary(event)">
-                    <div id="chat-file-spinner" class="absolute inset-0 bg-black/80 rounded-2xl flex items-center justify-center hidden"><i class="fa-solid fa-circle-notch fa-spin text-xs text-emerald-400"></i></div>
-                </button>
-                <input type="text" id="chat-message-input" class="flex-grow h-11 px-4 bg-black/50 border border-white/10 rounded-2xl text-xs text-white focus:outline-none focus:border-emerald-500 premium-input" placeholder="Transmit raw message terminal framework...">
-                <button onclick="transmitLiveChatMessage()" class="w-11 h-11 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 flex items-center justify-center text-sm text-white shadow-lg transition-all flupy-btn"><i class="fa-solid fa-paper-plane text-xs"></i></button>
-            </div>
-        </div>
-    </div>
-
-    <div id="context-menu-modal" class="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-start justify-end p-4 hidden" onclick="closeContextMenu()">
-        <div class="glass-panel p-2.5 mt-14 w-52 shadow-2xl space-y-1.5 bg-slate-950/90 border border-white/10" onclick="event.stopPropagation()">
-            <div class="px-3 py-2 border-b border-white/5">
-                <span class="block text-[9px] text-gray-500 uppercase tracking-widest font-black">Active Identity Node</span>
-                <span id="context-device-name" class="block text-xs font-mono font-bold text-emerald-400 truncate mt-0.5">Device Checking...</span>
-            </div>
-            <button onclick="terminateSession()" class="w-full text-left px-3 py-2.5 text-xs font-bold text-rose-400 hover:bg-rose-500/10 rounded-2xl flex items-center gap-2.5 transition-all uppercase tracking-wider flupy-btn">
-                <i class="fa-solid fa-power-off text-sm"></i> Terminate Session
-            </button>
-        </div>
-    </div>
-
-    <div id="global-toast-container" class="fixed top-16 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-xs space-y-2 pointer-events-none"></div>
-
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
-
-    <!-- Link to external JavaScript -->
-    <script src="index.js"></script>
+      setTimeout(() => {
+        dlCard.style.display = 'none';
+        btn.style.display = 'flex';
+        dlPercent.style.color = 'var(--android-green)';
+      }, 4500);
+    }
+  });
+</script>
 </body>
 </html>
