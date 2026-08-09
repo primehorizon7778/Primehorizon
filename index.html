@@ -16,313 +16,363 @@
     --paper:#F5F3EE;
     --slate:#8592A6;
     --danger:#E8734A;
-    --android-green: #3DDC84;
-    --error-red: #FF4C4C;
-    --safe-top: env(safe-area-inset-top, 0px);
-    --safe-bottom: env(safe-area-inset-bottom, 0px);
+    --android-green:#3DDC84;
+    --error-red:#FF4C4C;
+    --pk-green:#01411C;
+    --pk-gold:#F5D76E;
+    --safe-top:env(safe-area-inset-top,0px);
+    --safe-bottom:env(safe-area-inset-bottom,0px);
   }
-  *{box-sizing:border-box;}
+  *{box-sizing:border-box;margin:0;padding:0;}
   html,body{
-    margin:0;padding:0;height:100%;width:100%;
-    background:var(--navy-deep);
+    height:100%;width:100%;
     font-family:'Inter',sans-serif;
-    color:var(--paper);
     overflow:hidden;
-    -webkit-tap-highlight-color: transparent;
+    -webkit-tap-highlight-color:transparent;
   }
-  #app{
-    position:fixed;inset:0;
-    display:flex;flex-direction:column;
-    padding-top:calc(var(--safe-top) + 14px);
-    padding-bottom:calc(var(--safe-bottom) + 18px);
+
+  /* ===== NORMAL THEME (before 14 Aug) ===== */
+  body.theme-normal{
+    background:var(--navy-deep);color:var(--paper);
+  }
+  body.theme-normal #app{
     background:
-      radial-gradient(120% 65% at 50% 0%, rgba(212,175,106,0.10) 0%, rgba(212,175,106,0) 60%),
+      radial-gradient(120% 65% at 50% 0%, rgba(212,175,106,0.10) 0%, transparent 60%),
       linear-gradient(180deg, var(--navy-deep) 0%, var(--navy-mid) 55%, #0D1626 100%);
   }
-
-  /* ================= SPLASH / 3D ENTRY SCREEN ================= */
-  #splash{
-    position:absolute;inset:0;
-    display:flex;flex-direction:column;align-items:center;justify-content:center;
+  body.theme-normal #splash{
     background:radial-gradient(120% 70% at 50% 10%, #17263E 0%, var(--navy-deep) 70%);
-    z-index:50;
-    transition:opacity .8s cubic-bezier(0.4, 0, 0.2, 1), visibility .8s ease;
   }
-  #splash.hide{opacity:0;visibility:hidden;pointer-events:none;transform:scale(1.05);}
+  body.theme-normal .flag-emblem,
+  body.theme-normal #starsCanvas{display:none !important;}
+  body.theme-normal .indep-hero{display:none;}
+  body.theme-normal .splash-indep{display:none;}
+  body.theme-normal .splash-normal{display:block;}
+
+  /* ===== INDEPENDENCE THEME (14 Aug + after) ===== */
+  body.theme-indep{
+    background:var(--pk-green);color:#F8FAF7;
+  }
+  body.theme-indep #app{
+    background:
+      linear-gradient(105deg, transparent 0%, transparent 48%, rgba(255,255,255,0.97) 48.2%, rgba(255,255,255,0.97) 100%),
+      radial-gradient(ellipse 80% 50% at 20% 30%, rgba(27,138,69,0.5) 0%, transparent 55%),
+      linear-gradient(165deg, #012a14 0%, var(--pk-green) 40%, #023b1a 100%);
+  }
+  body.theme-indep #splash{
+    background:radial-gradient(circle at 50% 40%, #0A6B2D 0%, #012a14 70%);
+  }
+  body.theme-indep .splash-normal{display:none;}
+  body.theme-indep .splash-indep{display:block;}
+  body.theme-indep .app-title span{color:var(--pk-gold);}
+  body.theme-indep .btn-login:not(.locked){
+    background:linear-gradient(135deg,var(--pk-gold),#C9A227);color:#1A1204;
+  }
+  body.theme-indep .btn-download{
+    background:linear-gradient(135deg,#0d3d22,#0A6B2D);color:var(--android-green);
+    border-color:rgba(61,220,132,0.28);
+  }
+  body.theme-indep .footer-mail{color:var(--pk-gold);border-color:rgba(245,215,110,0.3);}
+  body.theme-indep .video-label{color:var(--pk-gold);}
+  body.theme-indep .horizon-ring.outer::before{
+    background:conic-gradient(from 0deg, var(--pk-gold) 0deg, #fff 80deg, transparent 160deg, var(--pk-gold) 250deg, #fff 360deg);
+  }
+  /* Stars only on THE day (body.stars-on) */
+  body:not(.stars-on) #starsCanvas{display:none !important;}
+  body:not(.theme-indep) .flag-emblem{display:none !important;}
+
+  #app{
+    position:fixed;inset:0;display:flex;flex-direction:column;
+    padding-top:calc(var(--safe-top) + 10px);
+    padding-bottom:calc(var(--safe-bottom) + 14px);
+    overflow:hidden;
+  }
+  .flag-emblem{position:absolute;left:6%;top:18%;width:90px;height:90px;opacity:0.18;pointer-events:none;z-index:0;}
+  .flag-emblem svg{width:100%;height:100%;}
+  #starsCanvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1;}
+
+  #splash{
+    position:absolute;inset:0;z-index:50;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    transition:opacity .85s ease, visibility .85s ease, transform .85s ease;
+  }
+  #splash.hide{opacity:0;visibility:hidden;pointer-events:none;transform:scale(1.04);}
 
   .horizon-stage{
-    position:relative; width:220px; height:220px;
-    perspective:1000px; margin-bottom:40px;
-    display:flex; align-items:center; justify-content:center;
+    position:relative;width:200px;height:200px;perspective:900px;margin-bottom:28px;
+    display:flex;align-items:center;justify-content:center;
   }
-  
-  .horizon-ring.outer{
-    position:absolute; inset:0; border-radius:50%; transform-style:preserve-3d;
-    animation: tiltSpinOuter 6s linear infinite;
-  }
+  .horizon-ring.outer{position:absolute;inset:0;border-radius:50%;animation:tiltSpinOuter 7s linear infinite;}
   .horizon-ring.outer::before{
-    content:""; position:absolute;inset:0; border-radius:50%;
+    content:"";position:absolute;inset:0;border-radius:50%;
     background:conic-gradient(from 0deg, var(--horizon-gold) 0deg, var(--amber) 90deg, transparent 180deg, var(--horizon-gold) 270deg, var(--amber) 360deg);
-    -webkit-mask:radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 2px));
-    mask:radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 2px));
-    filter: drop-shadow(0 0 15px rgba(212,175,106,0.6));
+    -webkit-mask:radial-gradient(farthest-side, transparent calc(100% - 2.5px), #000 calc(100% - 2.5px));
+    mask:radial-gradient(farthest-side, transparent calc(100% - 2.5px), #000 calc(100% - 2.5px));
+    filter:drop-shadow(0 0 14px rgba(212,175,106,0.5));
   }
-
-  .horizon-ring.inner{
-    position:absolute; inset:25px; border-radius:50%; transform-style:preserve-3d;
-    animation: tiltSpinInner 4s linear infinite;
-  }
+  .horizon-ring.inner{position:absolute;inset:22px;border-radius:50%;animation:tiltSpinInner 4.5s linear infinite;}
   .horizon-ring.inner::before{
-    content:""; position:absolute;inset:0; border-radius:50%;
-    background:conic-gradient(from 180deg, rgba(255,255,255,0.8) 0deg, transparent 120deg, rgba(212,175,106,0.8) 240deg, transparent 360deg);
+    content:"";position:absolute;inset:0;border-radius:50%;
+    background:conic-gradient(from 180deg, rgba(255,255,255,0.85) 0deg, transparent 110deg, rgba(212,175,106,0.7) 220deg, transparent 360deg);
     -webkit-mask:radial-gradient(farthest-side, transparent calc(100% - 1.5px), #000 calc(100% - 1.5px));
     mask:radial-gradient(farthest-side, transparent calc(100% - 1.5px), #000 calc(100% - 1.5px));
-    filter: drop-shadow(0 0 8px rgba(255,255,255,0.4));
   }
-
-  @keyframes tiltSpinOuter{
-    0%  { transform: rotateX(65deg) rotateY(-15deg) rotateZ(0deg); }
-    100%{ transform: rotateX(65deg) rotateY(-15deg) rotateZ(360deg); }
-  }
-  @keyframes tiltSpinInner{
-    0%  { transform: rotateX(60deg) rotateY(15deg) rotateZ(360deg); }
-    100%{ transform: rotateX(60deg) rotateY(15deg) rotateZ(0deg); }
-  }
-
+  @keyframes tiltSpinOuter{0%{transform:rotateX(62deg) rotateY(-12deg) rotateZ(0)}100%{transform:rotateX(62deg) rotateY(-12deg) rotateZ(360deg)}}
+  @keyframes tiltSpinInner{0%{transform:rotateX(58deg) rotateY(12deg) rotateZ(360deg)}100%{transform:rotateX(58deg) rotateY(12deg) rotateZ(0)}}
   .logo-orb{
-    position:absolute; width:125px; height:125px; border-radius:50%;
-    display:flex; align-items:center; justify-content:center;
+    position:absolute;width:112px;height:112px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
     background:linear-gradient(160deg,#1A2740,#0C1524);
-    box-shadow: 0 0 0 1px rgba(212,175,106,0.4), 0 20px 50px -10px rgba(0,0,0,0.8), inset 0 2px 10px rgba(255,255,255,0.1);
-    animation: pulseGlow 3s ease-in-out infinite, floatY 4s ease-in-out infinite;
-    z-index: 2;
+    box-shadow:0 0 0 1.5px rgba(212,175,106,0.45),0 18px 40px -8px rgba(0,0,0,0.75);
+    animation:floatY 4s ease-in-out infinite;z-index:2;
   }
-  @keyframes floatY{
-    0%,100%{ transform: translateY(0px) scale(1); }
-    50%{ transform: translateY(-10px) scale(1.02); }
-  }
-  @keyframes pulseGlow{
-    0%,100%{ box-shadow: 0 0 0 1px rgba(212,175,106,0.4), 0 20px 50px -10px rgba(0,0,0,0.8); }
-    50%{ box-shadow: 0 0 20px 2px rgba(212,175,106,0.6), 0 25px 60px -10px rgba(0,0,0,0.9); }
-  }
-  .logo-orb img{
-    width:94px; height:94px; border-radius:50%; object-fit:cover;
-    box-shadow:0 0 0 2px rgba(255,255,255,0.08);
-  }
+  body.theme-indep .logo-orb{background:linear-gradient(160deg,#0A6B2D,#012a14);box-shadow:0 0 0 1.5px rgba(245,215,110,0.45),0 18px 40px -8px rgba(0,0,0,0.75);}
+  @keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+  .logo-orb img{width:86px;height:86px;border-radius:50%;object-fit:cover;}
 
-  .brand-word{
-    font-family:'Fraunces',serif; font-weight:700; font-size:26px;
-    letter-spacing:1px; color:var(--paper); text-align:center;
-    text-shadow: 0 4px 15px rgba(0,0,0,0.5);
+  .brand-word{font-family:'Fraunces',serif;font-weight:700;font-size:24px;text-align:center;letter-spacing:1px;}
+  .brand-word b{color:var(--horizon-gold);}
+  body.theme-indep .brand-word b{color:var(--pk-gold);}
+  .splash-title-indep{
+    font-family:'Fraunces',serif;font-weight:700;font-size:22px;text-align:center;
+    background:linear-gradient(135deg,#fff 20%,var(--pk-gold) 50%,#fff 80%);
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
   }
-  .brand-word b{ color:var(--horizon-gold); }
-  .brand-sub{ margin-top:8px; font-size:12px; letter-spacing:4px; color:var(--slate); text-transform:uppercase; }
+  .brand-sub{margin-top:8px;font-size:11px;letter-spacing:3px;color:var(--slate);text-transform:uppercase;text-align:center;}
+  .splash-by{margin-top:6px;font-size:12px;color:var(--horizon-gold);font-weight:600;text-align:center;}
+  body.theme-indep .splash-by{color:var(--pk-gold);}
+  .load-track{margin-top:28px;width:150px;height:3.5px;border-radius:4px;background:rgba(255,255,255,0.08);overflow:hidden;}
+  .load-fill{height:100%;width:40%;border-radius:4px;background:linear-gradient(90deg,transparent,var(--horizon-gold),#fff,transparent);animation:loadMove 1.4s infinite;}
+  body.theme-indep .load-fill{background:linear-gradient(90deg,transparent,var(--pk-gold),#fff,transparent);}
+  @keyframes loadMove{0%{transform:translateX(-100%)}100%{transform:translateX(250%)}}
 
-  .load-track{
-    margin-top:35px; width:160px; height:4px; border-radius:4px;
-    background:rgba(255,255,255,0.06); overflow:hidden; box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
-  }
-  .load-fill{
-    height:100%; width:40%; border-radius:4px;
-    background:linear-gradient(90deg, transparent, var(--horizon-gold), var(--amber), transparent);
-    animation: loadMove 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-  }
-  @keyframes loadMove{ 0%{ transform:translateX(-100%); } 100%{ transform:translateX(250%); } }
-
-  /* ================= MAIN SCREEN ================= */
   #main{
-    flex:1; display:flex; flex-direction:column; padding:4px 20px 0 20px;
-    opacity:0; transform:translateY(20px);
-    transition: opacity .7s ease .2s, transform .7s cubic-bezier(0.4, 0, 0.2, 1) .2s;
-    overflow-y: auto;
+    position:relative;z-index:2;flex:1;display:flex;flex-direction:column;
+    padding:2px 18px 0;opacity:0;transform:translateY(18px);
+    transition:opacity .7s ease .15s, transform .7s ease .15s;
+    overflow-y:auto;-webkit-overflow-scrolling:touch;
   }
-  #main.show{ opacity:1; transform:translateY(0); }
+  #main.show{opacity:1;transform:translateY(0);}
+
+  .indep-hero{text-align:center;margin:4px 0 10px;perspective:600px;}
+  .indep-3d{
+    display:inline-block;font-family:'Fraunces',serif;font-weight:700;
+    font-size:clamp(18px,5.2vw,24px);line-height:1.15;
+    background:linear-gradient(180deg,#fff 0%,var(--pk-gold) 45%,#c9a227 100%);
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+    filter:drop-shadow(0 3px 0 rgba(1,65,28,0.5)) drop-shadow(0 8px 16px rgba(0,0,0,0.35));
+    animation:titleFloat 5s ease-in-out infinite;
+  }
+  @keyframes titleFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+  .indep-by{margin-top:5px;font-size:11px;font-weight:600;color:rgba(245,215,110,0.9);letter-spacing:1.5px;text-transform:uppercase;}
 
   .logo-circle-static{
-    width:70px; height:70px; margin:2px auto 0 auto; border-radius:50%;
-    display:flex; align-items:center; justify-content:center;
+    width:58px;height:58px;margin:0 auto;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
     background:linear-gradient(160deg,#1A2740,#0C1524);
-    box-shadow: 0 0 0 1px rgba(212,175,106,0.3), 0 10px 22px -8px rgba(0,0,0,0.7); flex-shrink: 0;
+    box-shadow:0 0 0 1.5px rgba(212,175,106,0.35),0 8px 18px -6px rgba(0,0,0,0.6);
   }
-  .logo-circle-static img{ width:54px;height:54px;border-radius:50%;object-fit:cover; }
+  body.theme-indep .logo-circle-static{background:linear-gradient(160deg,#0A6B2D,#012a14);box-shadow:0 0 0 1.5px rgba(245,215,110,0.35),0 8px 18px -6px rgba(0,0,0,0.6);}
+  .logo-circle-static img{width:46px;height:46px;border-radius:50%;object-fit:cover;}
+  .app-title{margin-top:6px;text-align:center;font-family:'Fraunces',serif;font-weight:700;font-size:16px;}
+  .app-title span{color:var(--horizon-gold);}
+  .app-tagline{margin-top:2px;text-align:center;font-size:9.5px;letter-spacing:1.6px;text-transform:uppercase;color:var(--slate);margin-bottom:8px;}
 
-  .app-title{
-    margin-top:8px; text-align:center; font-family:'Fraunces',serif;
-    font-weight:700; font-size:18px; line-height:1.2; letter-spacing:0.5px;
-  }
-  .app-title span{ color:var(--horizon-gold); }
-  .app-tagline{
-    margin-top:2px; text-align:center; font-size:10px;
-    letter-spacing:1.8px; text-transform:uppercase; color:var(--slate); margin-bottom: 10px;
-  }
-
-  /* Buttons */
-  .btn-login, .btn-download, .btn-donate{
-    display:flex; align-items:center; justify-content:center; gap:8px; width:100%;
-    padding:11px 18px; border-radius:12px; border:none; font-family:'Inter',sans-serif;
-    font-weight:700; font-size:13px; letter-spacing:0.3px; -webkit-tap-highlight-color:transparent;
-    transition: transform .15s ease, box-shadow .15s ease; text-decoration:none; margin-bottom: 8px; cursor: pointer;
+  .btn-login,.btn-download{
+    display:flex;align-items:center;justify-content:center;gap:8px;width:100%;
+    padding:12px 16px;border-radius:12px;border:none;font-family:'Inter',sans-serif;
+    font-weight:700;font-size:13px;text-decoration:none;margin-bottom:8px;cursor:pointer;
   }
   .btn-login{
-    background:linear-gradient(135deg,var(--horizon-gold),#C79A54); color:#1A1204;
+    background:linear-gradient(135deg,var(--horizon-gold),#C79A54);color:#1A1204;
     box-shadow:0 8px 18px -8px rgba(212,175,106,0.5);
   }
-  .btn-login:active{ transform:scale(0.97); }
-  
+  .btn-login.locked{
+    background:linear-gradient(135deg,#4a5c4e,#2d3d32);color:rgba(255,255,255,0.75);
+    pointer-events:none;cursor:not-allowed;box-shadow:none;
+  }
+  .btn-login:not(.locked):active{transform:scale(0.97);}
+  .btn-login .cd-badge{
+    display:none;margin-left:6px;background:rgba(0,0,0,0.2);
+    padding:2px 8px;border-radius:20px;font-size:12px;font-weight:800;min-width:36px;text-align:center;
+  }
+  .btn-login.locked .cd-badge{display:inline-block;}
   .btn-download{
-    background:linear-gradient(135deg, #222E42, #162032); color:var(--android-green);
-    border: 1px solid rgba(61, 220, 132, 0.3); box-shadow:0 8px 18px -8px rgba(0,0,0,0.6);
+    background:linear-gradient(135deg,#222E42,#162032);color:var(--android-green);
+    border:1px solid rgba(61,220,132,0.3);
   }
-  .btn-download:active{ transform:scale(0.97); }
+  .btn-download:active{transform:scale(0.97);}
+  .btn-login svg,.btn-download svg{width:15px;height:15px;flex-shrink:0;}
 
-  /* Donate Button Style */
-  .btn-donate{
-    background:linear-gradient(135deg, #E8734A, #C7532A); color:#ffffff;
-    box-shadow:0 8px 18px -8px rgba(232,115,74,0.5);
-  }
-  .btn-donate:active{ transform:scale(0.97); }
-
-  .btn-login svg, .btn-download svg, .btn-donate svg{ width:15px;height:15px; }
-
-  /* Download Progress Card */
   .dl-card{
-    display: none; background: rgba(16, 25, 42, 0.7);
-    border: 1px solid rgba(61, 220, 132, 0.2); border-radius: 12px; padding: 12px; margin-bottom: 10px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.5); animation: fadeInDown 0.4s ease forwards;
+    display:none;background:rgba(16,25,42,0.7);border:1px solid rgba(61,220,132,0.2);
+    border-radius:12px;padding:12px;margin-bottom:10px;
   }
-  @keyframes fadeInDown{ from{ opacity:0; transform:translateY(-10px); } to{ opacity:1; transform:translateY(0); } }
-  
-  .dl-header{ display: flex; justify-content: space-between; align-items: center; font-size: 11.5px; font-weight: 600; color: #fff; margin-bottom: 8px; }
-  .dl-header span{ color: var(--android-green); font-size: 10.5px; font-weight: 700; }
-  .dl-track{ width: 100%; height: 5px; background: rgba(255,255,255,0.1); border-radius: 10px; overflow: hidden; margin-bottom: 6px; }
-  .dl-fill{ height: 100%; width: 0%; border-radius: 10px; background: var(--android-green); transition: width 0.1s linear; }
-  .dl-stats{ display: flex; justify-content: space-between; font-size: 10.5px; color: var(--slate); font-weight: 500; }
-  
-  .dl-success, .dl-error{
-    display: none; margin-top: 8px; padding-top: 8px; border-top: 1px dashed rgba(255,255,255,0.1);
-    font-size: 11px; text-align: center; font-weight: 600; line-height: 1.4;
-  }
-  .dl-success{ color: var(--android-green); }
-  .dl-error{ color: var(--error-red); }
+  body.theme-indep .dl-card{background:rgba(1,40,20,0.75);}
+  .dl-header{display:flex;justify-content:space-between;font-size:11.5px;font-weight:600;margin-bottom:8px;}
+  .dl-header span{color:var(--android-green);font-size:10.5px;font-weight:700;}
+  .dl-track{width:100%;height:5px;background:rgba(255,255,255,0.1);border-radius:10px;overflow:hidden;margin-bottom:6px;}
+  .dl-fill{height:100%;width:0%;background:var(--android-green);border-radius:10px;transition:width .1s linear;}
+  .dl-stats{display:flex;justify-content:space-between;font-size:10.5px;color:var(--slate);}
+  .dl-success,.dl-error{display:none;margin-top:8px;padding-top:8px;border-top:1px dashed rgba(255,255,255,0.1);font-size:11px;text-align:center;font-weight:600;}
+  .dl-success{color:var(--android-green);}
+  .dl-error{color:var(--error-red);}
 
   .notice-box{
-    margin-bottom: 10px; padding: 9px 11px; border-radius: 10px; background: rgba(232,115,74,0.08); border: 1px solid rgba(232,115,74,0.25);
+    margin-bottom:10px;padding:9px 11px;border-radius:10px;
+    background:rgba(232,115,74,0.08);border:1px solid rgba(232,115,74,0.25);
   }
-  .notice-title{
-    display:flex;align-items:center;gap:5px; font-size:10.5px; font-weight:700; color:var(--danger); letter-spacing:0.3px; margin-bottom:3px;
-  }
-  .notice-title svg{width:11px;height:11px;flex-shrink:0;}
-  .notice-text{ font-size:10px; line-height:1.4; color:#D8DCE4; }
-  .notice-text b{ color:var(--paper); }
+  .notice-title{display:flex;align-items:center;gap:5px;font-size:10.5px;font-weight:700;color:var(--danger);margin-bottom:3px;}
+  .notice-title svg{width:11px;height:11px;}
+  .notice-text{font-size:10px;line-height:1.4;color:#D8DCE4;}
+  .notice-text b{color:var(--paper);}
 
-  /* ================= LANDSCAPE VIDEO FRAME ================= */
-  .video-section {
-    margin-bottom: 10px;
+  /* Big event countdown above video */
+  .event-cd-wrap{
+    margin-bottom:10px;padding:14px 12px;border-radius:14px;
+    background:rgba(16,25,42,0.65);border:1px solid rgba(212,175,106,0.28);
+    text-align:center;
   }
-  .video-label {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 10px;
-    font-weight: 600;
-    color: var(--slate);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 4px;
+  body.theme-indep .event-cd-wrap{
+    background:rgba(1,40,20,0.7);border-color:rgba(245,215,110,0.35);
   }
-  .video-frame {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    background: #000;
-    border-radius: 10px;
-    border: 1px solid rgba(212,175,106,0.35);
-    overflow: hidden;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.6);
-    pointer-events: none;
+  .event-cd-title{
+    font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+    color:var(--horizon-gold);margin-bottom:10px;
   }
-  .video-frame video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
+  body.theme-indep .event-cd-title{color:var(--pk-gold);}
+  .event-cd-grid{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:6px;
   }
+  .event-cd-cell{
+    background:rgba(0,0,0,0.25);border-radius:10px;padding:8px 4px;
+    border:1px solid rgba(255,255,255,0.06);
+  }
+  .event-cd-num{
+    font-family:'Fraunces',serif;font-weight:700;font-size:22px;line-height:1.1;
+    color:#fff;
+  }
+  body.theme-indep .event-cd-num{color:var(--pk-gold);}
+  .event-cd-lbl{font-size:9px;color:var(--slate);margin-top:3px;text-transform:uppercase;letter-spacing:0.5px;}
+  .event-cd-date{
+    margin-top:10px;font-size:11px;color:var(--slate);font-weight:500;
+  }
+  .event-cd-date strong{color:var(--paper);}
+  body.theme-indep .event-cd-date strong{color:#fff;}
+  .event-cd-daysline{
+    margin-top:4px;font-size:12px;font-weight:700;color:var(--horizon-gold);
+  }
+  body.theme-indep .event-cd-daysline{color:var(--pk-gold);}
+  .event-cd-live{
+    margin-top:8px;font-size:13px;font-weight:800;color:var(--android-green);
+    display:none;
+  }
+  .event-cd-live.show{display:block;}
+  .event-cd-grid.hide{display:none;}
 
-  /* Donate Section Container */
-  .donate-container {
-    margin-bottom: 10px;
-    text-align: center;
+  .video-section{margin-bottom:10px;}
+  .video-label{
+    display:flex;align-items:center;justify-content:space-between;gap:6px;
+    font-size:11px;font-weight:700;color:var(--horizon-gold);margin-bottom:5px;
   }
-  .donate-urdu-text {
-    margin-top: 5px;
-    font-size: 12px;
-    color: var(--horizon-gold);
-    font-weight: 600;
-    letter-spacing: 0.2px;
+  .video-label-left{display:flex;align-items:center;gap:5px;}
+  .video-label svg{width:12px;height:12px;}
+  .video-countdown{
+    font-size:11px;font-weight:800;color:#fff;
+    background:rgba(0,0,0,0.35);border:1px solid rgba(212,175,106,0.35);
+    padding:3px 9px;border-radius:20px;min-width:52px;text-align:center;
+    display:none;
   }
+  body.video-lock-on .video-countdown{display:inline-block;}
+  .video-countdown.done{background:rgba(61,220,132,0.2);border-color:rgba(61,220,132,0.4);color:var(--android-green);}
+  .video-frame{
+    position:relative;width:100%;aspect-ratio:16/9;background:#000;
+    border-radius:12px;border:1.5px solid rgba(212,175,106,0.35);overflow:hidden;
+    box-shadow:0 10px 28px rgba(0,0,0,0.55);
+  }
+  body.theme-indep .video-frame{border-color:rgba(245,215,110,0.4);}
+  .video-frame video{width:100%;height:100%;object-fit:cover;display:block;}
+  .video-overlay-msg{
+    position:absolute;inset:0;display:none;align-items:center;justify-content:center;
+    background:rgba(1,42,20,0.75);font-size:13px;font-weight:700;color:var(--pk-gold);
+    text-align:center;padding:16px;z-index:3;
+  }
+  .video-overlay-msg.show{display:flex;}
 
-  .spacer{ flex:1; min-height: 4px; }
-
-  .footer{ text-align:center; padding-bottom: 4px; }
-  .footer-label{ font-size:8.5px; letter-spacing:2px; text-transform:uppercase; color:var(--slate); margin-bottom:3px; }
+  .spacer{flex:1;min-height:6px;}
+  .footer{text-align:center;padding-bottom:4px;position:relative;z-index:2;}
+  .footer-label{font-size:8.5px;letter-spacing:2px;text-transform:uppercase;color:var(--slate);margin-bottom:3px;}
   .footer-mail{
-    display:inline-flex; align-items:center; gap:5px; font-size:10.5px; color:var(--horizon-gold); text-decoration:none;
-    font-weight:600; padding:4px 10px; border-radius:20px; border:1px solid rgba(212,175,106,0.3);
+    display:inline-flex;align-items:center;gap:5px;font-size:10.5px;color:var(--horizon-gold);
+    text-decoration:none;font-weight:600;padding:4px 10px;border-radius:20px;
+    border:1px solid rgba(212,175,106,0.3);
   }
-  .footer-copy{ margin-top:6px; font-size:8px; color:#4E5A6E; letter-spacing:0.5px; }
-
+  .footer-copy{margin-top:6px;font-size:8px;color:#4E5A6E;letter-spacing:0.5px;}
 </style>
 </head>
-<body>
+<body class="theme-normal">
 <div id="app">
+  <canvas id="starsCanvas"></canvas>
+  <div class="flag-emblem" aria-hidden="true">
+    <svg viewBox="0 0 100 100" fill="none">
+      <path d="M62 20a32 32 0 1 0 0 60 28 28 0 1 1 0-60z" fill="#fff" opacity="0.9"/>
+      <path d="M72 38l3.5 10.5H87l-9 6.5 3.5 10.5-9-6.5-9 6.5 3.5-10.5-9-6.5h11.5z" fill="#fff"/>
+    </svg>
+  </div>
 
-  <!-- ===================== HIDDEN BACKGROUND AUDIO ===================== -->
-  <!-- assets/Aud.mp3 will play automatically in background without showing any UI -->
-  <audio id="bgAudio" src="assets/Aud.mp3" loop preload="auto" style="display:none;"></audio>
+  <audio id="bgAudio" loop preload="auto" playsinline style="display:none;">
+    <source src="assets/Audio.mp3" type="audio/mpeg">
+    <source src="Audio.mp3" type="audio/mpeg">
+  </audio>
 
-  <!-- ===================== SPLASH / 3D ENTRY ===================== -->
   <div id="splash">
     <div class="horizon-stage">
       <div class="horizon-ring outer"></div>
       <div class="horizon-ring inner"></div>
       <div class="logo-orb">
-        <img src="https://i.ibb.co/p6KZbMYX/ic-launcher-round.png" alt="Prime Horizon Logo">
+        <img src="https://i.ibb.co/p6KZbMYX/ic-launcher-round.png" alt="Prime Horizon">
       </div>
     </div>
-    <div class="brand-word">PRIME <b>HORIZON</b></div>
-    <div class="brand-sub">Official Secure App</div>
+    <div class="splash-normal">
+      <div class="brand-word">PRIME <b>HORIZON</b></div>
+      <div class="brand-sub">Official Secure App</div>
+    </div>
+    <div class="splash-indep">
+      <div class="splash-title-indep">Happy Independence Day</div>
+      <div class="brand-sub">14 August · Pakistan</div>
+      <div class="splash-by">By Prime Horizon</div>
+    </div>
     <div class="load-track"><div class="load-fill"></div></div>
   </div>
 
-  <!-- ===================== MAIN SCREEN ===================== -->
   <div id="main">
-    
-    <div class="logo-circle-static">
-      <img src="https://i.ibb.co/p6KZbMYX/ic-launcher-round.png" alt="Prime Horizon Logo">
+    <div class="indep-hero">
+      <div class="indep-3d">Happy Independence Day</div>
+      <div class="indep-by">By Prime Horizon</div>
     </div>
 
+    <div class="logo-circle-static">
+      <img src="https://i.ibb.co/p6KZbMYX/ic-launcher-round.png" alt="Prime Horizon">
+    </div>
     <div class="app-title">PRIME <span>HORIZON</span></div>
-    <div class="app-tagline">Secure &middot; Trusted &middot; Official</div>
+    <div class="app-tagline">Secure · Trusted · Official</div>
 
-    <!-- Login Button -->
-    <a class="btn-login" id="loginBtn" href="https://primehorizon-pi.vercel.app//">
-      <svg viewBox="0 0 24 24" fill="none" stroke="#1A1204" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="M10 17l5-5-5-5"/><path d="M15 12H3"/></svg>
-      Login App
+    <a class="btn-login" id="loginBtn" href="https://primehorizon-pi.vercel.app/" onclick="return gateLogin(event)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="M10 17l5-5-5-5"/><path d="M15 12H3"/></svg>
+      <span id="loginLabel">Login App</span>
+      <span class="cd-badge" id="loginCd">...</span>
     </a>
 
-    <!-- Download Android App Button -->
-    <button class="btn-download" id="downloadBtn">
+    <button class="btn-download" id="downloadBtn" type="button">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.523 15.3414c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993s-.4482.9997-.9993.9997m-11.046 0c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993s-.4482.9997-.9993.9997m11.4045-6.02l1.9973-3.4592c.1158-.2006.0468-.4566-.1538-.5724-.2006-.1158-.4566-.0468-.5724.1538l-2.019 3.4967C15.6593 8.3582 13.9113 7.95 12 7.95c-1.9113 0-3.6593.4082-5.1336 1.1396L4.8474 5.5929c-.1158-.2006-.3718-.2696-.5724-.1538-.2006.1158-.2696.3718-.1538.5724l1.9973 3.4592C2.6889 11.3783.343 14.7351 0 18.7997h24c-.343-4.0646-2.6889-7.4214-6.1185-9.4783"/></svg>
       Download Android App
     </button>
 
-    <!-- Download Progress / Error Card -->
     <div class="dl-card" id="downloadCard">
       <div class="dl-header">
-        <span style="color:#fff;">Primehorizon.apk</span> 
+        <span style="color:#fff;">Primehorizon.apk</span>
         <span id="dlPercent">Detecting size...</span>
       </div>
-      
       <div id="dlUiElements">
         <div class="dl-track"><div class="dl-fill" id="dlFill"></div></div>
         <div class="dl-stats">
@@ -330,20 +380,13 @@
           <span id="dlSpeed">-- MB/s</span>
         </div>
       </div>
-
-      <div class="dl-success" id="dlSuccess">
-        Download complete!<br>Saved to File Manager &gt; Downloads
-      </div>
-
-      <div class="dl-error" id="dlError">
-        <span id="errorMsgText">Error: Primehorizon.apk not found in assets folder.</span>
-      </div>
+      <div class="dl-success" id="dlSuccess">Download complete!<br>Saved to File Manager &gt; Downloads</div>
+      <div class="dl-error" id="dlError"><span id="errorMsgText">Error: APK not found.</span></div>
     </div>
 
-    <!-- Security Notice -->
     <div class="notice-box">
       <div class="notice-title">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
         SECURITY NOTICE
       </div>
       <div class="notice-text">
@@ -352,166 +395,357 @@
       </div>
     </div>
 
-    <!-- LANDSCAPE VIDEO FRAME -->
-    <div class="video-section">
-      <div class="video-label">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:11px;height:11px;color:var(--horizon-gold)"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-        غریبوں کی مدد کیجیے
+    <!-- BIG COUNTDOWN to 14 Aug 2026 -->
+    <div class="event-cd-wrap" id="eventCdWrap">
+      <div class="event-cd-title" id="eventCdTitle">Countdown to 14 August 2026</div>
+      <div class="event-cd-grid" id="eventCdGrid">
+        <div class="event-cd-cell"><div class="event-cd-num" id="cdDays">0</div><div class="event-cd-lbl">Days</div></div>
+        <div class="event-cd-cell"><div class="event-cd-num" id="cdHours">0</div><div class="event-cd-lbl">Hours</div></div>
+        <div class="event-cd-cell"><div class="event-cd-num" id="cdMins">0</div><div class="event-cd-lbl">Minutes</div></div>
+        <div class="event-cd-cell"><div class="event-cd-num" id="cdSecs">0</div><div class="event-cd-lbl">Seconds</div></div>
       </div>
-      <div class="video-frame">
-        <video id="previewVideo" src="assets/Vid.mp4" autoplay muted loop playsinline preload="auto"></video>
-      </div>
+      <div class="event-cd-live" id="eventCdLive">🇵🇰 Independence Day is LIVE today</div>
+      <div class="event-cd-date">Today: <strong id="realDateLine">—</strong></div>
+      <div class="event-cd-daysline" id="daysLeftLine">—</div>
     </div>
 
-    <!-- DONATE SECTION WITH URDU TEXT -->
-    <div class="donate-container">
-      <a class="btn-donate" href="https://ihcamerasecurity-cmyk.github.io/Donate/" target="_blank">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
-        Donate
-      </a>
-      <div class="donate-urdu-text">غریبوں، یتیموں اور بے سہاراؤں کی مدد کریں</div>
+    <div class="video-section">
+      <div class="video-label">
+        <div class="video-label-left">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+          <span id="videoLabelText">14 Aug Independence Day</span>
+        </div>
+        <div class="video-countdown" id="videoCd">...</div>
+      </div>
+      <div class="video-frame">
+        <video id="previewVideo" muted playsinline webkit-playsinline preload="auto" autoplay>
+          <source src="assets/Video.mp4" type="video/mp4">
+          <source src="Video.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay-msg" id="videoDoneMsg">✓ Watch complete — Login unlocked</div>
+      </div>
     </div>
 
     <div class="spacer"></div>
-
     <div class="footer">
       <div class="footer-label">Customer Complaint</div>
       <a class="footer-mail" href="mailto:primehorizonj26@gmail.com">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:11px;height:11px;"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6l-10 7L2 6"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:11px;height:11px;"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6l-10 7L2 6"/></svg>
         primehorizonj26@gmail.com
       </a>
-      <div class="footer-copy">&copy; Prime Horizon. All rights reserved.</div>
+      <div class="footer-copy" id="footerCopy">&copy; Prime Horizon. All rights reserved.</div>
     </div>
   </div>
-
 </div>
 
 <script>
-  // Splash -> Main transition
+(function(){
+  // Target: 14 August 2026, full local calendar day
+  var TARGET_Y = 2026, TARGET_M = 7, TARGET_D = 14; // month 0-indexed
+  var targetStart = new Date(TARGET_Y, TARGET_M, TARGET_D, 0, 0, 0, 0).getTime();
+  var targetEnd = new Date(TARGET_Y, TARGET_M, TARGET_D, 23, 59, 59, 999).getTime();
+
+  var WATCH_KEY = 'ph_indep_watch_done_v1';
+  var videoWatched = localStorage.getItem(WATCH_KEY) === '1';
+
+  var loginBtn = document.getElementById('loginBtn');
+  var loginCd = document.getElementById('loginCd');
+  var loginLabel = document.getElementById('loginLabel');
+  var videoCd = document.getElementById('videoCd');
+  var video = document.getElementById('previewVideo');
+  var videoDoneMsg = document.getElementById('videoDoneMsg');
+  var audio = document.getElementById('bgAudio');
+
+  function now(){ return new Date(); }
+
+  function isIndepDay(d){
+    d = d || now();
+    return d.getFullYear() === TARGET_Y && d.getMonth() === TARGET_M && d.getDate() === TARGET_D;
+  }
+  function isBeforeIndep(d){
+    d = d || now();
+    return d.getTime() < targetStart;
+  }
+  function isAfterIndep(d){
+    d = d || now();
+    return d.getTime() > targetEnd;
+  }
+
+  /** Theme: before = normal; on day + after = indep design; stars ONLY on the day */
+  function applyTheme(){
+    var d = now();
+    var indepDay = isIndepDay(d);
+    var before = isBeforeIndep(d);
+    document.body.classList.remove('theme-normal', 'theme-indep', 'stars-on', 'video-lock-on');
+    if (before) {
+      document.body.classList.add('theme-normal');
+      document.getElementById('footerCopy').textContent = '© Prime Horizon. All rights reserved.';
+    } else {
+      // 14 Aug and after — independence design
+      document.body.classList.add('theme-indep');
+      document.getElementById('footerCopy').textContent = '© Prime Horizon · 14 August Special';
+      if (indepDay) document.body.classList.add('stars-on');
+    }
+    // Video lock only on 14 Aug and only until watched once
+    if (indepDay && !videoWatched) {
+      document.body.classList.add('video-lock-on');
+      loginBtn.classList.add('locked');
+    } else {
+      loginBtn.classList.remove('locked');
+      loginCd.style.display = 'none';
+    }
+  }
+
+  function pad(n){ return String(n).padStart(2, '0'); }
+
+  function formatRealDate(d){
+    var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    return days[d.getDay()] + ', ' + pad(d.getDate()) + ' ' + months[d.getMonth()] + ' ' + d.getFullYear();
+  }
+
+  function tickEventCountdown(){
+    var d = now();
+    var t = d.getTime();
+    document.getElementById('realDateLine').textContent = formatRealDate(d);
+
+    var grid = document.getElementById('eventCdGrid');
+    var live = document.getElementById('eventCdLive');
+    var title = document.getElementById('eventCdTitle');
+    var daysLine = document.getElementById('daysLeftLine');
+
+    if (isIndepDay(d)) {
+      grid.classList.add('hide');
+      live.classList.add('show');
+      title.textContent = '14 August 2026';
+      daysLine.textContent = 'Independence Day — Today';
+      return;
+    }
+
+    if (isAfterIndep(d)) {
+      grid.classList.add('hide');
+      live.classList.remove('show');
+      title.textContent = '14 August 2026';
+      var daysSince = Math.floor((t - targetStart) / 86400000);
+      daysLine.textContent = daysSince + ' day' + (daysSince === 1 ? '' : 's') + ' since Independence Day';
+      return;
+    }
+
+    // Before 14 Aug — live countdown
+    grid.classList.remove('hide');
+    live.classList.remove('show');
+    title.textContent = 'Countdown to 14 August 2026';
+    var diff = Math.max(0, targetStart - t);
+    var days = Math.floor(diff / 86400000);
+    var hours = Math.floor((diff % 86400000) / 3600000);
+    var mins = Math.floor((diff % 3600000) / 60000);
+    var secs = Math.floor((diff % 60000) / 1000);
+    document.getElementById('cdDays').textContent = days;
+    document.getElementById('cdHours').textContent = pad(hours);
+    document.getElementById('cdMins').textContent = pad(mins);
+    document.getElementById('cdSecs').textContent = pad(secs);
+    daysLine.textContent = days + ' day' + (days === 1 ? '' : 's') + ' remaining until 14 August';
+  }
+
+  function unlockLogin(){
+    if (videoWatched) return;
+    videoWatched = true;
+    localStorage.setItem(WATCH_KEY, '1');
+    loginBtn.classList.remove('locked');
+    loginCd.style.display = 'none';
+    document.body.classList.remove('video-lock-on');
+    videoCd.textContent = 'Done';
+    videoCd.classList.add('done');
+    video.loop = true;
+    if (videoDoneMsg) {
+      videoDoneMsg.classList.add('show');
+      setTimeout(function(){ videoDoneMsg.classList.remove('show'); }, 2800);
+    }
+  }
+
+  function fmtVideoLeft(sec){
+    sec = Math.max(0, Math.ceil(sec));
+    var m = Math.floor(sec / 60);
+    var s = sec % 60;
+    if (m > 0) return m + ':' + pad(s);
+    return s + 's';
+  }
+
+  function updateVideoLockCd(){
+    if (!document.body.classList.contains('video-lock-on') || videoWatched) return;
+    var dur = video.duration;
+    if (!isFinite(dur) || dur <= 0) {
+      videoCd.textContent = '...';
+      loginCd.textContent = '...';
+      return;
+    }
+    var left = Math.max(0, dur - (video.currentTime || 0));
+    loginCd.textContent = String(Math.ceil(left));
+    videoCd.textContent = fmtVideoLeft(left);
+    if (left <= 0.35 || video.ended) unlockLogin();
+  }
+
+  window.gateLogin = function(e){
+    if (loginBtn.classList.contains('locked')) {
+      e.preventDefault();
+      return false;
+    }
+    return true;
+  };
+
+  function tryPlayMedia(){
+    video.muted = true;
+    video.setAttribute('playsinline', '');
+    video.setAttribute('webkit-playsinline', '');
+    var vp = video.play();
+    if (vp && vp.catch) vp.catch(function(){});
+    if (audio) {
+      var ap = audio.play();
+      if (ap && ap.catch) ap.catch(function(){});
+    }
+  }
+
+  function bindVideo(){
+    video.addEventListener('timeupdate', updateVideoLockCd);
+    video.addEventListener('ended', function(){
+      if (document.body.classList.contains('video-lock-on') && !videoWatched) unlockLogin();
+      video.loop = true;
+      video.play().catch(function(){});
+    });
+    video.addEventListener('loadedmetadata', updateVideoLockCd);
+  }
+
+  // Stars — only runs when body has stars-on
+  (function stars(){
+    var canvas = document.getElementById('starsCanvas');
+    if (!canvas) return;
+    var ctx = canvas.getContext('2d');
+    var w, h, parts = [];
+    function resize(){ w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; }
+    function spawn(){
+      parts.push({
+        x: Math.random() * w, y: -10 - Math.random() * 40,
+        r: 0.6 + Math.random() * 1.8, vy: 0.6 + Math.random() * 1.8,
+        vx: -0.3 + Math.random() * 0.6, g: Math.random() > 0.55
+      });
+    }
+    function drawStar(x, y, r, gold){
+      ctx.save(); ctx.translate(x, y); ctx.beginPath();
+      for (var i = 0; i < 5; i++) {
+        var a = (i * 4 * Math.PI) / 5 - Math.PI / 2;
+        var px = Math.cos(a) * r, py = Math.sin(a) * r;
+        if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+      }
+      ctx.closePath();
+      ctx.fillStyle = gold ? 'rgba(245,215,110,0.85)' : 'rgba(255,255,255,0.7)';
+      ctx.fill(); ctx.restore();
+    }
+    function frame(){
+      ctx.clearRect(0, 0, w, h);
+      if (document.body.classList.contains('stars-on')) {
+        if (parts.length < 55) spawn();
+        for (var i = parts.length - 1; i >= 0; i--) {
+          var p = parts[i];
+          p.x += p.vx; p.y += p.vy;
+          drawStar(p.x, p.y, p.r * 2.2, p.g);
+          if (p.y > h + 20) parts.splice(i, 1);
+        }
+      } else {
+        parts.length = 0;
+      }
+      requestAnimationFrame(frame);
+    }
+    window.addEventListener('resize', resize);
+    resize();
+    frame();
+  })();
+
+  // Boot
+  applyTheme();
+  tickEventCountdown();
+  setInterval(function(){
+    tickEventCountdown();
+    // Re-apply theme at midnight boundary
+    applyTheme();
+  }, 1000);
+
+  bindVideo();
   window.addEventListener('load', function(){
+    tryPlayMedia();
     setTimeout(function(){
       document.getElementById('splash').classList.add('hide');
       document.getElementById('main').classList.add('show');
-    }, 3500);
-
-    // Try playing background audio automatically on load
-    const audio = document.getElementById('bgAudio');
-    if (audio) {
-      audio.play().catch(() => {
-        // Handled via user interaction listeners below for mobile strict autoplay policies
-      });
-    }
+      if (document.body.classList.contains('video-lock-on')) {
+        video.loop = false;
+        video.currentTime = 0;
+      } else {
+        video.loop = true;
+      }
+      tryPlayMedia();
+    }, 3200);
   });
 
-  // ---- Play Background Audio (`assets/Aud.mp3`) on First Touch/Click ----
-  const startBackgroundAudio = function() {
-    const audio = document.getElementById('bgAudio');
-    if (audio && audio.paused) {
-      audio.play().catch(e => console.log("Audio play error:", e));
-    }
-  };
-  document.body.addEventListener('touchstart', startBackgroundAudio, { once: true });
-  document.body.addEventListener('click', startBackgroundAudio, { once: true });
+  function onGesture(){ tryPlayMedia(); }
+  document.body.addEventListener('touchstart', onGesture, { passive:true });
+  document.body.addEventListener('click', onGesture);
 
-  // ---- Real File Size & Real Byte Stream Download Logic ----
-  document.getElementById('downloadBtn').addEventListener('click', async function() {
-    const btn = this;
-    const dlCard = document.getElementById('downloadCard');
-    const dlUiElements = document.getElementById('dlUiElements');
-    const dlError = document.getElementById('dlError');
-    const dlSuccess = document.getElementById('dlSuccess');
-    const errorMsgText = document.getElementById('errorMsgText');
-    const dlPercent = document.getElementById('dlPercent');
-    const dlFill = document.getElementById('dlFill');
-    const dlSize = document.getElementById('dlSize');
-    const dlSpeed = document.getElementById('dlSpeed');
-
+  // APK download
+  document.getElementById('downloadBtn').addEventListener('click', async function(){
+    var btn = this;
+    var dlCard = document.getElementById('downloadCard');
+    var dlUiElements = document.getElementById('dlUiElements');
+    var dlError = document.getElementById('dlError');
+    var dlSuccess = document.getElementById('dlSuccess');
+    var errorMsgText = document.getElementById('errorMsgText');
+    var dlPercent = document.getElementById('dlPercent');
+    var dlFill = document.getElementById('dlFill');
+    var dlSize = document.getElementById('dlSize');
+    var dlSpeed = document.getElementById('dlSpeed');
     btn.style.display = 'none';
     dlCard.style.display = 'block';
-    
     dlUiElements.style.display = 'block';
     dlError.style.display = 'none';
     dlSuccess.style.display = 'none';
-    dlPercent.innerText = 'Connecting...';
-    dlFill.style.width = '0%';
-    dlSize.innerText = 'Checking file...';
-    dlSpeed.innerText = '-- MB/s';
-
-    const apkFilePath = 'assets/Primehorizon.apk';
-
     try {
-      const response = await fetch(apkFilePath);
-      
-      if (!response.ok) {
-        throw new Error("Primehorizon.apk not found in the assets folder!");
-      }
-
-      const contentLength = response.headers.get('content-length');
-      const totalBytes = contentLength ? parseInt(contentLength, 10) : 0;
-      const totalMB = totalBytes > 0 ? (totalBytes / (1024 * 1024)).toFixed(2) : "Unknown";
-
-      if (totalBytes === 0) {
-        throw new Error("File is empty or content length is unreadable.");
-      }
-
-      const reader = response.body.getReader();
-      let receivedBytes = 0;
-      let chunks = [];
-      let startTime = Date.now();
-
+      var response = await fetch('assets/Primehorizon.apk');
+      if (!response.ok) throw new Error('Primehorizon.apk not found in assets folder!');
+      var totalBytes = parseInt(response.headers.get('content-length') || '0', 10);
+      if (!totalBytes) throw new Error('File empty or size unknown.');
+      var totalMB = (totalBytes / (1024 * 1024)).toFixed(2);
+      var reader = response.body.getReader();
+      var received = 0, chunks = [], t0 = Date.now();
       while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-
-        chunks.push(value);
-        receivedBytes += value.length;
-
-        let elapsedTime = (Date.now() - startTime) / 1000;
-        let currentMB = (receivedBytes / (1024 * 1024)).toFixed(2);
-        let speedMBps = elapsedTime > 0 ? ((receivedBytes / (1024 * 1024)) / elapsedTime).toFixed(1) : "0.0";
-        let percent = Math.floor((receivedBytes / totalBytes) * 100);
-
-        dlFill.style.width = `${percent}%`;
-        dlPercent.innerText = `${percent}%`;
-        dlSize.innerText = `${currentMB} MB / ${totalMB} MB`;
-        dlSpeed.innerText = `${speedMBps} MB/s`;
+        var r = await reader.read();
+        if (r.done) break;
+        chunks.push(r.value);
+        received += r.value.length;
+        var elapsed = (Date.now() - t0) / 1000;
+        var pct = Math.floor((received / totalBytes) * 100);
+        dlFill.style.width = pct + '%';
+        dlPercent.innerText = pct + '%';
+        dlSize.innerText = (received / (1024 * 1024)).toFixed(2) + ' MB / ' + totalMB + ' MB';
+        dlSpeed.innerText = (elapsed > 0 ? ((received / (1024 * 1024)) / elapsed).toFixed(1) : '0') + ' MB/s';
       }
-
       dlFill.style.width = '100%';
       dlPercent.innerText = '100%';
-      dlSize.innerText = `${totalMB} MB / ${totalMB} MB`;
-      dlSpeed.innerText = 'Completed';
-
-      const blob = new Blob(chunks, { type: 'application/vnd.android.package-archive'});
-      const blobUrl = URL.createObjectURL(blob);
-
-      setTimeout(() => {
+      var blob = new Blob(chunks, { type: 'application/vnd.android.package-archive' });
+      var url = URL.createObjectURL(blob);
+      setTimeout(function(){
         dlSuccess.style.display = 'block';
-        
-        const a = document.createElement('a');
-        a.href = blobUrl;
-        a.download = 'Primehorizon.apk';
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        
-        setTimeout(() => URL.revokeObjectURL(blobUrl), 1000);
+        var a = document.createElement('a');
+        a.href = url; a.download = 'Primehorizon.apk';
+        document.body.appendChild(a); a.click(); a.remove();
+        setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
       }, 400);
-
     } catch (err) {
       dlUiElements.style.display = 'none';
       dlPercent.innerText = 'Failed';
-      dlPercent.style.color = 'var(--error-red)';
-      errorMsgText.innerText = err.message || "Error downloading real file from assets folder.";
+      errorMsgText.innerText = err.message || 'Download failed';
       dlError.style.display = 'block';
-
-      setTimeout(() => {
-        dlCard.style.display = 'none';
-        btn.style.display = 'flex';
-        dlPercent.style.color = 'var(--android-green)';
-      }, 4500);
+      setTimeout(function(){ dlCard.style.display = 'none'; btn.style.display = 'flex'; }, 4500);
     }
   });
+})();
 </script>
 </body>
 </html>
