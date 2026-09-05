@@ -3,322 +3,271 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#0B1220">
 <title>Prime Horizon Official App</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --navy-deep:#0A0F1C;
-    --navy-mid:#111C2E;
-    --horizon-gold:#D4AF6A;
-    --amber:#F2B565;
-    --paper:#F5F3EE;
-    --slate:#8592A6;
+    --navy-deep:#0B1220;
+    --navy-mid:#121C2F;
+    --sep-gold:#C9A24A;
+    --sep-amber:#E8B86D;
+    --sep-copper:#B87333;
+    --paper:#F7F4EE;
+    --slate:#8B97AB;
     --danger:#E8734A;
     --android-green:#3DDC84;
     --error-red:#FF4C4C;
-    --pk-green:#01411C;
-    --pk-gold:#F5D76E;
+    --success:#2EAA6A;
     --safe-top:env(safe-area-inset-top,0px);
     --safe-bottom:env(safe-area-inset-bottom,0px);
   }
-  *{box-sizing:border-box;margin:0;padding:0;}
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
   html,body{
     height:100%;width:100%;
     font-family:'Inter',sans-serif;
     overflow:hidden;
-    -webkit-tap-highlight-color:transparent;
-  }
-
-  /* ===== NORMAL THEME (before 14 Aug) ===== */
-  body.theme-normal{
     background:var(--navy-deep);color:var(--paper);
   }
-  body.theme-normal #app{
-    background:
-      radial-gradient(120% 65% at 50% 0%, rgba(212,175,106,0.10) 0%, transparent 60%),
-      linear-gradient(180deg, var(--navy-deep) 0%, var(--navy-mid) 55%, #0D1626 100%);
-  }
-  body.theme-normal #splash{
-    background:radial-gradient(120% 70% at 50% 10%, #17263E 0%, var(--navy-deep) 70%);
-  }
-  body.theme-normal .flag-emblem,
-  body.theme-normal #starsCanvas{display:none !important;}
-  body.theme-normal .indep-hero{display:none;}
-  body.theme-normal .splash-indep{display:none;}
-  body.theme-normal .splash-normal{display:block;}
-
-  /* ===== INDEPENDENCE THEME (14 Aug + after) ===== */
-  body.theme-indep{
-    background:var(--pk-green);color:#F8FAF7;
-  }
-  body.theme-indep #app{
-    background:
-      linear-gradient(105deg, transparent 0%, transparent 48%, rgba(255,255,255,0.97) 48.2%, rgba(255,255,255,0.97) 100%),
-      radial-gradient(ellipse 80% 50% at 20% 30%, rgba(27,138,69,0.5) 0%, transparent 55%),
-      linear-gradient(165deg, #012a14 0%, var(--pk-green) 40%, #023b1a 100%);
-  }
-  body.theme-indep #splash{
-    background:radial-gradient(circle at 50% 40%, #0A6B2D 0%, #012a14 70%);
-  }
-  body.theme-indep .splash-normal{display:none;}
-  body.theme-indep .splash-indep{display:block;}
-  body.theme-indep .app-title span{color:var(--pk-gold);}
-  body.theme-indep .btn-login:not(.locked){
-    background:linear-gradient(135deg,var(--pk-gold),#C9A227);color:#1A1204;
-  }
-  body.theme-indep .btn-download{
-    background:linear-gradient(135deg,#0d3d22,#0A6B2D);color:var(--android-green);
-    border-color:rgba(61,220,132,0.28);
-  }
-  body.theme-indep .footer-mail{color:var(--pk-gold);border-color:rgba(245,215,110,0.3);}
-  body.theme-indep .video-label{color:var(--pk-gold);}
-  body.theme-indep .horizon-ring.outer::before{
-    background:conic-gradient(from 0deg, var(--pk-gold) 0deg, #fff 80deg, transparent 160deg, var(--pk-gold) 250deg, #fff 360deg);
-  }
-  /* Stars only on THE day (body.stars-on) */
-  body:not(.stars-on) #starsCanvas{display:none !important;}
-  body:not(.theme-indep) .flag-emblem{display:none !important;}
 
   #app{
-    position:fixed;inset:0;display:flex;flex-direction:column;
-    padding-top:calc(var(--safe-top) + 10px);
-    padding-bottom:calc(var(--safe-bottom) + 14px);
+    position:fixed;inset:0;
+    display:flex;flex-direction:column;
+    height:100%;
+    height:100dvh;
+    max-height:100dvh;
+    padding:calc(var(--safe-top) + 6px) 14px calc(var(--safe-bottom) + 8px);
     overflow:hidden;
+    background:
+      radial-gradient(90% 50% at 85% 0%, rgba(201,162,74,0.12) 0%, transparent 55%),
+      radial-gradient(60% 40% at 5% 95%, rgba(184,115,51,0.08) 0%, transparent 50%),
+      linear-gradient(180deg, var(--navy-deep) 0%, var(--navy-mid) 55%, #0E1728 100%);
   }
-  .flag-emblem{position:absolute;left:6%;top:18%;width:90px;height:90px;opacity:0.18;pointer-events:none;z-index:0;}
-  .flag-emblem svg{width:100%;height:100%;}
-  #starsCanvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1;}
 
+  .ambient-orb{position:absolute;border-radius:50%;pointer-events:none;z-index:0;filter:blur(36px);opacity:0.3;}
+  .orb-1{width:120px;height:120px;background:rgba(201,162,74,0.35);top:-20px;right:-20px;}
+  .orb-2{width:100px;height:100px;background:rgba(184,115,51,0.22);bottom:8%;left:-30px;}
+
+  #starsCanvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:0.4;}
+
+  /* SPLASH — compact */
   #splash{
     position:absolute;inset:0;z-index:50;
     display:flex;flex-direction:column;align-items:center;justify-content:center;
-    transition:opacity .85s ease, visibility .85s ease, transform .85s ease;
+    padding:20px;
+    background:radial-gradient(120% 70% at 50% 15%, #1A2740 0%, var(--navy-deep) 70%);
+    transition:opacity .7s ease, visibility .7s ease, transform .7s ease;
   }
-  #splash.hide{opacity:0;visibility:hidden;pointer-events:none;transform:scale(1.04);}
+  #splash.hide{opacity:0;visibility:hidden;pointer-events:none;transform:scale(1.03);}
 
   .horizon-stage{
-    position:relative;width:200px;height:200px;perspective:900px;margin-bottom:28px;
+    position:relative;width:min(150px,38vw);height:min(150px,38vw);
+    perspective:800px;margin-bottom:16px;
     display:flex;align-items:center;justify-content:center;
   }
   .horizon-ring.outer{position:absolute;inset:0;border-radius:50%;animation:tiltSpinOuter 7s linear infinite;}
   .horizon-ring.outer::before{
     content:"";position:absolute;inset:0;border-radius:50%;
-    background:conic-gradient(from 0deg, var(--horizon-gold) 0deg, var(--amber) 90deg, transparent 180deg, var(--horizon-gold) 270deg, var(--amber) 360deg);
-    -webkit-mask:radial-gradient(farthest-side, transparent calc(100% - 2.5px), #000 calc(100% - 2.5px));
-    mask:radial-gradient(farthest-side, transparent calc(100% - 2.5px), #000 calc(100% - 2.5px));
-    filter:drop-shadow(0 0 14px rgba(212,175,106,0.5));
+    background:conic-gradient(from 0deg, var(--sep-gold) 0deg, var(--sep-amber) 90deg, transparent 180deg, var(--sep-copper) 270deg, var(--sep-gold) 360deg);
+    -webkit-mask:radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 2px));
+    mask:radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 2px));
+    filter:drop-shadow(0 0 10px rgba(201,162,74,0.4));
   }
-  .horizon-ring.inner{position:absolute;inset:22px;border-radius:50%;animation:tiltSpinInner 4.5s linear infinite;}
+  .horizon-ring.inner{position:absolute;inset:18px;border-radius:50%;animation:tiltSpinInner 4.5s linear infinite;}
   .horizon-ring.inner::before{
     content:"";position:absolute;inset:0;border-radius:50%;
-    background:conic-gradient(from 180deg, rgba(255,255,255,0.85) 0deg, transparent 110deg, rgba(212,175,106,0.7) 220deg, transparent 360deg);
+    background:conic-gradient(from 180deg, rgba(255,255,255,0.8) 0deg, transparent 110deg, rgba(201,162,74,0.65) 220deg, transparent 360deg);
     -webkit-mask:radial-gradient(farthest-side, transparent calc(100% - 1.5px), #000 calc(100% - 1.5px));
     mask:radial-gradient(farthest-side, transparent calc(100% - 1.5px), #000 calc(100% - 1.5px));
   }
   @keyframes tiltSpinOuter{0%{transform:rotateX(62deg) rotateY(-12deg) rotateZ(0)}100%{transform:rotateX(62deg) rotateY(-12deg) rotateZ(360deg)}}
   @keyframes tiltSpinInner{0%{transform:rotateX(58deg) rotateY(12deg) rotateZ(360deg)}100%{transform:rotateX(58deg) rotateY(12deg) rotateZ(0)}}
   .logo-orb{
-    position:absolute;width:112px;height:112px;border-radius:50%;
+    position:absolute;width:55%;height:55%;border-radius:50%;
     display:flex;align-items:center;justify-content:center;
     background:linear-gradient(160deg,#1A2740,#0C1524);
-    box-shadow:0 0 0 1.5px rgba(212,175,106,0.45),0 18px 40px -8px rgba(0,0,0,0.75);
+    box-shadow:0 0 0 1.5px rgba(201,162,74,0.4),0 12px 28px -6px rgba(0,0,0,0.7);
     animation:floatY 4s ease-in-out infinite;z-index:2;
   }
-  body.theme-indep .logo-orb{background:linear-gradient(160deg,#0A6B2D,#012a14);box-shadow:0 0 0 1.5px rgba(245,215,110,0.45),0 18px 40px -8px rgba(0,0,0,0.75);}
-  @keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
-  .logo-orb img{width:86px;height:86px;border-radius:50%;object-fit:cover;}
+  @keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+  .logo-orb img{width:78%;height:78%;border-radius:50%;object-fit:cover;}
 
-  .brand-word{font-family:'Fraunces',serif;font-weight:700;font-size:24px;text-align:center;letter-spacing:1px;}
-  .brand-word b{color:var(--horizon-gold);}
-  body.theme-indep .brand-word b{color:var(--pk-gold);}
-  .splash-title-indep{
-    font-family:'Fraunces',serif;font-weight:700;font-size:22px;text-align:center;
-    background:linear-gradient(135deg,#fff 20%,var(--pk-gold) 50%,#fff 80%);
-    -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-  }
-  .brand-sub{margin-top:8px;font-size:11px;letter-spacing:3px;color:var(--slate);text-transform:uppercase;text-align:center;}
-  .splash-by{margin-top:6px;font-size:12px;color:var(--horizon-gold);font-weight:600;text-align:center;}
-  body.theme-indep .splash-by{color:var(--pk-gold);}
-  .load-track{margin-top:28px;width:150px;height:3.5px;border-radius:4px;background:rgba(255,255,255,0.08);overflow:hidden;}
-  .load-fill{height:100%;width:40%;border-radius:4px;background:linear-gradient(90deg,transparent,var(--horizon-gold),#fff,transparent);animation:loadMove 1.4s infinite;}
-  body.theme-indep .load-fill{background:linear-gradient(90deg,transparent,var(--pk-gold),#fff,transparent);}
+  .brand-word{font-family:'Fraunces',serif;font-weight:700;font-size:clamp(18px,5.5vw,22px);text-align:center;letter-spacing:1px;}
+  .brand-word b{color:var(--sep-gold);}
+  .brand-sub{margin-top:6px;font-size:10px;letter-spacing:2.5px;color:var(--slate);text-transform:uppercase;text-align:center;}
+  .splash-month{margin-top:8px;font-size:11px;font-weight:600;color:var(--sep-amber);letter-spacing:1.2px;text-align:center;}
+  .load-track{margin-top:20px;width:120px;height:3px;border-radius:4px;background:rgba(255,255,255,0.08);overflow:hidden;}
+  .load-fill{height:100%;width:40%;border-radius:4px;background:linear-gradient(90deg,transparent,var(--sep-gold),#fff,transparent);animation:loadMove 1.4s infinite;}
   @keyframes loadMove{0%{transform:translateX(-100%)}100%{transform:translateX(250%)}}
 
+  /* MAIN — scrollable, compact */
   #main{
-    position:relative;z-index:2;flex:1;display:flex;flex-direction:column;
-    padding:2px 18px 0;opacity:0;transform:translateY(18px);
-    transition:opacity .7s ease .15s, transform .7s ease .15s;
-    overflow-y:auto;-webkit-overflow-scrolling:touch;
+    position:relative;z-index:2;
+    flex:1;min-height:0;
+    display:flex;flex-direction:column;
+    opacity:0;transform:translateY(12px);
+    transition:opacity .6s ease .1s, transform .6s ease .1s;
+    overflow-y:auto;overflow-x:hidden;
+    -webkit-overflow-scrolling:touch;
+    overscroll-behavior:contain;
+    scrollbar-width:none;
   }
+  #main::-webkit-scrollbar{display:none;}
   #main.show{opacity:1;transform:translateY(0);}
 
-  .indep-hero{text-align:center;margin:4px 0 10px;perspective:600px;}
-  .indep-3d{
-    display:inline-block;font-family:'Fraunces',serif;font-weight:700;
-    font-size:clamp(18px,5.2vw,24px);line-height:1.15;
-    background:linear-gradient(180deg,#fff 0%,var(--pk-gold) 45%,#c9a227 100%);
-    -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-    filter:drop-shadow(0 3px 0 rgba(1,65,28,0.5)) drop-shadow(0 8px 16px rgba(0,0,0,0.35));
-    animation:titleFloat 5s ease-in-out infinite;
+  .sep-hero{text-align:center;margin:0 0 8px;flex-shrink:0;}
+  .sep-badge{
+    display:inline-flex;align-items:center;gap:5px;
+    padding:4px 10px;border-radius:999px;font-size:9px;font-weight:700;
+    letter-spacing:1px;text-transform:uppercase;color:var(--sep-gold);
+    background:rgba(201,162,74,0.12);border:1px solid rgba(201,162,74,0.28);
+    margin-bottom:6px;
   }
-  @keyframes titleFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
-  .indep-by{margin-top:5px;font-size:11px;font-weight:600;color:rgba(245,215,110,0.9);letter-spacing:1.5px;text-transform:uppercase;}
+  .sep-title{
+    font-family:'Fraunces',serif;font-weight:700;
+    font-size:clamp(15px,4.2vw,18px);line-height:1.25;
+    background:linear-gradient(135deg,#fff 10%,var(--sep-gold) 55%,var(--sep-amber) 100%);
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  }
+  .sep-sub{margin-top:3px;font-size:10px;color:var(--slate);font-weight:500;}
 
+  .brand-block{text-align:center;margin-bottom:8px;flex-shrink:0;}
   .logo-circle-static{
-    width:58px;height:58px;margin:0 auto;border-radius:50%;
+    width:48px;height:48px;margin:0 auto;border-radius:50%;
     display:flex;align-items:center;justify-content:center;
     background:linear-gradient(160deg,#1A2740,#0C1524);
-    box-shadow:0 0 0 1.5px rgba(212,175,106,0.35),0 8px 18px -6px rgba(0,0,0,0.6);
+    box-shadow:0 0 0 1.5px rgba(201,162,74,0.35),0 6px 14px -4px rgba(0,0,0,0.55);
   }
-  body.theme-indep .logo-circle-static{background:linear-gradient(160deg,#0A6B2D,#012a14);box-shadow:0 0 0 1.5px rgba(245,215,110,0.35),0 8px 18px -6px rgba(0,0,0,0.6);}
-  .logo-circle-static img{width:46px;height:46px;border-radius:50%;object-fit:cover;}
-  .app-title{margin-top:6px;text-align:center;font-family:'Fraunces',serif;font-weight:700;font-size:16px;}
-  .app-title span{color:var(--horizon-gold);}
-  .app-tagline{margin-top:2px;text-align:center;font-size:9.5px;letter-spacing:1.6px;text-transform:uppercase;color:var(--slate);margin-bottom:8px;}
+  .logo-circle-static img{width:38px;height:38px;border-radius:50%;object-fit:cover;}
+  .app-title{margin-top:5px;font-family:'Fraunces',serif;font-weight:700;font-size:14px;}
+  .app-title span{color:var(--sep-gold);}
+  .app-tagline{margin-top:2px;font-size:9px;letter-spacing:1.4px;text-transform:uppercase;color:var(--slate);}
 
-  .btn-login,.btn-download{
-    display:flex;align-items:center;justify-content:center;gap:8px;width:100%;
-    padding:12px 16px;border-radius:12px;border:none;font-family:'Inter',sans-serif;
-    font-weight:700;font-size:13px;text-decoration:none;margin-bottom:8px;cursor:pointer;
+  .feature-row{
+    display:flex;gap:6px;overflow-x:auto;padding:0 0 8px;margin-bottom:2px;
+    -webkit-overflow-scrolling:touch;scrollbar-width:none;flex-shrink:0;
+  }
+  .feature-row::-webkit-scrollbar{display:none;}
+  .feature-chip{
+    flex-shrink:0;padding:6px 10px;border-radius:10px;font-size:10px;font-weight:600;
+    background:rgba(255,255,255,0.05);border:1px solid rgba(201,162,74,0.16);
+    color:var(--paper);white-space:nowrap;
+  }
+  .feature-chip span{color:var(--sep-gold);margin-right:3px;}
+
+  .btn-login,.btn-download,.btn-secondary{
+    display:flex;align-items:center;justify-content:center;gap:7px;width:100%;
+    padding:11px 14px;border-radius:11px;border:none;font-family:'Inter',sans-serif;
+    font-weight:700;font-size:12.5px;text-decoration:none;margin-bottom:7px;cursor:pointer;
+    flex-shrink:0;
   }
   .btn-login{
-    background:linear-gradient(135deg,var(--horizon-gold),#C79A54);color:#1A1204;
-    box-shadow:0 8px 18px -8px rgba(212,175,106,0.5);
+    background:linear-gradient(135deg,var(--sep-gold),#B8923E);color:#1A1204;
+    box-shadow:0 6px 14px -6px rgba(201,162,74,0.5);
   }
-  .btn-login.locked{
-    background:linear-gradient(135deg,#4a5c4e,#2d3d32);color:rgba(255,255,255,0.75);
-    pointer-events:none;cursor:not-allowed;box-shadow:none;
-  }
-  .btn-login:not(.locked):active{transform:scale(0.97);}
-  .btn-login .cd-badge{
-    display:none;margin-left:6px;background:rgba(0,0,0,0.2);
-    padding:2px 8px;border-radius:20px;font-size:12px;font-weight:800;min-width:36px;text-align:center;
-  }
-  .btn-login.locked .cd-badge{display:inline-block;}
+  .btn-login:active,.btn-download:active,.btn-secondary:active{transform:scale(0.98);}
   .btn-download{
     background:linear-gradient(135deg,#222E42,#162032);color:var(--android-green);
-    border:1px solid rgba(61,220,132,0.3);
+    border:1px solid rgba(61,220,132,0.28);
   }
-  .btn-download:active{transform:scale(0.97);}
-  .btn-login svg,.btn-download svg{width:15px;height:15px;flex-shrink:0;}
+  .btn-secondary{
+    background:rgba(255,255,255,0.04);color:var(--paper);
+    border:1px solid rgba(255,255,255,0.1);font-weight:600;
+  }
+  .btn-login svg,.btn-download svg,.btn-secondary svg{width:14px;height:14px;flex-shrink:0;}
 
   .dl-card{
-    display:none;background:rgba(16,25,42,0.7);border:1px solid rgba(61,220,132,0.2);
-    border-radius:12px;padding:12px;margin-bottom:10px;
+    display:none;background:rgba(16,25,42,0.8);border:1px solid rgba(61,220,132,0.2);
+    border-radius:11px;padding:10px;margin-bottom:8px;flex-shrink:0;
   }
-  body.theme-indep .dl-card{background:rgba(1,40,20,0.75);}
-  .dl-header{display:flex;justify-content:space-between;font-size:11.5px;font-weight:600;margin-bottom:8px;}
-  .dl-header span{color:var(--android-green);font-size:10.5px;font-weight:700;}
-  .dl-track{width:100%;height:5px;background:rgba(255,255,255,0.1);border-radius:10px;overflow:hidden;margin-bottom:6px;}
-  .dl-fill{height:100%;width:0%;background:var(--android-green);border-radius:10px;transition:width .1s linear;}
-  .dl-stats{display:flex;justify-content:space-between;font-size:10.5px;color:var(--slate);}
-  .dl-success,.dl-error{display:none;margin-top:8px;padding-top:8px;border-top:1px dashed rgba(255,255,255,0.1);font-size:11px;text-align:center;font-weight:600;}
+  .dl-header{display:flex;justify-content:space-between;font-size:11px;font-weight:600;margin-bottom:6px;}
+  .dl-header span{color:var(--android-green);font-size:10px;font-weight:700;}
+  .dl-track{width:100%;height:4px;background:rgba(255,255,255,0.1);border-radius:8px;overflow:hidden;margin-bottom:5px;}
+  .dl-fill{height:100%;width:0%;background:var(--android-green);border-radius:8px;transition:width .1s linear;}
+  .dl-stats{display:flex;justify-content:space-between;font-size:10px;color:var(--slate);}
+  .dl-success,.dl-error{display:none;margin-top:6px;padding-top:6px;border-top:1px dashed rgba(255,255,255,0.1);font-size:10.5px;text-align:center;font-weight:600;}
   .dl-success{color:var(--android-green);}
   .dl-error{color:var(--error-red);}
 
   .notice-box{
-    margin-bottom:10px;padding:9px 11px;border-radius:10px;
-    background:rgba(232,115,74,0.08);border:1px solid rgba(232,115,74,0.25);
+    margin-bottom:8px;padding:8px 10px;border-radius:10px;flex-shrink:0;
+    background:rgba(232,115,74,0.08);border:1px solid rgba(232,115,74,0.22);
   }
-  .notice-title{display:flex;align-items:center;gap:5px;font-size:10.5px;font-weight:700;color:var(--danger);margin-bottom:3px;}
-  .notice-title svg{width:11px;height:11px;}
-  .notice-text{font-size:10px;line-height:1.4;color:#D8DCE4;}
+  .notice-title{display:flex;align-items:center;gap:4px;font-size:10px;font-weight:700;color:var(--danger);margin-bottom:2px;}
+  .notice-title svg{width:10px;height:10px;}
+  .notice-text{font-size:9.5px;line-height:1.4;color:#D0D5DE;}
   .notice-text b{color:var(--paper);}
 
-  /* Big event countdown above video */
-  .event-cd-wrap{
-    margin-bottom:10px;padding:14px 12px;border-radius:14px;
-    background:rgba(16,25,42,0.65);border:1px solid rgba(212,175,106,0.28);
-    text-align:center;
+  .month-card{
+    margin-bottom:8px;padding:10px;border-radius:12px;flex-shrink:0;
+    background:rgba(16,25,42,0.65);border:1px solid rgba(201,162,74,0.22);
   }
-  body.theme-indep .event-cd-wrap{
-    background:rgba(1,40,20,0.7);border-color:rgba(245,215,110,0.35);
-  }
-  .event-cd-title{
-    font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
-    color:var(--horizon-gold);margin-bottom:10px;
-  }
-  body.theme-indep .event-cd-title{color:var(--pk-gold);}
-  .event-cd-grid{
-    display:grid;grid-template-columns:repeat(4,1fr);gap:6px;
-  }
-  .event-cd-cell{
-    background:rgba(0,0,0,0.25);border-radius:10px;padding:8px 4px;
-    border:1px solid rgba(255,255,255,0.06);
-  }
-  .event-cd-num{
-    font-family:'Fraunces',serif;font-weight:700;font-size:22px;line-height:1.1;
-    color:#fff;
-  }
-  body.theme-indep .event-cd-num{color:var(--pk-gold);}
-  .event-cd-lbl{font-size:9px;color:var(--slate);margin-top:3px;text-transform:uppercase;letter-spacing:0.5px;}
-  .event-cd-date{
-    margin-top:10px;font-size:11px;color:var(--slate);font-weight:500;
-  }
-  .event-cd-date strong{color:var(--paper);}
-  body.theme-indep .event-cd-date strong{color:#fff;}
-  .event-cd-daysline{
-    margin-top:4px;font-size:12px;font-weight:700;color:var(--horizon-gold);
-  }
-  body.theme-indep .event-cd-daysline{color:var(--pk-gold);}
-  .event-cd-live{
-    margin-top:8px;font-size:13px;font-weight:800;color:var(--android-green);
-    display:none;
-  }
-  .event-cd-live.show{display:block;}
-  .event-cd-grid.hide{display:none;}
+  .month-card-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;gap:8px;}
+  .month-card-title{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--sep-gold);}
+  .month-card-date{font-size:10px;color:var(--slate);font-weight:500;text-align:right;}
+  .month-progress-track{height:5px;background:rgba(255,255,255,0.08);border-radius:8px;overflow:hidden;margin-bottom:6px;}
+  .month-progress-fill{height:100%;width:0%;border-radius:8px;background:linear-gradient(90deg,var(--sep-copper),var(--sep-gold),var(--sep-amber));transition:width .5s ease;}
+  .month-meta{display:flex;justify-content:space-between;font-size:10px;color:var(--slate);}
+  .month-meta strong{color:var(--paper);font-weight:700;}
 
-  .video-section{margin-bottom:10px;}
+  .tip-card{
+    margin-bottom:8px;padding:10px;border-radius:11px;flex-shrink:0;
+    background:rgba(46,170,106,0.08);border:1px solid rgba(46,170,106,0.2);
+  }
+  .tip-label{font-size:9px;font-weight:800;letter-spacing:0.8px;text-transform:uppercase;color:var(--success);margin-bottom:3px;}
+  .tip-text{font-size:11px;line-height:1.4;color:#D0D5DE;}
+
+  .video-section{margin-bottom:8px;flex-shrink:0;}
   .video-label{
-    display:flex;align-items:center;justify-content:space-between;gap:6px;
-    font-size:11px;font-weight:700;color:var(--horizon-gold);margin-bottom:5px;
+    display:flex;align-items:center;gap:5px;
+    font-size:10px;font-weight:700;color:var(--sep-gold);margin-bottom:4px;
   }
-  .video-label-left{display:flex;align-items:center;gap:5px;}
-  .video-label svg{width:12px;height:12px;}
-  .video-countdown{
-    font-size:11px;font-weight:800;color:#fff;
-    background:rgba(0,0,0,0.35);border:1px solid rgba(212,175,106,0.35);
-    padding:3px 9px;border-radius:20px;min-width:52px;text-align:center;
-    display:none;
-  }
-  body.video-lock-on .video-countdown{display:inline-block;}
-  .video-countdown.done{background:rgba(61,220,132,0.2);border-color:rgba(61,220,132,0.4);color:var(--android-green);}
+  .video-label svg{width:11px;height:11px;}
   .video-frame{
-    position:relative;width:100%;aspect-ratio:16/9;background:#000;
-    border-radius:12px;border:1.5px solid rgba(212,175,106,0.35);overflow:hidden;
-    box-shadow:0 10px 28px rgba(0,0,0,0.55);
+    position:relative;width:100%;
+    aspect-ratio:16/9;
+    max-height:min(28vh, 180px);
+    background:#000;border-radius:11px;
+    border:1.5px solid rgba(201,162,74,0.3);overflow:hidden;
+    box-shadow:0 8px 20px rgba(0,0,0,0.45);
   }
-  body.theme-indep .video-frame{border-color:rgba(245,215,110,0.4);}
   .video-frame video{width:100%;height:100%;object-fit:cover;display:block;}
-  .video-overlay-msg{
-    position:absolute;inset:0;display:none;align-items:center;justify-content:center;
-    background:rgba(1,42,20,0.75);font-size:13px;font-weight:700;color:var(--pk-gold);
-    text-align:center;padding:16px;z-index:3;
-  }
-  .video-overlay-msg.show{display:flex;}
 
-  .spacer{flex:1;min-height:6px;}
-  .footer{text-align:center;padding-bottom:4px;position:relative;z-index:2;}
-  .footer-label{font-size:8.5px;letter-spacing:2px;text-transform:uppercase;color:var(--slate);margin-bottom:3px;}
+  .footer{text-align:center;padding:6px 0 2px;flex-shrink:0;margin-top:auto;}
+  .footer-label{font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--slate);margin-bottom:3px;}
   .footer-mail{
-    display:inline-flex;align-items:center;gap:5px;font-size:10.5px;color:var(--horizon-gold);
-    text-decoration:none;font-weight:600;padding:4px 10px;border-radius:20px;
-    border:1px solid rgba(212,175,106,0.3);
+    display:inline-flex;align-items:center;gap:4px;font-size:10px;color:var(--sep-gold);
+    text-decoration:none;font-weight:600;padding:3px 9px;border-radius:16px;
+    border:1px solid rgba(201,162,74,0.28);
   }
-  .footer-copy{margin-top:6px;font-size:8px;color:#4E5A6E;letter-spacing:0.5px;}
+  .footer-sep{margin-top:3px;font-size:8.5px;color:var(--sep-amber);font-weight:600;}
+  .footer-copy{margin-top:2px;font-size:7.5px;color:#4E5A6E;letter-spacing:0.4px;}
+
+  /* Short phones */
+  @media (max-height: 700px){
+    .sep-hero{margin-bottom:4px;}
+    .brand-block{margin-bottom:4px;}
+    .logo-circle-static{width:40px;height:40px;}
+    .logo-circle-static img{width:32px;height:32px;}
+    .app-title{font-size:13px;}
+    .video-frame{max-height:22vh;}
+    .feature-row{padding-bottom:4px;}
+    .btn-login,.btn-download,.btn-secondary{padding:10px 12px;margin-bottom:6px;}
+  }
+  @media (max-height: 600px){
+    .sep-sub,.app-tagline{display:none;}
+    .feature-row{display:none;}
+    .video-frame{max-height:18vh;}
+  }
 </style>
 </head>
-<body class="theme-normal">
+<body>
 <div id="app">
+  <div class="ambient-orb orb-1"></div>
+  <div class="ambient-orb orb-2"></div>
   <canvas id="starsCanvas"></canvas>
-  <div class="flag-emblem" aria-hidden="true">
-    <svg viewBox="0 0 100 100" fill="none">
-      <path d="M62 20a32 32 0 1 0 0 60 28 28 0 1 1 0-60z" fill="#fff" opacity="0.9"/>
-      <path d="M72 38l3.5 10.5H87l-9 6.5 3.5 10.5-9-6.5-9 6.5 3.5-10.5-9-6.5h11.5z" fill="#fff"/>
-    </svg>
-  </div>
 
   <audio id="bgAudio" loop preload="auto" playsinline style="display:none;">
     <source src="assets/Audio.mp3" type="audio/mpeg">
@@ -333,34 +282,37 @@
         <img src="https://i.ibb.co/p6KZbMYX/ic-launcher-round.png" alt="Prime Horizon">
       </div>
     </div>
-    <div class="splash-normal">
-      <div class="brand-word">PRIME <b>HORIZON</b></div>
-      <div class="brand-sub">Official Secure App</div>
-    </div>
-    <div class="splash-indep">
-      <div class="splash-title-indep">Happy Independence Day</div>
-      <div class="brand-sub">14 August · Pakistan</div>
-      <div class="splash-by">By Prime Horizon</div>
-    </div>
+    <div class="brand-word">PRIME <b>HORIZON</b></div>
+    <div class="brand-sub">Official Secure App</div>
+    <div class="splash-month">September 2026 Edition</div>
     <div class="load-track"><div class="load-fill"></div></div>
   </div>
 
   <div id="main">
-    <div class="indep-hero">
-      <div class="indep-3d">Happy Independence Day</div>
-      <div class="indep-by">By Prime Horizon</div>
+    <div class="sep-hero">
+      <div class="sep-badge">✦ September Update</div>
+      <div class="sep-title">Fresh start. Secure journey.</div>
+      <div class="sep-sub">Welcome to your Prime Horizon portal</div>
     </div>
 
-    <div class="logo-circle-static">
-      <img src="https://i.ibb.co/p6KZbMYX/ic-launcher-round.png" alt="Prime Horizon">
+    <div class="brand-block">
+      <div class="logo-circle-static">
+        <img src="https://i.ibb.co/p6KZbMYX/ic-launcher-round.png" alt="Prime Horizon">
+      </div>
+      <div class="app-title">PRIME <span>HORIZON</span></div>
+      <div class="app-tagline">Secure · Trusted · Official</div>
     </div>
-    <div class="app-title">PRIME <span>HORIZON</span></div>
-    <div class="app-tagline">Secure · Trusted · Official</div>
 
-    <a class="btn-login" id="loginBtn" href="https://primehorizon-pi.vercel.app/" onclick="return gateLogin(event)">
+    <div class="feature-row" aria-label="Highlights">
+      <div class="feature-chip"><span>✓</span> Fast login</div>
+      <div class="feature-chip"><span>✓</span> Secure APK</div>
+      <div class="feature-chip"><span>✓</span> Live support</div>
+      <div class="feature-chip"><span>✓</span> Privacy first</div>
+    </div>
+
+    <a class="btn-login" id="loginBtn" href="https://primehorizon-pi.vercel.app/">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="M10 17l5-5-5-5"/><path d="M15 12H3"/></svg>
-      <span id="loginLabel">Login App</span>
-      <span class="cd-badge" id="loginCd">...</span>
+      <span>Login App</span>
     </a>
 
     <button class="btn-download" id="downloadBtn" type="button">
@@ -391,305 +343,160 @@
       </div>
       <div class="notice-text">
         Please do not share your <b>password, username, or Gmail</b> on WhatsApp or with anyone.
-        <b>Prime Horizon</b> will never ask for your details through any channel. Thank you.
+        <b>Prime Horizon</b> will never ask for your details through any channel.
       </div>
     </div>
 
-    <!-- BIG COUNTDOWN to 14 Aug 2026 -->
-    <div class="event-cd-wrap" id="eventCdWrap">
-      <div class="event-cd-title" id="eventCdTitle">Countdown to 14 August 2026</div>
-      <div class="event-cd-grid" id="eventCdGrid">
-        <div class="event-cd-cell"><div class="event-cd-num" id="cdDays">0</div><div class="event-cd-lbl">Days</div></div>
-        <div class="event-cd-cell"><div class="event-cd-num" id="cdHours">0</div><div class="event-cd-lbl">Hours</div></div>
-        <div class="event-cd-cell"><div class="event-cd-num" id="cdMins">0</div><div class="event-cd-lbl">Minutes</div></div>
-        <div class="event-cd-cell"><div class="event-cd-num" id="cdSecs">0</div><div class="event-cd-lbl">Seconds</div></div>
+    <div class="month-card">
+      <div class="month-card-top">
+        <div class="month-card-title">September 2026</div>
+        <div class="month-card-date" id="realDateLine">—</div>
       </div>
-      <div class="event-cd-live" id="eventCdLive">🇵🇰 Independence Day is LIVE today</div>
-      <div class="event-cd-date">Today: <strong id="realDateLine">—</strong></div>
-      <div class="event-cd-daysline" id="daysLeftLine">—</div>
+      <div class="month-progress-track"><div class="month-progress-fill" id="monthFill"></div></div>
+      <div class="month-meta">
+        <span>Day <strong id="dayOfMonth">—</strong> of 30</span>
+        <span><strong id="pctMonth">0%</strong> of month</span>
+      </div>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-label">Tip of the day</div>
+      <div class="tip-text" id="tipText">Keep your app updated for the best security and performance.</div>
     </div>
 
     <div class="video-section">
       <div class="video-label">
-        <div class="video-label-left">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-          <span id="videoLabelText">14 Aug Independence Day</span>
-        </div>
-        <div class="video-countdown" id="videoCd">...</div>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+        <span>Prime Horizon Preview</span>
       </div>
       <div class="video-frame">
-        <video id="previewVideo" muted playsinline webkit-playsinline preload="auto" autoplay>
+        <video id="previewVideo" muted playsinline webkit-playsinline preload="auto" autoplay loop>
           <source src="assets/Video.mp4" type="video/mp4">
           <source src="Video.mp4" type="video/mp4">
         </video>
-        <div class="video-overlay-msg" id="videoDoneMsg">✓ Watch complete — Login unlocked</div>
       </div>
     </div>
 
-    <div class="spacer"></div>
+    <a class="btn-secondary" href="mailto:primehorizonj26@gmail.com">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6l-10 7L2 6"/></svg>
+      Contact Support
+    </a>
+
     <div class="footer">
       <div class="footer-label">Customer Complaint</div>
       <a class="footer-mail" href="mailto:primehorizonj26@gmail.com">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:11px;height:11px;"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6l-10 7L2 6"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:10px;height:10px;"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6l-10 7L2 6"/></svg>
         primehorizonj26@gmail.com
       </a>
-      <div class="footer-copy" id="footerCopy">&copy; Prime Horizon. All rights reserved.</div>
+      <div class="footer-sep">September 2026 Edition</div>
+      <div class="footer-copy">&copy; Prime Horizon. All rights reserved.</div>
     </div>
   </div>
 </div>
 
 <script>
 (function(){
-  // Target: 14 August 2026, full local calendar day
-  var TARGET_Y = 2026, TARGET_M = 7, TARGET_D = 14; // month 0-indexed
-  var targetStart = new Date(TARGET_Y, TARGET_M, TARGET_D, 0, 0, 0, 0).getTime();
-  var targetEnd = new Date(TARGET_Y, TARGET_M, TARGET_D, 23, 59, 59, 999).getTime();
+  var tips = [
+    "Never share your password, even with friends. Prime Horizon will never ask for it on WhatsApp.",
+    "Download the official APK only from this page for a safe install.",
+    "Use a strong unique password and keep your app updated.",
+    "If anything looks suspicious, email support immediately.",
+    "September focus: stay secure, stay consistent, stay ahead."
+  ];
 
-  var WATCH_KEY = 'ph_indep_watch_done_v1';
-  var videoWatched = localStorage.getItem(WATCH_KEY) === '1';
-
-  var loginBtn = document.getElementById('loginBtn');
-  var loginCd = document.getElementById('loginCd');
-  var loginLabel = document.getElementById('loginLabel');
-  var videoCd = document.getElementById('videoCd');
   var video = document.getElementById('previewVideo');
-  var videoDoneMsg = document.getElementById('videoDoneMsg');
   var audio = document.getElementById('bgAudio');
-
-  function now(){ return new Date(); }
-
-  function isIndepDay(d){
-    d = d || now();
-    return d.getFullYear() === TARGET_Y && d.getMonth() === TARGET_M && d.getDate() === TARGET_D;
-  }
-  function isBeforeIndep(d){
-    d = d || now();
-    return d.getTime() < targetStart;
-  }
-  function isAfterIndep(d){
-    d = d || now();
-    return d.getTime() > targetEnd;
-  }
-
-  /** Theme: before = normal; on day + after = indep design; stars ONLY on the day */
-  function applyTheme(){
-    var d = now();
-    var indepDay = isIndepDay(d);
-    var before = isBeforeIndep(d);
-    document.body.classList.remove('theme-normal', 'theme-indep', 'stars-on', 'video-lock-on');
-    if (before) {
-      document.body.classList.add('theme-normal');
-      document.getElementById('footerCopy').textContent = '© Prime Horizon. All rights reserved.';
-    } else {
-      // 14 Aug and after — independence design
-      document.body.classList.add('theme-indep');
-      document.getElementById('footerCopy').textContent = '© Prime Horizon · 14 August Special';
-      if (indepDay) document.body.classList.add('stars-on');
-    }
-    // Video lock only on 14 Aug and only until watched once
-    if (indepDay && !videoWatched) {
-      document.body.classList.add('video-lock-on');
-      loginBtn.classList.add('locked');
-    } else {
-      loginBtn.classList.remove('locked');
-      loginCd.style.display = 'none';
-    }
-  }
 
   function pad(n){ return String(n).padStart(2, '0'); }
 
   function formatRealDate(d){
-    var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-    var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    var days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+    var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
     return days[d.getDay()] + ', ' + pad(d.getDate()) + ' ' + months[d.getMonth()] + ' ' + d.getFullYear();
   }
 
-  function tickEventCountdown(){
-    var d = now();
-    var t = d.getTime();
+  function updateSeptemberCard(){
+    var d = new Date();
     document.getElementById('realDateLine').textContent = formatRealDate(d);
-
-    var grid = document.getElementById('eventCdGrid');
-    var live = document.getElementById('eventCdLive');
-    var title = document.getElementById('eventCdTitle');
-    var daysLine = document.getElementById('daysLeftLine');
-
-    if (isIndepDay(d)) {
-      grid.classList.add('hide');
-      live.classList.add('show');
-      title.textContent = '14 August 2026';
-      daysLine.textContent = 'Independence Day — Today';
-      return;
-    }
-
-    if (isAfterIndep(d)) {
-      grid.classList.add('hide');
-      live.classList.remove('show');
-      title.textContent = '14 August 2026';
-      var daysSince = Math.floor((t - targetStart) / 86400000);
-      daysLine.textContent = daysSince + ' day' + (daysSince === 1 ? '' : 's') + ' since Independence Day';
-      return;
-    }
-
-    // Before 14 Aug — live countdown
-    grid.classList.remove('hide');
-    live.classList.remove('show');
-    title.textContent = 'Countdown to 14 August 2026';
-    var diff = Math.max(0, targetStart - t);
-    var days = Math.floor(diff / 86400000);
-    var hours = Math.floor((diff % 86400000) / 3600000);
-    var mins = Math.floor((diff % 3600000) / 60000);
-    var secs = Math.floor((diff % 60000) / 1000);
-    document.getElementById('cdDays').textContent = days;
-    document.getElementById('cdHours').textContent = pad(hours);
-    document.getElementById('cdMins').textContent = pad(mins);
-    document.getElementById('cdSecs').textContent = pad(secs);
-    daysLine.textContent = days + ' day' + (days === 1 ? '' : 's') + ' remaining until 14 August';
+    var day = d.getDate();
+    var daysInMonth = new Date(d.getFullYear(), d.getMonth()+1, 0).getDate();
+    var pct = Math.min(100, Math.round((day / daysInMonth) * 100));
+    document.getElementById('dayOfMonth').textContent = day;
+    document.querySelector('.month-meta span').innerHTML = 'Day <strong id="dayOfMonth">'+day+'</strong> of ' + daysInMonth;
+    document.getElementById('pctMonth').textContent = pct + '%';
+    document.getElementById('monthFill').style.width = pct + '%';
   }
 
-  function unlockLogin(){
-    if (videoWatched) return;
-    videoWatched = true;
-    localStorage.setItem(WATCH_KEY, '1');
-    loginBtn.classList.remove('locked');
-    loginCd.style.display = 'none';
-    document.body.classList.remove('video-lock-on');
-    videoCd.textContent = 'Done';
-    videoCd.classList.add('done');
-    video.loop = true;
-    if (videoDoneMsg) {
-      videoDoneMsg.classList.add('show');
-      setTimeout(function(){ videoDoneMsg.classList.remove('show'); }, 2800);
-    }
+  function rotateTip(){
+    var i = Math.floor(Date.now() / 86400000) % tips.length;
+    document.getElementById('tipText').textContent = tips[i];
   }
-
-  function fmtVideoLeft(sec){
-    sec = Math.max(0, Math.ceil(sec));
-    var m = Math.floor(sec / 60);
-    var s = sec % 60;
-    if (m > 0) return m + ':' + pad(s);
-    return s + 's';
-  }
-
-  function updateVideoLockCd(){
-    if (!document.body.classList.contains('video-lock-on') || videoWatched) return;
-    var dur = video.duration;
-    if (!isFinite(dur) || dur <= 0) {
-      videoCd.textContent = '...';
-      loginCd.textContent = '...';
-      return;
-    }
-    var left = Math.max(0, dur - (video.currentTime || 0));
-    loginCd.textContent = String(Math.ceil(left));
-    videoCd.textContent = fmtVideoLeft(left);
-    if (left <= 0.35 || video.ended) unlockLogin();
-  }
-
-  window.gateLogin = function(e){
-    if (loginBtn.classList.contains('locked')) {
-      e.preventDefault();
-      return false;
-    }
-    return true;
-  };
 
   function tryPlayMedia(){
-    video.muted = true;
-    video.setAttribute('playsinline', '');
-    video.setAttribute('webkit-playsinline', '');
-    var vp = video.play();
-    if (vp && vp.catch) vp.catch(function(){});
+    if(video){
+      video.muted = true;
+      var vp = video.play();
+      if (vp && vp.catch) vp.catch(function(){});
+    }
     if (audio) {
       var ap = audio.play();
       if (ap && ap.catch) ap.catch(function(){});
     }
   }
 
-  function bindVideo(){
-    video.addEventListener('timeupdate', updateVideoLockCd);
-    video.addEventListener('ended', function(){
-      if (document.body.classList.contains('video-lock-on') && !videoWatched) unlockLogin();
-      video.loop = true;
-      video.play().catch(function(){});
-    });
-    video.addEventListener('loadedmetadata', updateVideoLockCd);
-  }
-
-  // Stars — only runs when body has stars-on
-  (function stars(){
+  (function particles(){
     var canvas = document.getElementById('starsCanvas');
     if (!canvas) return;
     var ctx = canvas.getContext('2d');
     var w, h, parts = [];
     function resize(){ w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; }
-    function spawn(){
-      parts.push({
-        x: Math.random() * w, y: -10 - Math.random() * 40,
-        r: 0.6 + Math.random() * 1.8, vy: 0.6 + Math.random() * 1.8,
-        vx: -0.3 + Math.random() * 0.6, g: Math.random() > 0.55
-      });
-    }
-    function drawStar(x, y, r, gold){
-      ctx.save(); ctx.translate(x, y); ctx.beginPath();
-      for (var i = 0; i < 5; i++) {
-        var a = (i * 4 * Math.PI) / 5 - Math.PI / 2;
-        var px = Math.cos(a) * r, py = Math.sin(a) * r;
-        if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+    function init(){
+      parts = [];
+      for(var i=0;i<28;i++){
+        parts.push({
+          x: Math.random()*w, y: Math.random()*h,
+          r: 0.4 + Math.random()*1.2,
+          a: 0.12 + Math.random()*0.35,
+          gold: Math.random() > 0.55,
+          vx: -0.12 + Math.random()*0.24,
+          vy: -0.08 + Math.random()*0.16
+        });
       }
-      ctx.closePath();
-      ctx.fillStyle = gold ? 'rgba(245,215,110,0.85)' : 'rgba(255,255,255,0.7)';
-      ctx.fill(); ctx.restore();
     }
     function frame(){
-      ctx.clearRect(0, 0, w, h);
-      if (document.body.classList.contains('stars-on')) {
-        if (parts.length < 55) spawn();
-        for (var i = parts.length - 1; i >= 0; i--) {
-          var p = parts[i];
-          p.x += p.vx; p.y += p.vy;
-          drawStar(p.x, p.y, p.r * 2.2, p.g);
-          if (p.y > h + 20) parts.splice(i, 1);
-        }
-      } else {
-        parts.length = 0;
+      ctx.clearRect(0,0,w,h);
+      for(var i=0;i<parts.length;i++){
+        var p = parts[i];
+        p.x += p.vx; p.y += p.vy;
+        if(p.x < -5) p.x = w+5; if(p.x > w+5) p.x = -5;
+        if(p.y < -5) p.y = h+5; if(p.y > h+5) p.y = -5;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+        ctx.fillStyle = p.gold ? ('rgba(201,162,74,'+p.a+')') : ('rgba(255,255,255,'+p.a+')');
+        ctx.fill();
       }
       requestAnimationFrame(frame);
     }
-    window.addEventListener('resize', resize);
-    resize();
-    frame();
+    window.addEventListener('resize', function(){ resize(); init(); });
+    resize(); init(); frame();
   })();
 
-  // Boot
-  applyTheme();
-  tickEventCountdown();
-  setInterval(function(){
-    tickEventCountdown();
-    // Re-apply theme at midnight boundary
-    applyTheme();
-  }, 1000);
+  updateSeptemberCard();
+  rotateTip();
+  setInterval(updateSeptemberCard, 60000);
 
-  bindVideo();
   window.addEventListener('load', function(){
     tryPlayMedia();
     setTimeout(function(){
       document.getElementById('splash').classList.add('hide');
       document.getElementById('main').classList.add('show');
-      if (document.body.classList.contains('video-lock-on')) {
-        video.loop = false;
-        video.currentTime = 0;
-      } else {
-        video.loop = true;
-      }
       tryPlayMedia();
-    }, 3200);
+    }, 2800);
   });
 
-  function onGesture(){ tryPlayMedia(); }
-  document.body.addEventListener('touchstart', onGesture, { passive:true });
-  document.body.addEventListener('click', onGesture);
+  document.body.addEventListener('touchstart', tryPlayMedia, { passive:true });
+  document.body.addEventListener('click', tryPlayMedia);
 
-  // APK download
   document.getElementById('downloadBtn').addEventListener('click', async function(){
     var btn = this;
     var dlCard = document.getElementById('downloadCard');
